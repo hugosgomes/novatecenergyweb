@@ -1,0 +1,107 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace NovatecEnergyWeb.Models
+{
+    public partial class NfeInfProdutos
+    {
+        public int CodigoIntInfProdutos { get; set; }
+        public string InfeGrupoReferencias { get; set; }
+        public string BnfeNNf { get; set; }
+        public int? CodigoIntInfNotaFiscal { get; set; }
+        public string InfeGrupoProduto { get; set; }
+        public int? InfeProdNitem { get; set; }
+        public string NfeInfAdProd { get; set; }
+        public int? InfeCprod { get; set; }
+        public string InfeXEan { get; set; }
+        public string InfeXProd { get; set; }
+        public string InfeNcm { get; set; }
+        public string InfeExtipi { get; set; }
+        public string InfeCfop { get; set; }
+        public string InfeUCom { get; set; }
+        public decimal? InfeQCom { get; set; }
+        public decimal? InfeVUnCom { get; set; }
+        public decimal? InfeVProd { get; set; }
+        public string InfeCEantrib { get; set; }
+        public string InfeUTrib { get; set; }
+        public decimal? InfeQTrib { get; set; }
+        public decimal? InfeVUnTrib { get; set; }
+        public decimal? InfeVFrete { get; set; }
+        public decimal? InfeVSeg { get; set; }
+        public decimal? InfeVDesc { get; set; }
+        public decimal? InfeVOutro { get; set; }
+        public string InfeIndTot { get; set; }
+        public string InfeXPed { get; set; }
+        public short? InfeNItemPed { get; set; }
+        public string InfeGrupoIcms { get; set; }
+        public string InfeOrig { get; set; }
+        public string InfeCst { get; set; }
+        public string InfeModBc { get; set; }
+        public decimal? InfePRedBc { get; set; }
+        public decimal? InfeVBc { get; set; }
+        public decimal? InfePlCms { get; set; }
+        public decimal? InfeVlCms { get; set; }
+        public string InfeModBcst { get; set; }
+        public decimal? InfePMvast { get; set; }
+        public decimal? InfePRedBcst { get; set; }
+        public decimal? InfeVBcst { get; set; }
+        public decimal? InfePlCmsst { get; set; }
+        public decimal? InfeVlCmsst { get; set; }
+        public string InfeUfst { get; set; }
+        public decimal? InfePBcop { get; set; }
+        public decimal? InfeVBcstret { get; set; }
+        public decimal? InfeVIcmsstret { get; set; }
+        public string InfeMotDesIcms { get; set; }
+        public decimal? InfeVBcstdest { get; set; }
+        public decimal? InfeVIcmsstdest { get; set; }
+        public int? InfePCredSn { get; set; }
+        public int? InfeVCredIcmssn { get; set; }
+        public bool? InfeReducao { get; set; }
+        public string InfeGrupoIpi { get; set; }
+        public string InfeClEnq { get; set; }
+        public string InfeCnpjprod { get; set; }
+        public string InfeCSelo { get; set; }
+        public double? InfeQSelo { get; set; }
+        public string InfeCEnq { get; set; }
+        public string InfeIpicst { get; set; }
+        public decimal? InfeIpivBc { get; set; }
+        public decimal? InfePIpi { get; set; }
+        public decimal? InfeVIpi { get; set; }
+        public decimal? InfeIpiqUnd { get; set; }
+        public decimal? InfeIpivUnid { get; set; }
+        public string InfeGrupoImportacao1 { get; set; }
+        public decimal? InfeIivBc { get; set; }
+        public decimal? InfeVDespAdu { get; set; }
+        public decimal? InfeVIi { get; set; }
+        public decimal? InfeVIiof { get; set; }
+        public string InfeGrupoPis { get; set; }
+        public string InfePiscst { get; set; }
+        public decimal? InfePisvBc { get; set; }
+        public decimal? InfePPis { get; set; }
+        public decimal? InfeVPis { get; set; }
+        public decimal? InfePisqBcprod { get; set; }
+        public decimal? InfePisvAliqProd { get; set; }
+        public string InfeGrupoCofins { get; set; }
+        public string InfeCofinscst { get; set; }
+        public decimal? InfeCofinsvBc { get; set; }
+        public decimal? InfePCofins { get; set; }
+        public decimal? InfeVCofins { get; set; }
+        public decimal? InfeCofinsqBcprod { get; set; }
+        public decimal? InfeCofinsvAliqProd { get; set; }
+        public string InfeGrupoImportacao { get; set; }
+        public string InfeNDi { get; set; }
+        public DateTime? InfeDDi { get; set; }
+        public string InfeXLocDesemb { get; set; }
+        public string InfeUfdesemb { get; set; }
+        public DateTime? InfeDDesemb { get; set; }
+        public string InfeCExportador { get; set; }
+        public string InfeNAdicao { get; set; }
+        public string InfeNSeqAdic { get; set; }
+        public string InfeCFabricante { get; set; }
+        public string InfeVDescDi { get; set; }
+        public decimal? InfePesoL { get; set; }
+        public decimal? InfeIva { get; set; }
+        public string LeiTransparência { get; set; }
+        public decimal? VTotTrib { get; set; }
+    }
+}

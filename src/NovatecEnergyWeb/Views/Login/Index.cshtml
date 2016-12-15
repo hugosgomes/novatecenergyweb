@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<NovatecEnergyWeb.Models.Funcionários>
+@{
     ViewData["Title"] = "Login";
 }
 
@@ -9,12 +10,41 @@
             <section>
 
                 <form asp-controller="Login" asp-action="Login" method="post" class="form-horizontal">
-                    <input type="radio" value="Func" /><label for=""> Funcionários</label> 
-                    <input type="radio" value="Func" /><label for=""> Clientes</label>  <br />
+                    <div class="col-md-12">
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio">Funcionários
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio">Clientes
+                        </label>
+                        <br />
+                    </div>
 
-                    <label>Usuário<input type="text" name="usuario.Nome"  class="form-control"/></label> <br />
-                    <label asp>Senha<input type="password" name="usuario.Senha"  class="form-control"/></label> <br />
-                    <input type="submit" value="OK"  class="btn btn-default"/>
+       
+                   
+                    <br /><br /><label class="col-md-2 control-label">Usuário</label>
+                    <div class="col-md-10">
+                       <select class="form-control">
+                           <option></option>   
+                        @foreach (var item in Model)
+                        {
+                            <option>@Html.DisplayFor(m => item.Login)</option>
+                        }
+                          
+                        
+                        </select> <br />
+                    </div>
+
+                    <label  class="col-md-2 control-label">Senha</label>
+                    <div class="col-md-10">
+                        <input type="password" name="usuario.Senha" class="form-control" /> <br />
+                    </div>
+
+                    <label class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input type="submit" value="OK" class="btn btn-default" />
+                    </div>
+                
 
                 </form>
             </section>
