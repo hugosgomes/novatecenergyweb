@@ -33,5 +33,23 @@ namespace NovatecEnergyWeb.Controllers
             //criar lógica de login
             return RedirectToAction("Index");
         }
+
+        public IActionResult TrocaTipoUsuario(string value)
+        {
+            Funcionários f = new Funcionários();
+            f.Id = 1;
+            f.Login = "AnaAmelia";
+            f.Senha = "123";
+            Funcionários f2 = new Funcionários();
+            f2.Id = 2;
+            f2.Login = "Jorge";
+            f.Senha = "www";
+
+            IList<Funcionários> list = new List<Funcionários>();
+            list.Add(f);
+            list.Add(f2);
+
+            return Json(list);
+        }
     }
 }

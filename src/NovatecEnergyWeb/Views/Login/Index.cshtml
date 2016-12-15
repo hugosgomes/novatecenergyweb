@@ -12,10 +12,10 @@
                 <form asp-controller="Login" asp-action="Login" method="post" class="form-horizontal">
                     <div class="col-md-12">
                         <label class="radio-inline">
-                            <input type="radio" name="optradio">Funcionários
+                            <input type="radio" name="tipoUsu" checked value="func" onclick="trocaUser(this)">Funcionários
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optradio">Clientes
+                            <input type="radio" name="tipoUsu" value="cli" onclick="trocaUser(this)">Clientes
                         </label>
                         <br />
                     </div>
@@ -24,7 +24,7 @@
                    
                     <br /><br /><label class="col-md-2 control-label">Usuário</label>
                     <div class="col-md-10">
-                       <select class="form-control">
+                       <select id="usuarios" class="form-control">
                            <option></option>   
                         @foreach (var item in Model)
                         {
@@ -44,9 +44,21 @@
                     <div class="col-md-10">
                         <input type="submit" value="OK" class="btn btn-default" />
                     </div>
-                
-
+               
                 </form>
             </section>
         </div>
    </div>
+
+<script type="text/javascript">
+
+    function trocaUser(radio) {
+        $.post("@Url.Action("TrocaTipoUsuario", "Login")", radio.value, atualizaDrop);
+    };
+    
+    function atualizaDrop(lista) {
+
+        $("#usuarios").empty();
+        
+    };
+</script>
