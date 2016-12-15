@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Informe seu Login e Senha</h2>
+
+    <div class="row">
+        <div class="col-md-8">
+            <section>
+
+                <form asp-controller="Login" asp-action="Login" method="post" class="form-horizontal">
+                    <input type="radio" value="Func" /><label for=""> Funcionários</label> 
+                    <input type="radio" value="Func" /><label for=""> Clientes</label>  <br />
+
+                    <label>Usuário<input type="text" name="usuario.Nome"  class="form-control"/></label> <br />
+                    <label asp>Senha<input type="password" name="usuario.Senha"  class="form-control"/></label> <br />
+                    <input type="submit" value="OK"  class="btn btn-default"/>
+
+                </form>
+            </section>
+        </div>
+   </div>
