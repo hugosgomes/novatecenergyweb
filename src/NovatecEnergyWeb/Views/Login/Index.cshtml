@@ -12,10 +12,10 @@
                 <form asp-controller="Login" asp-action="Login" method="post" class="form-horizontal">
                     <div class="col-md-12">
                         <label class="radio-inline">
-                            <input type="radio" name="tipoUsu" checked value="func" onclick="trocaUser(this)">Funcionários
+                            <input type="radio" name="tipoUsu" id="radio_func" checked value="func" onclick="trocaUser()">Funcionários
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="tipoUsu" value="cli" onclick="trocaUser(this)">Clientes
+                            <input type="radio" name="tipoUsu" id="radio_cli" value="cli" onclick="trocaUser()">Clientes
                         </label>
                         <br />
                     </div>
@@ -52,13 +52,26 @@
 
 <script type="text/javascript">
 
-    function trocaUser(radio) {
-        $.post("@Url.Action("TrocaTipoUsuario", "Login")", radio.value, atualizaDrop);
+    function trocaUser() {
+        var parametros = {};
+
+        if (document.getElementById('radio_func').checked) {
+            parametros.control = 'func';
+        } else if (document.getElementById('radio_cli').checked) {
+            parametros.control = 'cli';
+
+        }
+        $.post("@Url.Action("TrocaTipoUsuario", "Login")", parametros, atualizaDrop);
     };
-    
-    function atualizaDrop(lista) {
+
+    function atualizaDrop(list) {
 
         $("#usuarios").empty();
-        
+        $("#usuarios").append($("<option />").val('').text(''));
+
+        $.each(list, function () {
+            $("#usuarios").append($("<option />").val(this.id).text(this.login));
+        });
+
     };
 </script>

@@ -19,12 +19,7 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult Index()
         {
             //IList<Funcionarios> funcionarios = _context.Funcionarios.OrderBy(c => c.Login).ToList();
-            
-            return View(_context.Funcionários
-                .OrderBy(c => c.Login)
-                .Where(c => (c.Login != null) )
-                .Where(c => (c.DataDeDemissão == null))
-                .ToList());
+            return RetornaFuncionarios(true);
         }
 
         [HttpPost]
@@ -34,22 +29,46 @@ namespace NovatecEnergyWeb.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult TrocaTipoUsuario(string value)
+        public IActionResult RetornaFuncionarios(Boolean isView)
         {
-            Funcionários f = new Funcionários();
-            f.Id = 1;
-            f.Login = "AnaAmelia";
-            f.Senha = "123";
-            Funcionários f2 = new Funcionários();
-            f2.Id = 2;
-            f2.Login = "Jorge";
-            f.Senha = "www";
+            var consulta = _context.Funcionários
+                .OrderBy(c => c.Login)
+                .Where(c => (c.Login != null))
+                .Where(c => (c.DataDeDemissão == null))
+                .ToList();
 
+            if (isView)
+            {
+                return View(consulta);
+            }else
+            {
+                return View(consulta);
+            }
+        }
+
+        public IActionResult TrocaTipoUsuario(string control)
+        {
             IList<Funcionários> list = new List<Funcionários>();
-            list.Add(f);
-            list.Add(f2);
+            if (control.Equals("cli"))
+            {
+                Funcionários f = new Funcionários();
+                f.Id = 1;
+                f.Login = "AnaAmelia";
+                f.Senha = "123";
+                Funcionários f2 = new Funcionários();
+                f2.Id = 2;
+                f2.Login = "Jorge";
+                f.Senha = "www";
 
-            return Json(list);
+             
+                list.Add(f);
+                list.Add(f2);
+                return Json(list);
+            }else
+            {
+               return RetornaFuncionarios(false);
+            }
+            
         }
     }
 }
