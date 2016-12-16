@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NovatecEnergyWeb.Models
 {
@@ -64,8 +65,13 @@ namespace NovatecEnergyWeb.Models
         public DateTime? DataDeAdmissão { get; set; }
         public DateTime? DataDeDemissão { get; set; }
         public decimal? Motivodeslig { get; set; }
+
+        [Required]
         public string Login { get; set; }
+
+        [Required]
         public string Senha { get; set; }
+
         public int? Grupo { get; set; }
         public bool? Master { get; set; }
         public int? Banco { get; set; }

@@ -24,20 +24,23 @@
                    
                     <br /><br /><label class="col-md-2 control-label">Usuário</label>
                     <div class="col-md-10">
-                       <select id="usuarios" class="form-control">
+                        <select id="usuarios" name="funcionario.Login"  class="form-control">
                            <option></option>   
-                        @foreach (var item in Model)
-                        {
-                            <option>@Html.DisplayFor(m => item.Login)</option>
-                        }
-                          
                         
+                            @foreach (var item in Model)
+                            {
+
+                                <option value ="@item.Login">@Html.DisplayFor(m => item.Login)</option>
+                            }
+             
+             
                         </select> <br />
                     </div>
 
                     <label  class="col-md-2 control-label">Senha</label>
                     <div class="col-md-10">
-                        <input type="password" name="usuario.Senha" class="form-control" /> <br />
+                        <input type="password" name="funcionario.Senha" class="form-control" /> <br />
+                        @Html.ValidationMessage("funcionario.Senha")
                     </div>
 
                     <label class="col-md-2 control-label"></label>

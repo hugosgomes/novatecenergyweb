@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -23,10 +24,29 @@ namespace NovatecEnergyWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login()
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(Funcionários funcionario)
         {
             //criar lógica de login
-            return RedirectToAction("Index");
+
+            if (ModelState.IsValid)
+            {
+                HttpContext.Session.SetInt32("FuncionarioId", funcionario.Id);
+                HttpContext.Session.SetString("Login", funcionario.Login);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Funcionario = funcionario;
+                IList<Funcionários> funcionarios = _context.Funcionários
+                .OrderBy(c => c.Login)
+                .Where(c => (c.Login != null))
+                .Where(c => (c.DataDeDemissão == null))
+                .ToList();
+
+                return View("Index",funcionarios);
+            }
+  
         }
 
         public IActionResult RetornaFuncionarios(Boolean isView)
@@ -42,7 +62,7 @@ namespace NovatecEnergyWeb.Controllers
                 return View(consulta);
             }else
             {
-                return View(consulta);
+                return Json(consulta);
             }
         }
 
