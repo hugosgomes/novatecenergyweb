@@ -33,10 +33,13 @@ namespace NovatecEnergyWeb.Controllers
             {
                 HttpContext.Session.SetInt32("FuncionarioId", Convert.ToInt32(funcionario.Login.Split('|')[0].ToString()));
                 HttpContext.Session.SetString("Login", funcionario.Login.Split('|')[1].ToString());
+
                 return RedirectToAction("Index");
             }
             else
             {
+                funcionario.Id = Convert.ToInt32(funcionario.Login.Split('|')[0].ToString());
+
                 ViewBag.Funcionario = funcionario;
                 IList<Funcionários> funcionarios = _context.Funcionários
                 .OrderBy(c => c.Login)
