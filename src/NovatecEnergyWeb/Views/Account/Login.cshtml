@@ -9,7 +9,7 @@
         <div class="col-md-8">
             <section>
 
-                <form asp-controller="Login" asp-action="Login" method="post" class="form-horizontal">
+                <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal">
                     <div class="col-md-12">
                         <label class="radio-inline">
                             <input type="radio" name="tipoUsu" id="radio_func" checked value="func" onclick="trocaUser()">Funcionários
@@ -63,7 +63,7 @@
             parametros.control = 'cli';
 
         }
-        $.post("@Url.Action("TrocaTipoUsuario", "Login")", parametros, atualizaDrop);
+        $.post("@Url.Action("TrocaTipoUsuario", "Account")", parametros, atualizaDrop);
     };
 
     function atualizaDrop(list) {

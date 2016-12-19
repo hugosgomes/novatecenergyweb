@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NovatecEnergyWeb.Models
 {
-    public class LoginAccount
+    public class Account
     {
         public int Id { get; set; }
         public string Login { get; set; }

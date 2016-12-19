@@ -8,16 +8,17 @@ using Microsoft.AspNetCore.Http;
 
 namespace NovatecEnergyWeb.Controllers
 {
-    public class LoginController : Controller
+    public class AccountController : Controller
     {
         private TESTE2TSContext _context;
 
-        public LoginController(TESTE2TSContext context)
+        public AccountController(TESTE2TSContext context)
         {
             _context = context;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Login()
         {
             //IList<Funcionarios> funcionarios = _context.Funcionarios.OrderBy(c => c.Login).ToList();
             return RetornaFuncionarios(true);
