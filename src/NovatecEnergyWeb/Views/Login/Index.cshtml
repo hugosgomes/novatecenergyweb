@@ -29,14 +29,13 @@
                         
                             @foreach (var item in Model)
                             {
-
-                                <option value ="@item.Login">@Html.DisplayFor(m => item.Login)</option>
+                                <option value ="@item.Id|@item.Login">@Html.DisplayFor(m => item.Login)</option>
                             }
-             
              
                         </select> <br />
                     </div>
-
+                    
+                    
                     <label  class="col-md-2 control-label">Senha</label>
                     <div class="col-md-10">
                         <input type="password" name="funcionario.Senha" class="form-control" /> <br />
@@ -73,7 +72,7 @@
         $("#usuarios").append($("<option />").val('').text(''));
 
         $.each(list, function () {
-            $("#usuarios").append($("<option />").val(this.id).text(this.login));
+            $("#usuarios").append($("<option />").val(this.id+'|'+this.login).text(this.login));
         });
 
     };

@@ -31,8 +31,8 @@ namespace NovatecEnergyWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                HttpContext.Session.SetInt32("FuncionarioId", funcionario.Id);
-                HttpContext.Session.SetString("Login", funcionario.Login);
+                HttpContext.Session.SetInt32("FuncionarioId", Convert.ToInt32(funcionario.Login.Split('|')[0].ToString()));
+                HttpContext.Session.SetString("Login", funcionario.Login.Split('|')[1].ToString());
                 return RedirectToAction("Index");
             }
             else
