@@ -28,32 +28,28 @@ namespace NovatecEnergyWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(Funcionários funcionario)
         {
-        
+
+            funcionario.Id = Convert.ToInt32(funcionario.Login.Split('|')[0].ToString());
+            funcionario.Login = funcionario.Login.Split('|')[1].ToString();
 
             if (ModelState.IsValid)
             {
-                var buscaUser = from u in _context.Funcionários.AsEnumerable()
-                                let compara = Encryption.ValidateSHA1HashData(u.Senha, funcionario.Senha)
-                                where u.Login == funcionario.Login && compara
-                                select u;
+                Funcionários funcionarioStored = _context.Funcionários.Find(funcionario.Id);
 
-                IList<Funcionários> usuario = buscaUser.ToList();
+                if (Encryption.ValidateSHA1HashData(funcionarioStored.Senha,funcionario.Senha))
+                {
+                    HttpContext.Session.SetInt32("FuncionarioId", funcionario.Id);
+                    HttpContext.Session.SetString("Login", funcionario.Login);
 
-
-                if (usuario.Count == 1){
-
-                    HttpContext.Session.SetInt32("FuncionarioId", Convert.ToInt32(funcionario.Login.Split('|')[0].ToString()));
-                    HttpContext.Session.SetString("Login", funcionario.Login.Split('|')[1].ToString());
-
-                    return RedirectToRoute("home-index");
-                }
-
-               
+                    return RedirectToAction("Index", "Home");
+                }else
+                {
+                    return RedirectToAction("Index", "Home");
+                }  
             }
             else
             {
-                funcionario.Id = Convert.ToInt32(funcionario.Login.Split('|')[0].ToString());
-
+               
                 ViewBag.Funcionario = funcionario;
                 IList<Funcionários> funcionarios = _context.Funcionários
                 .OrderBy(c => c.Login)

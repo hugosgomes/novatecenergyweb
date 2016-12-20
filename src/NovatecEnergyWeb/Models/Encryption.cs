@@ -15,7 +15,7 @@ namespace NovatecEnergyWeb.Models
             SHA1 sha1 = SHA1.Create();
 
             //convert the input text to array of bytes
-            byte[] hashData = sha1.ComputeHash(Encoding.ASCII.GetBytes(data));
+            byte[] hashData = sha1.ComputeHash(Encoding.UTF8.GetBytes(data));
 
             //create new instance of StringBuilder to save hashed data
             StringBuilder returnValue = new StringBuilder();
@@ -23,7 +23,7 @@ namespace NovatecEnergyWeb.Models
             //loop for each byte and add it to StringBuilder
             for (int i = 0; i < hashData.Length; i++)
             {
-                returnValue.Append(hashData[i].ToString());
+                returnValue.Append(hashData[i].ToString("x2"));
             }
 
             // return hexadecimal string
