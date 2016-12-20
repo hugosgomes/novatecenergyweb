@@ -9,7 +9,7 @@ namespace NovatecEnergyWeb.Models
 {
     public class Encryption
     {
-        private string GetSHA1HashData(string data)
+        private static string GetSHA1HashData(string data)
         {
             //create new instance of md5
             SHA1 sha1 = SHA1.Create();
@@ -30,7 +30,7 @@ namespace NovatecEnergyWeb.Models
             return returnValue.ToString();
         }
 
-        private bool ValidateSHA1HashData(string inputData, string storedHashData)
+        public  static bool ValidateSHA1HashData(string inputData, string storedHashData)
         {
             //hash input text and save it string variable
             string getHashInputData = GetSHA1HashData(inputData);

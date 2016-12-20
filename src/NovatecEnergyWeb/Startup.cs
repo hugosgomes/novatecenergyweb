@@ -80,6 +80,11 @@ namespace NovatecEnergyWeb
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Account}/{action=Login}/{id?}");
+
+
+                routes.MapRoute(
+                    name: "home-index",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

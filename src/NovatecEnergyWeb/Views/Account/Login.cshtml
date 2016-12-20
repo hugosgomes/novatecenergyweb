@@ -1,4 +1,6 @@
-﻿@model IEnumerable<NovatecEnergyWeb.Models.Funcionários>
+﻿@using NovatecEnergyWeb.Models;
+
+@model IEnumerable<NovatecEnergyWeb.Models.Funcionários>
 @{
     ViewData["Title"] = "Login";
 }
@@ -22,7 +24,7 @@
 
        
                    
-                    <br /><br /><label class="col-md-2 control-label">Usuário</label>
+                    <br /><br /><label onclick="encriptaPass()" class="col-md-2 control-label">Usuário</label>
                     <div class="col-md-10">
                         <select id="usuarios" name="funcionario.Login"  class="form-control">
                            <option></option>   
@@ -38,13 +40,14 @@
                     
                     <label  class="col-md-2 control-label">Senha</label>
                     <div class="col-md-10">
-                        <input type="password" name="funcionario.Senha" class="form-control" /> <br />
+                       
+                        <input id ="pass" type="password" name="funcionario.Senha" class="form-control" /> <br />
                         @Html.ValidationMessage("funcionario.Senha")
                     </div>
 
                     <label class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input type="submit" value="OK" class="btn btn-default" />
+                        <input type="submit" onclick="encriptaPass()" value="OK" class="btn btn-default" />
                     </div>
                
                 </form>
@@ -72,8 +75,16 @@
         $("#usuarios").append($("<option />").val('').text(''));
 
         $.each(list, function () {
-            $("#usuarios").append($("<option />").val(this.id+'|'+this.login).text(this.login));
+            $("#usuarios").append($("<option />").val(this.id + '|' + this.login).text(this.login));
         });
 
     };
+
+    function encriptaPass() {
+       var  valor =  $('#pass').val();
+       $("#pass").val(SHA1(valor));
+    };
+
+
+
 </script>

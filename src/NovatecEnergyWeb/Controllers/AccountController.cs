@@ -28,14 +28,27 @@ namespace NovatecEnergyWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(Funcionários funcionario)
         {
-            //criar lógica de login
+        
 
             if (ModelState.IsValid)
             {
-                HttpContext.Session.SetInt32("FuncionarioId", Convert.ToInt32(funcionario.Login.Split('|')[0].ToString()));
-                HttpContext.Session.SetString("Login", funcionario.Login.Split('|')[1].ToString());
+                var buscaUser = from u in _context.Funcionários.AsEnumerable()
+                                let compara = Encryption.ValidateSHA1HashData(u.Senha, funcionario.Senha)
+                                where u.Login == funcionario.Login && compara
+                                select u;
 
-                return RedirectToAction("Index");
+                IList<Funcionários> usuario = buscaUser.ToList();
+
+
+                if (usuario.Count == 1){
+
+                    HttpContext.Session.SetInt32("FuncionarioId", Convert.ToInt32(funcionario.Login.Split('|')[0].ToString()));
+                    HttpContext.Session.SetString("Login", funcionario.Login.Split('|')[1].ToString());
+
+                    return RedirectToRoute("home-index");
+                }
+
+               
             }
             else
             {
