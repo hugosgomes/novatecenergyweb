@@ -20,6 +20,7 @@ namespace NovatecEnergyWeb.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            ViewBag.Account = new Account();
             return View();
         }
 
@@ -47,7 +48,8 @@ namespace NovatecEnergyWeb.Controllers
             }
             else
             {
-                return View("Login");
+                ViewBag.Account = account;
+                return View();
             }
   
         }

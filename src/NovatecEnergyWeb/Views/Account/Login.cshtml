@@ -26,7 +26,7 @@
                                
                     <br /><br /><label class="col-md-2 control-label">Usuário</label>
                     <div class="col-md-10">
-                        <input id="log" type="text" name="Login" style="text-transform:uppercase"  class="form-control" />
+                        <input id="log" type="text" name="Login" style="text-transform:uppercase" value="@ViewBag.Account.Login" class="form-control" />
                         @Html.ValidationMessage("Login", new { @class = "text-danger" })
                              <br />
                     </div>
