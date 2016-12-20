@@ -1,6 +1,6 @@
 ﻿@using NovatecEnergyWeb.Models;
 
-@model IEnumerable<NovatecEnergyWeb.Models.Funcionários>
+@model NovatecEnergyWeb.Models.Account
 @{
     ViewData["Title"] = "Login";
 }
@@ -12,42 +12,36 @@
             <section>
 
                 <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal">
+                    @Html.AntiForgeryToken()
                     <div class="col-md-12">
                         <label class="radio-inline">
-                            <input type="radio" name="tipoUsu" id="radio_func" checked value="func" onclick="trocaUser()">Funcionários
+                            <input type="radio" name="tipoUsu" id="radio_func" checked value="func" >Funcionários
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="tipoUsu" id="radio_cli" value="cli" onclick="trocaUser()">Clientes
+                            <input type="radio" name="tipoUsu" id="radio_cli" value="cli" >Clientes
                         </label>
                         <br />
                     </div>
-
-       
-                   
-                    <br /><br /><label onclick="encriptaPass()" class="col-md-2 control-label">Usuário</label>
+                          
+                               
+                    <br /><br /><label class="col-md-2 control-label">Usuário</label>
                     <div class="col-md-10">
-                        <select id="usuarios" name="funcionario.Login"  class="form-control">
-                           <option></option>   
-                        
-                            @foreach (var item in Model)
-                            {
-                                <option value ="@item.Id|@item.Login">@Html.DisplayFor(m => item.Login)</option>
-                            }
-             
-                        </select> <br />
+                        <input id="log" type="text" name="Login" style="text-transform:uppercase"  class="form-control" />
+                        @Html.ValidationMessage("Login", new { @class = "text-danger" })
+                             <br />
                     </div>
                     
                     
                     <label  class="col-md-2 control-label">Senha</label>
                     <div class="col-md-10">
                        
-                        <input id ="pass" type="password" name="funcionario.Senha" class="form-control" /> <br />
-                        @Html.ValidationMessage("funcionario.Senha")
+                        <input id ="pass" type="password" name="Senha"  class="form-control" />
+                        @Html.ValidationMessage("Senha", new { @class = "text-danger" }) <br />
                     </div>
 
                     <label class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input type="submit" onclick="encriptaPass()" value="OK" class="btn btn-default" />
+                        <input type="submit" onclick="clickSubmit()" value="OK" class="btn btn-default" />
                     </div>
                
                 </form>
@@ -81,10 +75,21 @@
     };
 
     function encriptaPass() {
-       var  valor =  $('#pass').val();
-       $("#pass").val(SHA1(valor));
+        var valor = $('#pass').val();
+
+        if (valor != '') {
+            $("#pass").val(SHA1(valor));
+        }
     };
 
+    function upperLogin() {
+        $('#log').val($('#log').val().toUpperCase());
+    };
+
+    function clickSubmit() {
+        encriptaPass();
+        upperLogin();
+    };
 
 
 </script>

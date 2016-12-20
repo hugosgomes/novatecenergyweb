@@ -20,88 +20,38 @@ namespace NovatecEnergyWeb.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            //IList<Funcionarios> funcionarios = _context.Funcionarios.OrderBy(c => c.Login).ToList();
-            return RetornaFuncionarios(true);
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(Funcionários funcionario)
+        public IActionResult Login([Bind("Senha, Login")] Account account)
         {
-
-            funcionario.Id = Convert.ToInt32(funcionario.Login.Split('|')[0].ToString());
-            funcionario.Login = funcionario.Login.Split('|')[1].ToString();
-
             if (ModelState.IsValid)
             {
-                Funcionários funcionarioStored = _context.Funcionários.Find(funcionario.Id);
+                var funcionarioStored =_context.Funcionários.Where( p => p.Login == account.Login);
 
-                if (Encryption.ValidateSHA1HashData(funcionarioStored.Senha,funcionario.Senha))
+                IList<Funcionários> user = funcionarioStored.ToList();
+                
+                if ((user.Count == 1 ) && (Encryption.ValidateSHA1HashData(user[0].Senha,account.Senha)))
                 {
-                    HttpContext.Session.SetInt32("FuncionarioId", funcionario.Id);
-                    HttpContext.Session.SetString("Login", funcionario.Login);
+                    HttpContext.Session.SetInt32("FuncionarioId", user[0].Id);
+                    HttpContext.Session.SetString("Login", user[0].Login);
 
                     return RedirectToAction("Index", "Home");
                 }else
                 {
+                    //criar logica
                     return RedirectToAction("Index", "Home");
                 }  
             }
             else
             {
-               
-                ViewBag.Funcionario = funcionario;
-                IList<Funcionários> funcionarios = _context.Funcionários
-                .OrderBy(c => c.Login)
-                .Where(c => (c.Login != null))
-                .Where(c => (c.DataDeDemissão == null))
-                .ToList();
-
-                return View("Index",funcionarios);
+                return View("Login");
             }
   
         }
 
-        public IActionResult RetornaFuncionarios(Boolean isView)
-        {
-            var consulta = _context.Funcionários
-                .OrderBy(c => c.Login)
-                .Where(c => (c.Login != null))
-                .Where(c => (c.DataDeDemissão == null))
-                .ToList();
 
-            if (isView)
-            {
-                return View(consulta);
-            }else
-            {
-                return Json(consulta);
-            }
-        }
-
-        public IActionResult TrocaTipoUsuario(string control)
-        {
-            IList<Funcionários> list = new List<Funcionários>();
-            if (control.Equals("cli"))
-            {
-                Funcionários f = new Funcionários();
-                f.Id = 1;
-                f.Login = "AnaAmelia";
-                f.Senha = "123";
-                Funcionários f2 = new Funcionários();
-                f2.Id = 2;
-                f2.Login = "Jorge";
-                f.Senha = "www";
-
-             
-                list.Add(f);
-                list.Add(f2);
-                return Json(list);
-            }else
-            {
-               return RetornaFuncionarios(false);
-            }
-            
-        }
     }
 }
