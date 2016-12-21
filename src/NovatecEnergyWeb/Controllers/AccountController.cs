@@ -55,6 +55,8 @@ namespace NovatecEnergyWeb.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("UserId");
