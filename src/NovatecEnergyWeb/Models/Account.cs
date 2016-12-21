@@ -18,8 +18,11 @@ namespace NovatecEnergyWeb.Models
         public string Login { get; set; }
 
         [Required(ErrorMessage = "Digite a senha do usuário")]
+        [SenhaValida]
         public string Senha { get; set; }
 
+
+        public string Tipo { get; set; }
         
       
     }

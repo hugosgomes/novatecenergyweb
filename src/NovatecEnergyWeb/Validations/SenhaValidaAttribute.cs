@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.EntityFrameworkCore;
-using NovatecEnergyWeb.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using NovatecEnergyWeb.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace NovatecEnergyWeb.Validations
 {
-    public class AccountLoginAttribute : ValidationAttribute
+    public class SenhaValidaAttribute : ValidationAttribute
     {
         private TESTE2TSContext _context;
 
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext )
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             //melhorar essa lógica depois
             var optionsBuilder = new DbContextOptionsBuilder<TESTE2TSContext>();
@@ -24,11 +23,11 @@ namespace NovatecEnergyWeb.Validations
 
             Account account = (Account)validationContext.ObjectInstance;
 
-            var user = _context.Funcionários.Where(p => p.Login == account.Login).FirstOrDefault();
+            var user = _context.Funcionários.Where(u => u.Login == account.Login).FirstOrDefault();
 
-            if (user == null)
+            if(!Encryption.ValidateSHA1HashData(user.Senha, account.Senha))
             {
-                return new ValidationResult("Não existe esse login de funcionário.");
+                return new ValidationResult("Senha inválida.");
             }
             return ValidationResult.Success;
         }

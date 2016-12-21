@@ -13,7 +13,7 @@ namespace NovatecEnergyWeb.Filters.ActionFilters
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            object user = context.HttpContext.Session.GetInt32("FuncionarioId");
+            object user = context.HttpContext.Session.GetInt32("UserId");
 
             if (user != null)
             {
