@@ -30,30 +30,22 @@ namespace NovatecEnergyWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                var funcionarioStored =_context.Funcionários.Where( p => p.Login == account.Login);
+                var funcionarioStored = _context.Funcionários.Where(p => p.Login == account.Login);
 
                 IList<Funcionários> user = funcionarioStored.ToList();
-                
-                if ((user.Count == 1 ) && (Encryption.ValidateSHA1HashData(user[0].Senha,account.Senha)))
+
+                if ((user.Count == 1) && (Encryption.ValidateSHA1HashData(user[0].Senha, account.Senha)))
                 {
                     HttpContext.Session.SetInt32("FuncionarioId", user[0].Id);
                     HttpContext.Session.SetString("Login", user[0].Login);
 
                     return RedirectToAction("Index", "Home");
-                }else
-                {
-                    //criar logica
-                    return RedirectToAction("Index", "Home");
-                }  
+                }
             }
-            else
-            {
-                ViewBag.Account = account;
-                return View();
-            }
-  
-        }
 
+            ViewBag.Account = account;
+            return View();
+        }
 
     }
 }

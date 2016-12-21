@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using NovatecEnergyWeb.Validations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,9 +14,13 @@ namespace NovatecEnergyWeb.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Digite o nome do usuário")]
+        [AccountLogin]
         public string Login { get; set; }
 
         [Required(ErrorMessage = "Digite a senha do usuário")]
         public string Senha { get; set; }
+
+        
+      
     }
 }
