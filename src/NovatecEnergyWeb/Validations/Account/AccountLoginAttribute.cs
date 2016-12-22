@@ -24,12 +24,25 @@ namespace NovatecEnergyWeb.Validations
 
             Account account = (Account)validationContext.ObjectInstance;
 
-            var user = _context.Funcionários.Where(p => p.Login == account.Login).FirstOrDefault();
-
-            if (user == null)
+            if ( account.Tipo == "func")
             {
-                return new ValidationResult("Não existe esse login de funcionário.");
+                var user = _context.Funcionários.Where(p => p.Login == account.Login).FirstOrDefault();
+
+                if (user == null)
+                {
+                    return new ValidationResult("Não existe esse login de funcionário.");
+                }
+            }else
+            {
+                var cliente = _context.ClientesWeb.Where(c => c.Login == account.Login).FirstOrDefaultAsync();
+
+                if (cliente == null)
+                {
+                    return new ValidationResult("Não existe esse login de cliente.");
+                }
             }
+
+            
             return ValidationResult.Success;
         }
     }

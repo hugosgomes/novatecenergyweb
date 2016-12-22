@@ -23,11 +23,28 @@ namespace NovatecEnergyWeb.Validations
 
             Account account = (Account)validationContext.ObjectInstance;
 
-            var user = _context.Funcionários.Where(u => u.Login == account.Login).FirstOrDefault();
-
-            if(!Encryption.ValidateSHA1HashData(user.Senha, account.Senha))
+            if (account.Tipo == "func")
             {
-                return new ValidationResult("Senha inválida.");
+                var user = _context.Funcionários.Where(u => u.Login == account.Login).FirstOrDefault();
+
+                if (user != null)
+                {
+                    if (!Encryption.ValidateSHA1HashData(user.Senha, account.Senha))
+                    {
+                        return new ValidationResult("Senha inválida.");
+                    }
+                }
+            }else
+            {
+                var cliente = _context.ClientesWeb.Where(c => c.Login == account.Login).FirstOrDefault();
+
+                if (cliente != null)
+                {
+                    if (cliente.Senha != account.Senha)
+                    {
+                        return new ValidationResult("Senha inválida.");
+                    }
+                }
             }
             return ValidationResult.Success;
         }
