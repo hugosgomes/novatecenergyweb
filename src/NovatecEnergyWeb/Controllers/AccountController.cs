@@ -40,7 +40,7 @@ namespace NovatecEnergyWeb.Controllers
                     {
                         HttpContext.Session.SetInt32("UserId", user[0].Id);
                         HttpContext.Session.SetString("Login", user[0].Login);
-                        
+
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -56,7 +56,6 @@ namespace NovatecEnergyWeb.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("UserId");
@@ -65,5 +64,6 @@ namespace NovatecEnergyWeb.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        
     }
 }

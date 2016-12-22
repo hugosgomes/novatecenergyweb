@@ -41,11 +41,11 @@
                         object a = Context.Session.GetInt32("UserId");
                         if (a != null)
                         {
-                            <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                            <li><a asp-area="" asp-controller="Account"  asp-action="Logout">Logout</a></li>
                         }
                         else
                         {
-                            <li><a href="#">Cadastre-se</a></li>
+                            <li><a asp-controller="ClientesWeb"  asp-action="Create">Cadastre-se</a></li>
                         }
                     }
                 </ul>

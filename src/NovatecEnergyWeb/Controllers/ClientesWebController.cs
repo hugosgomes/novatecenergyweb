@@ -25,5 +25,33 @@ namespace NovatecEnergyWeb.Controllers
 
             return View(lista);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewBag.ClientesWeb = new ClientesWeb();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ClientesWeb clienteWeb)
+        {
+            if (ModelState.IsValid)
+            {
+                var senhaHash = Encryption.GetSHA1HashData(clienteWeb.Senha);
+                clienteWeb.Senha = senhaHash;
+
+                clienteWeb.StatusLogin = false;
+
+                _context.ClientesWeb.Add(clienteWeb);
+                _context.SaveChanges();
+
+                return RedirectToAction("Login", "Account");
+            }
+
+            ViewBag.ClientesWeb = clienteWeb;
+            return View();
+        }
     }
 }

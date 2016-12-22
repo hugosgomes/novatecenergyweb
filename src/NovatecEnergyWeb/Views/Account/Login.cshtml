@@ -34,13 +34,12 @@
                     
                     <label  class="col-md-2 control-label">Senha</label>
                     <div class="col-md-10">
-                       
-                        <input id ="pass" type="password" name="Senha"  class="form-control" />
+                        <input id ="pass" type="password" name="Senha" class="form-control" />
                         @Html.ValidationMessage("Senha", new { @class = "text-danger" }) <br />
                     </div>
 
-                    <label class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
+                    
+                    <div class="col-sm-offset-2 col-md-10">
                         <input type="submit" onclick="clickSubmit()" value="OK" class="btn btn-default" />
                     </div>
                

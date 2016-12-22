@@ -9012,7 +9012,7 @@ namespace NovatecEnergyWeb.Models
 
                 entity.Property(e => e.Senha)
                 .HasColumnName("SENHA")
-                .HasMaxLength(32);
+                .HasMaxLength(255);
 
                 entity.Property(e => e.StatusLogin)
                 .HasColumnName("STATUSLOGIN")

@@ -9,7 +9,7 @@ namespace NovatecEnergyWeb.Models
 {
     public class Encryption
     {
-        private static string GetSHA1HashData(string data)
+        public static string GetSHA1HashData(string data)
         {
             //create new instance of md5
             SHA1 sha1 = SHA1.Create();
