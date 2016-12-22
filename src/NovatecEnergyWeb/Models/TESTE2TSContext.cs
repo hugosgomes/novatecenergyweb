@@ -198,6 +198,7 @@ namespace NovatecEnergyWeb.Models
         public virtual DbSet<_60CertificacaoEquipamentos> _60CertificacaoEquipamentos { get; set; }
         public virtual DbSet<_60CertificacaoEquipamentosId> _60CertificacaoEquipamentosId { get; set; }
         public virtual DbSet<_60ProdutosGns> _60ProdutosGns { get; set; }
+        public virtual DbSet<ClientesWeb> ClientesWeb { get; set; }
 
         // Unable to generate entity type for table 'dbo.11_CondVisitas2'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.Teste'. Please see the warning messages.
@@ -8994,6 +8995,28 @@ namespace NovatecEnergyWeb.Models
                     .HasMaxLength(255);
 
                 entity.Property(e => e.TipoDeConta).HasColumnName("TIPO DE CONTA");
+            });
+
+            modelBuilder.Entity<ClientesWeb>(entity =>
+            {
+                entity.ToTable("ClientesWeb");
+
+                entity.HasKey(e => e.Id)
+                .HasName("PK_ClientesWeb");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.NomeCompleto)
+                .HasColumnName("NOMECOMPLETO")
+                .HasMaxLength(255);
+
+                entity.Property(e => e.Senha)
+                .HasColumnName("SENHA")
+                .HasMaxLength(32);
+
+                entity.Property(e => e.StatusLogin)
+                .HasColumnName("STATUSLOGIN")
+                .HasDefaultValueSql("0");
             });
         }
     }

@@ -1,0 +1,15 @@
+﻿@using NovatecEnergyWeb.Models;
+
+@model  IEnumerable<NovatecEnergyWeb.Models.ClientesWeb>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@foreach (var item in Model)
+{
+    <p>@item.Id</p>
+    <p>@item.Login</p>
+    <p>@item.Senha</p>
+    
+}
