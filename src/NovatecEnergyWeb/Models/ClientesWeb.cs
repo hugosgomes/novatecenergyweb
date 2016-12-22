@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,6 +23,7 @@ namespace NovatecEnergyWeb.Models
         [Required(ErrorMessage = "Digite a senha do cliente")]
         public string Senha { get; set; }
 
+        [NotMapped]
         [Required(ErrorMessage = "Digite a senha de confirmação")]
         [Compare("Senha",ErrorMessage ="As senhas não coincidem")]
         public string ConfirmaSenha { get; set; }
