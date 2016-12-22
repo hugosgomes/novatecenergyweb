@@ -18,10 +18,12 @@ namespace NovatecEnergyWeb.Models
         [LoginRepetido]
         public string Login { get; set; }
 
+        [StringLength(20,MinimumLength =4,ErrorMessage ="Senha deve ter entre 4 a 20 caracteres")]
         [Required(ErrorMessage = "Digite a senha do cliente")]
         public string Senha { get; set; }
 
-        [Display(Name = "Digite a senha de confirmação")]
+        [Required(ErrorMessage = "Digite a senha de confirmação")]
+        [Compare("Senha",ErrorMessage ="As senhas não coincidem")]
         public string ConfirmaSenha { get; set; }
 
         public bool? StatusLogin { get; set; }

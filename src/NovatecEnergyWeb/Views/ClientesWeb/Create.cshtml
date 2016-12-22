@@ -30,14 +30,14 @@
 
                 <br /><br /><label class="col-md-2 control-label">Senha</label>
                 <div class="col-md-10">
-                    <input id="log"  type="password"  name="Senha" value="@ViewBag.ClientesWeb.Senha" class="form-control" />
+                    <input id="log"  type="password"  name="Senha"  class="form-control" />
                     @Html.ValidationMessage("Senha", new { @class = "text-danger" })
                     <br />
                 </div>
 
                 <br /><br /><label class="col-md-2 control-label">Confirmar Senha</label>
                 <div class="col-md-10">
-                    <input id="log"  type="password" name="ConfirmaSenha" value="@ViewBag.ClientesWeb.ConfirmaSenha" class="form-control" />
+                    <input id="log"  type="password" name="ConfirmaSenha" class="form-control" />
                     @Html.ValidationMessage("ConfirmaSenha", new { @class = "text-danger" })
                     <br />
                 </div>
