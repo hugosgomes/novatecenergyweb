@@ -8,9 +8,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NovatecEnergyWeb.Models
-{
-    public class Account
+namespace NovatecEnergyWeb.Models.AccountViewModels
+{ 
+    public class LoginViewModel
     {
         public int Id { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models;
+using NovatecEnergyWeb.Models.AccountViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,7 +23,7 @@ namespace NovatecEnergyWeb.Validations
 
             _context = new TESTE2TSContext(optionsBuilder.Options);
 
-            Models.Account account = (Models.Account)validationContext.ObjectInstance;
+            LoginViewModel account = (LoginViewModel)validationContext.ObjectInstance;
 
             if ( account.Tipo == "func")
             {
@@ -34,7 +35,7 @@ namespace NovatecEnergyWeb.Validations
                 }
             }else
             {
-                var cliente = _context.ClientesWeb.Where(c => c.Login == account.Login).FirstOrDefault();
+                var cliente = _context.ClientesWeb.Where(c => c.Login == account.Login).FirstOrDefaultAsync();
 
                 if (cliente == null)
                 {

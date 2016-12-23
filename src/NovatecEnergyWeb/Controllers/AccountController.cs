@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
+using NovatecEnergyWeb.Models.AccountViewModels;
 using Microsoft.AspNetCore.Http;
 
 namespace NovatecEnergyWeb.Controllers
@@ -20,13 +21,13 @@ namespace NovatecEnergyWeb.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            ViewBag.Account = new Account();
+            ViewBag.Account = new LoginViewModel();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login([Bind("Senha, Login,Tipo")] Account account)
+        public IActionResult Login([Bind("Senha, Login,Tipo")] LoginViewModel account)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +69,26 @@ namespace NovatecEnergyWeb.Controllers
             HttpContext.Session.Remove("Login");
 
             return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        public IActionResult TrocaSenha()
+        {
+            // TrocaSenhaViewModel trocaSenha = _context. HttpContext.Session.GetInt32("UserId");
+            ViewBag.Account = new TrocaSenhaViewModel();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult TrocaSenha(TrocaSenhaViewModel trocaSenha)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+
+            return View();
         }
     }
 }
