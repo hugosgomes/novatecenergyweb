@@ -47,7 +47,7 @@ namespace NovatecEnergyWeb.Controllers
                     var clientesWeb = _context.ClientesWeb.Where(c => c.Login == account.Login);
                     IList<ClientesWeb> cliente = clientesWeb.ToList();
 
-                    if((cliente.Count == 1))
+                    if ((cliente.Count == 1))
                     {
                         HttpContext.Session.SetInt32("UserId", cliente[0].Id);
                         HttpContext.Session.SetString("Login", cliente[0].Login);
@@ -61,8 +61,7 @@ namespace NovatecEnergyWeb.Controllers
             return View();
         }
 
-
-        [HttpPost]
+        [HttpGet]
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("UserId");
@@ -70,7 +69,5 @@ namespace NovatecEnergyWeb.Controllers
 
             return RedirectToAction("Login", "Account");
         }
-
-        
     }
 }

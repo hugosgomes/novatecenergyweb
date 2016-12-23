@@ -22,7 +22,7 @@ namespace NovatecEnergyWeb.Validations
 
             _context = new TESTE2TSContext(optionsBuilder.Options);
 
-            Account account = (Account)validationContext.ObjectInstance;
+            Models.Account account = (Models.Account)validationContext.ObjectInstance;
 
             if ( account.Tipo == "func")
             {
@@ -34,7 +34,7 @@ namespace NovatecEnergyWeb.Validations
                 }
             }else
             {
-                var cliente = _context.ClientesWeb.Where(c => c.Login == account.Login).FirstOrDefaultAsync();
+                var cliente = _context.ClientesWeb.Where(c => c.Login == account.Login).FirstOrDefault();
 
                 if (cliente == null)
                 {

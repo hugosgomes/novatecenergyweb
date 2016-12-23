@@ -28,6 +28,7 @@ namespace NovatecEnergyWeb.Models
         [Compare("Senha",ErrorMessage ="As senhas não coincidem")]
         public string ConfirmaSenha { get; set; }
 
+        
         public bool? StatusLogin { get; set; }
     }
 }
