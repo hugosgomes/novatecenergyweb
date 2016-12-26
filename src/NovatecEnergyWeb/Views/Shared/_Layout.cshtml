@@ -41,6 +41,7 @@
                         object a = Context.Session.GetInt32("UserId");
                         if (a != null)
                         {
+                            <li><a asp-area="" asp-controller="Account" asp-action="TrocaSenha">Trocar Senha</a></li>
                             <li><a asp-area="" asp-controller="Account"  asp-action="Logout">Logout</a></li>
                         }
                         else

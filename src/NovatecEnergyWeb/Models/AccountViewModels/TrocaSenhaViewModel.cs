@@ -12,7 +12,11 @@ namespace NovatecEnergyWeb.Models.AccountViewModels
         public int Id { get; set; }
 
         public string Usuario { get; set; }
-        
+
+        public string Tipo { get; set; }
+
+        [Required(ErrorMessage = "Digite a senha atual")]
+        [SenhaAtualInvalida]
         public string SenhaAtual { get; set; }
 
         [StringLength(20, MinimumLength = 4, ErrorMessage = "Nova senha deve ter entre 4 a 20 caracteres")]

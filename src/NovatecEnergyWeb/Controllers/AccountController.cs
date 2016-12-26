@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
 using NovatecEnergyWeb.Models.AccountViewModels;
 using Microsoft.AspNetCore.Http;
+using NovatecEnergyWeb.Filters.ActionFilters;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -41,6 +42,7 @@ namespace NovatecEnergyWeb.Controllers
                     {
                         HttpContext.Session.SetInt32("UserId", user[0].Id);
                         HttpContext.Session.SetString("Login", user[0].Login);
+                        HttpContext.Session.SetString("UserTipo", account.Tipo);
                     }
                 }
                 else
@@ -52,6 +54,7 @@ namespace NovatecEnergyWeb.Controllers
                     {
                         HttpContext.Session.SetInt32("UserId", cliente[0].Id);
                         HttpContext.Session.SetString("Login", cliente[0].Login);
+                        HttpContext.Session.SetString("UserTipo", account.Tipo);
                     }
 
                 }
@@ -67,15 +70,24 @@ namespace NovatecEnergyWeb.Controllers
         {
             HttpContext.Session.Remove("UserId");
             HttpContext.Session.Remove("Login");
+            HttpContext.Session.Remove("UserTipo");
 
             return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]
+        [AutenticacaoFilter]
         public IActionResult TrocaSenha()
         {
-            // TrocaSenhaViewModel trocaSenha = _context. HttpContext.Session.GetInt32("UserId");
+            string tipo = HttpContext.Session.GetString("UserTipo");
+            int id = (int)HttpContext.Session.GetInt32("UserId");
+            string login = HttpContext.Session.GetString("Login");
+
             ViewBag.Account = new TrocaSenhaViewModel();
+            ViewBag.Account.Tipo = tipo;
+            ViewBag.Account.Id = id;
+            ViewBag.Account.Usuario = login;            
+            
             return View();
         }
 
@@ -87,7 +99,7 @@ namespace NovatecEnergyWeb.Controllers
             {
 
             }
-
+            ViewBag.Account = trocaSenha;
             return View();
         }
     }
