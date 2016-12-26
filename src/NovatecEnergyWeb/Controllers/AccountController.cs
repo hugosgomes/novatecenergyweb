@@ -97,7 +97,17 @@ namespace NovatecEnergyWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (trocaSenha.Tipo == "func")
+                {
+                    var funcionario = _context.Funcionários.Find(trocaSenha.Id);
+                    funcionario.Senha = trocaSenha.NovaSenha;
 
+                }else
+                {
+                    var cliente = _context.ClientesWeb.Find(trocaSenha.Id);
+                    cliente.Senha = Encryption.GetSHA1HashData(trocaSenha.NovaSenha);
+                }
+                _context.SaveChanges();
             }
             ViewBag.Account = trocaSenha;
             return View();
