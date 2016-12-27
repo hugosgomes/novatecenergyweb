@@ -1,6 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+
+
+    if ((@ViewBag.message != null) && (@ViewBag.message.ToString().Length > 0))
+    {
+        @Html.Partial("_BootstrapAlert");
+    }
 }
+
+
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
@@ -107,3 +115,18 @@
         </ul>
     </div>
 </div>
+<script type="text/javascript">
+    var msg = '@ViewBag.message';
+
+    if (msg && msg.length > 0) {
+        document.getElementById('bootAlert').innerHTML = msg;
+
+        setTimeout(encobre, 3000);
+    }
+
+    function encobre() {
+        $('#prediv').remove();
+        $('#bootAlert').remove();
+    };
+
+</script>
