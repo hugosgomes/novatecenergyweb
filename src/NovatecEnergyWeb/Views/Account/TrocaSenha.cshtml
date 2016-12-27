@@ -19,28 +19,28 @@
                 <br />
                 <label class="col-md-3 control-label">Usuário</label>
                 <div class="col-md-9">
-                    <input  type="text" name="Usuario" style="text-transform:uppercase"  readonly value="@ViewBag.Account.Usuario"  class="form-control" />
+                    <input  type="text" name="Usuario" style="text-transform:uppercase"  readonly value="@ViewBag.Account.Usuario"  class="form-control forms-inputs" />
                     @Html.ValidationMessage("Usuario", new { @class = "text-danger" })
                     <br />
                 </div>
 
                 <br /><br /><label class="col-md-3 control-label">Senha Atual</label>
                 <div class="col-md-9">
-                    <input id="atual" type="password" name="SenhaAtual"  class="form-control" />
+                    <input id="atual" type="password" name="SenhaAtual"  class="form-control forms-inputs" />
                     @Html.ValidationMessage("SenhaAtual", new { @class = "text-danger" })
                     <br />
                 </div>
 
                 <br /><br /><label class="col-md-3 control-label">Nova Senha</label>
                 <div class="col-md-9">
-                    <input id="nova" type="password" name="NovaSenha"  class="form-control" />
+                    <input id="nova" type="password" name="NovaSenha"  class="form-control forms-inputs" />
                     @Html.ValidationMessage("NovaSenha", new { @class = "text-danger" })
                     <br />
                 </div>
 
                 <br /><br /><label class="col-md-3 control-label">Repetir Nova Senha</label>
                 <div class="col-md-9">
-                    <input id="confirma" type="password" name="ConfirmaSenha" class="form-control" />
+                    <input id="confirma" type="password" name="ConfirmaSenha" class="form-control forms-inputs" />
                     @Html.ValidationMessage("ConfirmaSenha", new { @class = "text-danger" })
                     <br />
                 </div>
