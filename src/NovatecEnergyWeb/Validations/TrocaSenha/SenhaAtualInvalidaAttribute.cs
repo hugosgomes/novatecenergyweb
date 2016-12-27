@@ -29,7 +29,7 @@ namespace NovatecEnergyWeb.Validations.TrocaSenha
 
                 if (func != null)
                 {
-                    if(!Encryption.ValidateSHA1HashData(func.Senha, trocaSenha.SenhaAtual))
+                    if(func.Senha != trocaSenha.SenhaAtual)
                     {
                         return new ValidationResult("Senha atual inválida");
                     }

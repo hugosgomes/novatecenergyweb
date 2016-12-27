@@ -27,6 +27,7 @@ namespace NovatecEnergyWeb.Controllers
         }
 
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public IActionResult Create()
         {
             ViewBag.ClientesWeb = new ClientesWeb();

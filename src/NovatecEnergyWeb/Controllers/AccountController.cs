@@ -67,6 +67,7 @@ namespace NovatecEnergyWeb.Controllers
         }
 
         [HttpGet]
+        [AutenticacaoFilter]
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("UserId");
@@ -94,6 +95,7 @@ namespace NovatecEnergyWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AutenticacaoFilter]
         public IActionResult TrocaSenha(TrocaSenhaViewModel trocaSenha)
         {
             if (ModelState.IsValid)
@@ -110,7 +112,7 @@ namespace NovatecEnergyWeb.Controllers
                 }
                 _context.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new { msgAlert = "Senha alterada com sucesso!" });
             }
             ViewBag.Account = trocaSenha;
             return View();
