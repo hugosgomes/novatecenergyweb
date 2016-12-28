@@ -21,7 +21,9 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult Index()
         {
-            IList<ClientesWeb> lista = _context.ClientesWeb.ToList();
+            IList<ClientesWeb> lista = _context.ClientesWeb
+                .Where(c => c.StatusLogin == false)
+                .ToList();
 
             return View(lista);
         }
@@ -55,6 +57,14 @@ namespace NovatecEnergyWeb.Controllers
 
             ViewBag.ClientesWeb = clienteWeb;
             return View();
+        }
+
+        public void AtivaClienteCadastrado(int clienteId)
+        {
+            var clienteWeb = _context.ClientesWeb.Find(clienteId);
+            clienteWeb.StatusLogin = true;
+
+            _context.SaveChanges();
         }
     }
 }

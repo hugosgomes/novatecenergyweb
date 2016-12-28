@@ -2,14 +2,49 @@
 
 @model  IEnumerable<NovatecEnergyWeb.Models.ClientesWeb>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Clientes Web";
 }
 
+<h2>@ViewData["Title"]</h2>
+<h4>Ativação de clientes.</h4>
+<hr />
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th class="text-center">Nome Completo</th>
+            <th class="text-center">Login</th>
+            <th class="text-center">Ativar login</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="linha_@item.Id">
+                <td class="text-center">
+                    @item.NomeCompleto 
+                </td>
+                <td class="text-center">
+                    @item.Login
+                </td>
+                <td class="text-center"> <a href="#" onclick="ativaStatus(@item.Id)"><span class="glyphicon glyphicon-ok-sign"></span></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    function ativaStatus(clienteID) {
+        var parametro = {};
 
-@foreach (var item in Model)
-{
-    <p>@item.Id</p>
-    <p>@item.Login</p>
-    <p>@item.Senha</p>
+        parametro.clienteId = clienteID;
+
+        $.post("@Url.Action("AtivaClienteCadastrado", "ClientesWeb")", parametro, atualizaGradeCliente(clienteID));
+    };
+
+    function atualizaGradeCliente(clienteID) {
+        var idTableRow = '#linha_'+clienteID;
+        $(idTableRow).remove();
+
+    };
+</script>
+
     
-}

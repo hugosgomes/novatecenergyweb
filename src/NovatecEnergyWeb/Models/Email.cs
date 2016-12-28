@@ -17,9 +17,9 @@ namespace NovatecEnergyWeb.Models
         
         public Email()
         {
-            _destinatario = "hgomes@novatecenergy.com.br";
+            _destinatario = "tsantana@novatecenergy.com.br";
             _assunto = "Teste Sistema Web";
-            _conteudo = "Teste do envio do E-mail - Teste Hugo";         
+            _conteudo = "Teste do envio do E-mail - Teste Envio sistema";         
             _remetente = "tsantana@novatecenergy.com.br";
         }
 
