@@ -47,6 +47,9 @@ namespace NovatecEnergyWeb.Controllers
                 _context.ClientesWeb.Add(clienteWeb);
                 _context.SaveChanges();
 
+                var emailSender = new Email();
+                emailSender.Enviar();
+
                 return RedirectToAction("Login", "Account");
             }
 
