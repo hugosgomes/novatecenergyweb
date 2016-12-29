@@ -58,8 +58,9 @@ namespace NovatecEnergyWeb.Controllers
                     }
 
                 }
-               
-                return RedirectToAction("Index", "Home", new { msgAlert = "Login realizado com sucesso!" });
+                TempData["mensagem"] = "Login realizado com sucesso!";
+
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.Account = account;
@@ -112,7 +113,9 @@ namespace NovatecEnergyWeb.Controllers
                 }
                 _context.SaveChanges();
 
-                return RedirectToAction("Index", "Home", new { msgAlert = "Senha alterada com sucesso!" });
+                TempData["mensagem"] = "Senha alterada com sucesso!";
+
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.Account = trocaSenha;
             return View();

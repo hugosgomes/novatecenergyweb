@@ -10,9 +10,8 @@ namespace NovatecEnergyWeb.Controllers
     public class HomeController : Controller
     {
         [AutenticacaoFilter]
-        public IActionResult Index(string msgAlert)
+        public IActionResult Index()
         {
-            ViewBag.message = msgAlert;
             return View();
         }
 

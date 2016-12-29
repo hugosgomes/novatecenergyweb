@@ -73,7 +73,13 @@
         </div>
     </div>
     <div id="container1"class="container body-content">
-
+        @{ 
+            if (TempData["mensagem"]!=null)
+            {
+                @Html.Partial("_BootstrapAlert", TempData["mensagem"] as string);
+                
+            }
+        }
         @RenderBody()
         <hr />
         <footer>

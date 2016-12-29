@@ -59,12 +59,21 @@ namespace NovatecEnergyWeb.Controllers
             return View();
         }
 
-        public void AtivaClienteCadastrado(int clienteId)
+        public IActionResult AtivaClienteCadastrado(int clienteId)
         {
             var clienteWeb = _context.ClientesWeb.Find(clienteId);
             clienteWeb.StatusLogin = true;
 
+            var clienteretorno = new ClientesWeb();
+            clienteretorno.Id = clienteWeb.Id;
+            clienteretorno.NomeCompleto = clienteWeb.NomeCompleto;
+
             _context.SaveChanges();
+
+            var emailSender = new Email();
+            emailSender.Enviar();
+
+            return Json(clienteretorno);
         }
     }
 }

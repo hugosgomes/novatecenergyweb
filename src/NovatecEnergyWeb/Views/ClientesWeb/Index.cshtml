@@ -3,6 +3,7 @@
 @model  IEnumerable<NovatecEnergyWeb.Models.ClientesWeb>
 @{
     ViewData["Title"] = "Clientes Web";
+
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -37,13 +38,23 @@
 
         parametro.clienteId = clienteID;
 
-        $.post("@Url.Action("AtivaClienteCadastrado", "ClientesWeb")", parametro, atualizaGradeCliente(clienteID));
+        $.post("@Url.Action("AtivaClienteCadastrado", "ClientesWeb")", parametro, atualizaGradeCliente);
     };
 
-    function atualizaGradeCliente(clienteID) {
-        var idTableRow = '#linha_'+clienteID;
+    function atualizaGradeCliente(clienteretorno) {
+        var idTableRow = '#linha_' + clienteretorno.id;
         $(idTableRow).remove();
 
+
+        $('<div id="prediv" ><div id="bootAlert" class="alert alert-success">Cliente <strong>' + clienteretorno.nomeCompleto + '</strong> ativado!</div></div>')
+            .prependTo('#container1');
+
+        setTimeout(encobre, 3000);
+    };
+
+    function encobre() {
+        $('#prediv').remove();
+        $('#bootAlert').remove();
     };
 </script>
 
