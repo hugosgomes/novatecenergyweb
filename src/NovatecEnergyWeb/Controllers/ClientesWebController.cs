@@ -53,6 +53,8 @@ namespace NovatecEnergyWeb.Controllers
                 var emailSender = new Email();
                 emailSender.Enviar();
 
+                TempData["mensagem"] = "Cliente criado com sucesso!";
+
                 return RedirectToAction("Login", "Account");
             }
 
