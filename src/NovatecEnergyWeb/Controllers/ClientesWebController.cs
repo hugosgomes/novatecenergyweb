@@ -22,7 +22,7 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult Index()
         {
             IList<ClientesWeb> lista = _context.ClientesWeb
-                .Where(c => c.StatusLogin == false)
+                //.Where(c => c.StatusLogin == false)
                 .ToList();
 
             return View(lista);
@@ -62,16 +62,24 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult AtivaClienteCadastrado(int clienteId)
         {
             var clienteWeb = _context.ClientesWeb.Find(clienteId);
-            clienteWeb.StatusLogin = true;
+            if ((bool)clienteWeb.StatusLogin)
+                clienteWeb.StatusLogin = false;
+            else
+                clienteWeb.StatusLogin = true;
+
+            _context.SaveChanges();
 
             var clienteretorno = new ClientesWeb();
             clienteretorno.Id = clienteWeb.Id;
             clienteretorno.NomeCompleto = clienteWeb.NomeCompleto;
+            clienteretorno.StatusLogin = clienteWeb.StatusLogin;
 
-            _context.SaveChanges();
-
-            var emailSender = new Email();
-            emailSender.Enviar();
+            //enviar instruções falando para o cliente que ele já pode logar
+            if ((bool)clienteretorno.StatusLogin)
+            {
+                var emailSender = new Email();
+                emailSender.Enviar();
+            }
 
             return Json(clienteretorno);
         }

@@ -3,7 +3,6 @@
 @model  IEnumerable<NovatecEnergyWeb.Models.ClientesWeb>
 @{
     ViewData["Title"] = "Clientes Web";
-
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -15,6 +14,7 @@
             <th class="text-center">Nome Completo</th>
             <th class="text-center">Login</th>
             <th class="text-center">Ativar login</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -27,7 +27,10 @@
                 <td class="text-center">
                     @item.Login
                 </td>
-                <td class="text-center"> <a href="#" onclick="ativaStatus(@item.Id)"><span class="glyphicon glyphicon-ok-sign"></span></a></td>
+                <td class="text-center">
+                    <input type="checkbox" onclick="ativaStatus(@item.Id)" checked="@item.StatusLogin">
+                </td>
+                <!--<td class="text-center"><input type="checkbox" onclick="ativaStatus(@item.Id)"></td>-->
             </tr>
         }
     </tbody>
@@ -43,11 +46,17 @@
 
     function atualizaGradeCliente(clienteretorno) {
         var idTableRow = '#linha_' + clienteretorno.id;
-        $(idTableRow).remove();
+     //   $(idTableRow).remove();
 
 
-        $('<div id="prediv" ><div id="bootAlert" class="alert alert-success">Cliente <strong>' + clienteretorno.nomeCompleto + '</strong> ativado!</div></div>')
-            .prependTo('#container1');
+        if(clienteretorno.statusLogin){
+            $('<div id="prediv" ><div id="bootAlert" class="alert alert-success">Cliente <strong>' + clienteretorno.nomeCompleto + '</strong> foi ativado!</div></div>')
+                .prependTo('#container1');
+        }else{
+            $('<div id="prediv" ><div id="bootAlert" class="alert alert-warning">Cliente <strong>' + clienteretorno.nomeCompleto + '</strong> foi desativado!</div></div>')
+                    .prependTo('#container1');
+        }
+
 
         setTimeout(encobre, 3000);
     };
