@@ -30,5 +30,9 @@ namespace NovatecEnergyWeb.Models
 
         
         public bool? StatusLogin { get; set; }
+
+        [Required(ErrorMessage = "Digite o e-mail")]
+        [EmailAddress(ErrorMessage = "E-mail em formato inválido")]
+        public string Email { get; set; }
     }
 }

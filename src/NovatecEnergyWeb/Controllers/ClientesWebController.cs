@@ -49,6 +49,7 @@ namespace NovatecEnergyWeb.Controllers
                 _context.ClientesWeb.Add(clienteWeb);
                 _context.SaveChanges();
 
+                //email para diretoria
                 var emailSender = new Email();
                 emailSender.Enviar();
 

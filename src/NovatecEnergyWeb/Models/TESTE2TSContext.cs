@@ -9017,6 +9017,10 @@ namespace NovatecEnergyWeb.Models
                 entity.Property(e => e.StatusLogin)
                 .HasColumnName("STATUSLOGIN")
                 .HasDefaultValueSql("0");
+
+                entity.Property(e => e.Email)
+                .HasColumnName("EMAIL")
+                .HasMaxLength(255);
             });
         }
     }

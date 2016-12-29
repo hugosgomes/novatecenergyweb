@@ -26,7 +26,7 @@ namespace NovatecEnergyWeb.Validations.ClientesWeb
 
             var cliente = _context.ClientesWeb
                 .Where(c => c.Login == clientesWeb.Login)
-                .Select(c => new { c.Id, c.NomeCompleto, c.Login, c.Senha, c.StatusLogin })
+                .Select(c => new { c.Id, c.NomeCompleto, c.Login, c.Senha, c.StatusLogin, c.Email })
                 .FirstOrDefault();
 
             if (cliente != null)
