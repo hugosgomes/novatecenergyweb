@@ -50,7 +50,7 @@ namespace NovatecEnergyWeb.Controllers
                 _context.SaveChanges();
 
                 //email para diretoria
-                var emailSender = new Email();
+                var emailSender = new EmailDiretoria(clienteWeb.NomeCompleto);
                 emailSender.Enviar();
 
                 TempData["mensagem"] = "Cliente criado com sucesso!";
@@ -80,7 +80,7 @@ namespace NovatecEnergyWeb.Controllers
             //enviar instruções falando para o cliente que ele já pode logar
             if ((bool)clienteretorno.StatusLogin)
             {
-                var emailSender = new Email();
+                var emailSender = new EmailCliente(clienteWeb.Email);
                 emailSender.Enviar();
             }
 

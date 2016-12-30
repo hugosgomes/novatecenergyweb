@@ -31,7 +31,16 @@ namespace NovatecEnergyWeb.Validations.ClientesWeb
 
             if (cliente != null)
             {
-                return new ValidationResult("Já existe cliente com esse login");
+                return new ValidationResult("Já existe esse login");
+            }
+
+            var funcionario = _context.Funcionários
+                .Where(f => f.Login == clientesWeb.Login)
+                .FirstOrDefault();
+
+            if (funcionario != null)
+            {
+                return new ValidationResult("Já existe esse login");
             }
 
             return ValidationResult.Success;

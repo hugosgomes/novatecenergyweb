@@ -10,10 +10,10 @@ namespace NovatecEnergyWeb.Models
 {
     public class Email
     {
-        public string _destinatario { get; private set; }
-        public string _assunto { get; private set; }
-        public string _conteudo { get; private set; }
-        public string _remetente { get; private set; }
+        public string _destinatario { get;  set; }
+        public string _assunto { get;  set; }
+        public string _conteudo { get;  set; }
+        public string _remetente { get;  set; }
         
         public Email()
         {
@@ -50,4 +50,29 @@ namespace NovatecEnergyWeb.Models
             }
         }
     }
+
+
+    public class EmailDiretoria : Email
+    {
+        public EmailDiretoria(string nomeCliente)
+        {
+            _destinatario = "tsantana@novatecenergy.com.br"; // mudar depois para diretoria@novatecenergy.com.br
+            _assunto = "Novo cliente cadastrado";
+            _conteudo = "Foi cadastrado o cliente " + nomeCliente +" e "+
+                "\n Está aguardando confirmação";
+            _remetente = "ti@novatecenergy.com.br";
+        }
+    }
+    public class EmailCliente : Email
+    {
+        public EmailCliente(string destinatario)
+        {
+            _destinatario = destinatario;
+            _assunto = "NovatecEnergyWeb - Cadastro concluído";
+            _conteudo = "Seu cadastro foi concluído no portal NovatecEnergyWeb\n"+
+                "Aguarde o email de confirmação para poder realizar o login no sistema.";
+            _remetente = "ti@novatecenergy.com.br";
+        }
+    }
+
 }
