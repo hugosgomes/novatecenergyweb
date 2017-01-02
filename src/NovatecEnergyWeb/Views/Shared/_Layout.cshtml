@@ -35,7 +35,15 @@
                   <!--  <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">Sobre</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contato</a></li>-->
-                    <li><a asp-area="" asp-controller="ClientesWeb" asp-action="Index">Ativação de clientes</a></li>
+                    @{
+                        object us = Context.Session.GetInt32("UserId");
+                        if (us != null)
+                        {
+                             <li><a asp-area="" asp-controller="ClientesWeb" asp-action="Index">Ativação de clientes</a></li>
+
+                        }
+                       
+                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
