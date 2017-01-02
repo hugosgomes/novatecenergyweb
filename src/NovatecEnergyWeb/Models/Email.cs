@@ -57,7 +57,7 @@ namespace NovatecEnergyWeb.Models
         public EmailDiretoria(string nomeCliente)
         {
             _destinatario = "tsantana@novatecenergy.com.br"; // mudar depois para diretoria@novatecenergy.com.br
-            _assunto = "Novo cliente cadastrado";
+            _assunto = "NovatecEnergyWeb - Novo cliente cadastrado";
             _conteudo = "Foi cadastrado o cliente " + nomeCliente +" e "+
                 "\n Está aguardando confirmação";
             _remetente = "ti@novatecenergy.com.br";
@@ -65,13 +65,26 @@ namespace NovatecEnergyWeb.Models
     }
     public class EmailCliente : Email
     {
-        public EmailCliente(string destinatario)
+        public EmailCliente(string destinatario, bool cadastro)
         {
-            _destinatario = destinatario;
-            _assunto = "NovatecEnergyWeb - Cadastro concluído";
-            _conteudo = "Seu cadastro foi concluído no portal NovatecEnergyWeb\n"+
-                "Aguarde o email de confirmação para poder realizar o login no sistema.";
-            _remetente = "ti@novatecenergy.com.br";
+            //cadastro feito
+            if (cadastro)
+            {
+                _destinatario = destinatario;
+                _assunto = "NovatecEnergyWeb - Cadastro concluído";
+                _conteudo = $"Seu cadastro foi concluído no portal NovatecEnergyWeb. {Environment.NewLine}" +
+                    "Aguarde o email de confirmação para poder realizar o login no sistema.";
+                _remetente = "ti@novatecenergy.com.br";
+            }
+            else
+            {
+                //instruções falando para o cliente que ele já pode logar
+                _destinatario = destinatario;
+                _assunto = "NovatecEnergyWeb - Ativação de cadastro";
+                _conteudo = $"Seu cadastro foi ativado no portal NovatecEnergyWeb. {Environment.NewLine}" +
+                    "Já é possível realizar o login no sistema.";
+                _remetente = "ti@novatecenergy.com.br";
+            }
         }
     }
 
