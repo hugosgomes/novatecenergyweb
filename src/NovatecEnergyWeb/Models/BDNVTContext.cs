@@ -928,8 +928,6 @@ namespace NovatecEnergyWeb.Models
 
             modelBuilder.Entity<Funcionários>(entity =>
             {
-                entity.HasIndex(e => e.Bairro)
-                    .HasName("Funcionários${49DCB1E1-F414-40EA-B617-0EBC93CAE1E8}");
 
                 entity.HasIndex(e => e.Contadorid)
                     .HasName("Funcionários$CONTADORID");
@@ -940,14 +938,10 @@ namespace NovatecEnergyWeb.Models
                 entity.HasIndex(e => e.Escolaridade)
                     .HasName("Funcionários${3CB1EC1F-8033-4054-8B44-F07C531CFB62}");
 
-                entity.HasIndex(e => e.Estado)
-                    .HasName("Funcionários${4E59351E-8577-452B-8523-C2C224AD09C7}");
 
                 entity.HasIndex(e => e.Filial)
                     .HasName("Funcionários$00_FilialFuncionários");
 
-                entity.HasIndex(e => e.Localidade)
-                    .HasName("Funcionários${34FEB758-CC21-4EC8-812D-0717CBFC8A93}");
 
                 entity.HasIndex(e => e.Logradouro)
                     .HasName("Funcionários${B31DBA61-D7F1-466A-961B-DDC04391F7B2}");
@@ -965,8 +959,6 @@ namespace NovatecEnergyWeb.Models
                 entity.HasIndex(e => e.Setor)
                     .HasName("Funcionários$00_SetoresFuncionários");
 
-                entity.HasIndex(e => e.Tipo)
-                    .HasName("Funcionários${77C6F52C-15B9-475B-A557-FAF71B280784}");
 
                 entity.HasIndex(e => e.Tipoconta)
                     .HasName("Funcionários${87234F84-E662-4EDE-9395-D3389C504C49}");
@@ -990,7 +982,7 @@ namespace NovatecEnergyWeb.Models
                     .HasColumnName("APT")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.Bairro).HasColumnName("BAIRRO");
+                
 
                 entity.Property(e => e.Banco).HasColumnName("BANCO");
 
@@ -1077,7 +1069,6 @@ namespace NovatecEnergyWeb.Models
 
                 entity.Property(e => e.Escolaridade).HasColumnName("ESCOLARIDADE");
 
-                entity.Property(e => e.Estado).HasColumnName("ESTADO");
 
                 entity.Property(e => e.Estadocivil).HasColumnName("ESTADOCIVIL");
 
@@ -1095,7 +1086,6 @@ namespace NovatecEnergyWeb.Models
 
                 entity.Property(e => e.LocalFoto).HasMaxLength(255);
 
-                entity.Property(e => e.Localidade).HasColumnName("LOCALIDADE");
 
                 entity.Property(e => e.Login)
                     .HasColumnName("LOGIN")
@@ -1175,7 +1165,7 @@ namespace NovatecEnergyWeb.Models
                     .HasComputedColumnSql("case when [DATA DE DEMISSÃO] IS NULL then (1) else (2) end")
                     .ValueGeneratedOnAddOrUpdate();
 
-                entity.Property(e => e.Tipo).HasColumnName("TIPO");
+
 
                 entity.Property(e => e.Tipoconta)
                     .HasColumnName("TIPOCONTA")

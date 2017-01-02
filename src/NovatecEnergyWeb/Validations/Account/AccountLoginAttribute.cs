@@ -18,7 +18,7 @@ namespace NovatecEnergyWeb.Validations
         {
             //melhorar essa lógica depois
             var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
-            var connection = @"Server=NVTSERVER;DataBase=TESTE2TS;Uid=NVT;Pwd=1;";
+            var connection = @"Server=NVTSERVER;DataBase=BDNVT;Uid=NVT;Pwd=1;";
             optionsBuilder.UseSqlServer(connection);
 
             _context = new BDNVTContext(optionsBuilder.Options);

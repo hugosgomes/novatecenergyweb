@@ -35,7 +35,7 @@ namespace NovatecEnergyWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = @"Server=NVTSERVER;DataBase=TESTE2TS;Uid=NVT;Pwd=1;";
+            var connection = @"Server=NVTSERVER;DataBase=BDNVT;Uid=NVT;Pwd=1;";
             services.AddDbContext<BDNVTContext>(options => options.UseSqlServer(connection));
 
             // Add framework services.

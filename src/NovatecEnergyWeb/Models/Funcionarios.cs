@@ -23,10 +23,6 @@ namespace NovatecEnergyWeb.Models
         public int Empresa { get; set; }
         public int Filial { get; set; }
         public int Setor { get; set; }
-        public int Estado { get; set; }
-        public int Localidade { get; set; }
-        public int Bairro { get; set; }
-        public int Tipo { get; set; }
         public int Logradouro { get; set; }
         public string Num { get; set; }
         public string Bloco { get; set; }
