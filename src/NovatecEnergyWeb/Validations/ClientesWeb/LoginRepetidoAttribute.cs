@@ -10,15 +10,15 @@ namespace NovatecEnergyWeb.Validations.ClientesWeb
 {
     public class LoginRepetidoAttribute : ValidationAttribute
     {
-        private TESTE2TSContext _context;
+        private BDNVTContext _context;
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<TESTE2TSContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
             var connection = @"Server=NVTSERVER;DataBase=TESTE2TS;Uid=NVT;Pwd=1;";
             optionsBuilder.UseSqlServer(connection);
 
-            _context = new TESTE2TSContext(optionsBuilder.Options);
+            _context = new BDNVTContext(optionsBuilder.Options);
 
             Models.ClientesWeb clientesWeb = (Models.ClientesWeb)validationContext.ObjectInstance;
 

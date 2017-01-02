@@ -11,16 +11,16 @@ namespace NovatecEnergyWeb.Validations
 {
     public class SenhaValidaAttribute : ValidationAttribute
     {
-        private TESTE2TSContext _context;
+        private BDNVTContext _context;
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             //melhorar essa lógica depois
-            var optionsBuilder = new DbContextOptionsBuilder<TESTE2TSContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
             var connection = @"Server=NVTSERVER;DataBase=TESTE2TS;Uid=NVT;Pwd=1;";
             optionsBuilder.UseSqlServer(connection);
 
-            _context = new TESTE2TSContext(optionsBuilder.Options);
+            _context = new BDNVTContext(optionsBuilder.Options);
 
             LoginViewModel account = (LoginViewModel)validationContext.ObjectInstance;
 

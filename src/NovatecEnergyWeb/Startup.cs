@@ -36,7 +36,7 @@ namespace NovatecEnergyWeb
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = @"Server=NVTSERVER;DataBase=TESTE2TS;Uid=NVT;Pwd=1;";
-            services.AddDbContext<TESTE2TSContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<BDNVTContext>(options => options.UseSqlServer(connection));
 
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);

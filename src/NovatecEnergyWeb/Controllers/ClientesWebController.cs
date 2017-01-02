@@ -12,9 +12,9 @@ namespace NovatecEnergyWeb.Controllers
     public class ClientesWebController : Controller
     {
 
-        private TESTE2TSContext _context;
+        private BDNVTContext _context;
 
-        public ClientesWebController(TESTE2TSContext context)
+        public ClientesWebController(BDNVTContext context)
         {
             _context = context;
         }

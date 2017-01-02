@@ -12,9 +12,9 @@ namespace NovatecEnergyWeb.Controllers
 {
     public class AccountController : Controller
     {
-        private TESTE2TSContext _context;
+        private BDNVTContext _context;
 
-        public AccountController(TESTE2TSContext context)
+        public AccountController(BDNVTContext context)
         {
             _context = context;
         }

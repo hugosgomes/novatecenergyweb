@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace NovatecEnergyWeb.Models
 {
-    public partial class TESTE2TSContext : DbContext
+    public partial class BDNVTContext : DbContext
     {
         public virtual DbSet<Cdtributacao> Cdtributacao { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
@@ -214,7 +214,7 @@ namespace NovatecEnergyWeb.Models
              optionsBuilder.UseSqlServer(@"Server=NVTSERVER;DataBase=TESTE2TS;Uid=NVT;Pwd=1;Trusted_Connection=True;");
          }*/
 
-        public TESTE2TSContext(DbContextOptions<TESTE2TSContext> options)
+        public BDNVTContext(DbContextOptions<BDNVTContext> options)
         : base(options)
         {
         }
