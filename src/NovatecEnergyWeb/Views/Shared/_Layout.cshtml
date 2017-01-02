@@ -37,7 +37,8 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contato</a></li>-->
                     @{
                         object us = Context.Session.GetInt32("UserId");
-                        if (us != null)
+                        string tipo = Context.Session.GetString("UserTipo");
+                        if ((us != null) && (tipo !=null && (tipo =="func")))
                         {
                              <li><a asp-area="" asp-controller="ClientesWeb" asp-action="Index">Ativação de clientes</a></li>
 

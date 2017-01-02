@@ -21,6 +21,7 @@ namespace NovatecEnergyWeb.Controllers
         }
 
         [AutenticacaoFilter]
+        [TipoFuncionarioFilter]
         public IActionResult Index()
         {
             IList<ClientesWeb> lista = _context.ClientesWeb
