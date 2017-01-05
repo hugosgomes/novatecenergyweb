@@ -30,7 +30,7 @@ namespace NovatecEnergyWeb.Validations
 
                 if (user != null)
                 {
-                    if (!Encryption.ValidateSHA1HashData(user.Senha, account.Senha))
+                    if (user.Senha != account.Senha)
                     {
                         return new ValidationResult("Senha inválida");
                     }

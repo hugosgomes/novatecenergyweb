@@ -34,5 +34,10 @@ namespace NovatecEnergyWeb.Controllers
         {
             return View();
         }
+
+        public IActionResult Grafico()
+        {
+            return View();
+        }
     }
 }

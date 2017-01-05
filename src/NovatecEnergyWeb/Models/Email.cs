@@ -56,10 +56,10 @@ namespace NovatecEnergyWeb.Models
     {
         public EmailDiretoria(string nomeCliente)
         {
-            _destinatario = "tsantana@novatecenergy.com.br"; // mudar depois para diretoria@novatecenergy.com.br
+            _destinatario = "diretoria@novatecenergy.com.br"; // mudar depois para diretoria@novatecenergy.com.br
             _assunto = "NovatecEnergyWeb - Novo cliente cadastrado";
             _conteudo = $"Foi cadastrado o(a) cliente " + nomeCliente +" no portal NovatecEnergyWeb."+ Environment.NewLine+
-                "Está aguardando a confirmação para realizar o poder realizar o login no sistema.";
+                "Está aguardando a confirmação para poder realizar o login no sistema.";
             _remetente = "ti@novatecenergy.com.br";
         }
     }
