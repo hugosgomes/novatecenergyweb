@@ -26,10 +26,10 @@ namespace NovatecEnergyWeb.Validations.TrocaSenha
             if (trocaSenha.Tipo == "func")
             {
                 var func = _context.Funcionários.Find(trocaSenha.Id);
-
-                if (func != null)
+                        
+                if ( (func != null) && (trocaSenha.SenhaAtual !=null)) // foi colocado esse AND porque essa critica de SenhaAtualInvalida está diparando primeiro( mesmo caso no cliente)
                 {
-                    if(func.Senha != trocaSenha.SenhaAtual)
+                    if(!Encryption.ValidateSHA1HashData(trocaSenha.SenhaAtual, func.Senha))
                     {
                         return new ValidationResult("Senha atual inválida");
                     }
@@ -38,8 +38,8 @@ namespace NovatecEnergyWeb.Validations.TrocaSenha
             }else
             {
                 var cli = _context.ClientesWeb.Find(trocaSenha.Id);
-
-                if (cli != null)
+                                    
+                if ( (cli != null) && (trocaSenha.SenhaAtual != null) )
                 {
                     if (!Encryption.ValidateSHA1HashData(trocaSenha.SenhaAtual, cli.Senha))
                     {

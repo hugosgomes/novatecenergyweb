@@ -35,7 +35,7 @@ namespace NovatecEnergyWeb.Validations
                 }
             }else
             {
-                var cliente = _context.ClientesWeb.Where(c => c.Login == account.Login).FirstOrDefaultAsync();
+                var cliente = _context.ClientesWeb.Where(c => c.Login == account.Login).FirstOrDefault();
 
                 if (cliente == null)
                 {
