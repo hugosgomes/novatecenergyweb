@@ -32,24 +32,8 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">NovatecEnergyWeb</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                  <!--  <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">Sobre</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contato</a></li>
-                    <li>
-                        <a asp-controller="Home" asp-action="Grafico"> Gráfico</a>
-                    </li>-->
-                        @{
-                            object us = Context.Session.GetInt32("UserId");
-                            string tipo = Context.Session.GetString("UserTipo");
-                            if ((us != null) && (tipo != null && (tipo == "func")))
-                            {
-<li><a asp-area="" asp-controller="ClientesWeb" asp-action="Index">Ativação de clientes</a></li>
+                @Html.Partial("_MenuPrincipal")
 
-                        }
-                       
-                     }
-                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         @{

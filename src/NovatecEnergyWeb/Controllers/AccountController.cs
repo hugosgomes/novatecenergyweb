@@ -43,6 +43,8 @@ namespace NovatecEnergyWeb.Controllers
                         HttpContext.Session.SetInt32("UserId", user[0].Id);
                         HttpContext.Session.SetString("Login", user[0].Login);
                         HttpContext.Session.SetString("UserTipo", account.Tipo);
+                        HttpContext.Session.SetInt32("Grupo", Convert.ToInt32(user[0].Grupo));
+                        //user[0].Grupo == 1 ? "diretoria" : ""
                     }
                 }
                 else
@@ -55,6 +57,7 @@ namespace NovatecEnergyWeb.Controllers
                         HttpContext.Session.SetInt32("UserId", cliente[0].Id);
                         HttpContext.Session.SetString("Login", cliente[0].Login);
                         HttpContext.Session.SetString("UserTipo", account.Tipo);
+                        HttpContext.Session.SetInt32("Grupo", -1); // cliente não possui grupo e 0 é grupo de TI
                     }
 
                 }
@@ -74,6 +77,7 @@ namespace NovatecEnergyWeb.Controllers
             HttpContext.Session.Remove("UserId");
             HttpContext.Session.Remove("Login");
             HttpContext.Session.Remove("UserTipo");
+            HttpContext.Session.Remove("Grupo");
 
             return RedirectToAction("Login", "Account");
         }

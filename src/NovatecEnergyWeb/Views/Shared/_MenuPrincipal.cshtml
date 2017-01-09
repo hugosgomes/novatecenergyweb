@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Http;
+<ul class="nav navbar-nav">
+    <!--  <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+      <li><a asp-area="" asp-controller="Home" asp-action="About">Sobre</a></li>
+      <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contato</a></li>
+      <li>
+          <a asp-controller="Home" asp-action="Grafico"> Gráfico</a>
+      </li>-->
+    @{
+        object us = Context.Session.GetInt32("UserId");
+        string tipo = Context.Session.GetString("UserTipo");
+        int grupo = Convert.ToInt32(Context.Session.GetInt32("Grupo"));
+
+        if ((us != null) && (tipo != null && (tipo == "func")))
+        {
+            if (grupo == 1)
+            {
+                 <li><a href="#">Financeiro</a></li>
+            }
+                 <li><a href="#">Oferta pública</a></li>
+                 <li><a href="#">Rede</a></li>
+            if (grupo == 1)
+            {
+                <li><a asp-area="" asp-controller="ClientesWeb" asp-action="Index">Ativação de clientes</a></li>
+            }
+
+        }
+        else if((us != null) && (tipo != null && (tipo == "cli")))
+        {
+            <li><a href="#">Oferta pública</a></li>
+            <li><a href="#">Rede</a></li>
+
+        }
+
+    }
+</ul>
