@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Http;
+<ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        @{
+            object user = Context.Session.GetInt32("UserId");
+            if (user != null)
+            {
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Olá, @Context.Session.GetString("Login") <span class="caret"></span> </a>
+            }
+            else
+            {
+                <a asp-controller="ClientesWeb" asp-action="Create"><span class="glyphicon glyphicon-log-in"></span> Cadastre-se</a>
+
+            }
+        }
+
+
+        <ul class="dropdown-menu">
+
+       
+        @{
+
+            object a = Context.Session.GetInt32("UserId");
+            if (a != null)
+            {
+
+            <!--<li><a  href="#">Olá, @Context.Session.GetString("Login")</a></li>-->
+            <li><a asp-area="" asp-controller="Account" asp-action="TrocaSenha">Trocar Senha</a></li>
+                                    <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+            }
+
+        }
+
+</ul>
+</li>
+</ul>
