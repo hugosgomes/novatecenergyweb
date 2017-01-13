@@ -7,7 +7,7 @@
     <canvas id="canvas"></canvas>
 </div>
 <script>
-    var MONTHS = ["Janeiro", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var MESES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
     var randomScalingFactor = function () {
         return Math.round(Math.random() * 100);
@@ -24,50 +24,31 @@
         type: 'line',
         data: {
             labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho"],
-            datasets: [{
+            datasets: [
+                {
                 label: "2014",
-                data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
+                data: [],
                 fill: false,
                 borderDash: [5, 5],
             }, {
-                hidden: true,
+                hidden: false,
                 label: '2015',
-                data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
+                data: [],
             }, {
                 label: "2016",
-                data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
+                data: [],
             }]
         },
         options: {
             responsive: true,
             title: {
                 display: true,
-                text: 'Chart.js Line Chart'
+                text: 'Metas - Cargas'
             },
             tooltips: {
                 mode: 'label',
                 callbacks: {
-                    // beforeTitle: function() {
-                    //     return '...beforeTitle';
-                    // },
-                    // afterTitle: function() {
-                    //     return '...afterTitle';
-                    // },
-                    // beforeBody: function() {
-                    //     return '...beforeBody';
-                    // },
-                    // afterBody: function() {
-                    //     return '...afterBody';
-                    // },
-                    // beforeFooter: function() {
-                    //     return '...beforeFooter';
-                    // },
-                    // footer: function() {
-                    //     return 'Footer';
-                    // },
-                    // afterFooter: function() {
-                    //     return '...afterFooter';
-                    // },
+                
                 }
             },
             hover: {

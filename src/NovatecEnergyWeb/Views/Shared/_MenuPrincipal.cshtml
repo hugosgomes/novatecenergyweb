@@ -1,11 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http;
 <ul class="nav navbar-nav">
-    <!--  <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-      <li><a asp-area="" asp-controller="Home" asp-action="About">Sobre</a></li>
-      <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contato</a></li>
-      <li>
-          <a asp-controller="Home" asp-action="Grafico"> Gráfico</a>
-      </li>-->
+  
     @{
         object us = Context.Session.GetInt32("UserId");
         string tipo = Context.Session.GetString("UserTipo");
@@ -17,7 +12,12 @@
             {
                  <li><a href="#">Financeiro</a></li>
             }
-                 <li><a href="#">Oferta pública</a></li>
+                 <li class="dropdown" >
+                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Oferta pública <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a asp-area="" asp-controller="Metas" asp-action="Index">Metas</a></li>
+                      </ul>
+                 </li>
                  <li><a href="#">Rede</a></li>
             if (grupo == 1)
             {

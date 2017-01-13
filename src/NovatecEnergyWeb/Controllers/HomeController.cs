@@ -4,11 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Filters.ActionFilters;
+using NovatecEnergyWeb.Models;
+using NovatecEnergyWeb.Models.MetasViewModels;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace NovatecEnergyWeb.Controllers
 {
     public class HomeController : Controller
     {
+        private BDNVTContext _context;
+
+        public HomeController(BDNVTContext context)
+        {
+            _context = context;
+        }
+
         [AutenticacaoFilter]
         public IActionResult Index()
         {
@@ -40,9 +51,12 @@ namespace NovatecEnergyWeb.Controllers
             return View();
         }
 
-        public IActionResult Isp()
+
+        public IActionResult TesteSP()
         {
-            return View();
+            var retorno = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").ToList();
+            
+            return Json(retorno);
         }
     }
 }

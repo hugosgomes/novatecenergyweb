@@ -15,22 +15,21 @@
         }
 
 
-        <ul class="dropdown-menu">
+            <ul class="dropdown-menu">
 
        
-        @{
+            @{
 
-            object a = Context.Session.GetInt32("UserId");
-            if (a != null)
-            {
+                object a = Context.Session.GetInt32("UserId");
+                if (a != null)
+                {
 
-            <!--<li><a  href="#">Olá, @Context.Session.GetString("Login")</a></li>-->
-            <li><a asp-area="" asp-controller="Account" asp-action="TrocaSenha">Trocar Senha</a></li>
-                                    <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                <li><a asp-area="" asp-controller="Account" asp-action="TrocaSenha">Trocar Senha</a></li>
+                                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                }
+
             }
 
-        }
-
-</ul>
-</li>
+            </ul>
+   </li>
 </ul>

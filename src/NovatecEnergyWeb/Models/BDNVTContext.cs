@@ -1,11 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using NovatecEnergyWeb.Models.MetasViewModels;
 
 namespace NovatecEnergyWeb.Models
 {
     public partial class BDNVTContext : DbContext
     {
+        public virtual DbSet<_10_MetasCargas> _10_MetasCargas { get; set; }
         public virtual DbSet<Cdtributacao> Cdtributacao { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<Cnaes> Cnaes { get; set; }
@@ -221,6 +223,8 @@ namespace NovatecEnergyWeb.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<_10_MetasCargas>().HasKey(c => c.Id);
+
             modelBuilder.Entity<Cdtributacao>(entity =>
             {
                 entity.HasKey(e => e.CdTribut)
@@ -9012,6 +9016,7 @@ namespace NovatecEnergyWeb.Models
                 .HasColumnName("EMAIL")
                 .HasMaxLength(255);
             });
+
         }
     }
 }
