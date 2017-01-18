@@ -11,7 +11,7 @@ namespace NovatecEnergyWeb.Models.MetasViewModels
 
         public string Zona { get; set; }
 
-        public List<int> Meses { get; set; }
+        public List<string> Meses { get; set; }
 
         public List<string> MesesPorcentagem { get; set; }
 
@@ -33,18 +33,20 @@ namespace NovatecEnergyWeb.Models.MetasViewModels
                 var quantidadeAtual = 12 - this.Meses.Count;
                 for (int i = 0; i < quantidadeAtual; i++)
                 {
-                    this.Meses.Add(0);
+                    this.Meses.Add("");
                 }
             }
-            if (this.MesesPorcentagem.Count < 12)
+            if (this.MesesPorcentagem != null)
             {
-                var quantidadeAtual = 12 - this.MesesPorcentagem.Count;
-                for (int i = 0; i < quantidadeAtual; i++)
+                if (this.MesesPorcentagem.Count < 12)
                 {
-                    this.MesesPorcentagem.Add("");
+                    var quantidadeAtual = 12 - this.MesesPorcentagem.Count;
+                    for (int i = 0; i < quantidadeAtual; i++)
+                    {
+                        this.MesesPorcentagem.Add("");
+                    }
                 }
             }
-           
         }
     }
 }

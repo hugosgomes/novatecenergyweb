@@ -46,8 +46,8 @@ namespace NovatecEnergyWeb.Controllers
             var fluminense = new ResultadosViewModel();
             var metropolitana = new ResultadosViewModel();
 
-            metropolitana.Meses = new List<int>();
-            fluminense.Meses = new List<int>();
+            metropolitana.Meses = new List<string>();
+            fluminense.Meses = new List<string>();
 
             List<ResultadosViewModel> resultados = new List<ResultadosViewModel>();
 
@@ -104,13 +104,13 @@ namespace NovatecEnergyWeb.Controllers
                     }
 
                     if (tipoMeta == "resultados")
-                        metropolitana.Meses.Add(Convert.ToInt32(item.Res)); // valor correspondente a cada mês
+                        metropolitana.Meses.Add(Convert.ToInt32(item.Res).ToString()); // valor correspondente a cada mês
                     else if (tipoMeta == "metas")
-                        metropolitana.Meses.Add(Convert.ToInt32(item.Meta));
+                        metropolitana.Meses.Add(Convert.ToInt32(item.Meta).ToString());
                     else if (tipoMeta == "cargas")
-                        metropolitana.Meses.Add(Convert.ToInt32(item.Cargas));
+                        metropolitana.Meses.Add(Convert.ToInt32(item.Cargas).ToString());
                     else if (tipoMeta == "metasD2")
-                        metropolitana.Meses.Add(Convert.ToInt32(item.MetaD2));
+                        metropolitana.Meses.Add(Convert.ToInt32(item.MetaD2).ToString());
                 }
                 else
                 {
@@ -160,15 +160,18 @@ namespace NovatecEnergyWeb.Controllers
                     }
 
                     if (tipoMeta == "resultados")
-                        fluminense.Meses.Add(Convert.ToInt32(item.Res)); // valor correspondente a cada mês
+                        fluminense.Meses.Add(Convert.ToInt32(item.Res).ToString()); // valor correspondente a cada mês
                     else if (tipoMeta == "metas")
-                        fluminense.Meses.Add(Convert.ToInt32(item.Meta));
+                        fluminense.Meses.Add(Convert.ToInt32(item.Meta).ToString());
                     else if (tipoMeta == "cargas")
-                        fluminense.Meses.Add(Convert.ToInt32(item.Cargas));
+                        fluminense.Meses.Add(Convert.ToInt32(item.Cargas).ToString());
                     else if (tipoMeta == "metasD2")
-                        fluminense.Meses.Add(Convert.ToInt32(item.MetaD2));
+                        fluminense.Meses.Add(Convert.ToInt32(item.MetaD2).ToString());
                 }
             }
+
+            metropolitana.AcrescentaMesesQueFaltam();
+            fluminense.AcrescentaMesesQueFaltam();
 
             metropolitana.Zona = "Metropolitana";
             metropolitana.Anual = metropolitana.Trim1 + metropolitana.Trim2 +
@@ -189,8 +192,8 @@ namespace NovatecEnergyWeb.Controllers
             var fluminense = new ResultadosViewModel();
             var metropolitana = new ResultadosViewModel();
 
-            metropolitana.Meses = new List<int>();
-            fluminense.Meses = new List<int>();
+            metropolitana.Meses = new List<string>();
+            fluminense.Meses = new List<string>();
 
             metropolitana.MesesPorcentagem = new List<string>();
             fluminense.MesesPorcentagem = new List<string>();
@@ -232,11 +235,11 @@ namespace NovatecEnergyWeb.Controllers
                     }
 
                     if (tipoMeta == "numeroD2")
-                        metropolitana.Meses.Add(item.D2);
+                        metropolitana.Meses.Add(item.D2.ToString());
                     else if (tipoMeta == "resultadosD2")
-                        metropolitana.Meses.Add(Convert.ToInt32(item.Rd2));
+                        metropolitana.Meses.Add(Convert.ToInt32(item.Rd2).ToString());
                     else if (tipoMeta == "porcentagemD2")
-                        metropolitana.MesesPorcentagem.Add((Convert.ToDouble(item.Pd2)*100).ToString());
+                        metropolitana.MesesPorcentagem.Add((Convert.ToDouble(item.Pd2)*100).ToString() + "%");
                 }
                 else
                 {
@@ -269,11 +272,11 @@ namespace NovatecEnergyWeb.Controllers
                             fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.Rd2);
                     }
                     if (tipoMeta == "numeroD2")
-                        fluminense.Meses.Add(Convert.ToInt32(item.D2));
+                        fluminense.Meses.Add(Convert.ToInt32(item.D2).ToString());
                     else if (tipoMeta == "resultadosD2")
-                        fluminense.Meses.Add(Convert.ToInt32(item.Rd2));
+                        fluminense.Meses.Add(Convert.ToInt32(item.Rd2).ToString());
                     else if (tipoMeta == "porcentagemD2")
-                        fluminense.MesesPorcentagem.Add((Convert.ToDouble(item.Pd2) * 100).ToString());
+                        fluminense.MesesPorcentagem.Add((Convert.ToDouble(item.Pd2) * 100).ToString()+"%");
                 }
             }
 
