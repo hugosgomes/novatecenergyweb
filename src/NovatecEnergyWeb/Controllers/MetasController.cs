@@ -24,8 +24,8 @@ namespace NovatecEnergyWeb.Controllers
         
         public IActionResult Index()
         {
-            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2015).ToList();
-            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2015).ToList();
+            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2017).ToList();
+            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2017).ToList();
 
             dynamic mymodel = new ExpandoObject();
 
@@ -187,7 +187,7 @@ namespace NovatecEnergyWeb.Controllers
             return resultados;
         }
 
-        public List<ResultadosViewModel>GetNumerosD2(List<_10_CargasMetas> listaD2, string tipoMeta)
+        public List<ResultadosViewModel> GetNumerosD2(List<_10_CargasMetas> listaD2, string tipoMeta)
         {
             var fluminense = new ResultadosViewModel();
             var metropolitana = new ResultadosViewModel();
@@ -197,10 +197,27 @@ namespace NovatecEnergyWeb.Controllers
 
             List<ResultadosViewModel> resultados = new List<ResultadosViewModel>();
 
+            int contaMesesMediaMetro1 = 0;
+            int contaMesesMediaMetro2 = 0;
+            int contaMesesMediaMetro3 = 0;
+            int contaMesesMediaMetro4 = 0;
+
+            int contaMesesMediaFlu1 = 0;
+            int contaMesesMediaFlu2 = 0;
+            int contaMesesMediaFlu3 = 0;
+            int contaMesesMediaFlu4 = 0;
+
             foreach (var item in listaD2)
             {
                 if (item.ZonaId == 1)
                 {
+                    if (tipoMeta == "numeroD2")
+                        metropolitana.Meses.Add(item.D2.ToString());
+                    else if (tipoMeta == "resultadosD2")
+                        metropolitana.Meses.Add(Convert.ToInt32(item.Rd2).ToString());
+                    else if (tipoMeta == "porcentagemD2")
+                        metropolitana.Meses.Add((Convert.ToDouble(item.Pd2) * 100).ToString() );
+
 
                     if (item.MesCarga == 1 || item.MesCarga == 2 || item.MesCarga == 3)
                     {
@@ -208,6 +225,11 @@ namespace NovatecEnergyWeb.Controllers
                             metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(item.Rd2);
+                        else if (tipoMeta == "porcentagemD2")
+                        {
+                            metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
+                            contaMesesMediaMetro1 = contaMesesMediaMetro1 + 1;
+                        }
                     }
                     else if (item.MesCarga == 4 || item.MesCarga == 5 || item.MesCarga == 6)
                     {
@@ -215,6 +237,11 @@ namespace NovatecEnergyWeb.Controllers
                             metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(item.Rd2);
+                        else if (tipoMeta == "porcentagemD2")
+                        {
+                            metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
+                            contaMesesMediaMetro2 = contaMesesMediaMetro2 + 1;
+                        }
                     }
                     else if (item.MesCarga == 7 || item.MesCarga == 8 || item.MesCarga == 9)
                     {
@@ -222,6 +249,11 @@ namespace NovatecEnergyWeb.Controllers
                             metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(item.Rd2);
+                        else if (tipoMeta == "porcentagemD2")
+                        {
+                            metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
+                            contaMesesMediaMetro3 = contaMesesMediaMetro3 + 1;
+                        }
                     }
                     else if (item.MesCarga == 10 || item.MesCarga == 11 || item.MesCarga == 12)
                     {
@@ -229,23 +261,35 @@ namespace NovatecEnergyWeb.Controllers
                             metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(item.Rd2);
+                        else if (tipoMeta == "porcentagemD2")
+                        {
+                            metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
+                            contaMesesMediaMetro4 = contaMesesMediaMetro4 + 1;
+                        }
                     }
-
-                    if (tipoMeta == "numeroD2")
-                        metropolitana.Meses.Add(item.D2.ToString());
-                    else if (tipoMeta == "resultadosD2")
-                        metropolitana.Meses.Add(Convert.ToInt32(item.Rd2).ToString());
-                    else if (tipoMeta == "porcentagemD2")
-                        metropolitana.Meses.Add((Convert.ToDouble(item.Pd2)*100).ToString() + "%");
                 }
                 else
                 {
+                    //
+                    if (tipoMeta == "numeroD2")
+                        fluminense.Meses.Add(Convert.ToInt32(item.D2).ToString());
+                    else if (tipoMeta == "resultadosD2")
+                        fluminense.Meses.Add(Convert.ToInt32(item.Rd2).ToString());
+                    else if (tipoMeta == "porcentagemD2")
+                        fluminense.Meses.Add((Convert.ToDouble(item.Pd2) * 100).ToString());
+
+
                     if (item.MesCarga == 1 || item.MesCarga == 2 || item.MesCarga == 3)
                     {
                         if (tipoMeta == "numeroD2")
                             fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(item.Rd2);
+                        else if (tipoMeta == "porcentagemD2")
+                        {
+                            fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
+                            contaMesesMediaFlu1 = contaMesesMediaFlu1 + 1;
+                        }
                     }
                     else if (item.MesCarga == 4 || item.MesCarga == 5 || item.MesCarga == 6)
                     {
@@ -253,6 +297,11 @@ namespace NovatecEnergyWeb.Controllers
                             fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(item.Rd2);
+                        else if (tipoMeta == "porcentagemD2")
+                        {
+                            fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
+                            contaMesesMediaFlu2 = contaMesesMediaFlu2 + 1;
+                        }
                     }
                     else if (item.MesCarga == 7 || item.MesCarga == 8 || item.MesCarga == 9)
                     {
@@ -260,6 +309,11 @@ namespace NovatecEnergyWeb.Controllers
                             fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(item.Rd2);
+                        else if (tipoMeta == "porcentagemD2")
+                        {
+                            fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
+                            contaMesesMediaFlu3 = contaMesesMediaFlu3 + 1;
+                        }
                     }
                     else if (item.MesCarga == 10 || item.MesCarga == 11 || item.MesCarga == 12)
                     {
@@ -267,13 +321,13 @@ namespace NovatecEnergyWeb.Controllers
                             fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.Rd2);
+                        else if (tipoMeta == "porcentagemD2")
+                        {
+                            fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
+                            contaMesesMediaFlu4 = contaMesesMediaFlu4 + 1;
+                        }
                     }
-                    if (tipoMeta == "numeroD2")
-                        fluminense.Meses.Add(Convert.ToInt32(item.D2).ToString());
-                    else if (tipoMeta == "resultadosD2")
-                        fluminense.Meses.Add(Convert.ToInt32(item.Rd2).ToString());
-                    else if (tipoMeta == "porcentagemD2")
-                        fluminense.Meses.Add((Convert.ToDouble(item.Pd2) * 100).ToString()+"%");
+
                 }
             }
             //caso não tenha as colunas todas de meses preenchidos
@@ -281,12 +335,31 @@ namespace NovatecEnergyWeb.Controllers
             fluminense.AcrescentaMesesQueFaltam();
 
             metropolitana.Zona = "Metropolitana";
-            metropolitana.Anual = metropolitana.Trim1 + metropolitana.Trim2 +
-            metropolitana.Trim3 + metropolitana.Trim4;
-
             fluminense.Zona = "Fluminense";
-            fluminense.Anual = fluminense.Trim1 + fluminense.Trim2 +
-            fluminense.Trim3 + fluminense.Trim4;
+
+            if (tipoMeta != "porcentagemD2")
+            {
+                metropolitana.Anual = metropolitana.Trim1 + metropolitana.Trim2 +
+                metropolitana.Trim3 + metropolitana.Trim4;
+
+                fluminense.Anual = fluminense.Trim1 + fluminense.Trim2 +
+                fluminense.Trim3 + fluminense.Trim4;
+            }else
+            {
+                
+                fluminense.Trim1 = (contaMesesMediaFlu1 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(fluminense.Trim1), Convert.ToDecimal(contaMesesMediaFlu1))):0;
+                fluminense.Trim2 = (contaMesesMediaFlu2 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(fluminense.Trim2), Convert.ToDecimal(contaMesesMediaFlu2))):0;
+                fluminense.Trim3 = (contaMesesMediaFlu3 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(fluminense.Trim3), Convert.ToDecimal(contaMesesMediaFlu3))):0;
+                fluminense.Trim4 = (contaMesesMediaFlu4 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(fluminense.Trim4), Convert.ToDecimal(contaMesesMediaFlu4))):0;
+
+                metropolitana.Trim1 = (contaMesesMediaMetro1 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(metropolitana.Trim1), Convert.ToDecimal(contaMesesMediaMetro1))):0;
+                metropolitana.Trim2 = (contaMesesMediaMetro2 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(metropolitana.Trim2), Convert.ToDecimal(contaMesesMediaMetro2))):0;
+                metropolitana.Trim3 = (contaMesesMediaMetro3 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(metropolitana.Trim3), Convert.ToDecimal(contaMesesMediaMetro3))):0;
+                metropolitana.Trim4 = (contaMesesMediaMetro4 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(metropolitana.Trim4), Convert.ToDecimal(contaMesesMediaMetro4))):0;
+
+                fluminense.Anual = Convert.ToInt32(fluminense.Meses.Where(c => c != "").Select(int.Parse).ToList().Average());
+                metropolitana.Anual = Convert.ToInt32(metropolitana.Meses.Where(c => c != "").Select(int.Parse).ToList().Average());
+            }
 
             resultados.Add(fluminense);
             resultados.Add(metropolitana);
