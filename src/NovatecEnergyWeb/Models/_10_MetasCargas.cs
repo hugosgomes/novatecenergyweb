@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NovatecEnergyWeb.Models
 {
-    public class _10_MetasCargas
+    public class _10_MetasCargas // classe que recebe o retorno da SP 10_MetasCargas
     {
         public Int64 Id { get; set; }
 
@@ -20,6 +20,8 @@ namespace NovatecEnergyWeb.Models
         public Double Res { get; set; }
 
         public int Cargas { get; set; }
+
+        public Double MetaD2 { get; set; }
 
         public int ZonaId { get; set; }
     }

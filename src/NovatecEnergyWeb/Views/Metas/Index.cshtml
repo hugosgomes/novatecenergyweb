@@ -1,11 +1,18 @@
 ﻿@using NovatecEnergyWeb.Models;
 
-@model IEnumerable<NovatecEnergyWeb.Models.MetasViewModels.ResultadosViewModel>
+@model dynamic
 @{ 
     ViewData["Title"] = "Metas - Cargas";
 }
 
 <h2>@ViewData["Title"]</h2>
+
+<select>
+    <option>2014</option>
+    <option selected>2015</option>
+    <option>2016</option>
+    <option>2017</option>
+</select>
 <hr />
 <table class="table table-bordered">
     <thead>
@@ -31,26 +38,64 @@
         </tr>
     </thead>
     <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Resultados)
             {
                 <tr>
                     <td>@item.Zona</td>
-                    <td>@item.Meses[0]</td>
-                    <td>@item.Meses[1]</td>
-                    <td>@item.Meses[2]</td>
-                    <td>@item.Trim1</td>
-                    <td>@item.Meses[3]</td>
-                    <td>@item.Meses[4]</td>
-                    <td>@item.Meses[5]</td>
-                    <td>@item.Trim2</td>
-                    <td>@item.Meses[6]</td>
-                    <td>@item.Meses[7]</td>
-                    <td>@item.Meses[8]</td>
-                    <td>@item.Trim3</td>
-                    <td>@item.Meses[9]</td>
-                    <td>@item.Meses[10]</td>
-                    <td>@item.Meses[11]</td>
-                    <td>@item.Trim4</td>
+
+                    @for (int i = 0; i < item.Meses.Count; i++)
+                    {
+                        <td>@item.Meses[i]</td>
+
+                        if (i == 2)
+                        {
+                            <td>@item.Trim1</td>
+                        }
+                        else if (i == 5)
+                        {
+                            <td>@item.Trim2</td>
+                        }
+                        else if (i == 8)
+                        {
+                            <td>@item.Trim3</td>
+                        }
+                        else if (i == 11)
+                        {
+                            <td>@item.Trim4</td>
+                        }
+
+                    }
+                     @{
+                         int contaTrimestres = 0;
+                         if (item.Trim1 != 0)// trimestre preenchido
+                         {
+                             contaTrimestres = contaTrimestres + 1;
+                         }
+                         if (item.Trim2 != 0)
+                         {
+                             contaTrimestres = contaTrimestres + 1;
+                         }
+                         if (item.Trim3 != 0)
+                         {
+                             contaTrimestres = contaTrimestres + 1;
+                         }
+
+                         if (item.Trim4 != 0)
+                         {
+                             contaTrimestres = contaTrimestres + 1;
+                         }
+
+                         int colunasFaltam = 16 - (contaTrimestres * 4);
+
+                         if (colunasFaltam > 0)
+                         {
+                             for (int i = 0; i < colunasFaltam; i++)
+                             {
+                                <td></td> // acrescenta TDs que faltam até a coluna de Anual
+                             }
+
+                         }
+                    }
                     <td>@item.Anual</td>
                 </tr>
             }
@@ -84,16 +129,67 @@
     </thead>
     <tbody>
 
-        <tr>
-            <td>Fluminense</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Metropolitana</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
+        @foreach (var item in Model.Metas)
+            {
+            <tr>
+                <td>@item.Zona</td>
+
+                @for (int i = 0; i < item.Meses.Count; i++)
+                {
+                    <td>@item.Meses[i]</td>
+
+                    if (i == 2)
+                    {
+                        <td>@item.Trim1</td>
+                    }
+                    else if (i == 5)
+                    {
+                        <td>@item.Trim2</td>
+                    }
+                    else if (i == 8)
+                    {
+                        <td>@item.Trim3</td>
+                    }
+                    else if (i == 11)
+                    {
+                        <td>@item.Trim4</td>
+                    }
+
+                }
+                @{
+                    int contaTrimestres = 0;
+                    if (item.Trim1 != 0)// trimestre preenchido
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim2 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim3 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    if (item.Trim4 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    int colunasFaltam = 16 - (contaTrimestres * 4);
+
+                    if (colunasFaltam > 0)
+                    {
+                        for (int i = 0; i < colunasFaltam; i++)
+                        {
+                            <td></td> // acrescenta TDs que faltam até a coluna de Anual
+                        }
+
+                    }
+                }
+                <td>@item.Anual</td>
+            </tr>
+         }
 
     </tbody>
 </table>
@@ -123,16 +219,434 @@
     </thead>
     <tbody>
 
+        @foreach (var item in Model.Cargas)
+            {
+            <tr>
+                <td>@item.Zona</td>
+
+                @for (int i = 0; i < item.Meses.Count; i++)
+                {
+                    <td>@item.Meses[i]</td>
+
+                    if (i == 2)
+                    {
+                        <td>@item.Trim1</td>
+                    }
+                    else if (i == 5)
+                    {
+                        <td>@item.Trim2</td>
+                    }
+                    else if (i == 8)
+                    {
+                        <td>@item.Trim3</td>
+                    }
+                    else if (i == 11)
+                    {
+                        <td>@item.Trim4</td>
+                    }
+
+                }
+                @{
+                    int contaTrimestres = 0;
+                    if (item.Trim1 != 0)// trimestre preenchido
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim2 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim3 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    if (item.Trim4 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    int colunasFaltam = 16 - (contaTrimestres * 4);
+
+                    if (colunasFaltam > 0)
+                    {
+                        for (int i = 0; i < colunasFaltam; i++)
+                        {
+                            <td></td> // acrescenta TDs que faltam até a coluna de Anual
+                        }
+
+                    }
+                }
+                <td>@item.Anual</td>
+            </tr>
+                    }
+
+    </tbody>
+</table>
+<hr />
+<table class="table table-bordered">
+    <thead>
         <tr>
-            <td>Fluminense</td>
-            <td>0</td>
-            <td>0</td>
+            <th class="text-center">Metas D2</th>
+            <th class="text-center">Jan</th>
+            <th class="text-center">Fev</th>
+            <th class="text-center">Mar</th>
+            <th class="text-center">1ºTrim</th>
+            <th class="text-center">Abr</th>
+            <th class="text-center">Mai</th>
+            <th class="text-center">Jun</th>
+            <th class="text-center">2ºTrim</th>
+            <th class="text-center">Jul</th>
+            <th class="text-center">Ago</th>
+            <th class="text-center">Set</th>
+            <th class="text-center">3ºTrim</th>
+            <th class="text-center">Out</th>
+            <th class="text-center">Nov</th>
+            <th class="text-center">Dec</th>
+            <th class="text-center">4ºTrim</th>
+            <th class="text-center">Anual</th>
         </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in Model.MetasD2)
+            {
+            <tr>
+                <td>@item.Zona</td>
+
+                @for (int i = 0; i < item.Meses.Count; i++)
+                {
+                    <td>@item.Meses[i]</td>
+
+                    if (i == 2)
+                    {
+                        <td>@item.Trim1</td>
+                    }
+                    else if (i == 5)
+                    {
+                        <td>@item.Trim2</td>
+                    }
+                    else if (i == 8)
+                    {
+                        <td>@item.Trim3</td>
+                    }
+                    else if (i == 11)
+                    {
+                        <td>@item.Trim4</td>
+                    }
+
+                }
+                @{
+                    int contaTrimestres = 0;
+                    if (item.Trim1 != 0)// trimestre preenchido
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim2 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim3 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    if (item.Trim4 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    int colunasFaltam = 16 - (contaTrimestres * 4);
+
+                    if (colunasFaltam > 0)
+                    {
+                        for (int i = 0; i < colunasFaltam; i++)
+                        {
+                            <td></td> // acrescenta TDs que faltam até a coluna de Anual
+                        }
+
+                    }
+                }
+                <td>@item.Anual</td>
+            </tr>
+                    }
+       
+
+    </tbody>
+</table>
+<hr />
+<table class="table table-bordered">
+    <thead>
         <tr>
-            <td>Metropolitana</td>
-            <td>4</td>
-            <td>15</td>
+            <th class="text-center">Nº Cargas D2</th>
+            <th class="text-center">Jan</th>
+            <th class="text-center">Fev</th>
+            <th class="text-center">Mar</th>
+            <th class="text-center">1ºTrim</th>
+            <th class="text-center">Abr</th>
+            <th class="text-center">Mai</th>
+            <th class="text-center">Jun</th>
+            <th class="text-center">2ºTrim</th>
+            <th class="text-center">Jul</th>
+            <th class="text-center">Ago</th>
+            <th class="text-center">Set</th>
+            <th class="text-center">3ºTrim</th>
+            <th class="text-center">Out</th>
+            <th class="text-center">Nov</th>
+            <th class="text-center">Dec</th>
+            <th class="text-center">4ºTrim</th>
+            <th class="text-center">Anual</th>
         </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CargasD2)
+            {
+            <tr>
+                <td>@item.Zona</td>
+
+                @for (int i = 0; i < item.Meses.Count; i++)
+                {
+                    <td>@item.Meses[i]</td>
+
+                    if (i == 2)
+                    {
+                        <td>@item.Trim1</td>
+                    }
+                    else if (i == 5)
+                    {
+                        <td>@item.Trim2</td>
+                    }
+                    else if (i == 8)
+                    {
+                        <td>@item.Trim3</td>
+                    }
+                    else if (i == 11)
+                    {
+                        <td>@item.Trim4</td>
+                    }
+
+                }
+                @{
+                    int contaTrimestres = 0;
+                    if (item.Trim1 != 0)// trimestre preenchido
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim2 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim3 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    if (item.Trim4 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    int colunasFaltam = 16 - (contaTrimestres * 4);
+
+                    if (colunasFaltam > 0)
+                    {
+                        for (int i = 0; i < colunasFaltam; i++)
+                        {
+                            <td></td> // acrescenta TDs que faltam até a coluna de Anual
+                        }
+
+                    }
+                }
+                <td>@item.Anual</td>
+            </tr>
+                    }
+
+
+    </tbody>
+</table>
+<hr />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="text-center">Resultado D2</th>
+            <th class="text-center">Jan</th>
+            <th class="text-center">Fev</th>
+            <th class="text-center">Mar</th>
+            <th class="text-center">1ºTrim</th>
+            <th class="text-center">Abr</th>
+            <th class="text-center">Mai</th>
+            <th class="text-center">Jun</th>
+            <th class="text-center">2ºTrim</th>
+            <th class="text-center">Jul</th>
+            <th class="text-center">Ago</th>
+            <th class="text-center">Set</th>
+            <th class="text-center">3ºTrim</th>
+            <th class="text-center">Out</th>
+            <th class="text-center">Nov</th>
+            <th class="text-center">Dec</th>
+            <th class="text-center">4ºTrim</th>
+            <th class="text-center">Anual</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in Model.ResultadoD2)
+            {
+            <tr>
+                <td>@item.Zona</td>
+
+                @for (int i = 0; i < item.Meses.Count; i++)
+                {
+                    <td>@item.Meses[i]</td>
+
+                    if (i == 2)
+                    {
+                        <td>@item.Trim1</td>
+                    }
+                    else if (i == 5)
+                    {
+                        <td>@item.Trim2</td>
+                    }
+                    else if (i == 8)
+                    {
+                        <td>@item.Trim3</td>
+                    }
+                    else if (i == 11)
+                    {
+                        <td>@item.Trim4</td>
+                    }
+
+                }
+                @{
+                    int contaTrimestres = 0;
+                    if (item.Trim1 != 0)// trimestre preenchido
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim2 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim3 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    if (item.Trim4 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    int colunasFaltam = 16 - (contaTrimestres * 4);
+
+                    if (colunasFaltam > 0)
+                    {
+                        for (int i = 0; i < colunasFaltam; i++)
+                        {
+                            <td></td> // acrescenta TDs que faltam até a coluna de Anual
+                        }
+
+                    }
+                }
+                <td>@item.Anual</td>
+            </tr>
+                    }
+
+
+    </tbody>
+</table>
+<hr />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="text-center">% Cargas D2</th>
+            <th class="text-center">Jan</th>
+            <th class="text-center">Fev</th>
+            <th class="text-center">Mar</th>
+            <th class="text-center">1ºTrim</th>
+            <th class="text-center">Abr</th>
+            <th class="text-center">Mai</th>
+            <th class="text-center">Jun</th>
+            <th class="text-center">2ºTrim</th>
+            <th class="text-center">Jul</th>
+            <th class="text-center">Ago</th>
+            <th class="text-center">Set</th>
+            <th class="text-center">3ºTrim</th>
+            <th class="text-center">Out</th>
+            <th class="text-center">Nov</th>
+            <th class="text-center">Dec</th>
+            <th class="text-center">4ºTrim</th>
+            <th class="text-center">Anual</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+
+        @foreach (var item in Model.PorcentagemD2)
+            {
+            <tr>
+                <td>@item.Zona</td>
+
+                @for (int i = 0; i < item.MesesPorcentagem.Count; i++)
+                {
+                    <td>@item.MesesPorcentagem[i]%</td>
+
+                    if (i == 2)
+                    {
+                        <td>@item.Trim1</td>
+                    }
+                    else if (i == 5)
+                    {
+                        <td>@item.Trim2</td>
+                    }
+                    else if (i == 8)
+                    {
+                        <td>@item.Trim3</td>
+                    }
+                    else if (i == 11)
+                    {
+                        <td>@item.Trim4</td>
+                    }
+
+                }
+                @{
+                  /*  int contaTrimestres = 0;
+                    if (item.Trim1 != 0)// trimestre preenchido
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim2 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+                    if (item.Trim3 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    if (item.Trim4 != 0)
+                    {
+                        contaTrimestres = contaTrimestres + 1;
+                    }
+
+                    int colunasFaltam = 16 - (contaTrimestres * 4);
+
+                    if (colunasFaltam > 0)
+                    {
+                        for (int i = 0; i < colunasFaltam; i++)
+                        {
+                            <td></td> // acrescenta TDs que faltam até a coluna de Anual
+                        }
+
+                    } */
+                }
+                <td>@item.Anual</td>
+            </tr>
+          }
+
 
     </tbody>
 </table>

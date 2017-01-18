@@ -13,6 +13,8 @@ namespace NovatecEnergyWeb.Models.MetasViewModels
 
         public List<int> Meses { get; set; }
 
+        public List<string> MesesPorcentagem { get; set; }
+
         public int  Trim1 { get; set; }
 
         public int  Trim2 { get; set; }
