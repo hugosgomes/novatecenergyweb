@@ -24,8 +24,8 @@ namespace NovatecEnergyWeb.Controllers
         
         public IActionResult Index()
         {
-            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2017).ToList();
-            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2017).ToList();
+            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2015).ToList();
+            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2015).ToList();
 
             dynamic mymodel = new ExpandoObject();
 
@@ -195,9 +195,6 @@ namespace NovatecEnergyWeb.Controllers
             metropolitana.Meses = new List<string>();
             fluminense.Meses = new List<string>();
 
-            metropolitana.MesesPorcentagem = new List<string>();
-            fluminense.MesesPorcentagem = new List<string>();
-
             List<ResultadosViewModel> resultados = new List<ResultadosViewModel>();
 
             foreach (var item in listaD2)
@@ -239,7 +236,7 @@ namespace NovatecEnergyWeb.Controllers
                     else if (tipoMeta == "resultadosD2")
                         metropolitana.Meses.Add(Convert.ToInt32(item.Rd2).ToString());
                     else if (tipoMeta == "porcentagemD2")
-                        metropolitana.MesesPorcentagem.Add((Convert.ToDouble(item.Pd2)*100).ToString() + "%");
+                        metropolitana.Meses.Add((Convert.ToDouble(item.Pd2)*100).ToString() + "%");
                 }
                 else
                 {
@@ -276,10 +273,9 @@ namespace NovatecEnergyWeb.Controllers
                     else if (tipoMeta == "resultadosD2")
                         fluminense.Meses.Add(Convert.ToInt32(item.Rd2).ToString());
                     else if (tipoMeta == "porcentagemD2")
-                        fluminense.MesesPorcentagem.Add((Convert.ToDouble(item.Pd2) * 100).ToString()+"%");
+                        fluminense.Meses.Add((Convert.ToDouble(item.Pd2) * 100).ToString()+"%");
                 }
             }
-
             //caso não tenha as colunas todas de meses preenchidos
             metropolitana.AcrescentaMesesQueFaltam();
             fluminense.AcrescentaMesesQueFaltam();

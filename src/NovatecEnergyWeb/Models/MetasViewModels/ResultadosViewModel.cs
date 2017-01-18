@@ -13,8 +13,6 @@ namespace NovatecEnergyWeb.Models.MetasViewModels
 
         public List<string> Meses { get; set; }
 
-        public List<string> MesesPorcentagem { get; set; }
-
         public int  Trim1 { get; set; }
 
         public int  Trim2 { get; set; }
@@ -36,17 +34,7 @@ namespace NovatecEnergyWeb.Models.MetasViewModels
                     this.Meses.Add("");
                 }
             }
-            if (this.MesesPorcentagem != null)
-            {
-                if (this.MesesPorcentagem.Count < 12)
-                {
-                    var quantidadeAtual = 12 - this.MesesPorcentagem.Count;
-                    for (int i = 0; i < quantidadeAtual; i++)
-                    {
-                        this.MesesPorcentagem.Add("");
-                    }
-                }
-            }
+           
         }
     }
 }
