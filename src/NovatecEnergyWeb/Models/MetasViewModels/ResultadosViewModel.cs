@@ -25,6 +25,26 @@ namespace NovatecEnergyWeb.Models.MetasViewModels
 
         public int Anual { get; set; }
 
-
+        public void AcrescentaMesesQueFaltam()
+        {
+            //acrescenta os meses que faltam com zero
+            if (this.Meses.Count < 12)
+            {
+                var quantidadeAtual = 12 - this.Meses.Count;
+                for (int i = 0; i < quantidadeAtual; i++)
+                {
+                    this.Meses.Add(0);
+                }
+            }
+            if (this.MesesPorcentagem.Count < 12)
+            {
+                var quantidadeAtual = 12 - this.MesesPorcentagem.Count;
+                for (int i = 0; i < quantidadeAtual; i++)
+                {
+                    this.MesesPorcentagem.Add("");
+                }
+            }
+           
+        }
     }
 }

@@ -404,63 +404,25 @@
             {
             <tr>
                 <td>@item.Zona</td>
-
-                @for (int i = 0; i < item.Meses.Count; i++)
-                {
-                    <td>@item.Meses[i]</td>
-
-                    if (i == 2)
-                    {
-                        <td>@item.Trim1</td>
-                    }
-                    else if (i == 5)
-                    {
-                        <td>@item.Trim2</td>
-                    }
-                    else if (i == 8)
-                    {
-                        <td>@item.Trim3</td>
-                    }
-                    else if (i == 11)
-                    {
-                        <td>@item.Trim4</td>
-                    }
-
-                }
-                @{
-                    int contaTrimestres = 0;
-                    if (item.Trim1 != 0)// trimestre preenchido
-                    {
-                        contaTrimestres = contaTrimestres + 1;
-                    }
-                    if (item.Trim2 != 0)
-                    {
-                        contaTrimestres = contaTrimestres + 1;
-                    }
-                    if (item.Trim3 != 0)
-                    {
-                        contaTrimestres = contaTrimestres + 1;
-                    }
-
-                    if (item.Trim4 != 0)
-                    {
-                        contaTrimestres = contaTrimestres + 1;
-                    }
-
-                    int colunasFaltam = 16 - (contaTrimestres * 4);
-
-                    if (colunasFaltam > 0)
-                    {
-                        for (int i = 0; i < colunasFaltam; i++)
-                        {
-                            <td></td> // acrescenta TDs que faltam até a coluna de Anual
-                        }
-
-                    }
-                }
+                <td>@item.Meses[0]</td>
+                <td>@item.Meses[1]</td>
+                <td>@item.Meses[2]</td>
+                <td>@item.Trim1</td>
+                <td>@item.Meses[3]</td>
+                <td>@item.Meses[4]</td>
+                <td>@item.Meses[5]</td>
+                <td>@item.Trim2</td>
+                <td>@item.Meses[6]</td>
+                <td>@item.Meses[7]</td>
+                <td>@item.Meses[8]</td>
+                <td>@item.Trim3</td>    
+                <td>@item.Meses[9]</td>
+                <td>@item.Meses[10]</td>
+                <td>@item.Meses[11]</td>
+                <td>@item.Trim4</td>    
                 <td>@item.Anual</td>
             </tr>
-                    }
+         }
 
 
     </tbody>
@@ -496,63 +458,26 @@
             {
             <tr>
                 <td>@item.Zona</td>
-
-                @for (int i = 0; i < item.Meses.Count; i++)
-                {
-                    <td>@item.Meses[i]</td>
-
-                    if (i == 2)
-                    {
-                        <td>@item.Trim1</td>
-                    }
-                    else if (i == 5)
-                    {
-                        <td>@item.Trim2</td>
-                    }
-                    else if (i == 8)
-                    {
-                        <td>@item.Trim3</td>
-                    }
-                    else if (i == 11)
-                    {
-                        <td>@item.Trim4</td>
-                    }
-
-                }
-                @{
-                    int contaTrimestres = 0;
-                    if (item.Trim1 != 0)// trimestre preenchido
-                    {
-                        contaTrimestres = contaTrimestres + 1;
-                    }
-                    if (item.Trim2 != 0)
-                    {
-                        contaTrimestres = contaTrimestres + 1;
-                    }
-                    if (item.Trim3 != 0)
-                    {
-                        contaTrimestres = contaTrimestres + 1;
-                    }
-
-                    if (item.Trim4 != 0)
-                    {
-                        contaTrimestres = contaTrimestres + 1;
-                    }
-
-                    int colunasFaltam = 16 - (contaTrimestres * 4);
-
-                    if (colunasFaltam > 0)
-                    {
-                        for (int i = 0; i < colunasFaltam; i++)
-                        {
-                            <td></td> // acrescenta TDs que faltam até a coluna de Anual
-                        }
-
-                    }
-                }
+                <td>@item.Meses[0]</td>
+                <td>@item.Meses[1]</td>
+                <td>@item.Meses[2]</td>
+                <td>@item.Trim1</td>
+                <td>@item.Meses[3]</td>
+                <td>@item.Meses[4]</td>
+                <td>@item.Meses[5]</td>
+                <td>@item.Trim2</td>
+                <td>@item.Meses[6]</td>
+                <td>@item.Meses[7]</td>
+                <td>@item.Meses[8]</td>
+                <td>@item.Trim3</td>
+                <td>@item.Meses[9]</td>
+                <td>@item.Meses[10]</td>
+                <td>@item.Meses[11]</td>
+                <td>@item.Trim4</td>
                 <td>@item.Anual</td>
             </tr>
-                    }
+
+        }
 
 
     </tbody>
@@ -613,7 +538,7 @@
 
                 }
                 @{
-                  /*  int contaTrimestres = 0;
+                    int contaTrimestres = 0;
                     if (item.Trim1 != 0)// trimestre preenchido
                     {
                         contaTrimestres = contaTrimestres + 1;
@@ -641,7 +566,7 @@
                             <td></td> // acrescenta TDs que faltam até a coluna de Anual
                         }
 
-                    } */
+                    } 
                 }
                 <td>@item.Anual</td>
             </tr>

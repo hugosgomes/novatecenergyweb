@@ -24,8 +24,8 @@ namespace NovatecEnergyWeb.Controllers
         
         public IActionResult Index()
         {
-            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2015).ToList();
-            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2015).ToList();
+            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2017).ToList();
+            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2017).ToList();
 
             dynamic mymodel = new ExpandoObject();
 
@@ -232,7 +232,7 @@ namespace NovatecEnergyWeb.Controllers
                     }
 
                     if (tipoMeta == "numeroD2")
-                        metropolitana.Meses.Add(Convert.ToInt32(item.D2));
+                        metropolitana.Meses.Add(item.D2);
                     else if (tipoMeta == "resultadosD2")
                         metropolitana.Meses.Add(Convert.ToInt32(item.Rd2));
                     else if (tipoMeta == "porcentagemD2")
@@ -274,9 +274,12 @@ namespace NovatecEnergyWeb.Controllers
                         fluminense.Meses.Add(Convert.ToInt32(item.Rd2));
                     else if (tipoMeta == "porcentagemD2")
                         fluminense.MesesPorcentagem.Add((Convert.ToDouble(item.Pd2) * 100).ToString());
-
                 }
             }
+
+            //caso não tenha as colunas todas de meses preenchidos
+            metropolitana.AcrescentaMesesQueFaltam();
+            fluminense.AcrescentaMesesQueFaltam();
 
             metropolitana.Zona = "Metropolitana";
             metropolitana.Anual = metropolitana.Trim1 + metropolitana.Trim2 +
