@@ -24,8 +24,8 @@ namespace NovatecEnergyWeb.Controllers
         
         public IActionResult Index()
         {
-            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2017).ToList();
-            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2017).ToList();
+            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2015).ToList();
+            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2015).ToList();
 
             dynamic mymodel = new ExpandoObject();
 
@@ -37,6 +37,8 @@ namespace NovatecEnergyWeb.Controllers
             mymodel.CargasD2 = GetNumerosD2(cargasMetasD2,"numeroD2");
             mymodel.ResultadoD2 = GetNumerosD2(cargasMetasD2,"resultadosD2");
             mymodel.PorcentagemD2 = GetNumerosD2(cargasMetasD2, "porcentagemD2");
+
+            mymodel.Resumos= GetResumos(metasCargas);
 
             return View(mymodel);
         }
@@ -197,6 +199,7 @@ namespace NovatecEnergyWeb.Controllers
 
             List<ResultadosViewModel> resultados = new List<ResultadosViewModel>();
 
+            //Contadores de meses NÂO VAZIOS
             int contaMesesMediaMetro1 = 0;
             int contaMesesMediaMetro2 = 0;
             int contaMesesMediaMetro3 = 0;
@@ -367,6 +370,50 @@ namespace NovatecEnergyWeb.Controllers
 
             return resultados;
 
+        }
+
+        public List<ResultadosViewModel> GetResumos(List<_10_MetasCargas> metasCargas)
+        {
+            var resultadoViewModel = new ResultadosViewModel();
+            var metasViewModel = new ResultadosViewModel();
+            var cargasViewModel = new ResultadosViewModel();
+
+            resultadoViewModel.Meses = new List<string>();
+            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses.Add("0");
+
+            List<ResultadosViewModel> resumos = new List<ResultadosViewModel>();
+
+            //
+            foreach (var item in metasCargas)
+            {
+                resultadoViewModel.Meses[item.Mes - 1] = (Convert.ToInt32(resultadoViewModel.Meses[item.Mes - 1]) + Convert.ToInt32(item.Res.ToString())).ToString();
+            }
+
+            resultadoViewModel.Trim1 = resultadoViewModel.Meses.Select(int.Parse).Take(3).Sum();
+            resultadoViewModel.Trim2 = resultadoViewModel.Meses.Select(int.Parse).Skip(3).Take(3).Sum();
+            resultadoViewModel.Trim3 = resultadoViewModel.Meses.Select(int.Parse).Skip(6).Take(3).Sum();
+            resultadoViewModel.Trim4 = resultadoViewModel.Meses.Select(int.Parse).Skip(9).Take(3).Sum();
+
+            resultadoViewModel.Anual = resultadoViewModel.Trim1 + resultadoViewModel.Trim2
+                + resultadoViewModel.Trim3 + resultadoViewModel.Trim4;
+
+            resultadoViewModel.Zona = "Resultado"; // na verdade não é zona(ex.:fluminense, metropolitana. É somente a primeira coluna string;
+            resumos.Add(resultadoViewModel);
+            //  resumos.Add(metasViewModel);
+            //  resumos.Add(cargasViewModel);
+
+            return resumos;
         }
     }
 }
