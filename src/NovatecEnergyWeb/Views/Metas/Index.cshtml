@@ -21,6 +21,8 @@
         tabelaCargas(retorno);
         tabelaMetasD2(retorno);
         tabelaNumeroCargasD2(retorno);
+        tabelaResultadoD2(retorno);
+        tabelaPorcentagemD2(retorno);
     }
 
     function tabelaResultados(retorno) {
@@ -132,6 +134,52 @@
 
         $("#Nd2Anual_" + retorno.CargasD2[0].id).html(retorno.CargasD2[0].anual);
         $("#Nd2Anual_" + retorno.CargasD2[1].id).html(retorno.CargasD2[1].anual);
+    }
+
+    function tabelaResultadoD2(retorno) {
+        $("#ResultadosD2Zona_" + retorno.ResultadoD2[0].id).html(retorno.ResultadoD2[0].zona);
+        $("#ResultadosD2Zona_" + retorno.ResultadoD2[1].id).html(retorno.ResultadoD2[1].zona);
+
+        for (var i = 0; i < 12; i++) {
+            $("#ResultadosD2Mes" + i + "_" + retorno.ResultadoD2[0].id).html(retorno.ResultadoD2[0].meses[i]);
+            $("#ResultadosD2Mes" + i + "_" + retorno.ResultadoD2[1].id).html(retorno.ResultadoD2[1].meses[i]);
+        }
+        $("#ResultadosD2Tri1_" + retorno.ResultadoD2[0].id).html(retorno.ResultadoD2[0].trim1);
+        $("#ResultadosD2Tri2_" + retorno.ResultadoD2[0].id).html(retorno.ResultadoD2[0].trim2);
+        $("#ResultadosD2Tri3_" + retorno.ResultadoD2[0].id).html(retorno.ResultadoD2[0].trim3);
+        $("#ResultadosD2Tri4_" + retorno.ResultadoD2[0].id).html(retorno.ResultadoD2[0].trim4);
+
+        $("#ResultadosD2Tri1_" + retorno.ResultadoD2[1].id).html(retorno.ResultadoD2[1].trim1);
+        $("#ResultadosD2Tri2_" + retorno.ResultadoD2[1].id).html(retorno.ResultadoD2[1].trim2);
+        $("#ResultadosD2Tri3_" + retorno.ResultadoD2[1].id).html(retorno.ResultadoD2[1].trim3);
+        $("#ResultadosD2Tri4_" + retorno.ResultadoD2[1].id).html(retorno.ResultadoD2[1].trim4);
+
+        $("#ResultadosD2Anual_" + retorno.ResultadoD2[0].id).html(retorno.ResultadoD2[0].anual);
+        $("#ResultadosD2Anual_" + retorno.ResultadoD2[1].id).html(retorno.ResultadoD2[1].anual);
+
+    }
+
+    function tabelaPorcentagemD2(retorno) {
+        $("#PercentZona_" + retorno.PorcentagemD2[0].id).html(retorno.PorcentagemD2[0].zona);
+        $("#PercentZona_" + retorno.PorcentagemD2[1].id).html(retorno.PorcentagemD2[1].zona);
+
+        for (var i = 0; i < 12; i++) {
+            $("#PercentMes" + i + "_" + retorno.PorcentagemD2[0].id).html(retorno.PorcentagemD2[0].meses[i]);
+            $("#PercentMes" + i + "_" + retorno.PorcentagemD2[1].id).html(retorno.PorcentagemD2[1].meses[i]);
+        }
+        $("#PercentTri1_" + retorno.PorcentagemD2[0].id).html(retorno.PorcentagemD2[0].trim1+'%');
+        $("#PercentTri2_" + retorno.PorcentagemD2[0].id).html(retorno.PorcentagemD2[0].trim2 + '%');
+        $("#PercentTri3_" + retorno.PorcentagemD2[0].id).html(retorno.PorcentagemD2[0].trim3 + '%');
+        $("#PercentTri4_" + retorno.PorcentagemD2[0].id).html(retorno.PorcentagemD2[0].trim4 + '%');
+
+        $("#PercentTri1_" + retorno.PorcentagemD2[1].id).html(retorno.PorcentagemD2[1].trim1 + '%');
+        $("#PercentTri2_" + retorno.PorcentagemD2[1].id).html(retorno.PorcentagemD2[1].trim2 + '%');
+        $("#PercentTri3_" + retorno.PorcentagemD2[1].id).html(retorno.PorcentagemD2[1].trim3 + '%');
+        $("#PercentTri4_" + retorno.PorcentagemD2[1].id).html(retorno.PorcentagemD2[1].trim4 + '%');
+
+        $("#PercentAnual_" + retorno.PorcentagemD2[0].id).html(retorno.PorcentagemD2[0].anual + '%');
+        $("#PercentAnual_" + retorno.PorcentagemD2[1].id).html(retorno.PorcentagemD2[1].anual + '%');
+
     }
 </script>
 <select id="anos" onchange="chamaGetResultados()" >
@@ -485,24 +533,24 @@
         @foreach (var item in Model.ResultadoD2)
             {
             <tr>
-                <td>@item.Zona</td>
-                <td>@item.Meses[0]</td>
-                <td>@item.Meses[1]</td>
-                <td>@item.Meses[2]</td>
-                <td>@item.Trim1</td>
-                <td>@item.Meses[3]</td>
-                <td>@item.Meses[4]</td>
-                <td>@item.Meses[5]</td>
-                <td>@item.Trim2</td>
-                <td>@item.Meses[6]</td>
-                <td>@item.Meses[7]</td>
-                <td>@item.Meses[8]</td>
-                <td>@item.Trim3</td>
-                <td>@item.Meses[9]</td>
-                <td>@item.Meses[10]</td>
-                <td>@item.Meses[11]</td>
-                <td>@item.Trim4</td>
-                <td>@item.Anual</td>
+                <td id="ResultadosD2Zona_@item.Id">@item.Zona</td>
+                <td id="ResultadosD2Mes0_@item.Id">@item.Meses[0]</td>
+                <td id="ResultadosD2Mes1_@item.Id">@item.Meses[1]</td>
+                <td id="ResultadosD2Mes2_@item.Id">@item.Meses[2]</td>
+                <td id="ResultadosD2Tri1_@item.Id">@item.Trim1</td>
+                <td id="ResultadosD2Mes3_@item.Id">@item.Meses[3]</td>
+                <td id="ResultadosD2Mes4_@item.Id">@item.Meses[4]</td>
+                <td id="ResultadosD2Mes5_@item.Id">@item.Meses[5]</td>
+                <td id="ResultadosD2Tri2_@item.Id">@item.Trim2</td>
+                <td id="ResultadosD2Mes6_@item.Id">@item.Meses[6]</td>
+                <td id="ResultadosD2Mes7_@item.Id">@item.Meses[7]</td>
+                <td id="ResultadosD2Mes8_@item.Id">@item.Meses[8]</td>
+                <td id="ResultadosD2Tri3_@item.Id">@item.Trim3</td>
+                <td id="ResultadosD2Mes9_@item.Id">@item.Meses[9]</td>
+                <td id="ResultadosD2Mes10_@item.Id">@item.Meses[10]</td>
+                <td id="ResultadosD2Mes11_@item.Id">@item.Meses[11]</td>
+                <td id="ResultadosD2Tri4_@item.Id">@item.Trim4</td>
+                <td id="ResultadosD2Anual_@item.Id">@item.Anual</td>
             </tr>
 
         }
@@ -541,71 +589,71 @@
         @foreach (var item in Model.PorcentagemD2)
         {
             <tr>
-                <td>@item.Zona</td>
-                <td>@item.Meses[0]</td>
-                <td>@item.Meses[1]</td>
-                <td>@item.Meses[2]</td>
+                <td id="PercentZona_@item.Id">@item.Zona</td>
+                <td id="PercentMes0_@item.Id">@item.Meses[0]</td>
+                <td id="PercentMes1_@item.Id">@item.Meses[1]</td>
+                <td id="PercentMes2_@item.Id">@item.Meses[2]</td>
                 @{
                     if (item.Trim1 == 0)
                     {
-                        <td>@item.Trim1</td>
+                        <td id="PercentTri1_@item.Id">@item.Trim1</td>
                     }
                     else
                     {
-                        <td>@item.Trim1%</td>
+                        <td id="PercentTri1_@item.Id">@item.Trim1%</td>
                     }
 
                 }
-                <td>@item.Meses[3]</td>
-                <td>@item.Meses[4]</td>
-                <td>@item.Meses[5]</td>
+                <td id="PercentMes3_@item.Id">@item.Meses[3]</td>
+                <td id="PercentMes4_@item.Id">@item.Meses[4]</td>
+                <td id="PercentMes5_@item.Id">@item.Meses[5]</td>
                 @{
                     if (item.Trim2 == 0)
                     {
-                        <td>@item.Trim2</td>
+                        <td id="PercentTri2_@item.Id">@item.Trim2</td>
                     }
                     else
                     {
-                        <td>@item.Trim2%</td>
+                        <td id="PercentTri2_@item.Id">@item.Trim2%</td>
                     }
 
                 }
-                <td>@item.Meses[6]</td>
-                <td>@item.Meses[7]</td>
-                <td>@item.Meses[8]</td>
+                <td id="PercentMes6_@item.Id">@item.Meses[6]</td>
+                <td id="PercentMes7_@item.Id">@item.Meses[7]</td>
+                <td id="PercentMes8_@item.Id">@item.Meses[8]</td>
                 @{
                     if (item.Trim3 == 0)
                     {
-                        <td>@item.Trim3</td>
+                        <td id="PercentTri3_@item.Id">@item.Trim3</td>
                     }
                     else
                     {
-                        <td>@item.Trim3%</td>
+                        <td id="PercentTri3_@item.Id">@item.Trim3%</td>
                     }
 
                 }
-                <td>@item.Meses[9]</td>
-                <td>@item.Meses[10]</td>
-                <td>@item.Meses[11]</td>
+                <td id="PercentMes9_@item.Id">@item.Meses[9]</td>
+                <td id="PercentMes10_@item.Id">@item.Meses[10]</td>
+                <td id="PercentMes11_@item.Id">@item.Meses[11]</td>
                 @{
                     if (item.Trim4 == 0)
                     {
-                        <td>@item.Trim4</td>
+                        <td id="PercentTri4_@item.Id">@item.Trim4</td>
                     }
                     else
                     {
-                        <td>@item.Trim4%</td>
+                        <td id="PercentTri4_@item.Id">@item.Trim4%</td>
                     }
 
                 }
                 @{
                     if (item.Anual == 0)
                     {
-                        <td>@item.Anual</td>
+                        <td id="PercentAnual_@item.Id">@item.Anual</td>
                     }
                     else
                     {
-                        <td>@item.Anual%</td>
+                        <td id="PercentAnual_@item.Id">@item.Anual%</td>
                     }
 
                 }
