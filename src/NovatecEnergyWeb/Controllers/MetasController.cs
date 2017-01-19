@@ -24,8 +24,8 @@ namespace NovatecEnergyWeb.Controllers
         
         public IActionResult Index()
         {
-            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2017).ToList();
-            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2017).ToList();
+            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2015).ToList();
+            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2015).ToList();
 
             dynamic mymodel = new ExpandoObject();
 
@@ -349,7 +349,7 @@ namespace NovatecEnergyWeb.Controllers
                 fluminense.Trim3 + fluminense.Trim4;
             }else
             {
-                
+                //Cálculo da média   
                 fluminense.Trim1 = (contaMesesMediaFlu1 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(fluminense.Trim1), Convert.ToDecimal(contaMesesMediaFlu1))):0;
                 fluminense.Trim2 = (contaMesesMediaFlu2 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(fluminense.Trim2), Convert.ToDecimal(contaMesesMediaFlu2))):0;
                 fluminense.Trim3 = (contaMesesMediaFlu3 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(fluminense.Trim3), Convert.ToDecimal(contaMesesMediaFlu3))):0;
@@ -362,7 +362,23 @@ namespace NovatecEnergyWeb.Controllers
 
                 fluminense.Anual = Convert.ToInt32(fluminense.Meses.Where(c => c != "").Select(int.Parse).ToList().Average());
                 metropolitana.Anual = Convert.ToInt32(metropolitana.Meses.Where(c => c != "").Select(int.Parse).ToList().Average());
+
+                
+                //Concatena %
+                for (int i = 0; i < 12; i++)
+                {
+                    if ((fluminense.Meses[i] != "0") && (fluminense.Meses[i] != ""))
+                    {
+                        fluminense.Meses[i] = fluminense.Meses[i] + "%";
+                    }
+                    if ((metropolitana.Meses[i] != "0") && (metropolitana.Meses[i] != ""))
+                    {
+                        metropolitana.Meses[i] = metropolitana.Meses[i] + "%";
+                    }
+                }
             }
+
+            
 
             resultados.Add(fluminense);
             resultados.Add(metropolitana);
@@ -384,7 +400,7 @@ namespace NovatecEnergyWeb.Controllers
 
             List<ResultadosViewModel> resumos = new List<ResultadosViewModel>();
 
-            //
+            //Meses
             foreach (var item in metasCargas)
             {
                 resultadoViewModel.Meses[item.Mes - 1] = (Convert.ToInt32(resultadoViewModel.Meses[item.Mes - 1]) + Convert.ToInt32(item.Res.ToString())).ToString();
@@ -422,6 +438,19 @@ namespace NovatecEnergyWeb.Controllers
             metasViewModel.Zona = "Metas";
             cargasViewModel.Zona = "Cargas";
 
+            //Retirando os zeros
+            for (int i = 0; i < 12; i++)
+            {
+                if (resultadoViewModel.Meses[i] == "0")
+                    resultadoViewModel.Meses[i] = "";
+
+                if (metasViewModel.Meses[i] == "0")
+                    metasViewModel.Meses[i] = "";
+
+                if (cargasViewModel.Meses[i] == "0")
+                    cargasViewModel.Meses[i] = "";
+            }
+            
             //Adicionando na listagem de ResultadosViewModel
             resumos.Add(resultadoViewModel);
             resumos.Add(metasViewModel);

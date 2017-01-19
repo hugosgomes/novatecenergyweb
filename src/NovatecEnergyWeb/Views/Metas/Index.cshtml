@@ -414,26 +414,76 @@
 
 
         @foreach (var item in Model.PorcentagemD2)
-            {
+        {
             <tr>
                 <td>@item.Zona</td>
                 <td>@item.Meses[0]</td>
                 <td>@item.Meses[1]</td>
                 <td>@item.Meses[2]</td>
-                <td>@item.Trim1</td>
+                @{
+                    if (item.Trim1 == 0)
+                    {
+                        <td>@item.Trim1</td>
+                    }
+                    else
+                    {
+                        <td>@item.Trim1%</td>
+                    }
+
+                }
                 <td>@item.Meses[3]</td>
                 <td>@item.Meses[4]</td>
                 <td>@item.Meses[5]</td>
-                <td>@item.Trim2</td>
+                @{
+                    if (item.Trim2 == 0)
+                    {
+                        <td>@item.Trim2</td>
+                    }
+                    else
+                    {
+                        <td>@item.Trim2%</td>
+                    }
+
+                }
                 <td>@item.Meses[6]</td>
                 <td>@item.Meses[7]</td>
                 <td>@item.Meses[8]</td>
-                <td>@item.Trim3</td>
+                @{
+                    if (item.Trim3 == 0)
+                    {
+                        <td>@item.Trim3</td>
+                    }
+                    else
+                    {
+                        <td>@item.Trim3%</td>
+                    }
+
+                }
                 <td>@item.Meses[9]</td>
                 <td>@item.Meses[10]</td>
                 <td>@item.Meses[11]</td>
-                <td>@item.Trim4</td>
-                <td>@item.Anual</td>
+                @{
+                    if (item.Trim4 == 0)
+                    {
+                        <td>@item.Trim4</td>
+                    }
+                    else
+                    {
+                        <td>@item.Trim4%</td>
+                    }
+
+                }
+                @{
+                    if (item.Anual == 0)
+                    {
+                        <td>@item.Anual</td>
+                    }
+                    else
+                    {
+                        <td>@item.Anual%</td>
+                    }
+
+                }
             </tr>
           }
 
