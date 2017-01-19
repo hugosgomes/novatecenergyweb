@@ -411,7 +411,11 @@ namespace NovatecEnergyWeb.Controllers
             metasViewModel.Meses = new List<string> { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
             cargasViewModel.Meses = new List<string> { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
 
-            List<ResultadosViewModel> resumos = new List<ResultadosViewModel>();
+            resultadoViewModel.Id = 1;
+            metasViewModel.Id = 2;
+            cargasViewModel.Id = 3;
+
+            List <ResultadosViewModel> resumos = new List<ResultadosViewModel>();
 
             //Meses
             foreach (var item in metasCargas)

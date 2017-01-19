@@ -23,6 +23,7 @@
         tabelaNumeroCargasD2(retorno);
         tabelaResultadoD2(retorno);
         tabelaPorcentagemD2(retorno);
+        tabelaResumos(retorno);
     }
 
     function tabelaResultados(retorno) {
@@ -181,6 +182,38 @@
         $("#PercentAnual_" + retorno.PorcentagemD2[1].id).html(retorno.PorcentagemD2[1].anual + '%');
 
     }
+
+    function tabelaResumos(retorno) {
+        $("#ResumoZona_" + retorno.Resumos[0].id).html(retorno.Resumos[0].zona);
+        $("#ResumoZona_" + retorno.Resumos[1].id).html(retorno.Resumos[1].zona);
+        $("#ResumoZona_" + retorno.Resumos[2].id).html(retorno.Resumos[2].zona);
+
+        for (var i = 0; i < 12; i++) {
+            $("#ResumoMes" + i + "_" + retorno.Resumos[0].id).html(retorno.Resumos[0].meses[i]);
+            $("#ResumoMes" + i + "_" + retorno.Resumos[1].id).html(retorno.Resumos[1].meses[i]);
+            $("#ResumoMes" + i + "_" + retorno.Resumos[2].id).html(retorno.Resumos[2].meses[i]);
+        }
+
+        $("#ResumoTri1_" + retorno.Resumos[0].id).html(retorno.Resumos[0].trim1 );
+        $("#ResumoTri2_" + retorno.Resumos[0].id).html(retorno.Resumos[0].trim2 );
+        $("#ResumoTri3_" + retorno.Resumos[0].id).html(retorno.Resumos[0].trim3 );
+        $("#ResumoTri4_" + retorno.Resumos[0].id).html(retorno.Resumos[0].trim4 );
+
+        $("#ResumoTri1_" + retorno.Resumos[1].id).html(retorno.Resumos[1].trim1 );
+        $("#ResumoTri2_" + retorno.Resumos[1].id).html(retorno.Resumos[1].trim2 );
+        $("#ResumoTri3_" + retorno.Resumos[1].id).html(retorno.Resumos[1].trim3 );
+        $("#ResumoTri4_" + retorno.Resumos[1].id).html(retorno.Resumos[1].trim4 );
+
+        $("#ResumoTri1_" + retorno.Resumos[2].id).html(retorno.Resumos[2].trim1 );
+        $("#ResumoTri2_" + retorno.Resumos[2].id).html(retorno.Resumos[2].trim2 );
+        $("#ResumoTri3_" + retorno.Resumos[2].id).html(retorno.Resumos[2].trim3 );
+        $("#ResumoTri4_" + retorno.Resumos[2].id).html(retorno.Resumos[2].trim4 );
+
+        $("#ResumoAnual_" + retorno.Resumos[0].id).html(retorno.Resumos[0].anual );
+        $("#ResumoAnual_" + retorno.Resumos[1].id).html(retorno.Resumos[1].anual );
+        $("#ResumoAnual_" + retorno.Resumos[2].id).html(retorno.Resumos[2].anual );
+
+    }
 </script>
 <select id="anos" onchange="chamaGetResultados()" >
     <option>2014</option>
@@ -216,24 +249,24 @@
         @foreach (var item in Model.Resumos)
             {
              <tr>
-                    <td>@item.Zona</td>
-                    <td>@item.Meses[0]</td>
-                    <td>@item.Meses[1]</td>
-                    <td>@item.Meses[2]</td>
-                    <td>@item.Trim1</td>
-                    <td>@item.Meses[3]</td>
-                    <td>@item.Meses[4]</td>
-                    <td>@item.Meses[5]</td>
-                    <td>@item.Trim2</td>
-                    <td>@item.Meses[6]</td>
-                    <td>@item.Meses[7]</td>
-                    <td>@item.Meses[8]</td>
-                    <td>@item.Trim3</td>
-                    <td>@item.Meses[9]</td>
-                    <td>@item.Meses[10]</td>
-                    <td>@item.Meses[11]</td>
-                    <td>@item.Trim4</td>
-                    <td>@item.Anual</td>
+                    <td id="ResumoZona_@item.Id">@item.Zona</td>
+                    <td id="ResumoMes0_@item.Id">@item.Meses[0]</td>
+                    <td id="ResumoMes1_@item.Id">@item.Meses[1]</td>
+                    <td id="ResumoMes2_@item.Id">@item.Meses[2]</td>
+                    <td id="ResumoTri1_@item.Id">@item.Trim1</td>
+                    <td id="ResumoMes3_@item.Id">@item.Meses[3]</td>
+                    <td id="ResumoMes4_@item.Id">@item.Meses[4]</td>
+                    <td id="ResumoMes5_@item.Id">@item.Meses[5]</td>
+                    <td id="ResumoTri2_@item.Id">@item.Trim2</td>
+                    <td id="ResumoMes6_@item.Id">@item.Meses[6]</td>
+                    <td id="ResumoMes7_@item.Id">@item.Meses[7]</td>
+                    <td id="ResumoMes8_@item.Id">@item.Meses[8]</td>
+                    <td id="ResumoTri3_@item.Id">@item.Trim3</td>
+                    <td id="ResumoMes9_@item.Id">@item.Meses[9]</td>
+                    <td id="ResumoMes10_@item.Id">@item.Meses[10]</td>
+                    <td id="ResumoMes11_@item.Id">@item.Meses[11]</td>
+                    <td id="ResumoTri4_@item.Id">@item.Trim4</td>
+                    <td id="ResumoAnual_@item.Id">@item.Anual</td>
                 </tr>
         }
 
