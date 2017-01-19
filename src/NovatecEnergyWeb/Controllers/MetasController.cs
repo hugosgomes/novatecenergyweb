@@ -24,8 +24,8 @@ namespace NovatecEnergyWeb.Controllers
         
         public IActionResult Index()
         {
-            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2015).ToList();
-            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2015).ToList();
+            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2017).ToList();
+            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2017).ToList();
 
             dynamic mymodel = new ExpandoObject();
 
@@ -380,6 +380,7 @@ namespace NovatecEnergyWeb.Controllers
 
             resultadoViewModel.Meses = new List<string> { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
             metasViewModel.Meses = new List<string> { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
+            cargasViewModel.Meses = new List<string> { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
 
             List<ResultadosViewModel> resumos = new List<ResultadosViewModel>();
 
@@ -388,6 +389,7 @@ namespace NovatecEnergyWeb.Controllers
             {
                 resultadoViewModel.Meses[item.Mes - 1] = (Convert.ToInt32(resultadoViewModel.Meses[item.Mes - 1]) + Convert.ToInt32(item.Res.ToString())).ToString();
                 metasViewModel.Meses[item.Mes - 1] = (Convert.ToInt32(metasViewModel.Meses[item.Mes - 1]) + Convert.ToInt32(item.Meta.ToString())).ToString();
+                cargasViewModel.Meses[item.Mes - 1] = (Convert.ToInt32(cargasViewModel.Meses[item.Mes - 1]) + Convert.ToInt32(item.Cargas.ToString())).ToString();
             }
 
             //Trimestres
@@ -401,6 +403,11 @@ namespace NovatecEnergyWeb.Controllers
             metasViewModel.Trim3 = metasViewModel.Meses.Select(int.Parse).Skip(6).Take(3).Sum();
             metasViewModel.Trim4 = metasViewModel.Meses.Select(int.Parse).Skip(9).Take(3).Sum();
 
+            cargasViewModel.Trim1 = cargasViewModel.Meses.Select(int.Parse).Take(3).Sum();
+            cargasViewModel.Trim2 = cargasViewModel.Meses.Select(int.Parse).Skip(3).Take(3).Sum();
+            cargasViewModel.Trim3 = cargasViewModel.Meses.Select(int.Parse).Skip(6).Take(3).Sum();
+            cargasViewModel.Trim4 = cargasViewModel.Meses.Select(int.Parse).Skip(9).Take(3).Sum();
+
             //Anual
             resultadoViewModel.Anual = resultadoViewModel.Trim1 + resultadoViewModel.Trim2
                 + resultadoViewModel.Trim3 + resultadoViewModel.Trim4;
@@ -408,13 +415,17 @@ namespace NovatecEnergyWeb.Controllers
             metasViewModel.Anual = metasViewModel.Trim1 + metasViewModel.Trim2 + metasViewModel.Trim3 +
                 metasViewModel.Trim4;
 
+            cargasViewModel.Anual = cargasViewModel.Trim1 + cargasViewModel.Trim2 + cargasViewModel.Trim3 +
+                cargasViewModel.Trim4;
+
             resultadoViewModel.Zona = "Resultado"; // na verdade não é zona(ex.:fluminense, metropolitana). É somente a primeira coluna string;
             metasViewModel.Zona = "Metas";
+            cargasViewModel.Zona = "Cargas";
 
             //Adicionando na listagem de ResultadosViewModel
             resumos.Add(resultadoViewModel);
             resumos.Add(metasViewModel);
-            //  resumos.Add(cargasViewModel);
+            resumos.Add(cargasViewModel);
 
             return resumos;
         }
