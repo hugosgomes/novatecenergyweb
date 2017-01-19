@@ -18,6 +18,7 @@
     function alteraColunas(retorno) {
         tabelaResultados(retorno);
         tabelaMetas(retorno);
+        tabelaCargas(retorno);
     }
 
     function tabelaResultados(retorno) {
@@ -63,9 +64,28 @@
 
         $("#MetasAnual_" + retorno.Metas[0].id).html(retorno.Metas[0].anual);
         $("#MetasAnual_" + retorno.Metas[1].id).html(retorno.Metas[1].anual);
-        
-        
+    }
 
+    function tabelaCargas(retorno) {
+        $("#CargasZona_" + retorno.Cargas[0].id).html(retorno.Cargas[0].zona);
+        $("#CargasZona_" + retorno.Cargas[1].id).html(retorno.Cargas[1].zona);
+
+        for (var i = 0; i < 12; i++) {
+            $("#CargasMes"+i+"_" + retorno.Cargas[0].id).html(retorno.Cargas[0].meses[i]);
+            $("#CargasMes"+i+"_" + retorno.Cargas[1].id).html(retorno.Cargas[1].meses[i]);
+        }
+        $("#CargasTri1_" + retorno.Cargas[0].id).html(retorno.Cargas[0].trim1);
+        $("#CargasTri2_" + retorno.Cargas[0].id).html(retorno.Cargas[0].trim2);
+        $("#CargasTri3_" + retorno.Cargas[0].id).html(retorno.Cargas[0].trim3);
+        $("#CargasTri4_" + retorno.Cargas[0].id).html(retorno.Cargas[0].trim4);
+
+        $("#CargasTri1_" + retorno.Cargas[1].id).html(retorno.Cargas[1].trim1);
+        $("#CargasTri2_" + retorno.Cargas[1].id).html(retorno.Cargas[1].trim2);
+        $("#CargasTri3_" + retorno.Cargas[1].id).html(retorno.Cargas[1].trim3);
+        $("#CargasTri4_" + retorno.Cargas[1].id).html(retorno.Cargas[1].trim4);
+
+        $("#CargasAnual_" + retorno.Cargas[0].id).html(retorno.Cargas[0].anual);
+        $("#CargasAnual_" + retorno.Cargas[1].id).html(retorno.Cargas[1].anual);
     }
 
 </script>
@@ -261,24 +281,24 @@
         @foreach (var item in Model.Cargas)
             {
             <tr>
-                <td>@item.Zona</td>
-                <td>@item.Meses[0]</td>
-                <td>@item.Meses[1]</td>
-                <td>@item.Meses[2]</td>
-                <td>@item.Trim1</td>
-                <td>@item.Meses[3]</td>
-                <td>@item.Meses[4]</td>
-                <td>@item.Meses[5]</td>
-                <td>@item.Trim2</td>
-                <td>@item.Meses[6]</td>
-                <td>@item.Meses[7]</td>
-                <td>@item.Meses[8]</td>
-                <td>@item.Trim3</td>
-                <td>@item.Meses[9]</td>
-                <td>@item.Meses[10]</td>
-                <td>@item.Meses[11]</td>
-                <td>@item.Trim4</td>
-                <td>@item.Anual</td>
+                <td id="CargasZona_@item.Id">@item.Zona</td>
+                <td id="CargasMes0_@item.Id">@item.Meses[0]</td>
+                <td id="CargasMes1_@item.Id">@item.Meses[1]</td>
+                <td id="CargasMes2_@item.Id">@item.Meses[2]</td>
+                <td id="CargasTri1_@item.Id">@item.Trim1</td>
+                <td id="CargasMes3_@item.Id">@item.Meses[3]</td>
+                <td id="CargasMes4_@item.Id">@item.Meses[4]</td>
+                <td id="CargasMes5_@item.Id">@item.Meses[5]</td>
+                <td id="CargasTri2_@item.Id">@item.Trim2</td>
+                <td id="CargasMes6_@item.Id">@item.Meses[6]</td>
+                <td id="CargasMes7_@item.Id">@item.Meses[7]</td>
+                <td id="CargasMes8_@item.Id">@item.Meses[8]</td>
+                <td id="CargasTri3_@item.Id">@item.Trim3</td>
+                <td id="CargasMes9_@item.Id">@item.Meses[9]</td>
+                <td id="CargasMes10_@item.Id">@item.Meses[10]</td>
+                <td id="CargasMes11_@item.Id">@item.Meses[11]</td>
+                <td id="CargasTri4_@item.Id">@item.Trim4</td>
+                <td id="CargasAnual_@item.Id">@item.Anual</td>
             </tr>
         }
 
