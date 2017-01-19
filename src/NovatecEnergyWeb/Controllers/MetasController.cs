@@ -378,19 +378,8 @@ namespace NovatecEnergyWeb.Controllers
             var metasViewModel = new ResultadosViewModel();
             var cargasViewModel = new ResultadosViewModel();
 
-            resultadoViewModel.Meses = new List<string>();
-            resultadoViewModel.Meses.Add("0");
-            resultadoViewModel.Meses.Add("0");
-            resultadoViewModel.Meses.Add("0");
-            resultadoViewModel.Meses.Add("0");
-            resultadoViewModel.Meses.Add("0");
-            resultadoViewModel.Meses.Add("0");
-            resultadoViewModel.Meses.Add("0");
-            resultadoViewModel.Meses.Add("0");
-            resultadoViewModel.Meses.Add("0");
-            resultadoViewModel.Meses.Add("0");
-            resultadoViewModel.Meses.Add("0");
-            resultadoViewModel.Meses.Add("0");
+            resultadoViewModel.Meses = new List<string> { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
+            metasViewModel.Meses = new List<string> { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
 
             List<ResultadosViewModel> resumos = new List<ResultadosViewModel>();
 
@@ -398,19 +387,33 @@ namespace NovatecEnergyWeb.Controllers
             foreach (var item in metasCargas)
             {
                 resultadoViewModel.Meses[item.Mes - 1] = (Convert.ToInt32(resultadoViewModel.Meses[item.Mes - 1]) + Convert.ToInt32(item.Res.ToString())).ToString();
+                metasViewModel.Meses[item.Mes - 1] = (Convert.ToInt32(metasViewModel.Meses[item.Mes - 1]) + Convert.ToInt32(item.Meta.ToString())).ToString();
             }
 
+            //Trimestres
             resultadoViewModel.Trim1 = resultadoViewModel.Meses.Select(int.Parse).Take(3).Sum();
-            resultadoViewModel.Trim2 = resultadoViewModel.Meses.Select(int.Parse).Skip(3).Take(3).Sum();
+            resultadoViewModel.Trim2 = resultadoViewModel.Meses.Select(int.Parse).Skip(3).Take(3).Sum(); // iniciasse no index 3 (skip) e pega 3 elementos(Take)
             resultadoViewModel.Trim3 = resultadoViewModel.Meses.Select(int.Parse).Skip(6).Take(3).Sum();
             resultadoViewModel.Trim4 = resultadoViewModel.Meses.Select(int.Parse).Skip(9).Take(3).Sum();
 
+            metasViewModel.Trim1 = metasViewModel.Meses.Select(int.Parse).Take(3).Sum();
+            metasViewModel.Trim2 = metasViewModel.Meses.Select(int.Parse).Skip(3).Take(3).Sum();
+            metasViewModel.Trim3 = metasViewModel.Meses.Select(int.Parse).Skip(6).Take(3).Sum();
+            metasViewModel.Trim4 = metasViewModel.Meses.Select(int.Parse).Skip(9).Take(3).Sum();
+
+            //Anual
             resultadoViewModel.Anual = resultadoViewModel.Trim1 + resultadoViewModel.Trim2
                 + resultadoViewModel.Trim3 + resultadoViewModel.Trim4;
 
-            resultadoViewModel.Zona = "Resultado"; // na verdade não é zona(ex.:fluminense, metropolitana. É somente a primeira coluna string;
+            metasViewModel.Anual = metasViewModel.Trim1 + metasViewModel.Trim2 + metasViewModel.Trim3 +
+                metasViewModel.Trim4;
+
+            resultadoViewModel.Zona = "Resultado"; // na verdade não é zona(ex.:fluminense, metropolitana). É somente a primeira coluna string;
+            metasViewModel.Zona = "Metas";
+
+            //Adicionando na listagem de ResultadosViewModel
             resumos.Add(resultadoViewModel);
-            //  resumos.Add(metasViewModel);
+            resumos.Add(metasViewModel);
             //  resumos.Add(cargasViewModel);
 
             return resumos;
