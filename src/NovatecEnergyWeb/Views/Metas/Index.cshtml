@@ -12,31 +12,68 @@
         var parametro = {};
         parametro.anoSelecionado = document.getElementById("anos").value;
 
-        $.post("@Url.Action("BuscaMetasFiltradas", "Metas")", parametro, minhacallback);
+        $.post("@Url.Action("BuscaMetasFiltradas", "Metas")", parametro, alteraColunas);
     };
 
-    function minhacallback(retorno) {
-          $("#zonaRes_" + retorno.Resultados[0].id).html(retorno.Resultados[0].zona);
-          $('#zonaResmes0_' + retorno.Resultados[0].id).html(retorno.Resultados[0].meses[0]);
-          $('#zonaResmes1_' + retorno.Resultados[0].id).html(retorno.Resultados[0].meses[1]);
-          $('#zonaResmes2_' + retorno.Resultados[0].id).html(retorno.Resultados[0].meses[2]);
-
-          $('#zonaResTri1_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim1);
-          $('#zonaResTri2_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim2);
-          $('#zonaResTri3_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim3);
-          $('#zonaResTri4_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim4);
-          $('#zonaResAnual_' + retorno.Resultados[0].id).html(retorno.Resultados[0].anual);
-
-          $("#zonaRes_" + retorno.Resultados[1].id).html(retorno.Resultados[1].zona);
-      
-       // alert(retorno);
+    function alteraColunas(retorno) {
+        tabelaResultados(retorno);
+        tabelaMetas(retorno);
     }
+
+    function tabelaResultados(retorno) {
+        $("#zonaRes_" + retorno.Resultados[0].id).html(retorno.Resultados[0].zona); // 0 fluminense
+        $("#zonaRes_" + retorno.Resultados[1].id).html(retorno.Resultados[1].zona); // 1 metropolitana
+
+        for (var i = 0; i < 12; i++) {
+            $('#zonaResmes' + i + '_' + retorno.Resultados[0].id).html(retorno.Resultados[0].meses[i]);
+            $('#zonaResmes' + i + '_' + retorno.Resultados[1].id).html(retorno.Resultados[1].meses[i]);
+        }
+
+        $('#zonaResTri1_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim1);
+        $('#zonaResTri2_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim2);
+        $('#zonaResTri3_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim3);
+        $('#zonaResTri4_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim4);
+
+        $('#zonaResTri1_' + retorno.Resultados[1].id).html(retorno.Resultados[1].trim1);
+        $('#zonaResTri2_' + retorno.Resultados[1].id).html(retorno.Resultados[1].trim2);
+        $('#zonaResTri3_' + retorno.Resultados[1].id).html(retorno.Resultados[1].trim3);
+        $('#zonaResTri4_' + retorno.Resultados[1].id).html(retorno.Resultados[1].trim4);
+
+        $('#zonaResAnual_' + retorno.Resultados[0].id).html(retorno.Resultados[0].anual);
+        $('#zonaResAnual_' + retorno.Resultados[1].id).html(retorno.Resultados[1].anual);
+    }
+
+    function tabelaMetas(retorno) {
+        $("#MetasZona_" + retorno.Metas[0].id).html(retorno.Metas[0].zona);
+        $("#MetasZona_" + retorno.Metas[1].id).html(retorno.Metas[1].zona);
+
+        for (var i = 0; i < 12; i++) {
+            $("#MetasMes" + i + "_" + retorno.Metas[0].id).html(retorno.Metas[0].meses[i]);
+            $("#MetasMes" + i + "_" + retorno.Metas[1].id).html(retorno.Metas[1].meses[i]);
+        }
+        $("#MetasTri1_" + retorno.Metas[0].id).html(retorno.Metas[0].trim1);
+        $("#MetasTri2_" + retorno.Metas[0].id).html(retorno.Metas[0].trim2);
+        $("#MetasTri3_" + retorno.Metas[0].id).html(retorno.Metas[0].trim3);
+        $("#MetasTri4_" + retorno.Metas[0].id).html(retorno.Metas[0].trim4);
+
+        $("#MetasTri1_" + retorno.Metas[1].id).html(retorno.Metas[1].trim1);
+        $("#MetasTri2_" + retorno.Metas[1].id).html(retorno.Metas[1].trim2);
+        $("#MetasTri3_" + retorno.Metas[1].id).html(retorno.Metas[1].trim3);
+        $("#MetasTri4_" + retorno.Metas[1].id).html(retorno.Metas[1].trim4);
+
+        $("#MetasAnual_" + retorno.Metas[0].id).html(retorno.Metas[0].anual);
+        $("#MetasAnual_" + retorno.Metas[1].id).html(retorno.Metas[1].anual);
+        
+        
+
+    }
+
 </script>
 <select id="anos" onchange="chamaGetResultados()" >
     <option>2014</option>
-    <option selected>2015</option>
+    <option >2015</option>
     <option>2016</option>
-    <option>2017</option>
+    <option selected>2017</option>
 </select>
 <hr />
 <table class="table table-bordered">
@@ -172,26 +209,24 @@
         @foreach (var item in Model.Metas)
             {
             <tr>
-                <td>@item.Zona</td>
-                <td>@item.Meses[0]</td>
-                <td>@item.Meses[1]</td>
-                <td>@item.Meses[2]</td>
-                <td>@item.Trim1</td>
-                <td>@item.Meses[3]</td>
-                <td>@item.Meses[4]</td>
-                <td>@item.Meses[5]</td>
-                <td>@item.Trim2</td>
-                <td>@item.Meses[6]</td>
-                <td>@item.Meses[7]</td>
-                <td>@item.Meses[8]</td>
-                <td>@item.Trim3</td>
-                <td>@item.Meses[9]</td>
-                <td>@item.Meses[10]</td>
-                <td>@item.Meses[11]</td>
-                <td>@item.Trim4</td>
-                <td>@item.Anual</td>
-
-                 
+                <td id="MetasZona_@item.Id">@item.Zona</td>
+                <td id="MetasMes0_@item.Id">@item.Meses[0]</td>
+                <td id="MetasMes1_@item.Id">@item.Meses[1]</td>
+                <td id="MetasMes2_@item.Id">@item.Meses[2]</td>
+                <td id="MetasTri1_@item.Id">@item.Trim1</td>
+                <td id="MetasMes3_@item.Id">@item.Meses[3]</td>
+                <td id="MetasMes4_@item.Id">@item.Meses[4]</td>
+                <td id="MetasMes5_@item.Id">@item.Meses[5]</td>
+                <td id="MetasTri2_@item.Id">@item.Trim2</td>
+                <td id="MetasMes6_@item.Id">@item.Meses[6]</td>
+                <td id="MetasMes7_@item.Id">@item.Meses[7]</td>
+                <td id="MetasMes8_@item.Id">@item.Meses[8]</td>
+                <td id="MetasTri3_@item.Id">@item.Trim3</td>
+                <td id="MetasMes9_@item.Id">@item.Meses[9]</td>
+                <td id="MetasMes10_@item.Id">@item.Meses[10]</td>
+                <td id="MetasMes11_@item.Id">@item.Meses[11]</td>
+                <td id="MetasTri4_@item.Id">@item.Trim4</td>
+                <td id="MetasAnual_@item.Id">@item.Anual</td>
             </tr>
          }
 
