@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
-using NovatecEnergyWeb.Filters.ActionFilters;
+
 using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models.MetasViewModels;
 using System.Dynamic;
@@ -206,6 +206,9 @@ namespace NovatecEnergyWeb.Controllers
 
             metropolitana.Meses = new List<string>();
             fluminense.Meses = new List<string>();
+
+            metropolitana.Id = 1;
+            fluminense.Id = 2;
 
             List<ResultadosViewModel> resultados = new List<ResultadosViewModel>();
 
