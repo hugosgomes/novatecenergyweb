@@ -7,7 +7,32 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<select>
+<script type="text/javascript">
+    function chamaGetResultados() {
+        var parametro = {};
+        parametro.anoSelecionado = document.getElementById("anos").value;
+
+        $.post("@Url.Action("BuscaMetasFiltradas", "Metas")", parametro, minhacallback);
+    };
+
+    function minhacallback(retorno) {
+          $("#zonaRes_" + retorno.Resultados[0].id).html(retorno.Resultados[0].zona);
+          $('#zonaResmes0_' + retorno.Resultados[0].id).html(retorno.Resultados[0].meses[0]);
+          $('#zonaResmes1_' + retorno.Resultados[0].id).html(retorno.Resultados[0].meses[1]);
+          $('#zonaResmes2_' + retorno.Resultados[0].id).html(retorno.Resultados[0].meses[2]);
+
+          $('#zonaResTri1_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim1);
+          $('#zonaResTri2_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim2);
+          $('#zonaResTri3_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim3);
+          $('#zonaResTri4_' + retorno.Resultados[0].id).html(retorno.Resultados[0].trim4);
+          $('#zonaResAnual_' + retorno.Resultados[0].id).html(retorno.Resultados[0].anual);
+
+          $("#zonaRes_" + retorno.Resultados[1].id).html(retorno.Resultados[1].zona);
+      
+       // alert(retorno);
+    }
+</script>
+<select id="anos" onchange="chamaGetResultados()" >
     <option>2014</option>
     <option selected>2015</option>
     <option>2016</option>
@@ -94,24 +119,24 @@
             @foreach (var item in Model.Resultados)
             {
                 <tr>
-                    <td>@item.Zona</td>
-                    <td>@item.Meses[0]</td>
-                    <td>@item.Meses[1]</td>
-                    <td>@item.Meses[2]</td>
-                    <td>@item.Trim1</td>
-                    <td>@item.Meses[3]</td>
-                    <td>@item.Meses[4]</td>
-                    <td>@item.Meses[5]</td>
-                    <td>@item.Trim2</td>
-                    <td>@item.Meses[6]</td>
-                    <td>@item.Meses[7]</td>
-                    <td>@item.Meses[8]</td>
-                    <td>@item.Trim3</td>
-                    <td>@item.Meses[9]</td>
-                    <td>@item.Meses[10]</td>
-                    <td>@item.Meses[11]</td>
-                    <td>@item.Trim4</td>
-                    <td>@item.Anual</td>
+                    <td id="zonaRes_@item.Id">@item.Zona</td>
+                    <td id="zonaResmes0_@item.Id">@item.Meses[0]</td>
+                    <td id="zonaResmes1_@item.Id">@item.Meses[1]</td>
+                    <td id="zonaResmes2_@item.Id">@item.Meses[2]</td>
+                    <td id="zonaResTri1_@item.Id">@item.Trim1</td>
+                    <td id="zonaResmes3_@item.Id">@item.Meses[3]</td>
+                    <td id="zonaResmes4_@item.Id">@item.Meses[4]</td>
+                    <td id="zonaResmes5_@item.Id">@item.Meses[5]</td>
+                    <td id="zonaResTri2_@item.Id">@item.Trim2</td>
+                    <td id="zonaResmes6_@item.Id">@item.Meses[6]</td>
+                    <td id="zonaResmes7_@item.Id">@item.Meses[7]</td>
+                    <td id="zonaResmes8_@item.Id">@item.Meses[8]</td>
+                    <td id="zonaResTri3_@item.Id">@item.Trim3</td>
+                    <td id="zonaResmes9_@item.Id">@item.Meses[9]</td>
+                    <td id="zonaResmes10_@item.Id">@item.Meses[10]</td>
+                    <td id="zonaResmes11_@item.Id">@item.Meses[11]</td>
+                    <td id="zonaResTri4_@item.Id">@item.Trim4</td>
+                    <td id="zonaResAnual_@item.Id">@item.Anual</td>
                 </tr>
             }
             

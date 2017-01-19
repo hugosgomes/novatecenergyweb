@@ -24,25 +24,32 @@ namespace NovatecEnergyWeb.Controllers
         
         public IActionResult Index()
         {
-            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == 2015).ToList();
-            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == 2015).ToList();
+            return BuscaMetasFiltradas(DateTime.Now.Year,true);
+        }
+
+        public IActionResult BuscaMetasFiltradas(int anoSelecionado, bool index)
+        {
+            var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == anoSelecionado).ToList();
+            var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == anoSelecionado).ToList();
 
             dynamic mymodel = new ExpandoObject();
 
-            mymodel.Resultados = GetResultados(metasCargas,"resultados");
+            mymodel.Resultados = GetResultados(metasCargas, "resultados");
             mymodel.Metas = GetResultados(metasCargas, "metas");
             mymodel.Cargas = GetResultados(metasCargas, "cargas");
             mymodel.MetasD2 = GetResultados(metasCargas, "metasD2");
 
-            mymodel.CargasD2 = GetNumerosD2(cargasMetasD2,"numeroD2");
-            mymodel.ResultadoD2 = GetNumerosD2(cargasMetasD2,"resultadosD2");
+            mymodel.CargasD2 = GetNumerosD2(cargasMetasD2, "numeroD2");
+            mymodel.ResultadoD2 = GetNumerosD2(cargasMetasD2, "resultadosD2");
             mymodel.PorcentagemD2 = GetNumerosD2(cargasMetasD2, "porcentagemD2");
 
-            mymodel.Resumos= GetResumos(metasCargas);
+            mymodel.Resumos = GetResumos(metasCargas);
 
-            return View(mymodel);
+            if (index)
+                return View(mymodel);
+            else
+                return Json(mymodel);
         }
-
         public List<ResultadosViewModel> GetResultados(List<_10_MetasCargas> metasCargas, string tipoMeta)
         {
             var fluminense = new ResultadosViewModel();
@@ -50,6 +57,9 @@ namespace NovatecEnergyWeb.Controllers
 
             metropolitana.Meses = new List<string>();
             fluminense.Meses = new List<string>();
+
+            metropolitana.Id = 1;
+            fluminense.Id = 2;
 
             List<ResultadosViewModel> resultados = new List<ResultadosViewModel>();
 
