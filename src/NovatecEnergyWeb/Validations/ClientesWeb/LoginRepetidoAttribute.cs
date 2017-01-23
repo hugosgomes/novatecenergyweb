@@ -15,7 +15,7 @@ namespace NovatecEnergyWeb.Validations.ClientesWeb
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
-            var connection = @"Server=NVTSERVER;DataBase=TESTETS;Uid=NVT;Pwd=1;";
+            var connection = @"Server=NVTSERVER;DataBase=BDNVT;Uid=NVT;Pwd=1;";
             optionsBuilder.UseSqlServer(connection);
 
             _context = new BDNVTContext(optionsBuilder.Options);

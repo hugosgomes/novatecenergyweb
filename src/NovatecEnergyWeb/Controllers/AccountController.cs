@@ -108,7 +108,7 @@ namespace NovatecEnergyWeb.Controllers
                 if (trocaSenha.Tipo == "func")
                 {
                     var funcionario = _context.Funcionários.Find(trocaSenha.Id);
-                    funcionario.Senha = trocaSenha.NovaSenha;
+                    funcionario.Senha = Encryption.GetSHA1HashData(trocaSenha.NovaSenha);
 
                 }else
                 {
