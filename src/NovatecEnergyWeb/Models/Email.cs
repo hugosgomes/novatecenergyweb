@@ -72,7 +72,7 @@ namespace NovatecEnergyWeb.Models
             {
                 _destinatario = destinatario;
                 _assunto = "NovatecEnergyWeb - Cadastro concluído";
-                _conteudo = $"Seu cadastro foi concluído no portal NovatecEnergyWeb. {Environment.NewLine}" +
+                _conteudo = $"Foi realizado um cadastro para seu uso no portal NovatecEnergyWeb. {Environment.NewLine}" +
                     "Aguarde o email de confirmação para poder realizar o login no sistema.";
                 _remetente = "ti@novatecenergy.com.br";
             }
@@ -82,7 +82,7 @@ namespace NovatecEnergyWeb.Models
                 _destinatario = destinatario;
                 _assunto = "NovatecEnergyWeb - Ativação de cadastro";
                 _conteudo = $"Seu cadastro foi ativado no portal NovatecEnergyWeb. {Environment.NewLine}" +
-                    "Já é possível realizar o login no sistema.";
+                    "Já é possível realizar o login no sistema. Na tela de Login, selecione a opção 'Clientes' e realize o login.";
                 _remetente = "ti@novatecenergy.com.br";
             }
         }

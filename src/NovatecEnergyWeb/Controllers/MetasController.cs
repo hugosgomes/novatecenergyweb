@@ -8,6 +8,7 @@ using NovatecEnergyWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models.MetasViewModels;
 using System.Dynamic;
+using NovatecEnergyWeb.Filters.ActionFilters;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -21,7 +22,7 @@ namespace NovatecEnergyWeb.Controllers
             _context = context;
         }
 
-        
+        [AutenticacaoFilter]
         public IActionResult Index()
         {
             return BuscaMetasFiltradas(DateTime.Now.Year,true);
