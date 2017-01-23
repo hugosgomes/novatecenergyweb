@@ -5,9 +5,13 @@
     ViewData["Title"] = "Metas - Cargas";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Title"]</h3>
 
 <script type="text/javascript">
+    //Muda o valor selecionado do select para ano atual
+    window.onload = function () {
+        $("#anos").val("@DateTime.Now.Year");
+    };
     function chamaGetResultados() {
         var parametro = {};
         parametro.anoSelecionado = document.getElementById("anos").value;
@@ -216,66 +220,64 @@
     }
 </script>
 <select id="anos" onchange="chamaGetResultados()" >
-    <option>2014</option>
     <option >2015</option>
     <option>2016</option>
     <option selected>2017</option>
 </select>
-<hr />
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th class="text-left">Tabela Resumo</th>
-            <th class="text-center">Jan</th>
-            <th class="text-center">Fev</th>
-            <th class="text-center">Mar</th>
-            <th class="text-center">1ºTrim</th>
-            <th class="text-center">Abr</th>
-            <th class="text-center">Mai</th>
-            <th class="text-center">Jun</th>
-            <th class="text-center">2ºTrim</th>
-            <th class="text-center">Jul</th>
-            <th class="text-center">Ago</th>
-            <th class="text-center">Set</th>
-            <th class="text-center">3ºTrim</th>
-            <th class="text-center">Out</th>
-            <th class="text-center">Nov</th>
-            <th class="text-center">Dec</th>
-            <th class="text-center">4ºTrim</th>
-            <th class="text-center">Anual</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Resumos)
-            {
-             <tr>
-                    <td id="ResumoZona_@item.Id">@item.Zona</td>
-                    <td id="ResumoMes0_@item.Id">@item.Meses[0]</td>
-                    <td id="ResumoMes1_@item.Id">@item.Meses[1]</td>
-                    <td id="ResumoMes2_@item.Id">@item.Meses[2]</td>
-                    <td id="ResumoTri1_@item.Id">@item.Trim1</td>
-                    <td id="ResumoMes3_@item.Id">@item.Meses[3]</td>
-                    <td id="ResumoMes4_@item.Id">@item.Meses[4]</td>
-                    <td id="ResumoMes5_@item.Id">@item.Meses[5]</td>
-                    <td id="ResumoTri2_@item.Id">@item.Trim2</td>
-                    <td id="ResumoMes6_@item.Id">@item.Meses[6]</td>
-                    <td id="ResumoMes7_@item.Id">@item.Meses[7]</td>
-                    <td id="ResumoMes8_@item.Id">@item.Meses[8]</td>
-                    <td id="ResumoTri3_@item.Id">@item.Trim3</td>
-                    <td id="ResumoMes9_@item.Id">@item.Meses[9]</td>
-                    <td id="ResumoMes10_@item.Id">@item.Meses[10]</td>
-                    <td id="ResumoMes11_@item.Id">@item.Meses[11]</td>
-                    <td id="ResumoTri4_@item.Id">@item.Trim4</td>
-                    <td id="ResumoAnual_@item.Id">@item.Anual</td>
+<hr class="hrMetasSelect"/>
+        <table class="tableMetas table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">Tabela Resumo</th>
+                    <th class="text-center">Jan</th>
+                    <th class="text-center">Fev</th>
+                    <th class="text-center">Mar</th>
+                    <th class="text-center">1ºTrim</th>
+                    <th class="text-center">Abr</th>
+                    <th class="text-center">Mai</th>
+                    <th class="text-center">Jun</th>
+                    <th class="text-center">2ºTrim</th>
+                    <th class="text-center">Jul</th>
+                    <th class="text-center">Ago</th>
+                    <th class="text-center">Set</th>
+                    <th class="text-center">3ºTrim</th>
+                    <th class="text-center">Out</th>
+                    <th class="text-center">Nov</th>
+                    <th class="text-center">Dec</th>
+                    <th class="text-center">4ºTrim</th>
+                    <th class="text-center">Anual</th>
                 </tr>
-        }
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Resumos)
+            {
+                    <tr>
+                        <td class="text-center" id="ResumoZona_@item.Id">@item.Zona</td>
+                        <td class="text-center" id="ResumoMes0_@item.Id">@item.Meses[0]</td>
+                        <td class="text-center" id="ResumoMes1_@item.Id">@item.Meses[1]</td>
+                        <td class="text-center" id="ResumoMes2_@item.Id">@item.Meses[2]</td>
+                        <td class="text-center" id="ResumoTri1_@item.Id">@item.Trim1</td>
+                        <td class="text-center" id="ResumoMes3_@item.Id">@item.Meses[3]</td>
+                        <td class="text-center" id="ResumoMes4_@item.Id">@item.Meses[4]</td>
+                        <td class="text-center" id="ResumoMes5_@item.Id">@item.Meses[5]</td>
+                        <td class="text-center" id="ResumoTri2_@item.Id">@item.Trim2</td>
+                        <td class="text-center" id="ResumoMes6_@item.Id">@item.Meses[6]</td>
+                        <td class="text-center" id="ResumoMes7_@item.Id">@item.Meses[7]</td>
+                        <td class="text-center" id="ResumoMes8_@item.Id">@item.Meses[8]</td>
+                        <td class="text-center" id="ResumoTri3_@item.Id">@item.Trim3</td>
+                        <td class="text-center" id="ResumoMes9_@item.Id">@item.Meses[9]</td>
+                        <td class="text-center" id="ResumoMes10_@item.Id">@item.Meses[10]</td>
+                        <td class="text-center" id="ResumoMes11_@item.Id">@item.Meses[11]</td>
+                        <td class="text-center" id="ResumoTri4_@item.Id">@item.Trim4</td>
+                        <td class="text-center" id="ResumoAnual_@item.Id">@item.Anual</td>
+                    </tr>
+                }
 
 
-    </tbody>
-</table>
-
-<hr />
-<table class="table table-bordered">
+            </tbody>
+        </table>
+<hr class="hrMetas" />
+<table class="tableMetas table-bordered">
     <thead>
         <tr>
             <th class="text-center">Resultados</th>
@@ -302,32 +304,32 @@
             @foreach (var item in Model.Resultados)
             {
                 <tr>
-                    <td id="zonaRes_@item.Id">@item.Zona</td>
-                    <td id="zonaResmes0_@item.Id">@item.Meses[0]</td>
-                    <td id="zonaResmes1_@item.Id">@item.Meses[1]</td>
-                    <td id="zonaResmes2_@item.Id">@item.Meses[2]</td>
-                    <td id="zonaResTri1_@item.Id">@item.Trim1</td>
-                    <td id="zonaResmes3_@item.Id">@item.Meses[3]</td>
-                    <td id="zonaResmes4_@item.Id">@item.Meses[4]</td>
-                    <td id="zonaResmes5_@item.Id">@item.Meses[5]</td>
-                    <td id="zonaResTri2_@item.Id">@item.Trim2</td>
-                    <td id="zonaResmes6_@item.Id">@item.Meses[6]</td>
-                    <td id="zonaResmes7_@item.Id">@item.Meses[7]</td>
-                    <td id="zonaResmes8_@item.Id">@item.Meses[8]</td>
-                    <td id="zonaResTri3_@item.Id">@item.Trim3</td>
-                    <td id="zonaResmes9_@item.Id">@item.Meses[9]</td>
-                    <td id="zonaResmes10_@item.Id">@item.Meses[10]</td>
-                    <td id="zonaResmes11_@item.Id">@item.Meses[11]</td>
-                    <td id="zonaResTri4_@item.Id">@item.Trim4</td>
-                    <td id="zonaResAnual_@item.Id">@item.Anual</td>
+                    <td class="text-center" id="zonaRes_@item.Id">@item.Zona</td>
+                    <td class="text-center" id="zonaResmes0_@item.Id">@item.Meses[0]</td>
+                    <td class="text-center" id="zonaResmes1_@item.Id">@item.Meses[1]</td>
+                    <td class="text-center" id="zonaResmes2_@item.Id">@item.Meses[2]</td>
+                    <td class="text-center" id="zonaResTri1_@item.Id">@item.Trim1</td>
+                    <td class="text-center" id="zonaResmes3_@item.Id">@item.Meses[3]</td>
+                    <td class="text-center" id="zonaResmes4_@item.Id">@item.Meses[4]</td>
+                    <td class="text-center" id="zonaResmes5_@item.Id">@item.Meses[5]</td>
+                    <td class="text-center" id="zonaResTri2_@item.Id">@item.Trim2</td>
+                    <td class="text-center" id="zonaResmes6_@item.Id">@item.Meses[6]</td>
+                    <td class="text-center" id="zonaResmes7_@item.Id">@item.Meses[7]</td>
+                    <td class="text-center" id="zonaResmes8_@item.Id">@item.Meses[8]</td>
+                    <td class="text-center" id="zonaResTri3_@item.Id">@item.Trim3</td>
+                    <td class="text-center" id="zonaResmes9_@item.Id">@item.Meses[9]</td>
+                    <td class="text-center" id="zonaResmes10_@item.Id">@item.Meses[10]</td>
+                    <td class="text-center" id="zonaResmes11_@item.Id">@item.Meses[11]</td>
+                    <td class="text-center" id="zonaResTri4_@item.Id">@item.Trim4</td>
+                    <td class="text-center" id="zonaResAnual_@item.Id">@item.Anual</td>
                 </tr>
             }
             
           
     </tbody>
 </table>
-<hr />
-<table class="table table-bordered">
+<hr class="hrMetas" />
+<table class="tableMetas table-bordered">
     <thead>
         <tr>
             <th class="text-center">Metas</th>
@@ -355,31 +357,31 @@
         @foreach (var item in Model.Metas)
             {
             <tr>
-                <td id="MetasZona_@item.Id">@item.Zona</td>
-                <td id="MetasMes0_@item.Id">@item.Meses[0]</td>
-                <td id="MetasMes1_@item.Id">@item.Meses[1]</td>
-                <td id="MetasMes2_@item.Id">@item.Meses[2]</td>
-                <td id="MetasTri1_@item.Id">@item.Trim1</td>
-                <td id="MetasMes3_@item.Id">@item.Meses[3]</td>
-                <td id="MetasMes4_@item.Id">@item.Meses[4]</td>
-                <td id="MetasMes5_@item.Id">@item.Meses[5]</td>
-                <td id="MetasTri2_@item.Id">@item.Trim2</td>
-                <td id="MetasMes6_@item.Id">@item.Meses[6]</td>
-                <td id="MetasMes7_@item.Id">@item.Meses[7]</td>
-                <td id="MetasMes8_@item.Id">@item.Meses[8]</td>
-                <td id="MetasTri3_@item.Id">@item.Trim3</td>
-                <td id="MetasMes9_@item.Id">@item.Meses[9]</td>
-                <td id="MetasMes10_@item.Id">@item.Meses[10]</td>
-                <td id="MetasMes11_@item.Id">@item.Meses[11]</td>
-                <td id="MetasTri4_@item.Id">@item.Trim4</td>
-                <td id="MetasAnual_@item.Id">@item.Anual</td>
+                <td class="text-center" id="MetasZona_@item.Id">@item.Zona</td>
+                <td class="text-center" id="MetasMes0_@item.Id">@item.Meses[0]</td>
+                <td class="text-center" id="MetasMes1_@item.Id">@item.Meses[1]</td>
+                <td class="text-center" id="MetasMes2_@item.Id">@item.Meses[2]</td>
+                <td class="text-center" id="MetasTri1_@item.Id">@item.Trim1</td>
+                <td class="text-center" id="MetasMes3_@item.Id">@item.Meses[3]</td>
+                <td class="text-center" id="MetasMes4_@item.Id">@item.Meses[4]</td>
+                <td class="text-center" id="MetasMes5_@item.Id">@item.Meses[5]</td>
+                <td class="text-center" id="MetasTri2_@item.Id">@item.Trim2</td>
+                <td class="text-center" id="MetasMes6_@item.Id">@item.Meses[6]</td>
+                <td class="text-center" id="MetasMes7_@item.Id">@item.Meses[7]</td>
+                <td class="text-center" id="MetasMes8_@item.Id">@item.Meses[8]</td>
+                <td class="text-center" id="MetasTri3_@item.Id">@item.Trim3</td>
+                <td class="text-center" id="MetasMes9_@item.Id">@item.Meses[9]</td>
+                <td class="text-center" id="MetasMes10_@item.Id">@item.Meses[10]</td>
+                <td class="text-center" id="MetasMes11_@item.Id">@item.Meses[11]</td>
+                <td class="text-center" id="MetasTri4_@item.Id">@item.Trim4</td>
+                <td class="text-center" id="MetasAnual_@item.Id">@item.Anual</td>
             </tr>
          }
 
     </tbody>
 </table>
-<hr />
-<table class="table table-bordered">
+<hr class="hrMetas" />
+<table class="tableMetas table-bordered">
     <thead>
         <tr>
             <th class="text-center">Cargas</th>
@@ -407,31 +409,31 @@
         @foreach (var item in Model.Cargas)
             {
             <tr>
-                <td id="CargasZona_@item.Id">@item.Zona</td>
-                <td id="CargasMes0_@item.Id">@item.Meses[0]</td>
-                <td id="CargasMes1_@item.Id">@item.Meses[1]</td>
-                <td id="CargasMes2_@item.Id">@item.Meses[2]</td>
-                <td id="CargasTri1_@item.Id">@item.Trim1</td>
-                <td id="CargasMes3_@item.Id">@item.Meses[3]</td>
-                <td id="CargasMes4_@item.Id">@item.Meses[4]</td>
-                <td id="CargasMes5_@item.Id">@item.Meses[5]</td>
-                <td id="CargasTri2_@item.Id">@item.Trim2</td>
-                <td id="CargasMes6_@item.Id">@item.Meses[6]</td>
-                <td id="CargasMes7_@item.Id">@item.Meses[7]</td>
-                <td id="CargasMes8_@item.Id">@item.Meses[8]</td>
-                <td id="CargasTri3_@item.Id">@item.Trim3</td>
-                <td id="CargasMes9_@item.Id">@item.Meses[9]</td>
-                <td id="CargasMes10_@item.Id">@item.Meses[10]</td>
-                <td id="CargasMes11_@item.Id">@item.Meses[11]</td>
-                <td id="CargasTri4_@item.Id">@item.Trim4</td>
-                <td id="CargasAnual_@item.Id">@item.Anual</td>
+                <td class="text-center" id="CargasZona_@item.Id">@item.Zona</td>
+                <td class="text-center" id="CargasMes0_@item.Id">@item.Meses[0]</td>
+                <td class="text-center" id="CargasMes1_@item.Id">@item.Meses[1]</td>
+                <td class="text-center" id="CargasMes2_@item.Id">@item.Meses[2]</td>
+                <td class="text-center" id="CargasTri1_@item.Id">@item.Trim1</td>
+                <td class="text-center" id="CargasMes3_@item.Id">@item.Meses[3]</td>
+                <td class="text-center" id="CargasMes4_@item.Id">@item.Meses[4]</td>
+                <td class="text-center" id="CargasMes5_@item.Id">@item.Meses[5]</td>
+                <td class="text-center" id="CargasTri2_@item.Id">@item.Trim2</td>
+                <td class="text-center" id="CargasMes6_@item.Id">@item.Meses[6]</td>
+                <td class="text-center" id="CargasMes7_@item.Id">@item.Meses[7]</td>
+                <td class="text-center" id="CargasMes8_@item.Id">@item.Meses[8]</td>
+                <td class="text-center" id="CargasTri3_@item.Id">@item.Trim3</td>
+                <td class="text-center" id="CargasMes9_@item.Id">@item.Meses[9]</td>
+                <td class="text-center" id="CargasMes10_@item.Id">@item.Meses[10]</td>
+                <td class="text-center" id="CargasMes11_@item.Id">@item.Meses[11]</td>
+                <td class="text-center" id="CargasTri4_@item.Id">@item.Trim4</td>
+                <td class="text-center" id="CargasAnual_@item.Id">@item.Anual</td>
             </tr>
         }
 
     </tbody>
 </table>
-<hr />
-<table class="table table-bordered">
+<hr class="hrMetas" />
+<table class="tableMetas table-bordered">
     <thead>
         <tr>
             <th class="text-center">Metas D2</th>
@@ -460,32 +462,32 @@
         @foreach (var item in Model.MetasD2)
             {
             <tr>
-                <td id="MetasD2Zona_@item.Id">@item.Zona</td>
-                <td id="MetasD2Mes0_@item.Id">@item.Meses[0]</td>
-                <td id="MetasD2Mes1_@item.Id">@item.Meses[1]</td>
-                <td id="MetasD2Mes2_@item.Id">@item.Meses[2]</td>
-                <td id="MetasD2Tri1_@item.Id">@item.Trim1</td>
-                <td id="MetasD2Mes3_@item.Id">@item.Meses[3]</td>
-                <td id="MetasD2Mes4_@item.Id">@item.Meses[4]</td>
-                <td id="MetasD2Mes5_@item.Id">@item.Meses[5]</td>
-                <td id="MetasD2Tri2_@item.Id">@item.Trim2</td>
-                <td id="MetasD2Mes6_@item.Id">@item.Meses[6]</td>
-                <td id="MetasD2Mes7_@item.Id">@item.Meses[7]</td>
-                <td id="MetasD2Mes8_@item.Id">@item.Meses[8]</td>
-                <td id="MetasD2Tri3_@item.Id">@item.Trim3</td>
-                <td id="MetasD2Mes9_@item.Id">@item.Meses[9]</td>
-                <td id="MetasD2Mes10_@item.Id">@item.Meses[10]</td>
-                <td id="MetasD2Mes11_@item.Id">@item.Meses[11]</td>
-                <td id="MetasD2Tri4_@item.Id">@item.Trim4</td>
-                <td id="MetasD2Anual_@item.Id">@item.Anual</td>
+                <td class="text-center" id="MetasD2Zona_@item.Id">@item.Zona</td>
+                <td class="text-center" id="MetasD2Mes0_@item.Id">@item.Meses[0]</td>
+                <td class="text-center" id="MetasD2Mes1_@item.Id">@item.Meses[1]</td>
+                <td class="text-center" id="MetasD2Mes2_@item.Id">@item.Meses[2]</td>
+                <td class="text-center" id="MetasD2Tri1_@item.Id">@item.Trim1</td>
+                <td class="text-center" id="MetasD2Mes3_@item.Id">@item.Meses[3]</td>
+                <td class="text-center" id="MetasD2Mes4_@item.Id">@item.Meses[4]</td>
+                <td class="text-center" id="MetasD2Mes5_@item.Id">@item.Meses[5]</td>
+                <td class="text-center" id="MetasD2Tri2_@item.Id">@item.Trim2</td>
+                <td class="text-center" id="MetasD2Mes6_@item.Id">@item.Meses[6]</td>
+                <td class="text-center" id="MetasD2Mes7_@item.Id">@item.Meses[7]</td>
+                <td class="text-center" id="MetasD2Mes8_@item.Id">@item.Meses[8]</td>
+                <td class="text-center" id="MetasD2Tri3_@item.Id">@item.Trim3</td>
+                <td class="text-center" id="MetasD2Mes9_@item.Id">@item.Meses[9]</td>
+                <td class="text-center" id="MetasD2Mes10_@item.Id">@item.Meses[10]</td>
+                <td class="text-center" id="MetasD2Mes11_@item.Id">@item.Meses[11]</td>
+                <td class="text-center" id="MetasD2Tri4_@item.Id">@item.Trim4</td>
+                <td class="text-center" id="MetasD2Anual_@item.Id">@item.Anual</td>
             </tr>
        }
        
 
     </tbody>
 </table>
-<hr />
-<table class="table table-bordered">
+<hr class="hrMetas" />
+<table class="tableMetas table-bordered">
     <thead>
         <tr>
             <th class="text-center">Nº Cargas D2</th>
@@ -512,32 +514,32 @@
         @foreach (var item in Model.CargasD2)
             {
             <tr>
-                <td id="Nd2Zona_@item.Id">@item.Zona</td>
-                <td id="Nd2Mes0_@item.Id">@item.Meses[0]</td>
-                <td id="Nd2Mes1_@item.Id">@item.Meses[1]</td>
-                <td id="Nd2Mes2_@item.Id">@item.Meses[2]</td>
-                <td id="Nd2Tri1_@item.Id">@item.Trim1</td>
-                <td id="Nd2Mes3_@item.Id">@item.Meses[3]</td>
-                <td id="Nd2Mes4_@item.Id">@item.Meses[4]</td>
-                <td id="Nd2Mes5_@item.Id">@item.Meses[5]</td>
-                <td id="Nd2Tri2_@item.Id">@item.Trim2</td>
-                <td id="Nd2Mes6_@item.Id">@item.Meses[6]</td>
-                <td id="Nd2Mes7_@item.Id">@item.Meses[7]</td>
-                <td id="Nd2Mes8_@item.Id">@item.Meses[8]</td>
-                <td id="Nd2Tri3_@item.Id">@item.Trim3</td>    
-                <td id="Nd2Mes9_@item.Id">@item.Meses[9]</td>
-                <td id="Nd2Mes10_@item.Id">@item.Meses[10]</td>
-                <td id="Nd2Mes11_@item.Id">@item.Meses[11]</td>
-                <td id="Nd2Tri4_@item.Id">@item.Trim4</td>    
-                <td id="Nd2Anual_@item.Id">@item.Anual</td>
+                <td class="text-center" id="Nd2Zona_@item.Id">@item.Zona</td>
+                <td class="text-center" id="Nd2Mes0_@item.Id">@item.Meses[0]</td>
+                <td class="text-center" id="Nd2Mes1_@item.Id">@item.Meses[1]</td>
+                <td class="text-center" id="Nd2Mes2_@item.Id">@item.Meses[2]</td>
+                <td class="text-center" id="Nd2Tri1_@item.Id">@item.Trim1</td>
+                <td class="text-center" id="Nd2Mes3_@item.Id">@item.Meses[3]</td>
+                <td class="text-center" id="Nd2Mes4_@item.Id">@item.Meses[4]</td>
+                <td class="text-center" id="Nd2Mes5_@item.Id">@item.Meses[5]</td>
+                <td class="text-center" id="Nd2Tri2_@item.Id">@item.Trim2</td>
+                <td class="text-center" id="Nd2Mes6_@item.Id">@item.Meses[6]</td>
+                <td class="text-center" id="Nd2Mes7_@item.Id">@item.Meses[7]</td>
+                <td class="text-center" id="Nd2Mes8_@item.Id">@item.Meses[8]</td>
+                <td class="text-center" id="Nd2Tri3_@item.Id">@item.Trim3</td>    
+                <td class="text-center" id="Nd2Mes9_@item.Id">@item.Meses[9]</td>
+                <td class="text-center" id="Nd2Mes10_@item.Id">@item.Meses[10]</td>
+                <td class="text-center" id="Nd2Mes11_@item.Id">@item.Meses[11]</td>
+                <td class="text-center" id="Nd2Tri4_@item.Id">@item.Trim4</td>    
+                <td class="text-center" id="Nd2Anual_@item.Id">@item.Anual</td>
             </tr>
          }
 
 
     </tbody>
 </table>
-<hr />
-<table class="table table-bordered">
+<hr class="hrMetas" />
+<table class="tableMetas table-bordered">
     <thead>
         <tr>
             <th class="text-center">Resultado D2</th>
@@ -566,24 +568,24 @@
         @foreach (var item in Model.ResultadoD2)
             {
             <tr>
-                <td id="ResultadosD2Zona_@item.Id">@item.Zona</td>
-                <td id="ResultadosD2Mes0_@item.Id">@item.Meses[0]</td>
-                <td id="ResultadosD2Mes1_@item.Id">@item.Meses[1]</td>
-                <td id="ResultadosD2Mes2_@item.Id">@item.Meses[2]</td>
-                <td id="ResultadosD2Tri1_@item.Id">@item.Trim1</td>
-                <td id="ResultadosD2Mes3_@item.Id">@item.Meses[3]</td>
-                <td id="ResultadosD2Mes4_@item.Id">@item.Meses[4]</td>
-                <td id="ResultadosD2Mes5_@item.Id">@item.Meses[5]</td>
-                <td id="ResultadosD2Tri2_@item.Id">@item.Trim2</td>
-                <td id="ResultadosD2Mes6_@item.Id">@item.Meses[6]</td>
-                <td id="ResultadosD2Mes7_@item.Id">@item.Meses[7]</td>
-                <td id="ResultadosD2Mes8_@item.Id">@item.Meses[8]</td>
-                <td id="ResultadosD2Tri3_@item.Id">@item.Trim3</td>
-                <td id="ResultadosD2Mes9_@item.Id">@item.Meses[9]</td>
-                <td id="ResultadosD2Mes10_@item.Id">@item.Meses[10]</td>
-                <td id="ResultadosD2Mes11_@item.Id">@item.Meses[11]</td>
-                <td id="ResultadosD2Tri4_@item.Id">@item.Trim4</td>
-                <td id="ResultadosD2Anual_@item.Id">@item.Anual</td>
+                <td class="text-center" id="ResultadosD2Zona_@item.Id">@item.Zona</td>
+                <td class="text-center" id="ResultadosD2Mes0_@item.Id">@item.Meses[0]</td>
+                <td class="text-center" id="ResultadosD2Mes1_@item.Id">@item.Meses[1]</td>
+                <td class="text-center" id="ResultadosD2Mes2_@item.Id">@item.Meses[2]</td>
+                <td class="text-center" id="ResultadosD2Tri1_@item.Id">@item.Trim1</td>
+                <td class="text-center" id="ResultadosD2Mes3_@item.Id">@item.Meses[3]</td>
+                <td class="text-center" id="ResultadosD2Mes4_@item.Id">@item.Meses[4]</td>
+                <td class="text-center" id="ResultadosD2Mes5_@item.Id">@item.Meses[5]</td>
+                <td class="text-center" id="ResultadosD2Tri2_@item.Id">@item.Trim2</td>
+                <td class="text-center" id="ResultadosD2Mes6_@item.Id">@item.Meses[6]</td>
+                <td class="text-center" id="ResultadosD2Mes7_@item.Id">@item.Meses[7]</td>
+                <td class="text-center" id="ResultadosD2Mes8_@item.Id">@item.Meses[8]</td>
+                <td class="text-center" id="ResultadosD2Tri3_@item.Id">@item.Trim3</td>
+                <td class="text-center" id="ResultadosD2Mes9_@item.Id">@item.Meses[9]</td>
+                <td class="text-center" id="ResultadosD2Mes10_@item.Id">@item.Meses[10]</td>
+                <td class="text-center" id="ResultadosD2Mes11_@item.Id">@item.Meses[11]</td>
+                <td class="text-center" id="ResultadosD2Tri4_@item.Id">@item.Trim4</td>
+                <td class="text-center" id="ResultadosD2Anual_@item.Id">@item.Anual</td>
             </tr>
 
         }
@@ -591,8 +593,8 @@
 
     </tbody>
 </table>
-<hr />
-<table class="table table-bordered">
+<hr class="hrMetas" />
+<table class="tableMetas table-bordered">
     <thead>
         <tr>
             <th class="text-center">% Cargas D2</th>
@@ -622,77 +624,75 @@
         @foreach (var item in Model.PorcentagemD2)
         {
             <tr>
-                <td id="PercentZona_@item.Id">@item.Zona</td>
-                <td id="PercentMes0_@item.Id">@item.Meses[0]</td>
-                <td id="PercentMes1_@item.Id">@item.Meses[1]</td>
-                <td id="PercentMes2_@item.Id">@item.Meses[2]</td>
+                <td class="text-center" id="PercentZona_@item.Id">@item.Zona</td>
+                <td class="text-center" id="PercentMes0_@item.Id">@item.Meses[0]</td>
+                <td class="text-center" id="PercentMes1_@item.Id">@item.Meses[1]</td>
+                <td class="text-center" id="PercentMes2_@item.Id">@item.Meses[2]</td>
                 @{
                     if (item.Trim1 == 0)
                     {
-                        <td id="PercentTri1_@item.Id">@item.Trim1</td>
+                        <td class="text-center" id="PercentTri1_@item.Id">@item.Trim1</td>
                     }
                     else
                     {
-                        <td id="PercentTri1_@item.Id">@item.Trim1%</td>
+                        <td  class="text-center" id="PercentTri1_@item.Id">@item.Trim1%</td>
                     }
 
                 }
-                <td id="PercentMes3_@item.Id">@item.Meses[3]</td>
-                <td id="PercentMes4_@item.Id">@item.Meses[4]</td>
-                <td id="PercentMes5_@item.Id">@item.Meses[5]</td>
+                <td class="text-center" id="PercentMes3_@item.Id">@item.Meses[3]</td>
+                <td class="text-center" id="PercentMes4_@item.Id">@item.Meses[4]</td>
+                <td class="text-center" id="PercentMes5_@item.Id">@item.Meses[5]</td>
                 @{
                     if (item.Trim2 == 0)
                     {
-                        <td id="PercentTri2_@item.Id">@item.Trim2</td>
+                        <td class="text-center" id="PercentTri2_@item.Id">@item.Trim2</td>
                     }
                     else
                     {
-                        <td id="PercentTri2_@item.Id">@item.Trim2%</td>
+                        <td class="text-center" id="PercentTri2_@item.Id">@item.Trim2%</td>
                     }
 
                 }
-                <td id="PercentMes6_@item.Id">@item.Meses[6]</td>
-                <td id="PercentMes7_@item.Id">@item.Meses[7]</td>
-                <td id="PercentMes8_@item.Id">@item.Meses[8]</td>
+                <td class="text-center" id="PercentMes6_@item.Id">@item.Meses[6]</td>
+                <td class="text-center" id="PercentMes7_@item.Id">@item.Meses[7]</td>
+                <td class="text-center" id="PercentMes8_@item.Id">@item.Meses[8]</td>
                 @{
                     if (item.Trim3 == 0)
                     {
-                        <td id="PercentTri3_@item.Id">@item.Trim3</td>
+                        <td class="text-center" id="PercentTri3_@item.Id">@item.Trim3</td>
                     }
                     else
                     {
-                        <td id="PercentTri3_@item.Id">@item.Trim3%</td>
+                        <td class="text-center" id="PercentTri3_@item.Id">@item.Trim3%</td>
                     }
 
                 }
-                <td id="PercentMes9_@item.Id">@item.Meses[9]</td>
-                <td id="PercentMes10_@item.Id">@item.Meses[10]</td>
-                <td id="PercentMes11_@item.Id">@item.Meses[11]</td>
+                <td class="text-center" id="PercentMes9_@item.Id">@item.Meses[9]</td>
+                <td class="text-center" id="PercentMes10_@item.Id">@item.Meses[10]</td>
+                <td class="text-center" id="PercentMes11_@item.Id">@item.Meses[11]</td>
                 @{
                     if (item.Trim4 == 0)
                     {
-                        <td id="PercentTri4_@item.Id">@item.Trim4</td>
+                        <td class="text-center" id="PercentTri4_@item.Id">@item.Trim4</td>
                     }
                     else
                     {
-                        <td id="PercentTri4_@item.Id">@item.Trim4%</td>
+                        <td class="text-center" id="PercentTri4_@item.Id">@item.Trim4%</td>
                     }
 
                 }
                 @{
                     if (item.Anual == 0)
                     {
-                        <td id="PercentAnual_@item.Id">@item.Anual</td>
+                        <td class="text-center" id="PercentAnual_@item.Id">@item.Anual</td>
                     }
                     else
                     {
-                        <td id="PercentAnual_@item.Id">@item.Anual%</td>
+                        <td class="text-center" id="PercentAnual_@item.Id">@item.Anual%</td>
                     }
 
                 }
             </tr>
           }
-
-
     </tbody>
 </table>

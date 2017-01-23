@@ -39,3 +39,22 @@ textarea {
     display: none
   }
 }
+
+.tableMetas {
+  width: 100%;
+  height: 85px;
+  max-width: 100%;
+  margin-bottom: 0px;
+}
+.hrMetas {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+.hrMetasSelect {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
