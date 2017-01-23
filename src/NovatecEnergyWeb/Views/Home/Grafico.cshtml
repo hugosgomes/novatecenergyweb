@@ -3,11 +3,15 @@
 }
 <h2>@ViewData["Title"]</h2>
 
+<select>
+    <option>2015</option>
+    <option>2016</option>
+    <option selected>2017</option>
+</select>
 <div style="width:100%">
     <canvas id="canvas"></canvas>
 </div>
 <script>
-    var MESES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
     var randomScalingFactor = function () {
         return Math.round(Math.random() * 100);
@@ -20,22 +24,23 @@
         return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
     };
 
+
     var config = {
         type: 'line',
         data: {
-            labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho"],
+            labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set","Out", "Nov", "Dec"],
             datasets: [
                 {
-                label: "2014",
+                label: "Resultado",
                 data: [],
                 fill: false,
                 borderDash: [5, 5],
             }, {
                 hidden: false,
-                label: '2015',
+                label: 'Metas',
                 data: [],
             }, {
-                label: "2016",
+                label: "Cargas",
                 data: [],
             }]
         },
@@ -43,12 +48,12 @@
             responsive: true,
             title: {
                 display: true,
-                text: 'Metas - Cargas'
+                text: 'Tabela Resumo'
             },
             tooltips: {
                 mode: 'label',
                 callbacks: {
-                
+
                 }
             },
             hover: {
@@ -69,13 +74,15 @@
                         labelString: 'Value'
                     },
                     ticks: {
-                        suggestedMin: 0,
-                        suggestedMax: 250,
+                        suggestedMin: -700,
+                        suggestedMax: 1900,
                     }
                 }]
             }
         }
     };
+
+    
 
     $.each(config.data.datasets, function (i, dataset) {
         dataset.borderColor = randomColor(0.4);
@@ -86,14 +93,28 @@
     });
 
     window.onload = function () {
+        var parametro = {};
+        parametro.anoSelecionado = 2015;
+
+        $.post("@Url.Action("BuscaMetasFiltradas", "Metas")", parametro, function (retorno) {
+            for (var i = 0; i < 12; i++) {
+                config.data.datasets[0].data.push(parseInt(retorno.Resumos[0].meses[i]));
+                config.data.datasets[1].data.push(parseInt(retorno.Resumos[1].meses[i]));
+                config.data.datasets[2].data.push(parseInt(retorno.Resumos[2].meses[i]));
+               
+            }
+       
+        });
+
+
         var ctx = document.getElementById("canvas").getContext("2d");
         window.myLine = new Chart(ctx, config);
     };
-
  
 
-   
 
-   
+
+
+
 
 </script>
