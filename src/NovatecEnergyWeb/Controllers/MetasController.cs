@@ -374,10 +374,33 @@ namespace NovatecEnergyWeb.Controllers
                 metropolitana.Trim3 = (contaMesesMediaMetro3 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(metropolitana.Trim3), Convert.ToDecimal(contaMesesMediaMetro3))):0;
                 metropolitana.Trim4 = (contaMesesMediaMetro4 != 0)? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(metropolitana.Trim4), Convert.ToDecimal(contaMesesMediaMetro4))):0;
 
-                fluminense.Anual = Convert.ToInt32(fluminense.Meses.Where(c => c != "").Select(int.Parse).ToList().Average());
-                metropolitana.Anual = Convert.ToInt32(metropolitana.Meses.Where(c => c != "").Select(int.Parse).ToList().Average());
 
-                
+                // caso todos fiquem vazios
+                bool fazMediaF = true;
+                bool fazMediaM = true;
+                foreach (var mes in fluminense.Meses)
+                {
+                    if (mes == ""){
+                        fazMediaF = false;
+                    }
+                }
+
+                foreach (var mes in metropolitana.Meses)
+                {
+                    if (mes == ""){
+                        fazMediaM = false;
+                    }
+                }
+                if (fazMediaF)
+                    fluminense.Anual = Convert.ToInt32(fluminense.Meses.Where(c => c != "").Select(int.Parse).ToList().Average());
+                else
+                    fluminense.Anual = 0;
+
+                if (fazMediaM)
+                    metropolitana.Anual = Convert.ToInt32(metropolitana.Meses.Where(c => c != "").Select(int.Parse).ToList().Average());
+                else
+                    metropolitana.Anual = 0;
+
                 //Concatena %
                 for (int i = 0; i < 12; i++)
                 {
