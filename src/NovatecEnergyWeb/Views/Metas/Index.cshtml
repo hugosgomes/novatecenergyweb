@@ -341,7 +341,7 @@
     }
 
     var parametro = {};
-    parametro.anoSelecionado = 2017;
+    parametro.anoSelecionado = @DateTime.Now.Year;
 
     $.post("@Url.Action("BuscaMetasFiltradas", "Metas")", parametro, function (retorno) {
         for (var i = 0; i < 12; i++) {
@@ -362,9 +362,9 @@
 
 </script>
 <select id="anos" onchange="chamaGetResultados()" >
-    <option >2015</option>
+    <option>2015</option>
     <option>2016</option>
-    <option selected>2017</option>
+    <option>2017</option>
 </select>
 
 <div style="width:100%">
