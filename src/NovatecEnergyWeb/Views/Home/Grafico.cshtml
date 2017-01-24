@@ -12,10 +12,7 @@
     <canvas id="canvas"></canvas>
 </div>
 <script>
-    window.onload = function () {
-        $("#anos").val("@DateTime.Now.Year");
-    };
-
+    
     function chamaGetResultados() {
         var parametro = {};
         parametro.anoSelecionado = document.getElementById("anos").value;
@@ -50,7 +47,7 @@
         config.data.datasets.push(newCargas);
 
         configuraCores();
-
+        //retorno.Resumos[0].meses[i] == "" ? 0 : retorno.Resumos[0].meses[i])
         for (var i = 0; i < 12; i++) {
             config.data.datasets[0].data.push(parseInt(retorno.Resumos[0].meses[i]));
             config.data.datasets[1].data.push(parseInt(retorno.Resumos[1].meses[i]));
@@ -101,15 +98,15 @@
                 xAxes: [{
                     display: true,
                     scaleLabel: {
-                        show: true,
-                        labelString: 'Month'
+                        display: true,
+                        labelString: 'Meses'
                     }
                 }],
                 yAxes: [{
                     display: true,
                     scaleLabel: {
-                        show: true,
-                        labelString: 'Value'
+                        display: true,
+                        labelString: 'Valores'
                     },
                     ticks: {
                         suggestedMin: -500,
@@ -146,7 +143,6 @@
 
     };
 
-
     // Trecho Inicial, ao entrar na tela...
     var parametro = {};
     parametro.anoSelecionado = 2017;
@@ -164,6 +160,7 @@
     window.onload = function () {
         var ctx = document.getElementById("canvas").getContext("2d");
         window.myLine = new Chart(ctx, config);
+        $("#anos").val("@DateTime.Now.Year");
     };
 
 
