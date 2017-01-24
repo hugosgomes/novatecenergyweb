@@ -8,10 +8,68 @@
 <h3>@ViewData["Title"]</h3>
 
 <script type="text/javascript">
-    //Muda o valor selecionado do select para ano atual
-    window.onload = function () {
-        $("#anos").val("@DateTime.Now.Year");
+
+    var config = {
+        type: 'line',
+        data: {
+            labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dec"],
+            datasets: [
+                {
+                    label: "Resultado",
+                    data: [],
+                    fill: true,
+
+                }, {
+                    hidden: false,
+                    label: 'Metas',
+                    fill: false,
+                    data: [],
+                }, {
+                    label: "Cargas",
+                    data: [],
+                    fill: false
+                }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Tabela Resumo'
+            },
+            tooltips: {
+                mode: 'label',
+                callbacks: {
+
+                }
+            },
+            hover: {
+                mode: 'dataset'
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Meses'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Valores'
+                    },
+                    ticks: {
+                        suggestedMin: -500,
+                        suggestedMax: 1500,
+                    }
+                }]
+            }
+        }
     };
+
+    configuraCores();
+
     function chamaGetResultados() {
         var parametro = {};
         parametro.anoSelecionado = document.getElementById("anos").value;
@@ -28,6 +86,7 @@
         tabelaResultadoD2(retorno);
         tabelaPorcentagemD2(retorno);
         tabelaResumos(retorno);
+        graficoAlteraValores(retorno);
     }
 
     function tabelaResultados(retorno) {
@@ -131,7 +190,7 @@
         $("#Nd2Tri2_" + retorno.CargasD2[0].id).html(retorno.CargasD2[0].trim2);
         $("#Nd2Tri3_" + retorno.CargasD2[0].id).html(retorno.CargasD2[0].trim3);
         $("#Nd2Tri4_" + retorno.CargasD2[0].id).html(retorno.CargasD2[0].trim4);
-                                                             
+
         $("#Nd2Tri1_" + retorno.CargasD2[1].id).html(retorno.CargasD2[1].trim1);
         $("#Nd2Tri2_" + retorno.CargasD2[1].id).html(retorno.CargasD2[1].trim2);
         $("#Nd2Tri3_" + retorno.CargasD2[1].id).html(retorno.CargasD2[1].trim3);
@@ -218,13 +277,101 @@
         $("#ResumoAnual_" + retorno.Resumos[2].id).html(retorno.Resumos[2].anual );
 
     }
+
+    function graficoAlteraValores(retorno) {
+        //limpa o gráficos
+        config.data.datasets = [];
+
+        var newResultado = {
+            label: "Resultado",
+            data: [],
+            fill: true,
+        };
+        var newMetas = {
+            hidden: false,
+            label: 'Metas',
+            fill: false,
+            data: []
+        };
+
+        var newCargas = {
+            label: "Cargas",
+            data: [],
+            fill: false
+        };
+
+        config.data.datasets.push(newResultado);
+        config.data.datasets.push(newMetas);
+        config.data.datasets.push(newCargas);
+
+        configuraCores();
+        //retorno.Resumos[0].meses[i] == "" ? 0 : retorno.Resumos[0].meses[i])
+        for (var i = 0; i < 12; i++) {
+            config.data.datasets[0].data.push(parseInt(retorno.Resumos[0].meses[i]));
+            config.data.datasets[1].data.push(parseInt(retorno.Resumos[1].meses[i]));
+            config.data.datasets[2].data.push(parseInt(retorno.Resumos[2].meses[i]));
+
+        }
+
+        window.myLine.update();
+    }
+
+    function configuraCores() {
+        //Resultados
+        config.data.datasets[0].pointBorderWidth = 1; //tamanho de cada ponto
+        config.data.datasets[0].pointBorderColor = 'rgba(27, 199, 0, 0.7)';
+        config.data.datasets[0].pointBackgroundColor = 'rgba(0, 0, 0, 0)';
+        config.data.datasets[0].borderColor = 'rgba(27, 199, 0, 0.7)';
+        config.data.datasets[0].backgroundColor = 'rgba(27, 199, 0, 0.2)';
+
+        //Metas
+        config.data.datasets[1].pointBorderWidth = 1;
+        config.data.datasets[1].pointBorderColor = 'rgba(255, 0, 0, 1)';
+        config.data.datasets[1].pointBackgroundColor = 'rgba(255, 0, 0, 0)';
+        config.data.datasets[1].borderColor = 'rgba(255, 0, 0, 1)';
+        config.data.datasets[1].backgroundColor = 'rgba(255, 0, 0, 0.2)';
+
+        //Cargas
+        config.data.datasets[2].pointBorderWidth = 1;
+        config.data.datasets[2].pointBorderColor = 'rgba(255,199,0,0.7)';
+        config.data.datasets[2].pointBackgroundColor = 'rgba(255, 0, 0, 0)';
+        config.data.datasets[2].borderColor = 'rgba(255,199,0,0.7)';
+        config.data.datasets[2].backgroundColor = 'rgba(255, 198, 0, 0.2)';
+
+    }
+
+    var parametro = {};
+    parametro.anoSelecionado = 2017;
+
+    $.post("@Url.Action("BuscaMetasFiltradas", "Metas")", parametro, function (retorno) {
+        for (var i = 0; i < 12; i++) {
+            config.data.datasets[0].data.push(parseInt(retorno.Resumos[0].meses[i]));
+            config.data.datasets[1].data.push(parseInt(retorno.Resumos[1].meses[i]));
+            config.data.datasets[2].data.push(parseInt(retorno.Resumos[2].meses[i]));
+
+        }
+        window.myLine.update();
+    });
+
+    //Muda o valor selecionado do select para ano atual
+    window.onload = function () {
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+        $("#anos").val("@DateTime.Now.Year");
+    };
+
 </script>
 <select id="anos" onchange="chamaGetResultados()" >
     <option >2015</option>
     <option>2016</option>
     <option selected>2017</option>
 </select>
-<hr class="hrMetasSelect"/>
+
+<div style="width:100%">
+    <canvas id="canvas"></canvas>
+</div>
+
+<hr />
         <table class="tableMetasResumo table-bordered">
             <colgroup>
                 <col class="col-md-2">
