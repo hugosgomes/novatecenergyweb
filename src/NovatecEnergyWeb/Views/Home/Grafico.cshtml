@@ -3,7 +3,7 @@
 }
 <h2>@ViewData["Title"]</h2>
 
-<select>
+<select id="anos" onchange="chamaGetResultados()">
     <option>2015</option>
     <option>2016</option>
     <option selected>2017</option>
@@ -12,18 +12,54 @@
     <canvas id="canvas"></canvas>
 </div>
 <script>
-
-    var randomScalingFactor = function () {
-        return Math.round(Math.random() * 100);
-        //return 0;
-    };
-    var randomColorFactor = function () {
-        return Math.round(Math.random() * 255);
-    };
-    var randomColor = function (opacity) {
-        return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+    window.onload = function () {
+        $("#anos").val("@DateTime.Now.Year");
     };
 
+    function chamaGetResultados() {
+        var parametro = {};
+        parametro.anoSelecionado = document.getElementById("anos").value;
+
+        $.post("@Url.Action("BuscaMetasFiltradas", "Metas")", parametro, alteraValores);
+    };
+
+    function alteraValores(retorno) {
+        //limpa o gráficos
+        config.data.datasets = [];
+
+        var newResultado = {
+            label: "Resultado",
+            data: [],
+            fill: true,
+        };
+        var newMetas = {
+            hidden: false,
+            label: 'Metas',
+            fill: false,
+            data: []
+        };
+
+        var newCargas = {
+            label: "Cargas",
+            data: [],
+            fill: false
+        };
+
+        config.data.datasets.push(newResultado);
+        config.data.datasets.push(newMetas);
+        config.data.datasets.push(newCargas);
+
+        configuraCores();
+
+        for (var i = 0; i < 12; i++) {
+            config.data.datasets[0].data.push(parseInt(retorno.Resumos[0].meses[i]));
+            config.data.datasets[1].data.push(parseInt(retorno.Resumos[1].meses[i]));
+            config.data.datasets[2].data.push(parseInt(retorno.Resumos[2].meses[i]));
+
+        }
+
+        window.myLine.update();
+    }
 
     var config = {
         type: 'line',
@@ -33,15 +69,17 @@
                 {
                 label: "Resultado",
                 data: [],
-                fill: false,
-                borderDash: [5, 5],
+                fill: true,
+
             }, {
                 hidden: false,
                 label: 'Metas',
+                fill: false,
                 data: [],
             }, {
                 label: "Cargas",
                 data: [],
+                fill: false
             }]
         },
         options: {
@@ -74,47 +112,59 @@
                         labelString: 'Value'
                     },
                     ticks: {
-                        suggestedMin: -700,
-                        suggestedMax: 1900,
+                        suggestedMin: -500,
+                        suggestedMax: 1500,
                     }
                 }]
             }
         }
     };
 
-    
+    configuraCores();
 
-    $.each(config.data.datasets, function (i, dataset) {
-        dataset.borderColor = randomColor(0.4);
-        dataset.backgroundColor = randomColor(0.5);
-        dataset.pointBorderColor = randomColor(0.7);
-        dataset.pointBackgroundColor = randomColor(0.5);
-        dataset.pointBorderWidth = 1;
+    function configuraCores() {
+        //Resultados
+        config.data.datasets[0].pointBorderWidth = 1; //tamanho de cada ponto
+        config.data.datasets[0].pointBorderColor = 'rgba(27, 199, 0, 0.7)';
+        config.data.datasets[0].pointBackgroundColor = 'rgba(0, 0, 0, 0)';
+        config.data.datasets[0].borderColor = 'rgba(27, 199, 0, 0.7)';
+        config.data.datasets[0].backgroundColor = 'rgba(27, 199, 0, 0.2)';
+
+        //Metas
+        config.data.datasets[1].pointBorderWidth = 1;
+        config.data.datasets[1].pointBorderColor = 'rgba(255, 0, 0, 1)';
+        config.data.datasets[1].pointBackgroundColor = 'rgba(255, 0, 0, 0)';
+        config.data.datasets[1].borderColor = 'rgba(255, 0, 0, 1)';
+        config.data.datasets[1].backgroundColor = 'rgba(255, 0, 0, 0.2)';
+
+        //Cargas
+        config.data.datasets[2].pointBorderWidth = 1;
+        config.data.datasets[2].pointBorderColor = 'rgba(255,199,0,0.7)';
+        config.data.datasets[2].pointBackgroundColor = 'rgba(255, 0, 0, 0)';
+        config.data.datasets[2].borderColor = 'rgba(255,199,0,0.7)';
+        config.data.datasets[2].backgroundColor = 'rgba(255, 198, 0, 0.2)';
+
+    };
+
+
+    // Trecho Inicial, ao entrar na tela...
+    var parametro = {};
+    parametro.anoSelecionado = 2017;
+
+    $.post("@Url.Action("BuscaMetasFiltradas", "Metas")", parametro, function (retorno) {
+        for (var i = 0; i < 12; i++) {
+            config.data.datasets[0].data.push(parseInt(retorno.Resumos[0].meses[i]));
+            config.data.datasets[1].data.push(parseInt(retorno.Resumos[1].meses[i]));
+            config.data.datasets[2].data.push(parseInt(retorno.Resumos[2].meses[i]));
+
+        }
+        window.myLine.update();
     });
 
     window.onload = function () {
-        var parametro = {};
-        parametro.anoSelecionado = 2015;
-
-        $.post("@Url.Action("BuscaMetasFiltradas", "Metas")", parametro, function (retorno) {
-            for (var i = 0; i < 12; i++) {
-                config.data.datasets[0].data.push(parseInt(retorno.Resumos[0].meses[i]));
-                config.data.datasets[1].data.push(parseInt(retorno.Resumos[1].meses[i]));
-                config.data.datasets[2].data.push(parseInt(retorno.Resumos[2].meses[i]));
-               
-            }
-       
-        });
-
-
         var ctx = document.getElementById("canvas").getContext("2d");
         window.myLine = new Chart(ctx, config);
     };
- 
-
-
-
-
 
 
 </script>
