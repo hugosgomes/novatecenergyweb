@@ -32,7 +32,7 @@ namespace NovatecEnergyWeb.Controllers
         {
             var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == anoSelecionado).ToList();
             var cargasMetasD2 = _context._10_CargasMetas.FromSql("EXECUTE [dbo].[10_CargasMetas]").Where(c => c.AnoCarga == anoSelecionado).ToList();
-
+            
             dynamic mymodel = new ExpandoObject();
 
             mymodel.Resultados = GetResultados(metasCargas, "resultados");
@@ -205,8 +205,8 @@ namespace NovatecEnergyWeb.Controllers
             var fluminense = new ResultadosViewModel();
             var metropolitana = new ResultadosViewModel();
 
-            metropolitana.Meses = new List<string>();
-            fluminense.Meses = new List<string>();
+            metropolitana.Meses = new List<string>() { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
+            fluminense.Meses = new List<string>() { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
 
             metropolitana.Id = 1;
             fluminense.Id = 2;
@@ -229,11 +229,36 @@ namespace NovatecEnergyWeb.Controllers
                 if (item.ZonaId == 1)
                 {
                     if (tipoMeta == "numeroD2")
-                        metropolitana.Meses.Add(item.D2.ToString());
+                    {
+                        for (int i = 1; i <= 12; i++)
+                        {
+                            if (item.MesCarga == i)
+                            {
+                                metropolitana.Meses[i - 1] = item.D2.ToString();
+                            }
+                        }
+                    }
                     else if (tipoMeta == "resultadosD2")
-                        metropolitana.Meses.Add(Convert.ToInt32(item.Rd2).ToString());
+                    {
+                        for (int i = 1; i <= 12; i++)
+                        {
+                            if (item.MesCarga == i)
+                            {
+                                metropolitana.Meses[i - 1] = Convert.ToInt32(item.Rd2).ToString();
+                            }
+
+                        }
+                    }
                     else if (tipoMeta == "porcentagemD2")
-                        metropolitana.Meses.Add((Convert.ToDouble(item.Pd2) * 100).ToString() );
+                    {
+                        for (int i = 1; i <= 12; i++)
+                        {
+                            if (item.MesCarga == i)
+                            {
+                                metropolitana.Meses[i - 1] = (Convert.ToDouble(item.Pd2) * 100).ToString();
+                            }
+                        }                      
+                    }
 
 
                     if (item.MesCarga == 1 || item.MesCarga == 2 || item.MesCarga == 3)
@@ -287,15 +312,40 @@ namespace NovatecEnergyWeb.Controllers
                 }
                 else
                 {
-                    //
+                    //---------------------------
                     if (tipoMeta == "numeroD2")
-                        fluminense.Meses.Add(Convert.ToInt32(item.D2).ToString());
+                    {
+                        for (int i = 1; i <= 12; i++)
+                        {
+                            if (item.MesCarga == i)
+                            {
+                                fluminense.Meses[i - 1] = item.D2.ToString();
+                            }
+                        }
+                    }
                     else if (tipoMeta == "resultadosD2")
-                        fluminense.Meses.Add(Convert.ToInt32(item.Rd2).ToString());
+                    {
+                        for (int i = 1; i <= 12; i++)
+                        {
+                            if (item.MesCarga == i)
+                            {
+                                fluminense.Meses[i - 1] = Convert.ToInt32(item.Rd2).ToString();
+                            }
+
+                        }
+                    }
                     else if (tipoMeta == "porcentagemD2")
-                        fluminense.Meses.Add((Convert.ToDouble(item.Pd2) * 100).ToString());
+                    {
+                        for (int i = 1; i <= 12; i++)
+                        {
+                            if (item.MesCarga == i)
+                            {
+                                fluminense.Meses[i - 1] = (Convert.ToDouble(item.Pd2) * 100).ToString();
+                            }
+                        }
+                    }
 
-
+                    // -----------------
                     if (item.MesCarga == 1 || item.MesCarga == 2 || item.MesCarga == 3)
                     {
                         if (tipoMeta == "numeroD2")
