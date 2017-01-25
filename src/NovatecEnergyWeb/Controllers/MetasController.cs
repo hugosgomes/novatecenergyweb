@@ -44,7 +44,7 @@ namespace NovatecEnergyWeb.Controllers
             mymodel.ResultadoD2 = GetNumerosD2(cargasMetasD2, "resultadosD2");
             mymodel.PorcentagemD2 = GetNumerosD2(cargasMetasD2, "porcentagemD2");
 
-            mymodel.Resumos = GetResumos(metasCargas);
+            mymodel.Resumos = GetResumos(metasCargas, cargasMetasD2);
 
             if (index)
                 return View(mymodel);
@@ -496,9 +496,17 @@ namespace NovatecEnergyWeb.Controllers
                 }
             }
 
-            
+            //Retirando os zeros
+            for (int i = 0; i < 12; i++)
+            {
+                if (metropolitana.Meses[i] == "0")
+                    metropolitana.Meses[i] = "";
 
-            resultados.Add(fluminense);
+                if (fluminense.Meses[i] == "0")
+                    fluminense.Meses[i] = "";
+            }
+
+                resultados.Add(fluminense);
             resultados.Add(metropolitana);
 
 
@@ -506,7 +514,7 @@ namespace NovatecEnergyWeb.Controllers
 
         }
 
-        public List<ResultadosViewModel> GetResumos(List<_10_MetasCargas> metasCargas)
+        public List<ResultadosViewModel> GetResumos(List<_10_MetasCargas> metasCargas, List<_10_CargasMetas> cargasMetasD2)
         {
             var resultadoViewModel = new ResultadosViewModel();
             var metasViewModel = new ResultadosViewModel();
@@ -527,7 +535,10 @@ namespace NovatecEnergyWeb.Controllers
             {
                 resultadoViewModel.Meses[item.Mes - 1] = (Convert.ToInt32(resultadoViewModel.Meses[item.Mes - 1]) + Convert.ToInt32(item.Res.ToString())).ToString();
                 metasViewModel.Meses[item.Mes - 1] = (Convert.ToInt32(metasViewModel.Meses[item.Mes - 1]) + Convert.ToInt32(item.Meta.ToString())).ToString();
-                cargasViewModel.Meses[item.Mes - 1] = (Convert.ToInt32(cargasViewModel.Meses[item.Mes - 1]) + Convert.ToInt32(item.Cargas.ToString())).ToString();
+            }
+            foreach (var item in cargasMetasD2)
+            {
+                cargasViewModel.Meses[item.MesCarga - 1] = (Convert.ToInt32(cargasViewModel.Meses[item.MesCarga - 1]) + Convert.ToInt32(item.Cargas.ToString())).ToString();
             }
 
             //Trimestres
