@@ -20,6 +20,7 @@ namespace NovatecEnergyWeb.Controllers
         }
 
         [HttpGet]
+        [PosLoginFilter]
         public IActionResult Login()
         {
             ViewBag.Account = new LoginViewModel();
