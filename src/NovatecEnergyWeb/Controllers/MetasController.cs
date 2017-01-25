@@ -37,7 +37,7 @@ namespace NovatecEnergyWeb.Controllers
 
             mymodel.Resultados = GetResultados(metasCargas, "resultados");
             mymodel.Metas = GetResultados(metasCargas, "metas");
-            mymodel.Cargas = GetResultados(metasCargas, "cargas");
+            mymodel.Cargas = GetNumerosD2(cargasMetasD2, "cargas"); // cargas passou a usar a SP 10_CargasMetas
             mymodel.MetasD2 = GetResultados(metasCargas, "metasD2");
 
             mymodel.CargasD2 = GetNumerosD2(cargasMetasD2, "numeroD2");
@@ -76,8 +76,6 @@ namespace NovatecEnergyWeb.Controllers
                             metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(item.Res);
                         else if (tipoMeta == "metas")
                             metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(item.Meta);
-                        else if (tipoMeta == "cargas")
-                            metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(item.Cargas);
                         else if (tipoMeta == "metasD2")
                             metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(item.MetaD2);
                     }
@@ -87,8 +85,6 @@ namespace NovatecEnergyWeb.Controllers
                             metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(item.Res);
                         else if (tipoMeta == "metas")
                             metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(item.Meta);
-                        else if (tipoMeta == "cargas")
-                            metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(item.Cargas);
                         else if (tipoMeta == "metasD2")
                             metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(item.MetaD2);
                     }
@@ -98,8 +94,6 @@ namespace NovatecEnergyWeb.Controllers
                             metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(item.Res);
                         else if (tipoMeta == "metas")
                             metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(item.Meta);
-                        else if (tipoMeta == "cargas")
-                            metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(item.Cargas);
                         else if (tipoMeta == "metasD2")
                             metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(item.MetaD2);
                     }
@@ -110,8 +104,6 @@ namespace NovatecEnergyWeb.Controllers
                             metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(item.Res);
                         else if (tipoMeta == "metas")
                             metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(item.Meta);
-                        else if (tipoMeta == "cargas")
-                            metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(item.Cargas);
                         else if (tipoMeta == "metasD2")
                             metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(item.MetaD2);
                     }
@@ -120,8 +112,6 @@ namespace NovatecEnergyWeb.Controllers
                         metropolitana.Meses.Add(Convert.ToInt32(item.Res).ToString()); // valor correspondente a cada mês
                     else if (tipoMeta == "metas")
                         metropolitana.Meses.Add(Convert.ToInt32(item.Meta).ToString());
-                    else if (tipoMeta == "cargas")
-                        metropolitana.Meses.Add(Convert.ToInt32(item.Cargas).ToString());
                     else if (tipoMeta == "metasD2")
                         metropolitana.Meses.Add(Convert.ToInt32(item.MetaD2).ToString());
                 }
@@ -133,8 +123,6 @@ namespace NovatecEnergyWeb.Controllers
                             fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(item.Res);
                         else if (tipoMeta == "metas")
                             fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(item.Meta);
-                        else if (tipoMeta == "cargas")
-                            fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(item.Cargas);
                         else if (tipoMeta == "metasD2")
                             fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(item.MetaD2);
                     }
@@ -144,8 +132,6 @@ namespace NovatecEnergyWeb.Controllers
                             fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(item.Res);
                         else if (tipoMeta == "metas")
                             fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(item.Meta);
-                        else if (tipoMeta == "cargas")
-                            fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(item.Cargas);
                         else if (tipoMeta == "metasD2")
                             fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(item.MetaD2);
                     }
@@ -155,8 +141,6 @@ namespace NovatecEnergyWeb.Controllers
                             fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(item.Res);
                         else if (tipoMeta == "metas")
                             fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(item.Meta);
-                        else if (tipoMeta == "cargas")
-                            fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(item.Cargas);
                         else if (tipoMeta == "metasD2")
                             fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(item.MetaD2);
                     }
@@ -166,8 +150,6 @@ namespace NovatecEnergyWeb.Controllers
                             fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.Res);
                         else if (tipoMeta == "metas")
                             fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.Meta);
-                        else if (tipoMeta == "cargas")
-                            fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.Cargas);
                         else if (tipoMeta == "metasD2")
                             fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.MetaD2);
                     }
@@ -176,8 +158,6 @@ namespace NovatecEnergyWeb.Controllers
                         fluminense.Meses.Add(Convert.ToInt32(item.Res).ToString()); // valor correspondente a cada mês
                     else if (tipoMeta == "metas")
                         fluminense.Meses.Add(Convert.ToInt32(item.Meta).ToString());
-                    else if (tipoMeta == "cargas")
-                        fluminense.Meses.Add(Convert.ToInt32(item.Cargas).ToString());
                     else if (tipoMeta == "metasD2")
                         fluminense.Meses.Add(Convert.ToInt32(item.MetaD2).ToString());
                 }
@@ -228,11 +208,21 @@ namespace NovatecEnergyWeb.Controllers
             {
                 if (item.ZonaId == 1)
                 {
-                    if (tipoMeta == "numeroD2")
+                    if (tipoMeta == "cargas")
                     {
                         for (int i = 1; i <= 12; i++)
                         {
                             if (item.MesCarga == i)
+                            {
+                                metropolitana.Meses[i - 1] = Convert.ToInt32(item.Cargas).ToString();
+                            }
+                        }
+                    }
+                    else if (tipoMeta == "numeroD2")
+                    {
+                        for (int i = 1; i <= 12; i++) // é necessário fazer essa lógica pois estava inserindo os valores errados
+                        {//                              ex: Valores de Dezembro estavam sendo inseridos no "proximo" mês do array
+                            if (item.MesCarga == i)        // ao invês de inserir Janeiro, e Dezembro, estava "Janeiro - Fevereiro
                             {
                                 metropolitana.Meses[i - 1] = item.D2.ToString();
                             }
@@ -260,60 +250,85 @@ namespace NovatecEnergyWeb.Controllers
                         }                      
                     }
 
-
                     if (item.MesCarga == 1 || item.MesCarga == 2 || item.MesCarga == 3)
                     {
-                        if (tipoMeta == "numeroD2")
+                        if (tipoMeta == "cargas")
+                        {
+                            metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(item.Cargas);
+                        }
+                        else if (tipoMeta == "numeroD2")
                             metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(item.Rd2);
                         else if (tipoMeta == "porcentagemD2")
                         {
                             metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
-                            contaMesesMediaMetro1 = contaMesesMediaMetro1 + 1;
+                            if (metropolitana.Meses[item.MesCarga - 1] != "0")
+                                contaMesesMediaMetro1 = contaMesesMediaMetro1 + 1;
                         }
                     }
                     else if (item.MesCarga == 4 || item.MesCarga == 5 || item.MesCarga == 6)
                     {
-                        if (tipoMeta == "numeroD2")
+                        if (tipoMeta == "cargas")
+                            metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(item.Cargas);
+                        else if (tipoMeta == "numeroD2")
                             metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(item.Rd2);
                         else if (tipoMeta == "porcentagemD2")
                         {
                             metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
-                            contaMesesMediaMetro2 = contaMesesMediaMetro2 + 1;
+
+                            if (metropolitana.Meses[item.MesCarga - 1] != "0")
+                                contaMesesMediaMetro2 = contaMesesMediaMetro2 + 1;
                         }
                     }
                     else if (item.MesCarga == 7 || item.MesCarga == 8 || item.MesCarga == 9)
                     {
-                        if (tipoMeta == "numeroD2")
+                        if (tipoMeta == "cargas")
+                            metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(item.Cargas);
+                        else if (tipoMeta == "numeroD2")
                             metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(item.Rd2);
                         else if (tipoMeta == "porcentagemD2")
                         {
                             metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
-                            contaMesesMediaMetro3 = contaMesesMediaMetro3 + 1;
+
+                            if (metropolitana.Meses[item.MesCarga - 1] != "0")
+                                contaMesesMediaMetro3 = contaMesesMediaMetro3 + 1;
                         }
                     }
                     else if (item.MesCarga == 10 || item.MesCarga == 11 || item.MesCarga == 12)
                     {
-                        if (tipoMeta == "numeroD2")
+                        if (tipoMeta == "cargas")
+                            metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(item.Cargas);
+                        else if (tipoMeta == "numeroD2")
                             metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(item.Rd2);
                         else if (tipoMeta == "porcentagemD2")
                         {
                             metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
-                            contaMesesMediaMetro4 = contaMesesMediaMetro4 + 1;
+                            if (metropolitana.Meses[item.MesCarga - 1] != "0")
+                                contaMesesMediaMetro4 = contaMesesMediaMetro4 + 1;
                         }
                     }
                 }
-                else
+                else //fluminense
                 {
                     //---------------------------
-                    if (tipoMeta == "numeroD2")
+                    if (tipoMeta == "cargas")
+                    {
+                        for (int i = 1; i <= 12; i++)
+                        {
+                            if (item.MesCarga == i)
+                            {
+                                fluminense.Meses[i - 1] = Convert.ToInt32(item.Cargas).ToString();
+                            }
+                        }
+                    }
+                    else if (tipoMeta == "numeroD2")
                     {
                         for (int i = 1; i <= 12; i++)
                         {
@@ -348,50 +363,66 @@ namespace NovatecEnergyWeb.Controllers
                     // -----------------
                     if (item.MesCarga == 1 || item.MesCarga == 2 || item.MesCarga == 3)
                     {
-                        if (tipoMeta == "numeroD2")
+                        if (tipoMeta == "cargas")
+                            fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(item.Cargas);
+                        else if (tipoMeta == "numeroD2")
                             fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(item.Rd2);
                         else if (tipoMeta == "porcentagemD2")
                         {
                             fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
-                            contaMesesMediaFlu1 = contaMesesMediaFlu1 + 1;
+
+                            if (fluminense.Meses[item.MesCarga - 1] != "0")
+                                contaMesesMediaFlu1 = contaMesesMediaFlu1 + 1;
                         }
                     }
                     else if (item.MesCarga == 4 || item.MesCarga == 5 || item.MesCarga == 6)
                     {
-                        if (tipoMeta == "numeroD2")
+                        if (tipoMeta == "cargas")
+                            fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(item.Cargas);
+                        else if (tipoMeta == "numeroD2")
                             fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(item.Rd2);
                         else if (tipoMeta == "porcentagemD2")
                         {
                             fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
-                            contaMesesMediaFlu2 = contaMesesMediaFlu2 + 1;
+
+                            if (fluminense.Meses[item.MesCarga - 1] != "0")
+                                contaMesesMediaFlu2 = contaMesesMediaFlu2 + 1;
                         }
                     }
                     else if (item.MesCarga == 7 || item.MesCarga == 8 || item.MesCarga == 9)
                     {
-                        if (tipoMeta == "numeroD2")
+                        if (tipoMeta == "cargas")
+                            fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(item.Cargas);
+                        else if (tipoMeta == "numeroD2")
                             fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(item.D2);
                         else if (tipoMeta == "resultadosD2")
                             fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(item.Rd2);
                         else if (tipoMeta == "porcentagemD2")
                         {
                             fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
-                            contaMesesMediaFlu3 = contaMesesMediaFlu3 + 1;
+
+                            if (fluminense.Meses[item.MesCarga - 1] != "0")
+                                contaMesesMediaFlu3 = contaMesesMediaFlu3 + 1;
                         }
                     }
                     else if (item.MesCarga == 10 || item.MesCarga == 11 || item.MesCarga == 12)
                     {
-                        if (tipoMeta == "numeroD2")
+                        if (tipoMeta == "cargas")
+                            fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.Cargas);
+                        else if (tipoMeta == "numeroD2")
                             fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.D2);
-                        else if (tipoMeta == "resultadosD2")
-                            fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.Rd2);
+                        else if (tipoMeta == "resultadosD2") { 
+                            fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.Rd2);}
                         else if (tipoMeta == "porcentagemD2")
                         {
                             fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(Convert.ToDouble(item.Pd2) * 100);
-                            contaMesesMediaFlu4 = contaMesesMediaFlu4 + 1;
+
+                            if (fluminense.Meses[item.MesCarga - 1] != "0")
+                                contaMesesMediaFlu4 = contaMesesMediaFlu4 + 1;
                         }
                     }
 
@@ -442,12 +473,12 @@ namespace NovatecEnergyWeb.Controllers
                     }
                 }
                 if (fazMediaF)
-                    fluminense.Anual = Convert.ToInt32(fluminense.Meses.Where(c => c != "").Select(int.Parse).ToList().Average());
+                    fluminense.Anual = Convert.ToInt32(fluminense.Meses.Where(c => c != "").Select(int.Parse).ToList().Where(f => f != 0).Average());
                 else
                     fluminense.Anual = 0;
 
                 if (fazMediaM)
-                    metropolitana.Anual = Convert.ToInt32(metropolitana.Meses.Where(c => c != "").Select(int.Parse).ToList().Average());
+                    metropolitana.Anual = Convert.ToInt32(metropolitana.Meses.Where(c => c != "").Select(int.Parse).ToList().Where(f => f != 0).Average());
                 else
                     metropolitana.Anual = 0;
 

@@ -15,11 +15,19 @@ namespace NovatecEnergyWeb.Models
 
         public string Zona { get; set; }
 
+        public Double Meta { get; set; }
+
+        public Double MetaD2 { get; set; }
+
+        public Double Res { get; set; }
+
+        public int Cargas { get; set; }
+
         public int D2 { get; set; }
 
-        public Double Rd2 { get; set; }
-
         public string Pd2 { get; set; }
+
+        public Double Rd2 { get; set; }
 
         public int ZonaId { get; set; }
     }
