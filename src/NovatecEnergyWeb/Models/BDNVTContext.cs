@@ -7,6 +7,7 @@ namespace NovatecEnergyWeb.Models
 {
     public partial class BDNVTContext : DbContext
     {
+        public virtual DbSet<_50_AvancoMes> _50_AvancoMes { get; set; }
         public virtual DbSet<_10_CargasMetas> _10_CargasMetas { get; set; }
         public virtual DbSet<_10_MetasCargas> _10_MetasCargas { get; set; }
         public virtual DbSet<Cdtributacao> Cdtributacao { get; set; }
@@ -226,6 +227,7 @@ namespace NovatecEnergyWeb.Models
         {
             modelBuilder.Entity<_10_CargasMetas>().HasKey(c => c.Id);
             modelBuilder.Entity<_10_MetasCargas>().HasKey(c => c.Id);
+            modelBuilder.Entity<_50_AvancoMes>().HasKey(c => c.Id);
 
             modelBuilder.Entity<Cdtributacao>(entity =>
             {

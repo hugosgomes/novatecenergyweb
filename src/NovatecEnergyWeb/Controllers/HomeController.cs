@@ -46,17 +46,5 @@ namespace NovatecEnergyWeb.Controllers
             return View();
         }
 
-        public IActionResult Grafico()
-        {
-            return View();
-        }
-
-
-        public IActionResult TesteSP()
-        {
-            var retorno = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").ToList();
-            
-            return Json(retorno);
-        }
     }
 }
