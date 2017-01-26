@@ -42,11 +42,25 @@ namespace NovatecEnergyWeb.Controllers
 
                 avancoMesViewModel.Meses = new List<string>() { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
 
+                //Meses
                 for (int i = 1; i <= 12; i++)
                 {
                     avancoMesViewModel.Meses[i -1] = _50_AvancoMes
                     .Where(c => c.Cod == item.Key.Cod && c.DM == item.Key.DM && c.Mes == i)
                     .Select(c => c.Total).FirstOrDefault().ToString();
+                }
+                avancoMesViewModel.Total = Math.Round(avancoMesViewModel.Meses.Select(decimal.Parse).Sum());
+
+                //Retirando os zeros
+                for (int i = 0; i < 12; i++)
+                {
+                    if (avancoMesViewModel.Meses[i] == "0" || avancoMesViewModel.Meses[i] =="0,00")
+                        avancoMesViewModel.Meses[i] = "";
+                }
+                for (int i = 0; i < 12; i++)
+                {
+                    if ((avancoMesViewModel.Meses[i] != "0") && (!String.IsNullOrEmpty(avancoMesViewModel.Meses[i])) )
+                        avancoMesViewModel.Meses[i] = Math.Round(Convert.ToDecimal(avancoMesViewModel.Meses[i])).ToString();
                 }
                 listaAvancoMesViewModel.Add(avancoMesViewModel);
             }

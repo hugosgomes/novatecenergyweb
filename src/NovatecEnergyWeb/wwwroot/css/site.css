@@ -69,3 +69,10 @@ textarea {
 .tdMetas{
     width: 60px;
 }
+
+.fontTableBodyAvancoMes{
+    font-size: 11px;
+}
+.tableAvancoMes{
+     width: 92%;
+}

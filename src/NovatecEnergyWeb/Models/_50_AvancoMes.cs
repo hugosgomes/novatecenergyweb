@@ -37,7 +37,7 @@ namespace NovatecEnergyWeb.Models
 
         public string ContaId2 { get; set; }
 
-        public Double Total { get; set; }
+        public Decimal Total { get; set; }
 
     }
 }

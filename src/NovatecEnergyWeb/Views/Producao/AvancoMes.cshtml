@@ -7,55 +7,64 @@
 
 <h4>@ViewData["Title"]</h4>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th class="text-center">Z</th>
-            <th class="text-center">D</th>
-            <th class="text-center">Obra</th>
-            <th class="text-center">Natureza</th>
-            <th class="text-center">DM</th>
-            <th class="text-center">Jan</th>
-            <th class="text-center">Fev</th>
-            <th class="text-center">Mar</th>
-            <th class="text-center">Abr</th>
-            <th class="text-center">Mai</th>
-            <th class="text-center">Jun</th>
-            <th class="text-center">Jul</th>
-            <th class="text-center">Ago</th>
-            <th class="text-center">Set</th>
-            <th class="text-center">Out</th>
-            <th class="text-center">Nov</th>
-            <th class="text-center">Dez</th>
-            <th class="text-center">Total</th>
-        </tr>
-    </thead>
-    <tbody>
+<ins>Nº Linhas           <b>@Model.Count()</b></ins>
+<br />
+    <br />
 
-        
-        @foreach (var item in Model)
-         {
+    <a href="#" class="btn btn-default btn-lg" role="button">Produção Diária </a>
+    <br /> <br />
+    <a href="#" class="btn btn-default btn-lg disabled" role="button">Produção Mensal</a>
+    <br /><br />
+    <table class="table table-bordered  tableAvancoMes">
+        <thead>
             <tr>
-                <td>@item.Z</td>
-                <td>@item.D</td>
-                <td>@item.Obra</td>
-                <td>@item.Natureza</td>
-                <td>@item.DM</td>
-                <td>@item.Meses[0]</td>
-                <td>@item.Meses[1]</td>
-                <td>@item.Meses[2]</td>
-                <td>@item.Meses[3]</td>
-                <td>@item.Meses[4]</td>
-                <td>@item.Meses[5]</td>
-                <td>@item.Meses[6]</td>
-                <td>@item.Meses[7]</td>
-                <td>@item.Meses[8]</td>
-                <td>@item.Meses[9]</td>
-                <td>@item.Meses[10]</td>
-                <td>@item.Meses[11]</td>
+                <th class="text-center">Z</th>
+                <th class="text-center">D</th>
+                <th class="text-center">Obra</th>
+                <th class="text-center">Natureza</th>
+                <th class="text-center">DM</th>
+                <th class="text-center">Jan</th>
+                <th class="text-center">Fev</th>
+                <th class="text-center">Mar</th>
+                <th class="text-center">Abr</th>
+                <th class="text-center">Mai</th>
+                <th class="text-center">Jun</th>
+                <th class="text-center">Jul</th>
+                <th class="text-center">Ago</th>
+                <th class="text-center">Set</th>
+                <th class="text-center">Out</th>
+                <th class="text-center">Nov</th>
+                <th class="text-center">Dez</th>
+                <th class="text-center">Total</th>
             </tr>
-        }
+        </thead>
+        <tbody class="fontTableBodyAvancoMes" >
 
 
-    </tbody>
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Z</td>
+                    <td>@item.D</td>
+                    <td>@item.Obra</td>
+                    <td>@item.Natureza</td>
+                    <td>@item.DM</td>
+                    <td>@item.Meses[0]</td>
+                    <td>@item.Meses[1]</td>
+                    <td>@item.Meses[2]</td>
+                    <td>@item.Meses[3]</td>
+                    <td>@item.Meses[4]</td>
+                    <td>@item.Meses[5]</td>
+                    <td>@item.Meses[6]</td>
+                    <td>@item.Meses[7]</td>
+                    <td>@item.Meses[8]</td>
+                    <td>@item.Meses[9]</td>
+                    <td>@item.Meses[10]</td>
+                    <td>@item.Meses[11]</td>
+                    <td>@item.Total</td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>

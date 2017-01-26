@@ -21,6 +21,6 @@ namespace NovatecEnergyWeb.Models.ProducaoViewModels
 
         public List<string>Meses { get; set; }
 
-        public int Total { get; set; }
+        public Decimal Total { get; set; }
     }
 }
