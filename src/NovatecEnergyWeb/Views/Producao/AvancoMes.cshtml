@@ -2,7 +2,7 @@
 
 @model  IEnumerable<AvancoMesViewModel>
 @{
-    ViewData["Title"] = "Avanço de Produção";
+    ViewData["Title"] = "Avanço de Produção - Mensal";
 }
 
 <h4>@ViewData["Title"]</h4>
@@ -15,6 +15,60 @@
     <br /> <br />
     <a href="#" class="btn btn-default btn-lg disabled" role="button">Produção Mensal</a>
     <br /><br />
+
+<label>Ano</label>
+<select id="anos" class="form-control inputsAvancoMes">
+    @foreach (var item in ViewBag.ListaAnos)
+    {
+        <option>@item</option>
+    } 
+</select>
+<br />
+<label>Status</label>
+<select id="status"class="form-control inputsAvancoMes">
+    @foreach (var item in ViewBag.ListaStatus)
+    {
+        <option value="@item.Id">@item.Nome</option>
+    }
+</select>
+<br />
+<label>Tipo (Rede ou Ramal)</label>
+<select id="tipoRede" class="form-control inputsAvancoMes">
+    <option value ="1">REDE</option>
+    <option value ="2">RAMAL</option>
+</select>
+<br />
+<label>Tipo de Conta</label>
+    <select id="tipoConta"class="form-control inputsAvancoMes">
+        @foreach (var item in ViewBag.ListaTipoConta)
+        {
+            <option value="@item.Id">@item.Nome</option>
+        }
+    </select>
+<br />
+<label>Zona</label>
+<select id="zona"class="form-control inputsAvancoMes">
+    @foreach (var item in ViewBag.ListaZona)
+    {
+        <option value="@item.Id">@item.Zona</option>
+    }
+</select>
+<br />
+<label>Delegação</label>
+<select id="delegacao" class="form-control inputsAvancoMes">
+    @foreach (var item in ViewBag.ListaDelegacao)
+    {
+        <option value="@item.Id">@item.Delegacao</option>
+    }
+</select>
+<br />
+<label>Obra</label>
+<input type="text" name="Obra" class="form-control inputsAvancoMes"/>
+<br />
+<a href="#" class="btn btn-default btn-lg" 
+   role="button">Limpar filtro</a>
+<br />
+<br />
     <table class="table table-bordered  tableAvancoMes">
         <thead>
             <tr>
@@ -68,3 +122,11 @@
 
         </tbody>
     </table>
+<script>
+    $("#anos").prop("selectedIndex", -1);
+    $("#status").prop("selectedIndex", -1);
+    $("#tipoRede").prop("selectedIndex", -1);
+    $("#tipoConta").prop("selectedIndex", -1);
+    $("#zona").prop("selectedIndex", -1);
+    $("#delegacao").prop("selectedIndex", -1);
+</script>

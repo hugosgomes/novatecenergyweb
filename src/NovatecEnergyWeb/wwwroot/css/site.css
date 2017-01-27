@@ -76,3 +76,6 @@ textarea {
 .tableAvancoMes{
      width: 92%;
 }
+.inputsAvancoMes{
+    max-width: 200px;
+}

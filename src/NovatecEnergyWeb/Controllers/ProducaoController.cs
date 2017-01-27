@@ -23,6 +23,59 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult AvancoMes()
         {
             var _50_AvancoMes = _context._50_AvancoMes.FromSql("EXECUTE [dbo].[50_AvancoMes] {0}",2016).ToList() ;
+            var _50Croquis = _context._50Croquis.GroupBy(c => new { c.Data.Year }).ToList() ;
+            var _50ProjetosStatus = _context._50ProjetoStatus.GroupBy(p => new { p.Id, p.Nome }).ToList();
+            var _50CroquiCentroC = _context._50CroquiCentroContabil.Select(o => new { o.Id, o.Nome }).ToList();
+            var _00Zona = _context._00Zona.Select(z => new { z.Id, z.Zona }).ToList();
+            var _00Delegacao = _context._00Delegação.Select(d => new { d.Id, d.Delegacao }).ToList();
+
+            //dropdown anos
+            ViewBag.ListaAnos = new List<Int64>();
+            foreach (var item in _50Croquis)
+            {
+                ViewBag.ListaAnos.Add(item.Key.Year);
+            }
+
+            //dropdown status
+            ViewBag.ListaStatus = new List<_50ProjetoStatus>();
+            foreach (var item in _50ProjetosStatus)
+            {
+                var status = new _50ProjetoStatus();
+                status.Id = item.Key.Id;
+                status.Nome = item.Key.Nome;
+                ViewBag.ListaStatus.Add(status);
+            }
+
+            //dropdown tipo conta
+            ViewBag.ListaTipoConta = new List<_50CroquiCentroContabil>();
+            foreach (var item in _50CroquiCentroC)
+            {
+                var centroContabil = new _50CroquiCentroContabil();
+                centroContabil.Id = item.Id;
+                centroContabil.Nome = item.Nome;
+                ViewBag.ListaTipoConta.Add(centroContabil);
+            }
+
+
+            //dropdown zona
+            ViewBag.ListaZona = new List<_00Zona>();
+            foreach (var item in _00Zona)
+            {
+                var zona = new _00Zona();
+                zona.Id = item.Id;
+                zona.Zona = item.Zona;
+                ViewBag.ListaZona.Add(zona);
+            }
+
+            ViewBag.ListaDelegacao = new List<_00Delegação>();
+            foreach (var item in _00Delegacao)
+            {
+                var delegacao = new _00Delegação();
+                delegacao.Id = item.Id;
+                delegacao.Delegacao = item.Delegacao;
+                ViewBag.ListaDelegacao.Add(delegacao);
+            }
+
 
             //Agrupa pela obra e dimensão(DM)
             var obrasGroupDM = _50_AvancoMes.GroupBy(x => new { x.Z, x.D, x.Obra, x.Natureza, x.Conta, x.DM, x.IdZona,
