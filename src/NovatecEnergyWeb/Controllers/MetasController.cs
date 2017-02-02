@@ -27,7 +27,7 @@ namespace NovatecEnergyWeb.Controllers
         {
             return BuscaMetasFiltradas(DateTime.Now.Year,true);
         }
-
+        [AutenticacaoFilter]
         public IActionResult BuscaMetasFiltradas(int anoSelecionado, bool index)
         {
             var metasCargas = _context._10_MetasCargas.FromSql("EXECUTE [dbo].[10_MetasCargas]").Where(c => c.Ano == anoSelecionado).ToList();

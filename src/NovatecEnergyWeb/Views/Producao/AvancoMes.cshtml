@@ -7,17 +7,18 @@
 
 <h4>@ViewData["Title"]</h4>
 
+<ins>Total          </ins> <br />
 <ins>Nº Linhas           <b>@Model.Count()</b></ins>
 <br />
     <br />
 
     <a href="#" class="btn btn-default btn-lg" role="button">Produção Diária </a>
     <br /> <br />
-    <a href="#" class="btn btn-default btn-lg disabled" role="button">Produção Mensal</a>
-    <br /><br />
+    <!--<a href="#" class="btn btn-default btn-lg disabled" role="button">Produção Mensal</a>
+    <br /><br /> -->
 
 <label>Ano</label>
-<select id="anos" class="form-control inputsAvancoMes">
+<select id="anos" onchange="filtroAno();" class="form-control inputsAvancoMes">
     @foreach (var item in ViewBag.ListaAnos)
     {
         <option>@item</option>
@@ -93,21 +94,19 @@
             </tr>
         </thead>
         <tbody class="fontTableBodyAvancoMes" >
-
-
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Z</td>
-                    <td>@item.D</td>
-                    <td>@item.Obra</td>
-                    <td>@item.Natureza</td>
-                    <td>@item.DM</td>
-                    <td>@item.Meses[0]</td>
-                    <td>@item.Meses[1]</td>
-                    <td>@item.Meses[2]</td>
-                    <td>@item.Meses[3]</td>
-                    <td>@item.Meses[4]</td>
+                    <td id="Z_@item.Id">@item.Z</td>
+                    <td id="D_@item.Id">@item.D</td>
+                    <td id="Obra_@item.Id">@item.Obra</td>
+                    <td id="Natureza_@item.Id">@item.Natureza</td>
+                    <td id="DM_@item.Id">@item.DM</td>
+                    <td id="Mes0_@item.Id">@item.Meses[0]</td>
+                    <td id="Mes1_@item.Id">@item.Meses[1]</td>
+                    <td id="Mes2_@item.Id">@item.Meses[2]</td>
+                    <td id="Mes3_@item.Id">@item.Meses[3]</td>
+                    <td >@item.Meses[4]</td>
                     <td>@item.Meses[5]</td>
                     <td>@item.Meses[6]</td>
                     <td>@item.Meses[7]</td>
@@ -118,15 +117,29 @@
                     <td>@item.Total</td>
                 </tr>
             }
-
-
         </tbody>
     </table>
 <script>
+
+    //dropdown em branco
     $("#anos").prop("selectedIndex", -1);
     $("#status").prop("selectedIndex", -1);
     $("#tipoRede").prop("selectedIndex", -1);
     $("#tipoConta").prop("selectedIndex", -1);
     $("#zona").prop("selectedIndex", -1);
     $("#delegacao").prop("selectedIndex", -1);
+
+    //
+    function filtroAno() {
+        var parametro = {};
+        parametro.anoSelecionado = document.getElementById("anos").value;
+
+        $.post("@Url.Action("BuscaAvancoMensal", "Producao")", parametro, alteraColunas);
+        alert('Teste');
+    }
+
+    function alteraColunas(retorno) {
+        
+    }
+
 </script>

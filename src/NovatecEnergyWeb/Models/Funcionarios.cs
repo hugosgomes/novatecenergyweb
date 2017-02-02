@@ -69,7 +69,7 @@ namespace NovatecEnergyWeb.Models
         public string Senha { get; set; }
 
         public int? Grupo { get; set; }
-        public bool? Master { get; set; }
+        public int Master { get; set; }
         public int? Banco { get; set; }
         public string Agencia { get; set; }
         public string Dva { get; set; }
@@ -84,7 +84,9 @@ namespace NovatecEnergyWeb.Models
         public int Status { get; set; }
         public string Riocardmat { get; set; }
         public string Riocardcart { get; set; }
-        public bool? Sistema { get; set; }
+        public Int32 SistemaDesktop { get; set; }
+        public Int32 SistemaWeb { get; set; }
+        public Int32 SistemaMobile { get; set; }
 
         public virtual ICollection<_30Comerciais> _30Comerciais { get; set; }
         public virtual ICollection<_50Croquis> _50CroquisDesenhistaNavigation { get; set; }

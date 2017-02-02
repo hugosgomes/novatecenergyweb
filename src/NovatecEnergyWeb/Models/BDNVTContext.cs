@@ -1102,8 +1102,8 @@ namespace NovatecEnergyWeb.Models
                 entity.Property(e => e.Logradouro).HasColumnName("LOGRADOURO");
 
                 entity.Property(e => e.Master)
-                    .HasColumnName("MASTER")
-                    .HasDefaultValueSql("0");
+                    .HasColumnName("MASTER");
+                   
 
                 entity.Property(e => e.Motivodeslig)
                     .HasColumnName("MOTIVODESLIG")
@@ -1164,9 +1164,14 @@ namespace NovatecEnergyWeb.Models
                     .HasColumnName("SEXO")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.Sistema)
-                    .HasColumnName("SISTEMA")
-                    .HasDefaultValueSql("0");
+                entity.Property(e => e.SistemaDesktop)
+                    .HasColumnName("SISTEMADESKTOP");
+
+                entity.Property(e => e.SistemaWeb)
+                .HasColumnName("SISTEMAWEB");
+
+                entity.Property(e => e.SistemaMobile)
+                    .HasColumnName("SISTEMAMOBILE");
 
                 entity.Property(e => e.Status)
                     .HasColumnName("STATUS")

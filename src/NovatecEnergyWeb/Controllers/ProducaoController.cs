@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models.ProducaoViewModels;
+using NovatecEnergyWeb.Filters.ActionFilters;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,10 +21,10 @@ namespace NovatecEnergyWeb.Controllers
             _context = context;
         }
 
+        [AutenticacaoFilter] // colocado temporario
         public IActionResult AvancoMes()
         {
-            var _50_AvancoMes = _context._50_AvancoMes.FromSql("EXECUTE [dbo].[50_AvancoMes] {0}",2016).ToList() ;
-            var _50Croquis = _context._50Croquis.GroupBy(c => new { c.Data.Year }).ToList() ;
+            var _50Croquis = _context._50Croquis.GroupBy(c => new { c.Data.Year }).ToList();
             var _50ProjetosStatus = _context._50ProjetoStatus.GroupBy(p => new { p.Id, p.Nome }).ToList();
             var _50CroquiCentroC = _context._50CroquiCentroContabil.Select(o => new { o.Id, o.Nome }).ToList();
             var _00Zona = _context._00Zona.Select(z => new { z.Id, z.Zona }).ToList();
@@ -76,13 +77,34 @@ namespace NovatecEnergyWeb.Controllers
                 ViewBag.ListaDelegacao.Add(delegacao);
             }
 
+            return BuscaAvancoMensal(DateTime.Now.Year, true);
 
+        }
+
+        [AutenticacaoFilter]// colocado temporario
+        public IActionResult BuscaAvancoMensal(int anoSelecionado, bool index)
+        {
+            var _50_AvancoMes = _context._50_AvancoMes.FromSql("EXECUTE [dbo].[50_AvancoMes] {0}", anoSelecionado).ToList();
+            
             //Agrupa pela obra e dimensão(DM)
-            var obrasGroupDM = _50_AvancoMes.GroupBy(x => new { x.Z, x.D, x.Obra, x.Natureza, x.Conta, x.DM, x.IdZona,
-                x.IdDel, x.StatusId, x.Cod, x.ContaId, x.ContaId2 }).ToList();
+            var obrasGroupDM = _50_AvancoMes.GroupBy(x => new {
+                x.Z,
+                x.D,
+                x.Obra,
+                x.Natureza,
+                x.Conta,
+                x.DM,
+                x.IdZona,
+                x.IdDel,
+                x.StatusId,
+                x.Cod,
+                x.ContaId,
+                x.ContaId2
+            }).ToList();
 
             var listaAvancoMesViewModel = new List<AvancoMesViewModel>();
 
+            int id = 1;
             foreach (var item in obrasGroupDM.ToList())
             {
                 var avancoMesViewModel = new AvancoMesViewModel();
@@ -91,14 +113,15 @@ namespace NovatecEnergyWeb.Controllers
                 avancoMesViewModel.Obra = item.Key.Obra;
                 avancoMesViewModel.Natureza = item.Key.Natureza;
                 avancoMesViewModel.DM = item.Key.DM;
-                
+                avancoMesViewModel.Id = id;
+                id = id + 1;
 
                 avancoMesViewModel.Meses = new List<string>() { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
 
                 //Meses
                 for (int i = 1; i <= 12; i++)
                 {
-                    avancoMesViewModel.Meses[i -1] = _50_AvancoMes
+                    avancoMesViewModel.Meses[i - 1] = _50_AvancoMes
                     .Where(c => c.Cod == item.Key.Cod && c.DM == item.Key.DM && c.Mes == i)
                     .Select(c => c.Total).FirstOrDefault().ToString();
                 }
@@ -107,18 +130,21 @@ namespace NovatecEnergyWeb.Controllers
                 //Retirando os zeros
                 for (int i = 0; i < 12; i++)
                 {
-                    if (avancoMesViewModel.Meses[i] == "0" || avancoMesViewModel.Meses[i] =="0,00")
+                    if (avancoMesViewModel.Meses[i] == "0" || avancoMesViewModel.Meses[i] == "0,00")
                         avancoMesViewModel.Meses[i] = "";
                 }
                 for (int i = 0; i < 12; i++)
                 {
-                    if ((avancoMesViewModel.Meses[i] != "0") && (!String.IsNullOrEmpty(avancoMesViewModel.Meses[i])) )
+                    if ((avancoMesViewModel.Meses[i] != "0") && (!String.IsNullOrEmpty(avancoMesViewModel.Meses[i])))
                         avancoMesViewModel.Meses[i] = Math.Round(Convert.ToDecimal(avancoMesViewModel.Meses[i])).ToString();
                 }
                 listaAvancoMesViewModel.Add(avancoMesViewModel);
             }
 
-            return View(listaAvancoMesViewModel);
+            if (index)
+                return View(listaAvancoMesViewModel);
+            else
+                return Json(listaAvancoMesViewModel);
         }
     }
 }

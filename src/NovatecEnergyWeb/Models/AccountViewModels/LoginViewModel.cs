@@ -17,6 +17,7 @@ namespace NovatecEnergyWeb.Models.AccountViewModels
         [Required(ErrorMessage = "Digite o nome do usuário")]
         [AccountLogin]
         [StatusCliente]
+        [SistemaWeb]
         public string Login { get; set; }
 
         [Required(ErrorMessage = "Digite a senha do usuário")]
