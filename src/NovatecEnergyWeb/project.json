@@ -30,7 +30,8 @@
     "Microsoft.Extensions.Caching.Memory": "1.1.0",
     "Microsoft.AspNetCore.Http.Features": "1.1.0",
     "MailKit": "1.10.1",
-    "Microsoft.EntityFrameworkCore.Relational": "1.1.0"
+    "Microsoft.EntityFrameworkCore.Relational": "1.1.0",
+    "EPPlus.Core": "1.2.0"
   },
 
   "tools": {
