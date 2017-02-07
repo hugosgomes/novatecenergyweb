@@ -135,7 +135,7 @@
         parametro.anoSelecionado = document.getElementById("anos").value;
 
         $.post("@Url.Action("BuscaAvancoMensal", "Producao")", parametro, alteraColunas);
-        alert('Teste');
+        
     }
 
     function alteraColunas(retorno) {

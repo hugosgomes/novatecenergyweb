@@ -1,0 +1,252 @@
+﻿@using NovatecEnergyWeb.Models.CondominioVisitaViewModels;
+
+@model IEnumerable<CondominioVisitaViewModel>
+@{ 
+    ViewData["Title"] = "Visitas Comerciais - Visitas Endereços sem cliente em condominios ativos";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<p><b>@Model.Count()</b></p>
+
+<p>Cadastros errados: @ViewBag.Errados      <a href="#">Consertar</a></p> 
+
+<a href="#" class="btn btn-default btn-lg" role="button">Todas </a>
+<a href="#" class="btn btn-default btn-lg disabled" role="button">Endereços sem Cliente em Condomínios Ativos</a>
+<br /><br />
+<a href="#" class="btn btn-default btn-lg" role="button">Produção Diária </a>
+<a href="#" class="btn btn-default btn-lg" role="button">Hoje </a>
+<br /><br />
+
+<label>Cliente</label>
+<select id="clientes">
+    <option value="12">CEG</option>
+    <option value="13">CEG RIO</option>
+</select>
+
+<br />
+<label>Zona</label>
+<select id="zonas" onchange="realizaFiltros();">
+    @foreach (var item in ViewBag.Zonas)
+    {
+        <option value="@item.Id">@item.Zona</option>
+    }
+
+</select>
+<br />
+<label>Delegação</label>
+<select id="delegacoes">
+    @foreach (var item in ViewBag.ListaDelegacao)
+    {
+        <option value="@item.Id">@item.Delegacao</option>
+    }
+</select>
+<br />
+<label>Área</label>
+<select id="areas">
+    @foreach (var item in ViewBag.ListaAreas)
+    {
+        <option value="@item.Id">@item.Area</option>
+    }
+</select>
+<br />
+<label>Venda</label>
+<select id="venda">
+    @foreach (var item in ViewBag.ListaVenda)
+    {
+        <option value="@item.Id">@item.Item</option>
+    }
+</select>
+<label>D1/D2</label>
+<select id="tipoVenda">
+    @foreach (var item in ViewBag.TipoVenda)
+    {
+        <option value="@item.Id">@item.Item</option>
+    }
+</select>
+<br />
+<label>Tipo Visita</label>
+<select id="tipoVisita">
+    @foreach (var item in ViewBag.TipoVisitas)
+    {
+        <option value="@item.Id">@item.Item</option>
+    }
+</select>
+<br />
+<label>Rejeição</label>
+<select id="rejeicao">
+    @foreach (var item in ViewBag.MotivosRej)
+    {
+        <option value="@item.Id">@item.Motivo</option>
+    }
+</select>
+<br />
+<label>Ag Comercial</label>
+<select id="comboAgComercial">
+    @foreach (var item in ViewBag.ListaFuncionarios)
+    {
+        <option value="@item.Id">@item.NomeCompleto</option>
+    }
+</select>
+<br />
+<label>Status Cond.</label>
+<select id="statusCond">
+    @foreach (var item in ViewBag.ListaStatusCondominio)
+    {
+        <option value="@item.Id">@item.Item</option>
+    }
+</select>
+<br />
+<label>Condomínio</label>
+<select id="condominios">
+    @foreach (var item in ViewBag.ListaCondominios)
+    {
+        <option value="@item.Id">
+            <column>@item.Nome</column>
+            <column>@item.Num</column>
+            <column>@item.Complemento</column>
+            <column>@item.Item</column>
+            <column>@item.Z</column>
+            <column>@item.D</column>
+        </option>
+    }
+    
+</select>
+<br />
+<label>Condomínio</label>
+<input type="text"/>
+<br />
+<label>Ag Comercial</label>
+<input type="text" />
+<br />
+<label>Localidade</label>
+<input type="text" />
+<br />
+<label>Bairro</label>
+<input type="text" />
+<br />
+<label>Logradouro</label>
+<input type="text" />
+
+<label>Número</label>
+<label>Entre</label>
+<input type="text" />
+<label>E</label>
+<input type="text" />
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td class="text-center">Z</td>
+            <td class="text-center">D</td>
+            <td class="text-center">AR</td>
+            <td class="text-center">Condomínio</td>
+            <td class="text-center">Complemento</td>
+            <td class="text-center">Num</td>
+            <td class="text-center">Bloco</td>
+            <td class="text-center">Apt</td>
+            <td class="text-center">DataHora</td>
+            <td class="text-center">Venda</td>
+            <td class="text-center">Agente Comercial Visita</td>
+            <td class="text-center">Negativa</td>
+            <td class="text-center">Tipo da Visita</td>
+            <td class="text-center">DX</td>
+            <td class="text-center">Tipo de D2</td>
+            <td class="text-center">OBS</td>
+            <td class="text-center">PT</td>
+            <td class="text-center">Latitude</td>
+            <td class="text-center">Longitude</td>
+            <td class="text-center">Data do Agendamento</td>
+            <td class="text-center">Obs do Agendamento</td>
+            <td class="text-center">Status Condomínio</td>
+            <td class="text-center">Tipo Condomínio</td>
+            <td class="text-center">Localidade</td>
+            <td class="text-center">Bairro</td>
+            <td class="text-center">Via</td>
+            <td class="text-center">Logradouro</td>
+            <td class="text-center">Cliente</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Z</td>
+                <td>@item.D</td>
+                <td>@item.Ar</td>
+                <td>@item.Condominio</td>
+                <td>@item.Complemento</td>
+                <td>@item.Num</td>
+                <td>@item.Bloco</td>
+                <td>@item.Apt</td>
+                @{ 
+                    if (item.DataHora != null)
+                    {
+                        <td>@item.DataHora</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                }
+                <td>@item.Venda</td>
+                <td>@item.AgVisita</td>
+                <td>@item.Negativa</td>
+                <td>@item.TipoVisita</td>
+                <td>@item.Dx</td>
+                <td>@item.TipoD2</td>
+                <td>@item.Obs</td>
+                <td>@item.Pt</td>
+                <td>@item.Latitude</td>
+                <td>@item.Longitude</td>
+                @{
+                    if (item.DataAgendamento != null)
+                    {
+                        <td>@item.DataAgendamento</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                }
+                <td>@item.ObsAgendamento</td>
+                <td>@item.StatusCond</td>
+                <td>@item.TipoCond</td>
+                <td>@item.Localidade</td>
+                <td>@item.Bairro</td>
+                <td>@item.Via</td>
+                <td>@item.Logradouro</td>
+                <td>@item.Cliente</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    //lógica para selects virem em branco
+    $("#clientes").prop("selectedIndex", -1);
+    $("#zonas").prop("selectedIndex", -1);
+    $("#delegacoes").prop("selectedIndex", -1);
+    $("#areas").prop("selectedIndex", -1);
+    $("#venda").prop("selectedIndex", -1);
+    $("#tipoVenda").prop("selectedIndex", -1);
+    $("#tipoVisita").prop("selectedIndex", -1);
+    $("#comboAgComercial").prop("selectedIndex", -1);
+    $("#rejeicao").prop("selectedIndex", -1);
+    $("#statusCond").prop("selectedIndex", -1);
+    $("#condominios").prop("selectedIndex", -1);
+
+    function realizaFiltros() {
+        var parametros = {};
+        parametros.Zona = document.getElementById("zonas").value;
+        parametros.Delegacao = document.getElementById("delegacoes").value;
+
+        $.post("@Url.Action("FiltraResultados","CondominioVisita")", parametros, atualizaColunas);
+
+    };
+
+    function atualizaColunas(retorno) {
+        alert('Teste');
+
+    };
+
+</script>

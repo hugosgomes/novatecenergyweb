@@ -14,7 +14,7 @@ namespace NovatecEnergyWeb.Controllers
 {
     public class ProducaoController : Controller
     {
-        public BDNVTContext _context;
+        private BDNVTContext _context;
 
         public ProducaoController(BDNVTContext context)
         {
