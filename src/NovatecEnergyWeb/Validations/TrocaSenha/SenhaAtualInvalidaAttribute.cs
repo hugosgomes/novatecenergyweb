@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb.Validations.TrocaSenha
 {
@@ -15,11 +16,7 @@ namespace NovatecEnergyWeb.Validations.TrocaSenha
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
-            var connection = @"Server=NVTSERVER;DataBase=BDNVT;Uid=NVT;Pwd=1;";
-            optionsBuilder.UseSqlServer(connection);
-
-            _context = new BDNVTContext(optionsBuilder.Options);
+            _context = AppSettings.contexto;
 
             TrocaSenhaViewModel trocaSenha = (TrocaSenhaViewModel)validationContext.ObjectInstance;
 

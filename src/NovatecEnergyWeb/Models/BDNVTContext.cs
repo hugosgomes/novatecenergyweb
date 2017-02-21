@@ -220,8 +220,7 @@ namespace NovatecEnergyWeb.Models
              optionsBuilder.UseSqlServer(@"Server=NVTSERVER;DataBase=TESTE2TS;Uid=NVT;Pwd=1;Trusted_Connection=True;");
          }*/
 
-        public BDNVTContext(DbContextOptions<BDNVTContext> options)
-        : base(options)
+        public BDNVTContext(DbContextOptions<BDNVTContext> options): base(options)
         {
         }
 

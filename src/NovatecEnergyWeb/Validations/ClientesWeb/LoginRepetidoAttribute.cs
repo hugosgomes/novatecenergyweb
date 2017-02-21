@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using NovatecEnergyWeb.Models;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb.Validations.ClientesWeb
 {
@@ -14,11 +15,7 @@ namespace NovatecEnergyWeb.Validations.ClientesWeb
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
-            var connection = @"Server=NVTSERVER;DataBase=BDNVT;Uid=NVT;Pwd=1;";
-            optionsBuilder.UseSqlServer(connection);
-
-            _context = new BDNVTContext(optionsBuilder.Options);
+            _context = AppSettings.contexto;
 
             Models.ClientesWeb clientesWeb = (Models.ClientesWeb)validationContext.ObjectInstance;
 

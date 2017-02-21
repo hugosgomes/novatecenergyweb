@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NovatecEnergyWeb.Models;
 using Microsoft.EntityFrameworkCore;
+using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb
 {
@@ -28,6 +29,11 @@ namespace NovatecEnergyWeb
                 builder.AddApplicationInsightsSettings(developerMode: true);
             }
             Configuration = builder.Build();
+
+            var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("Production"));
+            AppSettings.contexto = new BDNVTContext(optionsBuilder.Options);
+            
         }
 
         public IConfigurationRoot Configuration { get; }

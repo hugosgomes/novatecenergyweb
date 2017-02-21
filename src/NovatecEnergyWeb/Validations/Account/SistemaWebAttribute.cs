@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using NovatecEnergyWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models.AccountViewModels;
+using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb.Validations.Account
 {
@@ -15,11 +16,7 @@ namespace NovatecEnergyWeb.Validations.Account
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
-            var connection = @"Server=NVTSERVER;DataBase=BDNVT;Uid=NVT;Pwd=1;";
-            optionsBuilder.UseSqlServer(connection);
-
-            _context = new BDNVTContext(optionsBuilder.Options);
+            _context = AppSettings.contexto;
 
             LoginViewModel account = (LoginViewModel)validationContext.ObjectInstance;
 
