@@ -14,42 +14,76 @@
                 
                
                 <table>
-                    <tbody>
-                        <tr>
-                            
+                    <tbody class="fontTableBodyNavBar">
+                        <tr>        
                             <td class="col-sm-8">Total de Endereços </td>
-                            <td class="col-sm-2">@Model.Count() </td>
-                            <td class="col-sm-2">100% </td>
+                            <td class="col-sm-2 text-right">@Model.Count()</td>
+                            <td class="col-sm-2 text-right">100%</td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Endereços Visitados</td>
-                            <td class="col-sm-2">@ViewBag.Visitados</td>
-                            <td class="col-sm-2">@ViewBag.VisitadosPercent%</td>
+                            <td class="col-sm-2 text-right">@ViewBag.Visitados</td>
+                            <td class="col-sm-2 text-right">@ViewBag.VisitadosPercent%</td>
                         </tr>
                         <tr class="espacoAbaixo">
                             <td class="col-sm-8">Endereços Não Visitados</td>
-                            <td class="col-sm-2">@ViewBag.NaoVisitados</td>
-                            <td class="col-sm-2">@ViewBag.NaoVisitadosPercent%</td>
+                            <td class="col-sm-2 text-right">@ViewBag.NaoVisitados</td>
+                            <td class="col-sm-2 text-right">@ViewBag.NaoVisitadosPercent%</td>
                         </tr>
 
                         <tr>
-                            <td>Contratados</td>
+                            <td class="col-sm-8">Contratados</td>
+                            <td class="col-sm-2 text-right">@ViewBag.Contratados</td>
+                            <td class="col-sm-2 text-right">@ViewBag.ContratadosPercent%</td>
                         </tr>
-                        <tr><td>Não Contratados</td></tr>
+                        <tr>
+                            <td class="col-sm-8">Não Contratados</td>
+                            <td class="col-sm-2 text-right">@ViewBag.NaoContratados</td>
+                            <td class="col-sm-2 text-right">@ViewBag.NaoContratadosPercent%</td>
+
+                        </tr>
                         <tr class="espacoAbaixo">
-                            <td>Visita Agendada</td>
+                            <td class="col-sm-8">Visita Agendada</td>
+                            <td class="col-sm-2 text-right">@ViewBag.VisitaAgendada</td>
+                            <td class="col-sm-2 text-right">@ViewBag.VisitaAgendadaPercent%</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="col-sm-8">Visitas Realizadas</td>
+                            <td class="col-sm-2 text-right">@ViewBag.Visitas</td>
+                            <td class="col-sm-2 text-right">100%</td>
                         </tr>
                         <tr>
-                            <td>Visitas Realizadas</td>
+                            <td class="col-sm-8">Visitas com Resposta</td>
+                            <td class="col-sm-2 text-right">@ViewBag.VisitasComResposta</td>
+                            <td class="col-sm-2 text-right">@ViewBag.VisitasComRespostaPercent%</td>
                         </tr>
                         <tr>
-                            <td>Visitas com Resposta</td>
-                        </tr>
-                        <tr>
-                            <td>Visitas - Ausentes</td>
+                            <td class="col-sm-8">Visitas - Ausentes</td>
+                            <td class="col-sm-2 text-right">@ViewBag.Ausentes</td>
+                            <td class="col-sm-2 text-right">@ViewBag.AusentesPercent%</td>
                         </tr>
                     </tbody>
                 </table>
+
+                <div class="buttonGroupNavBar">
+                    <ul class="nav navbar-nav">
+                        <li class="">
+                            <a href="#">Clientes de Lotes - Todos</a>
+                        </li>
+                        <li class="active">
+                            <a href="#">Clientes de Lotes Ativos</a>
+                        </li>
+                        <li class="">
+                            <a href="#">Clientes Sem Lote - Todos</a>
+                        </li>
+                        <li class="">
+                            <a href="#">Clientes Sem Lote - Não Contratados</a>
+                        </li>
+
+                    </ul>
+                </div>
+               
             </nav>
         </div>
         <div class="col-sm-9 col-lg-10">
@@ -89,7 +123,7 @@
                         <th class="text-center">HRULT</th>
                     </tr>
                 </thead>
-                <tbody class="fontTableBodyNavBar">
+                <tbody class="fontTableBodyTelasNav">
                     @foreach (var item in Model)
                     {
                         <tr>

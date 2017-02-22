@@ -70,7 +70,7 @@ textarea {
     width: 60px;
 }
 
-.fontTableBodyNavBar{
+.fontTableBodyTelasNav{
     font-size: 9.5px;
 }
 .tableAvancoMes{
@@ -83,4 +83,20 @@ textarea {
 tr.espacoAbaixo > td
 {
   padding-bottom: 1em;
+}
+
+.fontTableBodyNavBar{
+    font-size: 12px;
+}
+
+.fontButtonNavBar{
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.buttonGroupNavBar{
+    padding-top: 20px;
+}
+.buttonNavBar{
+ 
 }
