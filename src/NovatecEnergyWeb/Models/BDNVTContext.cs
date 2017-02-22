@@ -2,11 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using NovatecEnergyWeb.Models.MetasViewModels;
+using NovatecEnergyWeb.Models.StoredProcedures;
 
 namespace NovatecEnergyWeb.Models
 {
     public partial class BDNVTContext : DbContext
     {
+        public virtual DbSet<_11_LoteAtivo> _11_LoteAtivo { get; set; }
         public virtual DbSet<_11_Visita_Condominios> _11_Visita_Condominios { get; set; }
         public virtual DbSet<_11_CondVisitasB> _11_CondVisitasB { get; set; }
         public virtual DbSet<_50_AvancoMes> _50_AvancoMes { get; set; }
@@ -206,19 +208,6 @@ namespace NovatecEnergyWeb.Models
         public virtual DbSet<_60ProdutosGns> _60ProdutosGns { get; set; }
         public virtual DbSet<ClientesWeb> ClientesWeb { get; set; }
 
-        // Unable to generate entity type for table 'dbo.11_CondVisitas2'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.Teste'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.50_ProjetosRedeRamal'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.FuncionáriosTeste'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.20_Historico'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.z_11_Condominios'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.Funcionarios'. Please see the warning messages.
-
-        /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-         {
-             #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-             optionsBuilder.UseSqlServer(@"Server=NVTSERVER;DataBase=TESTE2TS;Uid=NVT;Pwd=1;Trusted_Connection=True;");
-         }*/
 
         public BDNVTContext(DbContextOptions<BDNVTContext> options): base(options)
         {
@@ -226,6 +215,7 @@ namespace NovatecEnergyWeb.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<_11_LoteAtivo>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_Visita_Condominios>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_CondVisitasB>().HasKey(c => c.Id);
             modelBuilder.Entity<_10_CargasMetas>().HasKey(c => c.Id);

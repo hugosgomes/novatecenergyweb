@@ -1,0 +1,134 @@
+﻿@using NovatecEnergyWeb.Models.StoredProcedures;
+
+@model IEnumerable<_11_LoteAtivo>
+@{ 
+    Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
+    ViewData["Title"] = "Clientes de Lotes Ativos";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-lg-2">
+            <nav class="navbar navbar-default navbar-fixed-side">
+                <!-- normal collapsible navbar markup -->
+                <h4 class="text-center">@ViewData["Title"]</h4>
+                
+               
+                <table>
+                    <tbody>
+                        <tr>
+                            
+                            <td class="col-sm-8">Total de Endereços </td>
+                            <td class="col-sm-2">@Model.Count() </td>
+                            <td class="col-sm-2">100% </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-8">Endereços Visitados</td>
+                            <td class="col-sm-2">@ViewBag.Visitados</td>
+                            <td class="col-sm-2">@ViewBag.VisitadosPercent%</td>
+                        </tr>
+                        <tr class="espacoAbaixo">
+                            <td class="col-sm-8">Endereços Não Visitados</td>
+                            <td class="col-sm-2">@ViewBag.NaoVisitados</td>
+                            <td class="col-sm-2">@ViewBag.NaoVisitadosPercent%</td>
+                        </tr>
+
+                        <tr>
+                            <td>Contratados</td>
+                        </tr>
+                        <tr><td>Não Contratados</td></tr>
+                        <tr class="espacoAbaixo">
+                            <td>Visita Agendada</td>
+                        </tr>
+                        <tr>
+                            <td>Visitas Realizadas</td>
+                        </tr>
+                        <tr>
+                            <td>Visitas com Resposta</td>
+                        </tr>
+                        <tr>
+                            <td>Visitas - Ausentes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </nav>
+        </div>
+        <div class="col-sm-9 col-lg-10">
+            <table class="table table-bordered" >
+                <thead>
+                    <tr>
+                        <th class="text-center">Casa</th>
+                        <th class="text-center">Lote</th>
+                        <th class="text-center">Z</th>
+                        <th class="text-center">D</th>
+                        <th class="text-center">AR</th>
+                        <th class="text-center">PT</th>
+                        <th class="text-center">Localidade</th>
+                        <th class="text-center">Bairro</th>
+                        <th class="text-center">Via</th>
+                        <th class="text-center">Logradouro</th>
+                        <th class="text-center">Num</th>
+                        <th class="text-center">Comp</th>
+                        <th class="text-center">Bloco</th>
+                        <th class="text-center">Apt</th>
+                        <th class="text-center">ULTMOTIVO</th>
+                        <th class="text-center">AGULT</th>
+                        <th class="text-center">DTULT</th>
+                        <th class="text-center">STATUSCL</th>
+                        <th class="text-center">DTSTATUSCL</th>
+                        <th class="text-center">CASASTATUS</th>
+                        <th class="text-center">Visitado</th>
+                        <th class="text-center">Visitas</th>
+                        <th class="text-center">Ausentes</th>
+                        <th class="text-center">VendaApp</th>
+                        <th class="text-center">Condomínio</th>
+                        <th class="text-center">CASOA</th>
+                        <th class="text-center">CASOB</th>
+                        <th class="text-center">CASOC</th>
+                        <th class="text-center">CASOD</th>
+                        <th class="text-center">DTULT2</th>
+                        <th class="text-center">HRULT</th>
+                    </tr>
+                </thead>
+                <tbody class="fontTableBodyNavBar">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td id="Casa_@item.Casa">@item.Casa</td>
+                            <td id="Lote_@item.Lote">@item.Lote</td>
+                            <td id="Z_@item.Z">@item.Z</td>
+                            <td id="D_@item.D">@item.D</td>
+                            <td id="AR_@item.Ar">@item.Ar</td>
+                            <td id="PT_@item.Pt">@item.Pt</td>
+                            <td id="Localidade_@item.Localidade">@item.Localidade</td>
+                            <td id="Bairro_@item.Bairro">@item.Bairro</td>
+                            <td id="Via_@item.Via">@item.Via</td>
+                            <td id="Logradouro_@item.Logradouro">@item.Logradouro</td>
+                            <td id="Num_@item.Num">@item.Num</td>
+                            <td id="Comp_@item.Complemento">@item.Complemento</td>
+                            <td id="Bloco_@item.Bloco">@item.Bloco</td>
+                            <td id="Apt_@item.Apt">@item.Apt</td>
+                            <td id="UltMotivo_@item.UltMotivo">@item.UltMotivo</td>
+                            <td id="Agult_@item.Agult">@item.Agult</td>
+                            <td id="Dtult_@item.Dtult">@item.Dtult</td>
+                            <td id="StatusCl_@item.StatusCl">@item.StatusCl</td>
+                            <td id="DtStatusCl_@item.DtStatusCl">@item.DtStatusCl</td>
+                            <td id="CasaStatus_@item.CasaStatus">@item.CasaStatus</td>
+                            <td id="Visitado_@item.Visitado">@item.Visitado</td>
+                            <td id="Visitas_@item.Visitas">@item.Visitas</td>
+                            <td id="Ausentes_@item.Ausentes">@item.Ausentes</td>
+                            <td id="VendaApp_@item.VendaApp">@item.VendaApp</td>
+                            <td id="Condominio_@item.Condominio">@item.Condominio</td>
+                            <td id="CasoA_@item.CasoA">@item.CasoA</td>
+                            <td id="CasoB_@item.CasoB">@item.CasoB</td>
+                            <td id="CasoC_@item.CasoC">@item.CasoC</td>
+                            <td id="CasoD_@item.CasoD">@item.CasoD</td>
+                            <td id="Dtult2_@item.Dtult2">@item.Dtult2</td>
+                            <td id="Hrult_@item.Hrult">@item.Hrult</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

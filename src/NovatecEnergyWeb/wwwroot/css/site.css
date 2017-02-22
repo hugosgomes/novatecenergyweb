@@ -70,12 +70,17 @@ textarea {
     width: 60px;
 }
 
-.fontTableBodyAvancoMes{
-    font-size: 11px;
+.fontTableBodyNavBar{
+    font-size: 9.5px;
 }
 .tableAvancoMes{
      width: 92%;
 }
 .inputsAvancoMes{
     max-width: 200px;
+}
+
+tr.espacoAbaixo > td
+{
+  padding-bottom: 1em;
 }
