@@ -20,6 +20,73 @@ namespace NovatecEnergyWeb.Controllers
         
         public IActionResult EnderecosVisitas()
         {
+            var lotes = from l in _context._11Lotes
+                        join ti in _context._00TabelasItems on l.Status equals ti.Id
+                        select new
+                        {
+                            Id = l.Id,
+                            LoteNum = l.LoteNum,
+                            Ge = l.Ge,
+                            DataLote = l.DataLote,
+                            Item = ti.Item
+                        };
+            
+            ViewBag.Lotes = lotes.ToList(); // terminar depois
+
+            var motivosRejeicao = _context._11MotivosRej.Select(c => new { c.Id, c.Motivo }).ToList();
+            ViewBag.MotivosRejeicao = new List<_11MotivosRej>();
+            foreach (var item in motivosRejeicao)
+            {
+                var m = new _11MotivosRej();
+                m.Id = item.Id;
+                m.Motivo = item.Motivo;
+                ViewBag.MotivosRejeicao.Add(m);
+            }
+
+            var zonas = _context._00Zona.Where(c => c.Id < 3).Select(c => new { c.Id, c.Zona }).ToList();
+            ViewBag.Zonas = new List<_00Zona>();
+            foreach (var item in zonas)
+            {
+                var z = new _00Zona();
+                z.Id = item.Id;
+                z.Zona = item.Zona;
+                ViewBag.Zonas.Add(z);
+            }
+
+            var delegacao = _context._00Delegacao.Select(c => new { c.Id, c.Delegacao, c.Zona }).ToList();
+            ViewBag.Delegacao = new List<_00Delegação>();
+            foreach (var item in delegacao)
+            {
+                var d = new _00Delegação();
+                d.Id = item.Id;
+                d.Delegacao = item.Delegacao;
+                d.Zona = item.Zona;
+                ViewBag.Delegacao.Add(d);
+            }
+
+            var areas = _context._00Areas.Select(c => new { c.Id, c.Area }).ToList();
+            ViewBag.Areas = new List<_00Areas>();
+            foreach (var item in areas)
+            {
+                var a = new _00Areas();
+                a.Id = item.Id;
+                a.Area = item.Area;
+                ViewBag.Areas.Add(a);
+            }
+
+            var statusCondominio = _context._00TabelasItems
+                .Where(c => (c.Tabela == 237) && (c.Campo == "STATUS"))
+                .OrderBy(c => c.Ordem)
+                .Select(c => new { c.Id, c.Item }).ToList();
+            ViewBag.StatusCondominios = new List<_00TabelasItems>();
+            foreach (var item in statusCondominio)
+            {
+                var sc = new _00TabelasItems();
+                sc.Id = item.Id;
+                sc.Item = item.Item;
+                ViewBag.StatusCondominios.Add(sc);
+            }
+
             var ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo]").ToList();
             ViewBag.Visitados = ev.Sum(c => c.Visitado);
             ViewBag.VisitadosPercent = Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Visitados), Convert.ToDecimal(ev.Count())) *100);
@@ -38,6 +105,8 @@ namespace NovatecEnergyWeb.Controllers
             ViewBag.VisitasComResposta = ViewBag.Visitas - ViewBag.Ausentes;
             ViewBag.VisitasComRespostaPercent = Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitasComResposta), Convert.ToDecimal(ViewBag.Visitas)) * 100);
             ViewBag.AusentesPercent = Convert.ToInt32( decimal.Divide(Convert.ToDecimal(ViewBag.Ausentes), Convert.ToDecimal(ViewBag.Visitas)) * 100);
+
+
 
             return View(ev);
         }

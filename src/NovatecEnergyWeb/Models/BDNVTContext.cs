@@ -55,7 +55,7 @@ namespace NovatecEnergyWeb.Models
         public virtual DbSet<_00Areas> _00Areas { get; set; }
         public virtual DbSet<_00Bairro> _00Bairro { get; set; }
         public virtual DbSet<_00Caminhos> _00Caminhos { get; set; }
-        public virtual DbSet<_00Delegação> _00Delegação { get; set; }
+        public virtual DbSet<_00Delegação> _00Delegacao { get; set; }
         public virtual DbSet<_00Empresa> _00Empresa { get; set; }
         public virtual DbSet<_00Estado> _00Estado { get; set; }
         public virtual DbSet<_00Filial> _00Filial { get; set; }
@@ -112,6 +112,7 @@ namespace NovatecEnergyWeb.Models
         public virtual DbSet<_11CondEstrutura> _11CondEstrutura { get; set; }
         public virtual DbSet<_11CondVisitas> _11CondVisitas { get; set; }
         public virtual DbSet<_11CondVisitasTemp> _11CondVisitasTemp { get; set; }
+        public virtual DbSet<_11Lotes> _11Lotes { get; set; }
         public virtual DbSet<_11Condominios> _11Condominios { get; set; }
         public virtual DbSet<_11CondominiosDetalheN> _11CondominiosDetalheN { get; set; }
         public virtual DbSet<_11CondominiosObs> _11CondominiosObs { get; set; }
@@ -5345,6 +5346,24 @@ namespace NovatecEnergyWeb.Models
                 entity.Property(e => e.Venda).HasColumnName("VENDA");
             });
 
+            modelBuilder.Entity<_11Lotes>(entity =>
+            {
+                entity.ToTable("11_Lotes");
+                entity.HasKey(e => e.Id).HasName("PK_11_Lotes");
+                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Ge).HasColumnName("GE").HasMaxLength(255);
+                entity.Property(e => e.LoteNum).HasColumnName("LOTENUM").HasMaxLength(255);
+                entity.Property(e => e.DataLote).HasColumnName("DATALOTE").HasColumnType("smalldatetime"); 
+                entity.Property(e => e.DataEntrega).HasColumnName("DATAENTREGA").HasColumnType("smalldatetime");
+                entity.Property(e => e.Potencial).HasColumnName("POTENCIAL");
+                entity.Property(e => e.Meta).HasColumnName("META");
+                entity.Property(e => e.UserSystem).HasColumnName("USERSYSTEM");
+                entity.Property(e => e.DataSystem).HasColumnName("DATASYSTEM");
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+            });
+
+
+            
             modelBuilder.Entity<_11Condominios>(entity =>
             {
                 entity.ToTable("11_Condominios");

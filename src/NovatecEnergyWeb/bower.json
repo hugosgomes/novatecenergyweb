@@ -6,6 +6,7 @@
     "jquery": "2.2.0",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
-    "Chart.js": "2.0.2"
+    "Chart.js": "2.0.2",
+    "bootstrap-datepicker": "1.6.0"
   }
 }

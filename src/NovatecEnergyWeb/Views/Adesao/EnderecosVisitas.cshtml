@@ -3,14 +3,14 @@
 @model IEnumerable<_11_LoteAtivo>
 @{ 
     Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
-    ViewData["Title"] = "Clientes de Lotes Ativos";
+    ViewData["Title"] = "Status de Clientes Com Tratamento Comercial";
 }
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-lg-2">
             <nav class="navbar navbar-default navbar-fixed-side">
                 <!-- normal collapsible navbar markup -->
-                <h4 class="text-center">@ViewData["Title"]</h4>
+                <h4 class="text-center">Clientes de Lotes Ativos</h4>
                 
                
                 <table>
@@ -80,14 +80,81 @@
                         <li class="">
                             <a href="#">Clientes Sem Lote - Não Contratados</a>
                         </li>
-
                     </ul>
                 </div>
-               
-            </nav>
+              <label class="fontTableBodyNavBar">Lote</label>
+               <select id="lotes" class="fontTableBodyNavBar">
+                       <option value="">Terminar depois...</option>
+               </select>
+                <br />
+               <label class="fontTableBodyNavBar" >Status Casa</label>
+               <select id="statusCasa" class="fontTableBodyNavBar" >
+                   <option value="1">NÃO CONTRATADO</option>
+                   <option value="2">VISITA AGENDADA</option>
+                   <option value="3">CONTRATADO</option>
+               </select>
+                
+                <label class="fontTableBodyNavBar">Ult. Rejeição</label>
+                <select id="motivosRejeicao" class="fontTableBodyNavBar" style="width:160px">
+                    @foreach (var item in ViewBag.MotivosRejeicao)
+                    {
+                        <option value="@item.Id">@item.Motivo</option>
+                    }
+                </select>
+                <br />
+                <label class="fontTableBodyNavBar">Data da Ult. Rejeição</label>
+                <div id="sandbox-container">
+                    <input class="fontTableBodyNavBar" type="text"/>
+                </div>
+                <br />
+                <label class="fontTableBodyNavBar">Cliente</label>
+                <select id="clientesCeg" class="fontTableBodyNavBar">
+                    <option value="12">CEG</option>
+                    <option value="13">CEG RIO</option>
+                </select>
+                <br />
+                <label class="fontTableBodyNavBar">Zona</label>
+                <select id="zonas" class="fontTableBodyNavBar">
+                    @foreach (var item in ViewBag.Zonas)
+                    {
+                        <option value="@item.Id">@item.Zona</option>
+                    }
+                </select>
+                <br />
+
+                <label class="fontTableBodyNavBar">Delegação</label>
+                <select id="delegacoes" class="fontTableBodyNavBar" style="width:150px;">
+                    @foreach (var item in ViewBag.Delegacao)
+                    {
+                        <option value="@item.Id">@item.Delegacao</option>
+                    }
+                </select>
+                <br />
+                <label class="fontTableBodyNavBar">Área</label>
+                <select id="areas" class="fontTableBodyNavBar" >
+                    @foreach (var item in ViewBag.Areas)
+                    {
+                        <option value="@item.Id">@item.Area</option>
+                    }
+                </select>
+                <br />
+                <label class="fontTableBodyNavBar">Status Cond.</label>
+                <select id="statusCond" class="fontTableBodyNavBar">
+                    @foreach (var item in ViewBag.StatusCondominios)
+                    {
+                        <option value="@item.Id">@item.Item</option>
+                    }
+                </select>
+                <br />
+                <label class="fontTableBodyNavBar">Condomínio</label>
+                <select class="fontTableBodyNavBar">
+                    <option value="">Terminar depois..</option>
+                </select>
+
+        </nav>
         </div>
         <div class="col-sm-9 col-lg-10">
-            <table class="table table-bordered" >
+            <table class="table table-bordered table-striped" >
                 <thead>
                     <tr>
                         <th class="text-center">Casa</th>
@@ -166,3 +233,23 @@
         </div>
     </div>
 </div>
+<script>
+
+    $("#lotes").prop("selectedIndex", -1);
+    $("#statusCasa").prop("selectedIndex", -1);
+    $("#motivosRejeicao").prop("selectedIndex", -1);
+    $("#clientesCeg").prop("selectedIndex", -1);
+    $("#zonas").prop("selectedIndex", -1);
+    $("#delegacoes").prop("selectedIndex", -1);
+    $("#areas").prop("selectedIndex", -1);
+    $("#statusCond").prop("selectedIndex", -1);
+    
+    
+    
+    $('#sandbox-container input').datepicker({
+        format: "dd/mm/yyyy",
+        todayBtn: true,
+        language: "pt-BR",
+        orientation: "bottom left"
+    });
+</script>

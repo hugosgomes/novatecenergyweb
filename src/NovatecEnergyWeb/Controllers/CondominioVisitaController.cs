@@ -31,7 +31,7 @@ namespace NovatecEnergyWeb.Controllers
 
             var Zonas = _context._00Zona.Where(c => c.Id < 3).Select(c => new { c.Id, c.Zona }).ToList();
 
-            var _00Delegacao = _context._00Delegação.Select(d => new { d.Id, d.Delegacao }).ToList();
+            var _00Delegacao = _context._00Delegacao.Select(d => new { d.Id, d.Delegacao }).ToList();
 
             var _00Areas = _context._00Areas.Select(a => new { a.Id, a.Area }).OrderBy(a => a.Area).ToList();
 

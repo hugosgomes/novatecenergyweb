@@ -28,7 +28,7 @@ namespace NovatecEnergyWeb.Controllers
             var _50ProjetosStatus = _context._50ProjetoStatus.GroupBy(p => new { p.Id, p.Nome }).ToList();
             var _50CroquiCentroC = _context._50CroquiCentroContabil.Select(o => new { o.Id, o.Nome }).ToList();
             var _00Zona = _context._00Zona.Select(z => new { z.Id, z.Zona }).ToList();
-            var _00Delegacao = _context._00Delegação.Select(d => new { d.Id, d.Delegacao }).ToList();
+            var _00Delegacao = _context._00Delegacao.Select(d => new { d.Id, d.Delegacao }).ToList();
 
             //dropdown anos
             ViewBag.ListaAnos = new List<Int64>();
