@@ -67,17 +67,17 @@
                 </table>
 
                 <div class="buttonGroupNavBar">
-                    <ul class="nav navbar-nav">
-                        <li class="">
-                            <a href="#">Clientes de Lotes - Todos</a>
+                    <ul class="nav ">
+                        <li class="fontTableBodyNavBar">
+                            <a href="#" >Clientes de Lotes - Todos</a>
                         </li>
-                        <li class="active">
-                            <a href="#">Clientes de Lotes Ativos</a>
+                        <li class="disabled fontTableBodyNavBar a-desableColor" >
+                            <a  href="#"> Clientes de Lotes Ativos</a>
                         </li>
-                        <li class="">
-                            <a href="#">Clientes Sem Lote - Todos</a>
+                        <li class="fontTableBodyNavBar">
+                            <a href="#" >Clientes Sem Lote - Todos</a>
                         </li>
-                        <li class="">
+                        <li class="fontTableBodyNavBar ">
                             <a href="#">Clientes Sem Lote - Não Contratados</a>
                         </li>
                     </ul>
@@ -150,11 +150,38 @@
                 <select class="fontTableBodyNavBar">
                     <option value="">Terminar depois..</option>
                 </select>
-
+                <br />
+                <label class="fontTableBodyNavBar">Condomínio</label>
+                <input class="fontTableBodyNavBar" type="text" />
+                <br />
+                <label class="fontTableBodyNavBar">Localidade</label>
+                <input class="fontTableBodyNavBar" type="text" />
+                <br />
+                <label class="fontTableBodyNavBar">Bairro</label>
+                <input class="fontTableBodyNavBar" type="text" />
+                <br />
+                <label class="fontTableBodyNavBar">Logradouro</label>
+                <input class="fontTableBodyNavBar" type="text" />
+                <br />
+                <label class="fontTableBodyNavBar" >Número</label>
+                <label class="fontTableBodyNavBar">Entre</label>
+                <input class="fontTableBodyNavBar" style="width:60px" type="text" /> 
+                <label class="fontTableBodyNavBar">E</label>
+                <input class="fontTableBodyNavBar" style="width:50px" type="text" /> 
+                <br />
+                <img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25"/>
+                <img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" />
+                <br />
+                <label class="fontTableBodyNavBar">Exportar Pijama Formato Novatec</label>
+                <img src="~/images/ms_excel.png" width="30" height="30" />
+                <br />
+                <label class="fontTableBodyNavBar">Exportar Pijama Formato Gás Natural</label>
+                <img src="~/images/excel.png" width="25" height="25" />
+                <br />
         </nav>
         </div>
         <div class="col-sm-9 col-lg-10">
-            <table class="table table-bordered table-striped" >
+            <table style="white-space:nowrap;" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th class="text-center">Casa</th>
@@ -194,7 +221,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td id="Casa_@item.Casa">@item.Casa</td>
+                            <td id="Casa_@item.Casa" class="text-left">@item.Casa</td>
                             <td id="Lote_@item.Lote">@item.Lote</td>
                             <td id="Z_@item.Z">@item.Z</td>
                             <td id="D_@item.D">@item.D</td>
@@ -203,7 +230,7 @@
                             <td id="Localidade_@item.Localidade">@item.Localidade</td>
                             <td id="Bairro_@item.Bairro">@item.Bairro</td>
                             <td id="Via_@item.Via">@item.Via</td>
-                            <td id="Logradouro_@item.Logradouro">@item.Logradouro</td>
+                            <td id="Logradouro_@item.Logradouro" class="text-left" >@item.Logradouro</td>
                             <td id="Num_@item.Num">@item.Num</td>
                             <td id="Comp_@item.Complemento">@item.Complemento</td>
                             <td id="Bloco_@item.Bloco">@item.Bloco</td>
@@ -243,8 +270,6 @@
     $("#delegacoes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
     $("#statusCond").prop("selectedIndex", -1);
-    
-    
     
     $('#sandbox-container input').datepicker({
         format: "dd/mm/yyyy",

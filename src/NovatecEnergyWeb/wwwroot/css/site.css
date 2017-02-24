@@ -70,9 +70,6 @@ textarea {
     width: 60px;
 }
 
-.fontTableBodyTelasNav{
-    font-size: 9.5px;
-}
 .tableAvancoMes{
      width: 92%;
 }
@@ -80,6 +77,12 @@ textarea {
     max-width: 200px;
 }
 
+/*----------------------------------*/
+.fontTableBodyTelasNav{
+    font-size: 11px;
+    font-family: Calibri;
+  
+}
 tr.espacoAbaixo > td
 {
   padding-bottom: 1em;
@@ -87,6 +90,7 @@ tr.espacoAbaixo > td
 
 .fontTableBodyNavBar{
     font-size: 12px;
+    
 }
 
 .fontButtonNavBar{
@@ -94,9 +98,13 @@ tr.espacoAbaixo > td
     font-weight: bold;
 }
 
+.a-NavBar1{
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 50px;
+}
+
 .buttonGroupNavBar{
     padding-top: 20px;
 }
-.buttonNavBar{
- 
-}
+
