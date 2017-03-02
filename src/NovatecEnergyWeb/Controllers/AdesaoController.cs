@@ -7,7 +7,7 @@ using NovatecEnergyWeb.Models;
 using NovatecEnergyWeb.Models.StoredProcedures;
 using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models.AdesaoViewModels;
-
+using System.Dynamic;
 namespace NovatecEnergyWeb.Controllers
 {
     public class AdesaoController : Controller
@@ -99,33 +99,63 @@ namespace NovatecEnergyWeb.Controllers
                 ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo2] ");
             }else
             {
-                ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo2] {0} , {1} , {2} ",
-                    loteAtivo.IdLote, loteAtivo.CasaStatus, loteAtivo.IdultMotivo);
+                ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo2] {0},{1},{2},{3},{4},{5},"+
+                     "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
+                    loteAtivo.IdLote, loteAtivo.CasaStatus, loteAtivo.IdultMotivo, loteAtivo.Dtult,
+                    loteAtivo.ClId, loteAtivo.ZId, loteAtivo.DId, loteAtivo.AId, loteAtivo.StatusId,
+                    loteAtivo.CondId, loteAtivo.CondNome,loteAtivo.Localidade, loteAtivo.Bairro,
+                    loteAtivo.Logradouro, loteAtivo.Numero1,loteAtivo.Numero2);
             }
             var evList = ev.ToList();
 
             ViewBag.Visitados = evList.Sum(c => c.Visitado);
-            ViewBag.VisitadosPercent = Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Visitados), Convert.ToDecimal(evList.Count())) * 100);
+            ViewBag.VisitadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Visitados), Convert.ToDecimal(evList.Count())) * 100):0;
             ViewBag.NaoVisitados = evList.Count() - ViewBag.Visitados;
-            ViewBag.NaoVisitadosPercent = Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.NaoVisitados), Convert.ToDecimal(evList.Count())) * 100);
+            ViewBag.NaoVisitadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.NaoVisitados), Convert.ToDecimal(evList.Count())) * 100):0;
 
             ViewBag.Contratados = evList.Sum(c => c.CasoC);
-            ViewBag.ContratadosPercent = Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Contratados), Convert.ToDecimal(evList.Count())) * 100);
+            ViewBag.ContratadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Contratados), Convert.ToDecimal(evList.Count())) * 100):0;
             ViewBag.NaoContratados = evList.Sum(c => c.CasoA);
-            ViewBag.NaoContratadosPercent = Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.NaoContratados), Convert.ToDecimal(evList.Count())) * 100);
+            ViewBag.NaoContratadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.NaoContratados), Convert.ToDecimal(evList.Count())) * 100):0;
             ViewBag.VisitaAgendada = evList.Sum(c => c.CasoB);
-            ViewBag.VisitaAgendadaPercent = Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitaAgendada), Convert.ToDecimal(evList.Count())) * 100);
+            ViewBag.VisitaAgendadaPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitaAgendada), Convert.ToDecimal(evList.Count())) * 100):0;
 
             ViewBag.Visitas = evList.Sum(c => c.Visitas);
             ViewBag.Ausentes = evList.Sum(c => c.Ausentes);
             ViewBag.VisitasComResposta = ViewBag.Visitas - ViewBag.Ausentes;
-            ViewBag.VisitasComRespostaPercent = Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitasComResposta), Convert.ToDecimal(ViewBag.Visitas)) * 100);
-            ViewBag.AusentesPercent = Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Ausentes), Convert.ToDecimal(ViewBag.Visitas)) * 100);
+            ViewBag.VisitasComRespostaPercent =(ViewBag.Visitas != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitasComResposta), Convert.ToDecimal(ViewBag.Visitas)) * 100):0;
+            ViewBag.AusentesPercent = (ViewBag.Visitas != 0) ?  Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Ausentes), Convert.ToDecimal(ViewBag.Visitas)) * 100):0;
 
             if (eIndex)
                 return View(evList);
             else
-                return Json(evList);
+            {
+                dynamic jsonModel = new ExpandoObject();
+                jsonModel.Numeracoes = new List<string>();
+                jsonModel.Porcentagens = new List<string>();
+
+                jsonModel.Numeracoes.Add(evList.Count().ToString());
+                jsonModel.Numeracoes.Add(ViewBag.Visitados.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.NaoVisitados.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.Contratados.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.NaoContratados.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.VisitaAgendada.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.Visitas.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.VisitasComResposta.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.Ausentes.ToString());
+
+                jsonModel.Porcentagens.Add(ViewBag.VisitadosPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.NaoVisitadosPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.ContratadosPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.NaoContratadosPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.VisitaAgendadaPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.VisitasComRespostaPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.AusentesPercent.ToString());
+
+                jsonModel.EV = evList;
+
+                return Json(jsonModel);
+            }
         }
 
     }

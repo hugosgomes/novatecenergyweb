@@ -17,51 +17,51 @@
                     <tbody class="fontTableBodyNavBar">
                         <tr>        
                             <td class="col-sm-8">Total de Endereços </td>
-                            <td class="col-sm-2 text-right">@Model.Count()</td>
-                            <td class="col-sm-2 text-right">100%</td>
+                            <td id="e0" class="col-sm-2 text-right">@Model.Count()</td>
+                            <td  class="col-sm-2 text-right">100%</td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Endereços Visitados</td>
-                            <td class="col-sm-2 text-right">@ViewBag.Visitados</td>
-                            <td class="col-sm-2 text-right">@ViewBag.VisitadosPercent%</td>
+                            <td id ="e1" class="col-sm-2 text-right">@ViewBag.Visitados</td>
+                            <td id ="ep0" class="col-sm-2 text-right">@ViewBag.VisitadosPercent%</td>
                         </tr>
                         <tr class="espacoAbaixo">
                             <td class="col-sm-8">Endereços Não Visitados</td>
-                            <td class="col-sm-2 text-right">@ViewBag.NaoVisitados</td>
-                            <td class="col-sm-2 text-right">@ViewBag.NaoVisitadosPercent%</td>
+                            <td id ="e2"class="col-sm-2 text-right">@ViewBag.NaoVisitados</td>
+                            <td id ="ep1" class="col-sm-2 text-right">@ViewBag.NaoVisitadosPercent%</td>
                         </tr>
 
                         <tr>
                             <td class="col-sm-8">Contratados</td>
-                            <td class="col-sm-2 text-right">@ViewBag.Contratados</td>
-                            <td class="col-sm-2 text-right">@ViewBag.ContratadosPercent%</td>
+                            <td id ="e3" class="col-sm-2 text-right">@ViewBag.Contratados</td>
+                            <td id ="ep2" class="col-sm-2 text-right">@ViewBag.ContratadosPercent%</td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Não Contratados</td>
-                            <td class="col-sm-2 text-right">@ViewBag.NaoContratados</td>
-                            <td class="col-sm-2 text-right">@ViewBag.NaoContratadosPercent%</td>
+                            <td id ="e4" class="col-sm-2 text-right">@ViewBag.NaoContratados</td>
+                            <td id ="ep3" class="col-sm-2 text-right">@ViewBag.NaoContratadosPercent%</td>
 
                         </tr>
                         <tr class="espacoAbaixo">
                             <td class="col-sm-8">Visita Agendada</td>
-                            <td class="col-sm-2 text-right">@ViewBag.VisitaAgendada</td>
-                            <td class="col-sm-2 text-right">@ViewBag.VisitaAgendadaPercent%</td>
+                            <td id ="e5" class="col-sm-2 text-right">@ViewBag.VisitaAgendada</td>
+                            <td id ="ep4" class="col-sm-2 text-right">@ViewBag.VisitaAgendadaPercent%</td>
                         </tr>
                         
                         <tr>
                             <td class="col-sm-8">Visitas Realizadas</td>
-                            <td class="col-sm-2 text-right">@ViewBag.Visitas</td>
+                            <td id ="e6" class="col-sm-2 text-right">@ViewBag.Visitas</td>
                             <td class="col-sm-2 text-right">100%</td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Visitas com Resposta</td>
-                            <td class="col-sm-2 text-right">@ViewBag.VisitasComResposta</td>
-                            <td class="col-sm-2 text-right">@ViewBag.VisitasComRespostaPercent%</td>
+                            <td id ="e7" class="col-sm-2 text-right">@ViewBag.VisitasComResposta</td>
+                            <td id ="ep5" class="col-sm-2 text-right">@ViewBag.VisitasComRespostaPercent%</td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Visitas - Ausentes</td>
-                            <td class="col-sm-2 text-right">@ViewBag.Ausentes</td>
-                            <td class="col-sm-2 text-right">@ViewBag.AusentesPercent%</td>
+                            <td id ="e8"  class="col-sm-2 text-right">@ViewBag.Ausentes</td>
+                            <td id ="ep6" class="col-sm-2 text-right">@ViewBag.AusentesPercent%</td>
                         </tr>
                     </tbody>
                 </table>
@@ -100,7 +100,7 @@
                             <br />
                   
                             <label class="labelsFormNav">Ult. Rejeição</label>                                             
-                            <select id="motivosRejeicao" class="fontTableBodyNavBar selectsNav">
+                            <select id="motivosRejeicao" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.MotivosRejeicao)
                                 {
                                     <option value="@item.Id">@item.Motivo</option>
@@ -110,18 +110,18 @@
                 
                             <label class="labelsFormNav">Data da Ult. Rejeição</label>
                             <div id="sandbox-container">
-                                <input class="fontTableBodyNavBar" type="text" />
+                                <input id="dtult" class="fontTableBodyNavBar" type="text" />
                             </div>
                             <br />
 
                             <label class="labelsFormNav">Cliente</label>
-                            <select id="clientesCeg" class="fontTableBodyNavBar selectsNav">
+                            <select id="clientesCeg" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
                                 <option value="12">CEG</option>
                                 <option value="13">CEG RIO</option>
                             </select>
                             <br />
                             <label class="labelsFormNav">Zona</label>
-                            <select id="zonas" class="fontTableBodyNavBar selectsNav">
+                            <select id="zonas" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.Zonas)
                                 {
                                     <option value="@item.Id">@item.Zona</option>
@@ -130,7 +130,7 @@
                             <br />
 
                             <label class="labelsFormNav">Delegação</label>
-                            <select id="delegacoes" class="fontTableBodyNavBar selectsNav">
+                            <select id="delegacoes" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.Delegacao)
                                 {
                                     <option value="@item.Id">@item.Delegacao</option>
@@ -138,7 +138,7 @@
                             </select>
                             <br />
                             <label class="labelsFormNav">Área</label>
-                            <select id="areas" class="fontTableBodyNavBar" style="width:50px;">
+                            <select id="areas" onchange="postToController();" class="fontTableBodyNavBar" style="width:50px;">
                                 @foreach (var item in ViewBag.Areas)
                                 {
                                     <option value="@item.Id">@item.Area</option>
@@ -146,7 +146,7 @@
                             </select>
                             <br />
                             <label class="labelsFormNav">Status Cond.</label>
-                            <select id="statusCond" class="fontTableBodyNavBar selectsNav">
+                            <select id="statusCond" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.StatusCondominios)
                                 {
                                     <option value="@item.Id">@item.Item</option>
@@ -154,28 +154,36 @@
                             </select>
                             <br />
                             <label class="labelsFormNav">Condomínio</label>
-                            <select class="fontTableBodyNavBar">
+                            <select id="condominiosId" class="fontTableBodyNavBar">
                                 <option value="">Terminar depois..</option>
                             </select>
                             <br />
-                            <label class="labelsFormNav">Condomínio</label>
-                            <input class="fontTableBodyNavBar" type="text" />
+                        
+                       <label class="labelsFormNav">Condomínio</label>
+                       <input id="CondNome" class="fontTableBodyNavBar" type="text" />
+                       <br />
+                            
+                        <label class="labelsFormNav">Localidade</label>
+                            <input id="Localidade" class="fontTableBodyNavBar" type="text" />
                             <br />
-                            <label class="labelsFormNav">Localidade</label>
-                            <input class="fontTableBodyNavBar" type="text" />
+                       
+                        <label class="labelsFormNav">Bairro</label>
+                            <input id="Bairro" class="fontTableBodyNavBar" type="text" />
                             <br />
-                            <label class="labelsFormNav">Bairro</label>
-                            <input class="fontTableBodyNavBar" type="text" />
+                        
+                        <label class="labelsFormNav">Logradouro</label>
+                            <input id="Logradouro" class="fontTableBodyNavBar" type="text" />
                             <br />
-                            <label class="labelsFormNav">Logradouro</label>
-                            <input class="fontTableBodyNavBar" type="text" />
-                            <br />
-                            <label class="labelsFormNav">Número</label>
-                            <label class="labelsFormNav">Entre</label>
-                            <input class="fontTableBodyNavBar" style="width:60px" type="text" />
-                            <label class="labelsFormNav">E</label>
-                            <input class="fontTableBodyNavBar" style="width:50px" type="text" />
-                            <br />
+                       
+                        <label class="labelsFormNav">Número</label>
+                        <label class="labelsFormNav">Entre</label>
+                        <input id="Numero1" class="fontTableBodyNavBar" style="width:60px" type="text" />
+                       
+                       <label class="labelsFormNav">E</label>
+                       <input id="Numero2" class="fontTableBodyNavBar" style="width:50px" type="text" />
+                            
+                        <br />
+                        
                             <img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" />
                             <img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" />
                             <br />
@@ -190,7 +198,7 @@
         </nav>
         </div>
         <div class="col-sm-9 col-lg-10">
-            <table  class="table table-bordered table-striped tabelaModal">
+            <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
                 <thead>
                     <tr>
                         <th class="text-center">Casa</th>
@@ -226,41 +234,41 @@
                         <th class="text-center">HRULT</th>
                     </tr>
                 </thead>
-                <tbody class="corpoTabela">
+                <tbody id="corpoTabelaAtivos" class="corpoTabela">
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td id="Casa_@item.Casa" class="text-left">@item.Casa</td>
-                            <td id="Lote_@item.Lote">@item.Lote</td>
-                            <td id="Z_@item.Z">@item.Z</td>
-                            <td id="D_@item.D">@item.D</td>
-                            <td id="AR_@item.Ar">@item.Ar</td>
-                            <td id="PT_@item.Pt">@item.Pt</td>
-                            <td id="Localidade_@item.Localidade">@item.Localidade</td>
-                            <td id="Bairro_@item.Bairro">@item.Bairro</td>
-                            <td id="Via_@item.Via">@item.Via</td>
-                            <td id="Logradouro_@item.Logradouro" class="text-left" >@item.Logradouro</td>
-                            <td id="Num_@item.Num">@item.Num</td>
-                            <td id="Comp_@item.Complemento">@item.Complemento</td>
-                            <td id="Bloco_@item.Bloco">@item.Bloco</td>
-                            <td id="Apt_@item.Apt">@item.Apt</td>
-                            <td id="UltMotivo_@item.UltMotivo">@item.UltMotivo</td>
-                            <td id="Agult_@item.Agult">@item.Agult</td>
-                            <td id="Dtult_@item.Dtult">@item.Dtult</td>
-                            <td id="StatusCl_@item.StatusCl">@item.StatusCl</td>
-                            <td id="DtStatusCl_@item.DtStatusCl">@item.DtStatusCl</td>
-                            <td id="CasaStatus_@item.CasaStatus">@item.CasaStatus</td>
-                            <td id="Visitado_@item.Visitado">@item.Visitado</td>
-                            <td id="Visitas_@item.Visitas">@item.Visitas</td>
-                            <td id="Ausentes_@item.Ausentes">@item.Ausentes</td>
-                            <td id="VendaApp_@item.VendaApp">@item.VendaApp</td>
-                            <td id="Condominio_@item.Condominio">@item.Condominio</td>
-                            <td id="CasoA_@item.CasoA">@item.CasoA</td>
-                            <td id="CasoB_@item.CasoB">@item.CasoB</td>
-                            <td id="CasoC_@item.CasoC">@item.CasoC</td>
-                            <td id="CasoD_@item.CasoD">@item.CasoD</td>
-                            <td id="Dtult2_@item.Dtult2">@item.Dtult2</td>
-                            <td id="Hrult_@item.Hrult">@item.Hrult</td>
+                            <td id="Casa_@item.Id" class="text-left">@item.Casa</td>
+                            <td id="Lote_@item.Id">@item.Lote</td>
+                            <td id="Z_@item.Id">@item.Z</td>
+                            <td id="D_@item.Id">@item.D</td>
+                            <td id="AR_@item.Id">@item.Ar</td>
+                            <td id="PT_@item.Id">@item.Pt</td>
+                            <td id="Localidade_@item.Id">@item.Localidade</td>
+                            <td id="Bairro_@item.Id">@item.Bairro</td>
+                            <td id="Via_@item.Id">@item.Via</td>
+                            <td id="Logradouro_@item.Id" class="text-left" >@item.Logradouro</td>
+                            <td id="Num_@item.Id">@item.Num</td>
+                            <td id="Comp_@item.Id">@item.Complemento</td>
+                            <td id="Bloco_@item.Id">@item.Bloco</td>
+                            <td id="Apt_@item.Id">@item.Apt</td>
+                            <td id="UltMotivo_@item.Id">@item.UltMotivo</td>
+                            <td id="Agult_@item.Id">@item.Agult</td>
+                            <td id="Dtult_@item.Id">@item.Dtult</td>
+                            <td id="StatusCl_@item.Id">@item.StatusCl</td>
+                            <td id="DtStatusCl_@item.Id">@item.DtStatusCl</td>
+                            <td id="CasaStatus_@item.Id">@item.CasaStatus</td>
+                            <td id="Visitado_@item.Id">@item.Visitado</td>
+                            <td id="Visitas_@item.Id">@item.Visitas</td>
+                            <td id="Ausentes_@item.Id">@item.Ausentes</td>
+                            <td id="VendaApp_@item.Id">@item.VendaApp</td>
+                            <td id="Condominio_@item.Id">@item.Condominio</td>
+                            <td id="CasoA_@item.Id">@item.CasoA</td>
+                            <td id="CasoB_@item.Id">@item.CasoB</td>
+                            <td id="CasoC_@item.Id">@item.CasoC</td>
+                            <td id="CasoD_@item.Id">@item.CasoD</td>
+                            <td id="Dtult2_@item.Id">@item.Dtult2</td>
+                            <td id="Hrult_@item.Id">@item.Hrult</td>
 
                         </tr>
                     }
@@ -279,7 +287,7 @@
     $("#delegacoes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
     $("#statusCond").prop("selectedIndex", -1);
-    
+
     $('#sandbox-container input').datepicker({
         format: "dd/mm/yyyy",
         todayBtn: true,
@@ -292,18 +300,81 @@
         return {
             IdLote: $('#lotes').val(),
             CasaStatus: $('#CasaStatus').val(),
-            IdultMotivo: $('#motivosRejeicao').val()
+            IdultMotivo: $('#motivosRejeicao').val(),
+            Dtult: $('#dtult').val(),
+            ClId: $('#clientesCeg').val(),
+            ZId: $('#zonas').val(),
+            DId: $('#delegacoes').val(),
+            AId: $('#areas').val(),
+            StatusId: $('#statusCond').val(),
+            CondId: $('#condominiosId').val(),
+            CondNome:$('#CondNome').val(),
+            Localidade: $('#Localidade').val(),
+            Bairro :$('#Bairro').val(),
+            Logradouro: $('#Logradouro').val(),
+            Numero1: $('#Numero1').val(),
+            Numero2: $('#Numero2').val()
         }
     }
 
     function postToController() {
         var data = getFormDataAsJson();
-
-        $.post('/Adesao/GetListLoteAtivo', data, atualizaView, 'application/json; charset=utf-8');
+        //, 'application/json; charset=utf-8'
+        $.post('/Adesao/GetListLoteAtivo', data, atualizaView);
     }
 
-    function atualizaView() {
+    function tabelaLoteAtivos(retorno) {
+        $('#corpoTabelaAtivos tr').remove();
+            
+     /*   for (var i = 0; i < retorno.EV.length; i++) {
+            $('#Casa_' + retorno.EV[i].id).html(retorno.EV[i].casa);
+            $('#Lote_' + retorno.EV[i].id).html(retorno.EV[i].lote);
+            $('#Z_' + retorno.EV[i].id).html(retorno.EV[i].z);
+            $('#D_' + retorno.EV[i].id).html(retorno.EV[i].d);
+            $('#AR_' + retorno.EV[i].id).html(retorno.EV[i].ar);
+            $('#PT_' + retorno.EV[i].id).html(retorno.EV[i].pt);
+            $('#Localidade_' + retorno.EV[i].id).html(retorno.EV[i].localidade);
+            $('#Bairro_' + retorno.EV[i].id).html(retorno.EV[i].bairro);
+            $('#Via_' + retorno.EV[i].id).html(retorno.EV[i].via);
+            $('#Logradouro_' + retorno.EV[i].id).html(retorno.EV[i].logradouro);
+            $('#Num_' + retorno.EV[i].id).html(retorno.EV[i].num);
+            $('#Comp_' + retorno.EV[i].id).html(retorno.EV[i].complemento);
+            $('#Bloco_' + retorno.EV[i].id).html(retorno.EV[i].bloco);
+            $('#Apt_' + retorno.EV[i].id).html(retorno.EV[i].apt);
+            $('#UltMotivo_' + retorno.EV[i].id).html(retorno.EV[i].ultMotivo);
+            $('#Agult_' + retorno.EV[i].id).html(retorno.EV[i].agult);
+            $('#Dtult_' + retorno.EV[i].id).html(retorno.EV[i].dtult);
+            $('#StatusCl_' + retorno.EV[i].id).html(retorno.EV[i].statusCl);
+            $('#DtStatusCl_' + retorno.EV[i].id).html(retorno.EV[i].dtStatusCl);
+            $('#CasaStatus_' + retorno.EV[i].id).html(retorno.EV[i].casaStatus);
+            $('#Visitado_' + retorno.EV[i].id).html(retorno.EV[i].visitado);
+            $('#Visitas_' + retorno.EV[i].id).html(retorno.EV[i].visitas);
+            $('#Ausentes_' + retorno.EV[i].id).html(retorno.EV[i].ausentes);
+            $('#VendaApp_' + retorno.EV[i].id).html(retorno.EV[i].vendaApp);
+            $('#Condominio_' + retorno.EV[i].id).html(retorno.EV[i].condominio);
+            $('#CasoA_' + retorno.EV[i].id).html(retorno.EV[i].casoA);
+            $('#CasoB_' + retorno.EV[i].id).html(retorno.EV[i].casoB);
+            $('#CasoC_' + retorno.EV[i].id).html(retorno.EV[i].casoC);
+            $('#CasoD_' + retorno.EV[i].id).html(retorno.EV[i].casoD);
+            $('#Dtult2_' + retorno.EV[i].id).html(retorno.EV[i].dtult2);
+            $('#Hrult_' + retorno.EV[i].id).html(retorno.EV[i].hrult);
+        } */
 
-        alert('OI');
+    };
+
+    function tabelaEstatisticas(retorno) {
+        for (var i = 0; i < retorno.Numeracoes.length; i++) {
+            $('#e' + i).html(retorno.Numeracoes[i]);
+        }
+        
+        for (var i = 0; i < retorno.Porcentagens.length; i++) {
+            $('#ep' + i).html(retorno.Porcentagens[i]+'%');
+        }
+
+    }
+
+    function atualizaView(retorno) {
+        tabelaEstatisticas(retorno)
+        tabelaLoteAtivos(retorno);
     };
 </script>
