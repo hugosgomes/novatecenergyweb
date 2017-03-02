@@ -85,9 +85,10 @@
 
                 
                     <form class="form-horizontal">
-                            <label class="labelsFormNav">Lote</label>                    
+                            <label class="labelsFormNav selectpicker">Lote</label>                    
                             <select id="lotes" class="fontTableBodyNavBar selectsNav">
                                 <option value="">Terminar depois...</option>
+
                             </select>
                             <br />
                         
@@ -184,8 +185,10 @@
                             
                         <br />
                         
-                            <img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" />
-                            <img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" />
+                        <a href="/Adesao/EnderecosVisitas"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a>
+                        <a href="#" onclick="postToController();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a>
+                        
+
                             <br />
                             <label class="fontTableBodyNavBar">Exportar Pijama Formato Novatec</label>
                             <img src="~/images/ms_excel.png" width="30" height="30" />
@@ -325,40 +328,45 @@
 
     function tabelaLoteAtivos(retorno) {
         $('#corpoTabelaAtivos tr').remove();
+        
+        var tr;
+
+        for (var i = 0; i < retorno.EV.length; i++) {
+            tr = $('<tr/>');
             
-     /*   for (var i = 0; i < retorno.EV.length; i++) {
-            $('#Casa_' + retorno.EV[i].id).html(retorno.EV[i].casa);
-            $('#Lote_' + retorno.EV[i].id).html(retorno.EV[i].lote);
-            $('#Z_' + retorno.EV[i].id).html(retorno.EV[i].z);
-            $('#D_' + retorno.EV[i].id).html(retorno.EV[i].d);
-            $('#AR_' + retorno.EV[i].id).html(retorno.EV[i].ar);
-            $('#PT_' + retorno.EV[i].id).html(retorno.EV[i].pt);
-            $('#Localidade_' + retorno.EV[i].id).html(retorno.EV[i].localidade);
-            $('#Bairro_' + retorno.EV[i].id).html(retorno.EV[i].bairro);
-            $('#Via_' + retorno.EV[i].id).html(retorno.EV[i].via);
-            $('#Logradouro_' + retorno.EV[i].id).html(retorno.EV[i].logradouro);
-            $('#Num_' + retorno.EV[i].id).html(retorno.EV[i].num);
-            $('#Comp_' + retorno.EV[i].id).html(retorno.EV[i].complemento);
-            $('#Bloco_' + retorno.EV[i].id).html(retorno.EV[i].bloco);
-            $('#Apt_' + retorno.EV[i].id).html(retorno.EV[i].apt);
-            $('#UltMotivo_' + retorno.EV[i].id).html(retorno.EV[i].ultMotivo);
-            $('#Agult_' + retorno.EV[i].id).html(retorno.EV[i].agult);
-            $('#Dtult_' + retorno.EV[i].id).html(retorno.EV[i].dtult);
-            $('#StatusCl_' + retorno.EV[i].id).html(retorno.EV[i].statusCl);
-            $('#DtStatusCl_' + retorno.EV[i].id).html(retorno.EV[i].dtStatusCl);
-            $('#CasaStatus_' + retorno.EV[i].id).html(retorno.EV[i].casaStatus);
-            $('#Visitado_' + retorno.EV[i].id).html(retorno.EV[i].visitado);
-            $('#Visitas_' + retorno.EV[i].id).html(retorno.EV[i].visitas);
-            $('#Ausentes_' + retorno.EV[i].id).html(retorno.EV[i].ausentes);
-            $('#VendaApp_' + retorno.EV[i].id).html(retorno.EV[i].vendaApp);
-            $('#Condominio_' + retorno.EV[i].id).html(retorno.EV[i].condominio);
-            $('#CasoA_' + retorno.EV[i].id).html(retorno.EV[i].casoA);
-            $('#CasoB_' + retorno.EV[i].id).html(retorno.EV[i].casoB);
-            $('#CasoC_' + retorno.EV[i].id).html(retorno.EV[i].casoC);
-            $('#CasoD_' + retorno.EV[i].id).html(retorno.EV[i].casoD);
-            $('#Dtult2_' + retorno.EV[i].id).html(retorno.EV[i].dtult2);
-            $('#Hrult_' + retorno.EV[i].id).html(retorno.EV[i].hrult);
-        } */
+            tr.append("<td>" + retorno.EV[i].casa + "</td>");
+            tr.append("<td>" +retorno.EV[i].lote+ "</td>");  
+            tr.append("<td>" +retorno.EV[i].z+ "</td>");  
+            tr.append("<td>" +retorno.EV[i].d+ "</td>");  
+            tr.append("<td>" +retorno.EV[i].ar+ "</td>");  
+            tr.append("<td>" +retorno.EV[i].pt+ "</td>");  
+            tr.append("<td>" +retorno.EV[i].localidade+ "</td>");  
+            tr.append("<td>" +retorno.EV[i].bairro+ "</td>");  
+            tr.append("<td>" +retorno.EV[i].via+ "</td>");  
+            tr.append("<td>" + retorno.EV[i].logradouro + "</td>");
+            tr.append("<td>" + retorno.EV[i].num + "</td>");
+            tr.append("<td>" + retorno.EV[i].complemento + "</td>");
+            tr.append("<td>" + retorno.EV[i].bloco + "</td>");
+            tr.append("<td>" + retorno.EV[i].apt + "</td>");
+            tr.append("<td>" + retorno.EV[i].ultMotivo + "</td>");
+            tr.append("<td>" + retorno.EV[i].agult + "</td>");
+            tr.append("<td>" + retorno.EV[i].dtult + "</td>");
+            tr.append("<td>" + retorno.EV[i].statusCl + "</td>");
+            tr.append("<td>" + retorno.EV[i].dtStatusCl + "</td>");
+            tr.append("<td>" + retorno.EV[i].casaStatus + "</td>");
+            tr.append("<td>" + retorno.EV[i].visitado + "</td>");
+            tr.append("<td>" + retorno.EV[i].visitas + "</td>");
+            tr.append("<td>" + retorno.EV[i].ausentes + "</td>");
+            tr.append("<td>" + retorno.EV[i].vendaApp + "</td>");
+            tr.append("<td>" + retorno.EV[i].condominio + "</td>");
+            tr.append("<td>" + retorno.EV[i].casoA + "</td>");
+            tr.append("<td>" + retorno.EV[i].casoB + "</td>");
+            tr.append("<td>" + retorno.EV[i].casoC + "</td>");
+            tr.append("<td>" + retorno.EV[i].casoD + "</td>");
+            tr.append("<td>" + retorno.EV[i].dtult2 + "</td>");
+            tr.append("<td>" + retorno.EV[i].hrult + "</td>");
+            $('#corpoTabelaAtivos').append(tr);
+        } 
 
     };
 

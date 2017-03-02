@@ -103,7 +103,7 @@ namespace NovatecEnergyWeb.Controllers
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     loteAtivo.IdLote, loteAtivo.CasaStatus, loteAtivo.IdultMotivo, loteAtivo.Dtult,
                     loteAtivo.ClId, loteAtivo.ZId, loteAtivo.DId, loteAtivo.AId, loteAtivo.StatusId,
-                    loteAtivo.CondId, loteAtivo.CondNome,loteAtivo.Localidade, loteAtivo.Bairro,
+                    loteAtivo.CondId, loteAtivo.CondNome.Trim(),loteAtivo.Localidade, loteAtivo.Bairro,
                     loteAtivo.Logradouro, loteAtivo.Numero1,loteAtivo.Numero2);
             }
             var evList = ev.ToList();

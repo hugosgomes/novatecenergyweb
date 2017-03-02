@@ -51,13 +51,13 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
 
         public string UltMotivo { get; set; }
 
-        public DateTime? Dtult { get; set; }
+        public string Dtult { get; set; }
 
         public String Agult { get; set; }
 
         public String StatusCl { get; set; }
 
-        public DateTime? DtStatusCl { get; set; }
+        public string DtStatusCl { get; set; }
 
         public int? CasoA { get; set; }
 
