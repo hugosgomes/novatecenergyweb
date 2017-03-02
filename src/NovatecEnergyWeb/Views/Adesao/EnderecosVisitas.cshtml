@@ -82,106 +82,115 @@
                         </li>
                     </ul>
                 </div>
-              <label class="fontTableBodyNavBar">Lote</label>
-               <select id="lotes" class="fontTableBodyNavBar">
-                       <option value="">Terminar depois...</option>
-               </select>
-                <br />
-               <label class="fontTableBodyNavBar" >Status Casa</label>
-               <select id="statusCasa" class="fontTableBodyNavBar" >
-                   <option value="1">NÃO CONTRATADO</option>
-                   <option value="2">VISITA AGENDADA</option>
-                   <option value="3">CONTRATADO</option>
-               </select>
-                
-                <label class="fontTableBodyNavBar">Ult. Rejeição</label>
-                <select id="motivosRejeicao" class="fontTableBodyNavBar" style="width:160px">
-                    @foreach (var item in ViewBag.MotivosRejeicao)
-                    {
-                        <option value="@item.Id">@item.Motivo</option>
-                    }
-                </select>
-                <br />
-                <label class="fontTableBodyNavBar">Data da Ult. Rejeição</label>
-                <div id="sandbox-container">
-                    <input class="fontTableBodyNavBar" type="text"/>
-                </div>
-                <br />
-                <label class="fontTableBodyNavBar">Cliente</label>
-                <select id="clientesCeg" class="fontTableBodyNavBar">
-                    <option value="12">CEG</option>
-                    <option value="13">CEG RIO</option>
-                </select>
-                <br />
-                <label class="fontTableBodyNavBar">Zona</label>
-                <select id="zonas" class="fontTableBodyNavBar">
-                    @foreach (var item in ViewBag.Zonas)
-                    {
-                        <option value="@item.Id">@item.Zona</option>
-                    }
-                </select>
-                <br />
 
-                <label class="fontTableBodyNavBar">Delegação</label>
-                <select id="delegacoes" class="fontTableBodyNavBar" style="width:150px;">
-                    @foreach (var item in ViewBag.Delegacao)
-                    {
-                        <option value="@item.Id">@item.Delegacao</option>
-                    }
-                </select>
-                <br />
-                <label class="fontTableBodyNavBar">Área</label>
-                <select id="areas" class="fontTableBodyNavBar" >
-                    @foreach (var item in ViewBag.Areas)
-                    {
-                        <option value="@item.Id">@item.Area</option>
-                    }
-                </select>
-                <br />
-                <label class="fontTableBodyNavBar">Status Cond.</label>
-                <select id="statusCond" class="fontTableBodyNavBar">
-                    @foreach (var item in ViewBag.StatusCondominios)
-                    {
-                        <option value="@item.Id">@item.Item</option>
-                    }
-                </select>
-                <br />
-                <label class="fontTableBodyNavBar">Condomínio</label>
-                <select class="fontTableBodyNavBar">
-                    <option value="">Terminar depois..</option>
-                </select>
-                <br />
-                <label class="fontTableBodyNavBar">Condomínio</label>
-                <input class="fontTableBodyNavBar" type="text" />
-                <br />
-                <label class="fontTableBodyNavBar">Localidade</label>
-                <input class="fontTableBodyNavBar" type="text" />
-                <br />
-                <label class="fontTableBodyNavBar">Bairro</label>
-                <input class="fontTableBodyNavBar" type="text" />
-                <br />
-                <label class="fontTableBodyNavBar">Logradouro</label>
-                <input class="fontTableBodyNavBar" type="text" />
-                <br />
-                <label class="fontTableBodyNavBar" >Número</label>
-                <label class="fontTableBodyNavBar">Entre</label>
-                <input class="fontTableBodyNavBar" style="width:60px" type="text" /> 
-                <label class="fontTableBodyNavBar">E</label>
-                <input class="fontTableBodyNavBar" style="width:50px" type="text" /> 
-                <br />
-                <img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25"/>
-                <img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" />
-                <br />
-                <label class="fontTableBodyNavBar">Exportar Pijama Formato Novatec</label>
-                <img src="~/images/ms_excel.png" width="30" height="30" />
-                <br />
-                <label class="fontTableBodyNavBar">Exportar Pijama Formato Gás Natural</label>
-                <img src="~/images/excel.png" width="25" height="25" />
-                <br />
+                
+                    <form class="form-horizontal">
+                            <label class="labelsFormNav">Lote</label>                    
+                            <select id="lotes" class="fontTableBodyNavBar selectsNav">
+                                <option value="">Terminar depois...</option>
+                            </select>
+                            <br />
+                        
+                            <label class="labelsFormNav" >Status Casa</label>
+                            <select id="CasaStatus" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
+                                <option value="1">NÃO CONTRATADO</option>
+                                <option value="2">VISITA AGENDADA</option>
+                                <option value="3">CONTRATADO</option>
+                            </select>
+                            <br />
+                  
+                            <label class="labelsFormNav">Ult. Rejeição</label>                                             
+                            <select id="motivosRejeicao" class="fontTableBodyNavBar selectsNav">
+                                @foreach (var item in ViewBag.MotivosRejeicao)
+                                {
+                                    <option value="@item.Id">@item.Motivo</option>
+                                }
+                            </select>
+                            <br />
+                
+                            <label class="labelsFormNav">Data da Ult. Rejeição</label>
+                            <div id="sandbox-container">
+                                <input class="fontTableBodyNavBar" type="text" />
+                            </div>
+                            <br />
+
+                            <label class="labelsFormNav">Cliente</label>
+                            <select id="clientesCeg" class="fontTableBodyNavBar selectsNav">
+                                <option value="12">CEG</option>
+                                <option value="13">CEG RIO</option>
+                            </select>
+                            <br />
+                            <label class="labelsFormNav">Zona</label>
+                            <select id="zonas" class="fontTableBodyNavBar selectsNav">
+                                @foreach (var item in ViewBag.Zonas)
+                                {
+                                    <option value="@item.Id">@item.Zona</option>
+                                }
+                            </select>
+                            <br />
+
+                            <label class="labelsFormNav">Delegação</label>
+                            <select id="delegacoes" class="fontTableBodyNavBar selectsNav">
+                                @foreach (var item in ViewBag.Delegacao)
+                                {
+                                    <option value="@item.Id">@item.Delegacao</option>
+                                }
+                            </select>
+                            <br />
+                            <label class="labelsFormNav">Área</label>
+                            <select id="areas" class="fontTableBodyNavBar" style="width:50px;">
+                                @foreach (var item in ViewBag.Areas)
+                                {
+                                    <option value="@item.Id">@item.Area</option>
+                                }
+                            </select>
+                            <br />
+                            <label class="labelsFormNav">Status Cond.</label>
+                            <select id="statusCond" class="fontTableBodyNavBar selectsNav">
+                                @foreach (var item in ViewBag.StatusCondominios)
+                                {
+                                    <option value="@item.Id">@item.Item</option>
+                                }
+                            </select>
+                            <br />
+                            <label class="labelsFormNav">Condomínio</label>
+                            <select class="fontTableBodyNavBar">
+                                <option value="">Terminar depois..</option>
+                            </select>
+                            <br />
+                            <label class="labelsFormNav">Condomínio</label>
+                            <input class="fontTableBodyNavBar" type="text" />
+                            <br />
+                            <label class="labelsFormNav">Localidade</label>
+                            <input class="fontTableBodyNavBar" type="text" />
+                            <br />
+                            <label class="labelsFormNav">Bairro</label>
+                            <input class="fontTableBodyNavBar" type="text" />
+                            <br />
+                            <label class="labelsFormNav">Logradouro</label>
+                            <input class="fontTableBodyNavBar" type="text" />
+                            <br />
+                            <label class="labelsFormNav">Número</label>
+                            <label class="labelsFormNav">Entre</label>
+                            <input class="fontTableBodyNavBar" style="width:60px" type="text" />
+                            <label class="labelsFormNav">E</label>
+                            <input class="fontTableBodyNavBar" style="width:50px" type="text" />
+                            <br />
+                            <img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" />
+                            <img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" />
+                            <br />
+                            <label class="fontTableBodyNavBar">Exportar Pijama Formato Novatec</label>
+                            <img src="~/images/ms_excel.png" width="30" height="30" />
+                            <br />
+                            <label class="fontTableBodyNavBar">Exportar Pijama Formato Gás Natural</label>
+                            <img src="~/images/excel.png" width="25" height="25" />
+                            <br />
+                </form>
+               
         </nav>
         </div>
         <div class="col-sm-9 col-lg-10">
-            <table style="white-space:nowrap;" class="table table-bordered table-striped">
+            <table  class="table table-bordered table-striped tabelaModal">
                 <thead>
                     <tr>
                         <th class="text-center">Casa</th>
@@ -217,7 +226,7 @@
                         <th class="text-center">HRULT</th>
                     </tr>
                 </thead>
-                <tbody class="fontTableBodyTelasNav">
+                <tbody class="corpoTabela">
                     @foreach (var item in Model)
                     {
                         <tr>
@@ -263,7 +272,7 @@
 <script>
 
     $("#lotes").prop("selectedIndex", -1);
-    $("#statusCasa").prop("selectedIndex", -1);
+    $("#CasaStatus").prop("selectedIndex", -1);
     $("#motivosRejeicao").prop("selectedIndex", -1);
     $("#clientesCeg").prop("selectedIndex", -1);
     $("#zonas").prop("selectedIndex", -1);
@@ -277,4 +286,24 @@
         language: "pt-BR",
         orientation: "bottom left"
     });
+
+
+    function getFormDataAsJson() {
+        return {
+            IdLote: $('#lotes').val(),
+            CasaStatus: $('#CasaStatus').val(),
+            IdultMotivo: $('#motivosRejeicao').val()
+        }
+    }
+
+    function postToController() {
+        var data = getFormDataAsJson();
+
+        $.post('/Adesao/GetListLoteAtivo', data, atualizaView, 'application/json; charset=utf-8');
+    }
+
+    function atualizaView() {
+
+        alert('OI');
+    };
 </script>

@@ -78,11 +78,26 @@ textarea {
 }
 
 /*----------------------------------*/
-.fontTableBodyTelasNav{
+.form-navbar{
+    padding-left: 15px;
+}
+.selectsNav{
+    width:150px;
+}
+.tabelaModal{
+    white-space:nowrap;
+    padding:0px 0px 0px 0px;
+}
+
+.corpoTabela{
     font-size: 11px;
     font-family: Calibri;
-  
 }
+tbody.corpoTabela > tr > td {
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
 tr.espacoAbaixo > td
 {
   padding-bottom: 1em;
@@ -93,6 +108,9 @@ tr.espacoAbaixo > td
     
 }
 
+.labelsFormNav{
+    font-size: 11px;
+}
 .fontButtonNavBar{
     font-size: 10px;
     font-weight: bold;
