@@ -21,7 +21,7 @@ namespace NovatecEnergyWeb.Controllers
         
         public IActionResult EnderecosVisitas()
         {
-            var lotes = from l in _context._11Lotes
+            var lotes = (from l in _context._11Lotes
                         join ti in _context._00TabelasItems on l.Status equals ti.Id
                         select new
                         {
@@ -30,9 +30,20 @@ namespace NovatecEnergyWeb.Controllers
                             Ge = l.Ge,
                             DataLote = l.DataLote,
                             Item = ti.Item
-                        };
-            
-            ViewBag.Lotes = lotes.ToList(); // terminar depois
+                        }).ToList();
+
+            ViewBag.Lotes = new List<List<dynamic>>();
+            foreach (var item in lotes)
+            {
+                var d = new List<dynamic>();
+                d.Add(item.Id);
+                d.Add(item.LoteNum);
+                d.Add(item.Ge);
+                d.Add(item.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"));
+                d.Add(item.Item);
+                ViewBag.Lotes.Add(d);
+            }
+         //   ViewBag.Lotes = lotes.ToList(); // terminar depois
 
             var motivosRejeicao = _context._11MotivosRej.Select(c => new { c.Id, c.Motivo }).ToList();
             ViewBag.MotivosRejeicao = new List<_11MotivosRej>();
@@ -88,6 +99,23 @@ namespace NovatecEnergyWeb.Controllers
                 ViewBag.StatusCondominios.Add(sc);
             }
 
+
+            var listCond = _context._11_LoteAtivo_Condominios.FromSql("exec [dbo].[11_LoteAtivo_Condominios]").ToList();
+            ViewBag.ListaCondominios = new List<_11_LoteAtivos_Condominios>();
+            foreach (var item in listCond)
+            {
+                var c = new _11_LoteAtivos_Condominios();
+                c.Id = item.Id;
+                c.Nome = item.Nome;
+                c.Num = item.Num;
+                c.Complemento = item.Complemento;
+                c.Item = item.Item;
+                c.Z = item.Z;
+                c.D = item.D;
+                ViewBag.ListaCondominios.Add(c);
+            } 
+                
+
             return GetListLoteAtivo(null, true);
         }
 
@@ -103,7 +131,7 @@ namespace NovatecEnergyWeb.Controllers
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     loteAtivo.IdLote, loteAtivo.CasaStatus, loteAtivo.IdultMotivo, loteAtivo.Dtult,
                     loteAtivo.ClId, loteAtivo.ZId, loteAtivo.DId, loteAtivo.AId, loteAtivo.StatusId,
-                    loteAtivo.CondId, loteAtivo.CondNome.Trim(),loteAtivo.Localidade, loteAtivo.Bairro,
+                    loteAtivo.CondId, loteAtivo.CondNome,loteAtivo.Localidade, loteAtivo.Bairro,
                     loteAtivo.Logradouro, loteAtivo.Numero1,loteAtivo.Numero2);
             }
             var evList = ev.ToList();

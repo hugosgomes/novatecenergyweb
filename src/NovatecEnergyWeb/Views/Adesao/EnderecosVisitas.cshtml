@@ -85,9 +85,16 @@
 
                 
                     <form class="form-horizontal">
-                            <label class="labelsFormNav selectpicker">Lote</label>                    
+                            <label class="labelsFormNav">Lote</label>                    
                             <select id="lotes" class="fontTableBodyNavBar selectsNav">
-                                <option value="">Terminar depois...</option>
+                                   
+                                @foreach (var item in ViewBag.Lotes)
+                                {
+                                <option value="@item[0]">@item[1]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                              
+                                @item[2]
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @item[3]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item[4]</option>
+                                }
 
                             </select>
                             <br />
@@ -155,8 +162,18 @@
                             </select>
                             <br />
                             <label class="labelsFormNav">Condomínio</label>
-                            <select id="condominiosId" class="fontTableBodyNavBar">
-                                <option value="">Terminar depois..</option>
+                            <select id="condominiosId" onclick="postToController();" class="fontTableBodyNavBar selectsNav" >
+                                @foreach (var item in ViewBag.ListaCondominios)
+                                {
+                                    <option value="@item.Id">@item.Nome&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @item.Num&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @item.Complemento&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @item.Item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @item.Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @item.D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                }
                             </select>
                             <br />
                         
@@ -290,6 +307,7 @@
     $("#delegacoes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
     $("#statusCond").prop("selectedIndex", -1);
+    $("#condominiosId").prop("selectedIndex", -1);
 
     $('#sandbox-container input').datepicker({
         format: "dd/mm/yyyy",
@@ -311,10 +329,10 @@
             AId: $('#areas').val(),
             StatusId: $('#statusCond').val(),
             CondId: $('#condominiosId').val(),
-            CondNome:$('#CondNome').val(),
-            Localidade: $('#Localidade').val(),
-            Bairro :$('#Bairro').val(),
-            Logradouro: $('#Logradouro').val(),
+            CondNome: $('#CondNome').val().toString().trim(),
+            Localidade: $('#Localidade').val().toString().trim(),
+            Bairro: $('#Bairro').val().toString().trim(),
+            Logradouro: $('#Logradouro').val().toString().trim(),
             Numero1: $('#Numero1').val(),
             Numero2: $('#Numero2').val()
         }

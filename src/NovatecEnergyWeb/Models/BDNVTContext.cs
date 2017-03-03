@@ -8,6 +8,7 @@ namespace NovatecEnergyWeb.Models
 {
     public partial class BDNVTContext : DbContext
     {
+        public virtual DbSet<_11_LoteAtivos_Condominios> _11_LoteAtivo_Condominios { get; set; }
         public virtual DbSet<_11_LoteAtivo> _11_LoteAtivo { get; set; }
         public virtual DbSet<_11_Visita_Condominios> _11_Visita_Condominios { get; set; }
         public virtual DbSet<_11_CondVisitasB> _11_CondVisitasB { get; set; }
@@ -216,6 +217,7 @@ namespace NovatecEnergyWeb.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<_11_LoteAtivos_Condominios>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_LoteAtivo>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_Visita_Condominios>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_CondVisitasB>().HasKey(c => c.Id);
