@@ -124,10 +124,10 @@ namespace NovatecEnergyWeb.Controllers
             IQueryable<_11_LoteAtivo> ev;
             if (loteAtivo == null)
             {
-                ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo2] ");
+                ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo] ");
             }else
             {
-                ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo2] {0},{1},{2},{3},{4},{5},"+
+                ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo] {0},{1},{2},{3},{4},{5},"+
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     loteAtivo.IdLote, loteAtivo.CasaStatus, loteAtivo.IdultMotivo, loteAtivo.Dtult,
                     loteAtivo.ClId, loteAtivo.ZId, loteAtivo.DId, loteAtivo.AId, loteAtivo.StatusId,
@@ -184,6 +184,11 @@ namespace NovatecEnergyWeb.Controllers
 
                 return Json(jsonModel);
             }
+        }
+
+        public IActionResult LimpaFiltros()
+        {
+            return GetListLoteAtivo(null, false);
         }
 
     }

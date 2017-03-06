@@ -86,7 +86,7 @@
                 
                     <form class="form-horizontal">
                             <label class="labelsFormNav">Lote</label>                    
-                            <select id="lotes" class="fontTableBodyNavBar selectsNav">
+                            <select id="lotes"  onchange="postToController();" class="fontTableBodyNavBar selectsNav">
                                    
                                 @foreach (var item in ViewBag.Lotes)
                                 {
@@ -198,7 +198,7 @@
                             
                         <br />
                         
-                        <a href="/Adesao/EnderecosVisitas"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a>
+                        <a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a>
                         <a href="#" onclick="postToController();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a>
                         
 
@@ -399,4 +399,25 @@
         tabelaEstatisticas(retorno)
         tabelaLoteAtivos(retorno);
     };
+
+    function limpaFiltro() {
+        $('#lotes').val("");
+        $('#CasaStatus').val("");
+        $('#motivosRejeicao').val("");
+        $('#dtult').val("");
+        $('#clientesCeg').val("");
+        $('#zonas').val("");
+        $('#delegacoes').val("");
+        $('#areas').val("");
+        $('#statusCond').val("");
+        $('#condominiosId').val("");
+        $('#CondNome').val("");
+        $('#Localidade').val("");
+        $('#Bairro').val("");
+        $('#Logradouro').val("");
+        $('#Numero1').val("");
+        $('#Numero2').val("");
+
+        $.post('/Adesao/LimpaFiltros', null, atualizaView);
+    }
 </script>
