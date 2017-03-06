@@ -117,9 +117,7 @@
                             <br />
                 
                             <label class="labelsFormNav">Data da Ult. Rejeição</label>
-                            <div id="sandbox-container">
-                                <input id="dtult" class="fontTableBodyNavBar" type="text" />
-                            </div>
+                            <input id="dtult" class="fontTableBodyNavBar" type="text" >
                             <br />
 
                             <label class="labelsFormNav">Cliente</label>
@@ -162,17 +160,15 @@
                             </select>
                             <br />
                             <label class="labelsFormNav">Condomínio</label>
-                            <select id="condominiosId" onclick="postToController();" class="fontTableBodyNavBar selectsNav" >
+                            <select id="condominiosId" onclick="postToController();" class="fontTableBodyNavBar selectsNav"  >
                                 @foreach (var item in ViewBag.ListaCondominios)
                                 {
-                                    <option value="@item.Id">@item.Nome&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @item.Num&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @item.Complemento&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @item.Item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @item.Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @item.D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                    <option value="@item.Id">@item.Nome
+                                @item.Num 
+                                @item.Complemento 
+                                @item.Item 
+                                @item.Z 
+                                @item.D</option>
                                 }
                             </select>
                             <br />
@@ -309,9 +305,9 @@
     $("#statusCond").prop("selectedIndex", -1);
     $("#condominiosId").prop("selectedIndex", -1);
 
-    $('#sandbox-container input').datepicker({
+    $('#dtult').datepicker({
         format: "dd/mm/yyyy",
-        todayBtn: true,
+        todayBtn: "linked",
         language: "pt-BR",
         orientation: "bottom left"
     });
