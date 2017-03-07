@@ -23,7 +23,7 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult Index()
         {
-            var _11_condVisita = _context._11_CondVisitasB.FromSql("exec [dbo].[11_CondVisitasB]").ToList();
+        //    var _11_condVisita = _context._11_CondVisitasB.FromSql("exec [dbo].[11_CondVisitasB]").ToList();
             return View();
         }
 

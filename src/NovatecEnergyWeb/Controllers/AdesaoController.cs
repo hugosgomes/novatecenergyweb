@@ -8,15 +8,19 @@ using NovatecEnergyWeb.Models.StoredProcedures;
 using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models.AdesaoViewModels;
 using System.Dynamic;
+using Microsoft.AspNetCore.Hosting;
+
 namespace NovatecEnergyWeb.Controllers
 {
     public class AdesaoController : Controller
     {
         private BDNVTContext _context;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AdesaoController(BDNVTContext context)
+        public AdesaoController(BDNVTContext context, IHostingEnvironment he)
         {
             _context = context;
+            _hostingEnvironment = he;
         }
         
         public IActionResult EnderecosVisitas()
@@ -116,25 +120,32 @@ namespace NovatecEnergyWeb.Controllers
             } 
                 
 
-            return GetListLoteAtivo(null, true);
+            return GetListLoteAtivoView(null, true);
         }
 
-        public IActionResult GetListLoteAtivo([FromForm]FormFiltersViewModels loteAtivo, bool eIndex)
+        public List<_11_LoteAtivo>GetListLoteAtivo([FromForm]FormFiltersViewModels loteAtivo)
         {
             IQueryable<_11_LoteAtivo> ev;
             if (loteAtivo == null)
             {
                 ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo] ");
-            }else
+            }
+            else
             {
-                ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo] {0},{1},{2},{3},{4},{5},"+
+                ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo] {0},{1},{2},{3},{4},{5}," +
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     loteAtivo.IdLote, loteAtivo.CasaStatus, loteAtivo.IdultMotivo, loteAtivo.Dtult,
                     loteAtivo.ClId, loteAtivo.ZId, loteAtivo.DId, loteAtivo.AId, loteAtivo.StatusId,
-                    loteAtivo.CondId, loteAtivo.CondNome,loteAtivo.Localidade, loteAtivo.Bairro,
-                    loteAtivo.Logradouro, loteAtivo.Numero1,loteAtivo.Numero2);
+                    loteAtivo.CondId, loteAtivo.CondNome, loteAtivo.Localidade, loteAtivo.Bairro,
+                    loteAtivo.Logradouro, loteAtivo.Numero1, loteAtivo.Numero2);
             }
-            var evList = ev.ToList();
+            return ev.ToList();
+        }
+
+        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersViewModels loteAtivo, bool eIndex)
+        {
+            //executa a SP e tras os valores filtrados
+            var evList = GetListLoteAtivo(loteAtivo);
 
             ViewBag.Visitados = evList.Sum(c => c.Visitado);
             ViewBag.VisitadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Visitados), Convert.ToDecimal(evList.Count())) * 100):0;
@@ -188,7 +199,18 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult LimpaFiltros()
         {
-            return GetListLoteAtivo(null, false);
+            return GetListLoteAtivoView(null, false);
+        }
+
+        
+        public FileResult ExportaExcel([FromForm]FormFiltersViewModels loteAtivo)
+        {
+            var ev = GetListLoteAtivo(loteAtivo);
+
+            EnderecoVisitasDataExporter exporter = new EnderecoVisitasDataExporter(_hostingEnvironment);
+            byte[] fileBytes = exporter.ExportaPadraoNovatec(ev);
+           
+            return File(fileBytes, "application/x-msdownload", exporter.FileName);
         }
 
     }
