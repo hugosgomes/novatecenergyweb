@@ -9,7 +9,7 @@ using OfficeOpenXml;
 
 namespace NovatecEnergyWeb.Models
 {
-    public class ExportadorDados
+    public class ExportadorDadosTeste
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         private string sFileName = @"demo.xlsx";
@@ -20,7 +20,7 @@ namespace NovatecEnergyWeb.Models
             get { return sFileName; }
         }
 
-        public ExportadorDados(IHostingEnvironment hostingEnvironment)
+        public ExportadorDadosTeste(IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
             sWebRootFolder = _hostingEnvironment.WebRootPath + "\\excel";

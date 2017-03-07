@@ -29,7 +29,7 @@ namespace NovatecEnergyWeb.Controllers
 
         public FileResult ExportaExcel()
         {
-            ExportadorDados eD = new ExportadorDados(_hostingEnvironment);
+            ExportadorDadosTeste eD = new ExportadorDadosTeste(_hostingEnvironment);
             byte[] fileBytes = eD.ExportarParaExcel();
             return File(fileBytes, "application/x-msdownload", eD.SFileName);
         }
