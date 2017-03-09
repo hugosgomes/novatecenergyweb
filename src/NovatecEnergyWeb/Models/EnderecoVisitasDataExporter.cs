@@ -22,9 +22,11 @@ namespace NovatecEnergyWeb.Models
 
         public byte[] ExportaPadraoNovatec(List<_11_LoteAtivo> data)
         {
-            FileName = @"formatoNovatec.xlsx";
-            FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
+            FileName = @""+DateTime.Now.ToString("yyMMddHHmmss")+"_Visitas.xlsx";
+            File.Copy(Path.Combine(WebRootFolder, @"formatoNovatec.xlsx"), Path.Combine(WebRootFolder, FileName));
            
+            FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
+            
             using (ExcelPackage package = new ExcelPackage(file))
             {
                // ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("qExcel");
@@ -160,6 +162,9 @@ namespace NovatecEnergyWeb.Models
             }
             
             byte[] fileBytes = File.ReadAllBytes(Path.Combine(WebRootFolder, FileName));
+
+            if(file.Exists)
+                file.Delete();
 
             return fileBytes;
         }
