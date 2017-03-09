@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models.AdesaoViewModels;
 using System.Dynamic;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -17,7 +19,7 @@ namespace NovatecEnergyWeb.Controllers
         private BDNVTContext _context;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AdesaoController(BDNVTContext context, IHostingEnvironment he)
+        public AdesaoController(BDNVTContext context, IHostingEnvironment he )
         {
             _context = context;
             _hostingEnvironment = he;
@@ -144,6 +146,8 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult GetListLoteAtivoView([FromForm]FormFiltersViewModels loteAtivo, bool eIndex)
         {
+            setFiltrosSessao(loteAtivo); // salva os filtros na sessão
+
             //executa a SP e tras os valores filtrados
             var evList = GetListLoteAtivo(loteAtivo);
 
@@ -202,10 +206,57 @@ namespace NovatecEnergyWeb.Controllers
             return GetListLoteAtivoView(null, false);
         }
 
-        
-        public FileResult ExportaExcel([FromForm]FormFiltersViewModels loteAtivo)
+        private void setFiltrosSessao(FormFiltersViewModels data)
         {
-            var ev = GetListLoteAtivo(loteAtivo);
+            if (data != null)
+            {
+                HttpContext.Session.SetString("IdLote",  (data.IdLote == null)?"": data.IdLote);
+                HttpContext.Session.SetString("CasaStatus", (data.CasaStatus == null) ? "" : data.CasaStatus);
+                HttpContext.Session.SetString("IdultMotivo", (data.IdultMotivo == null) ? "" : data.IdultMotivo);
+                HttpContext.Session.SetString("Dtult", (data.Dtult == null) ? "" : data.Dtult);
+                HttpContext.Session.SetString("ClId", (data.ClId == null) ? "" : data.ClId);
+                HttpContext.Session.SetString("ZId", (data.ZId == null) ? "" : data.ZId);
+                HttpContext.Session.SetString("DId", (data.DId == null) ? "" : data.DId);
+                HttpContext.Session.SetString("AId", (data.AId == null) ? "" : data.AId);
+                HttpContext.Session.SetString("StatusId", (data.StatusId == null) ? "" : data.StatusId);
+                HttpContext.Session.SetString("CondId", (data.CondId == null) ? "" : data.CondId);
+                HttpContext.Session.SetString("CondNome", (data.CondNome == null) ? "" : data.CondNome);
+                HttpContext.Session.SetString("Localidade", (data.Localidade == null) ? "" : data.Localidade);
+                HttpContext.Session.SetString("Bairro", (data.Bairro == null) ? "" : data.Bairro);
+                HttpContext.Session.SetString("Logradouro", (data.Logradouro == null) ? "" : data.Logradouro);
+                HttpContext.Session.SetString("Numero1", (data.Numero1 == null) ? "" : data.Numero1);
+                HttpContext.Session.SetString("Numero2", (data.Numero2 == null) ? "" : data.Numero2);
+            }
+        }
+
+        private FormFiltersViewModels getFiltrosSessao()
+        {
+            var ffvm = new FormFiltersViewModels();
+            ffvm.IdLote =  (HttpContext.Session.GetString("IdLote") == "")?null: HttpContext.Session.GetString("IdLote");
+            ffvm.CasaStatus = (HttpContext.Session.GetString("CasaStatus") == "") ? null : HttpContext.Session.GetString("CasaStatus");
+            ffvm.IdultMotivo = (HttpContext.Session.GetString("IdultMotivo") == "") ? null : HttpContext.Session.GetString("IdultMotivo");
+            ffvm.Dtult = (HttpContext.Session.GetString("Dtult") == "") ? null : HttpContext.Session.GetString("Dtult");
+            ffvm.ClId = (HttpContext.Session.GetString("ClId") == "") ? null: HttpContext.Session.GetString("ClId");
+            ffvm.ZId = (HttpContext.Session.GetString("ZId") == "") ? null:  HttpContext.Session.GetString("ZId");
+            ffvm.DId = (HttpContext.Session.GetString("DId") == "") ? null : HttpContext.Session.GetString("DId");
+            ffvm.AId = (HttpContext.Session.GetString("AId") == "") ? null : HttpContext.Session.GetString("AId");
+            ffvm.StatusId = (HttpContext.Session.GetString("StatusId") == "") ? null : HttpContext.Session.GetString("StatusId");
+            ffvm.CondId = (HttpContext.Session.GetString("CondId") == "") ? null : HttpContext.Session.GetString("CondId");
+            ffvm.CondNome = (HttpContext.Session.GetString("CondNome") == "") ? null : HttpContext.Session.GetString("CondNome");
+            ffvm.Localidade = (HttpContext.Session.GetString("Localidade") == "") ? null : HttpContext.Session.GetString("Localidade");
+            ffvm.Bairro = (HttpContext.Session.GetString("Bairro") == "") ? null : HttpContext.Session.GetString("Bairro");
+            ffvm.Logradouro = (HttpContext.Session.GetString("Logradouro") == "") ? null : HttpContext.Session.GetString("Logradouro");
+            ffvm.Numero1 = (HttpContext.Session.GetString("Numero1") == "") ? null : HttpContext.Session.GetString("Numero1");
+            ffvm.Numero2 = (HttpContext.Session.GetString("Numero2") == "") ? null : HttpContext.Session.GetString("Numero2");
+
+            return ffvm;
+        }
+
+
+        public FileResult ExportaExcel()
+        {
+            
+            var ev = GetListLoteAtivo(getFiltrosSessao());
 
             EnderecoVisitasDataExporter exporter = new EnderecoVisitasDataExporter(_hostingEnvironment);
             byte[] fileBytes = exporter.ExportaPadraoNovatec(ev);

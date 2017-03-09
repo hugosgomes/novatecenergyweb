@@ -100,7 +100,7 @@
                             <br />
                         
                             <label class="labelsFormNav" >Status Casa</label>
-                            <select id="CasaStatus" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
+                            <select id="CasaStatus" name="CasaStatus" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
                                 <option value="1">NÃO CONTRATADO</option>
                                 <option value="2">VISITA AGENDADA</option>
                                 <option value="3">CONTRATADO</option>
@@ -212,7 +212,7 @@
                             <label class="fontTableBodyNavBar">Exportar Pijama Formato Gás Natural</label>
                             <img src="~/images/excel.png" width="25" height="25" />
                             <br />
-                        <a href="/Adesao/ExportaExcel">Exporta</a>
+                        <a asp-controller="Adesao" asp-action="ExportaExcel" >Exporta</a>
 </form>
                
         </nav>
@@ -427,13 +427,16 @@
 
     function ExportaPadraoNovatec() {
         var data = getFormDataAsJson();
-        $.post('/Adesao/ExportaExcel', data, DownloadExcel);
+    //   $.get('/Adesao/ExportaExcel', data, DownloadExcel); //loteAtivo=' + JSON.stringify(data)
+        //  window.location = '/Adesao/ExportaExcel?loteAtivo=' + JSON.stringify(data);
+        
+        window.location.href = '/Adesao/ExportaExcel?loteAtivo=' + JSON.stringify(data);
+        
         
     }
 
-    function DownloadExcel(retorno) {
-        window.location = '/Adesao/ExportaExcel/'+retorno;
-
+    function DownloadExcel(data) {
+       
     }
    
 </script>
