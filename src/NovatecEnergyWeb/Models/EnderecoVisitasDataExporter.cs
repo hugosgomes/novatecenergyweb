@@ -22,16 +22,16 @@ namespace NovatecEnergyWeb.Models
 
         public byte[] ExportaPadraoNovatec(List<_11_LoteAtivo> data)
         {
-            FileName = @""+DateTime.Now.ToString("yyMMddHHmmss")+"_Visitas.xlsx";
+            FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Visitas.xlsx";
             File.Copy(Path.Combine(WebRootFolder, @"formatoNovatec.xlsx"), Path.Combine(WebRootFolder, FileName));
-           
+
             FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
-            
+
             using (ExcelPackage package = new ExcelPackage(file))
             {
-               // ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("qExcel");
+                // ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("qExcel");
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
-                
+
                 for (int i = 0; i < data.Count(); i++)
                 {
                     worksheet.Cells["A" + (i + 2).ToString()].Value = data[i].Casa;
@@ -160,14 +160,63 @@ namespace NovatecEnergyWeb.Models
                 }
                 package.Save();
             }
-            
+
             byte[] fileBytes = File.ReadAllBytes(Path.Combine(WebRootFolder, FileName));
 
-            if(file.Exists)
+            if (file.Exists)
                 file.Delete();
 
             return fileBytes;
         }
 
+        public byte[] ExportaPadraoGasNatural(List<_11_LoteAtivoB> data, IEnumerable<dynamic> lote)
+        {
+            var l = lote.ToList();
+            
+            FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Relatório_Lote_" + l[0].LoteNum + ".xlsm";
+            File.Copy(Path.Combine(WebRootFolder, @"formatoGasNatural.xlsm"), Path.Combine(WebRootFolder, FileName));
+
+            FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
+
+            // lógica da data
+
+            using (ExcelPackage package = new ExcelPackage(file))
+            {
+                // ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("qExcel");
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
+
+                worksheet.Cells["C4"].Value = data.Count();
+                worksheet.Cells["D5"].Value = l[0].Potencial;
+                
+                worksheet.Cells["F3"].Value = l[0].DataLote.ToString("dd/MM/yy");
+
+                worksheet.Cells["F4"].Value = l[0].DataEntrega.ToString("dd/MM/yy");
+
+                worksheet.Cells["I3"].Value = l[0].Ge;
+
+                for (int i = 0; i < data.Count(); i++)
+                {
+                    worksheet.Cells["B" + (i + 7).ToString()].Value = data[i].Bairro;
+                    worksheet.Cells["C" + (i + 7).ToString()].Value = data[i].Endereco;
+                    worksheet.Cells["D" + (i + 7).ToString()].Value = data[i].Pt;
+                    worksheet.Cells["E" + (i + 7).ToString()].Value = data[i].CasaStatus2;
+                    worksheet.Cells["F" + (i + 7).ToString()].Value = data[i].UltMotivo;
+                    worksheet.Cells["G" + (i + 7).ToString()].Value = data[i].Agult;
+                    worksheet.Cells["H" + (i + 7).ToString()].Value = data[i].Dtult;
+                    worksheet.Cells["I" + (i + 7).ToString()].Value = data[i].Hrult;
+                    worksheet.Cells["J" + (i + 7).ToString()].Value = data[i].NomeTlf;
+                    worksheet.Cells["K" + (i + 7).ToString()].Value = data[i].Parentesco;
+                }
+                worksheet.Select("A1");
+                package.Save();
+
+            }
+
+            byte[] fileBytes = File.ReadAllBytes(Path.Combine(WebRootFolder, FileName)); ;
+            if (file.Exists)
+                file.Delete();
+
+            return fileBytes;
+        }
     }
 }

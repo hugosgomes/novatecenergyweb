@@ -125,10 +125,10 @@ namespace NovatecEnergyWeb.Controllers
             return GetListLoteAtivoView(null, true);
         }
 
-        public List<_11_LoteAtivo>GetListLoteAtivo([FromForm]FormFiltersViewModels loteAtivo)
+        public List<_11_LoteAtivo>GetListLoteAtivo([FromForm]FormFiltersViewModels filtros)
         {
             IQueryable<_11_LoteAtivo> ev;
-            if (loteAtivo == null)
+            if (filtros == null)
             {
                 ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo] ");
             }
@@ -136,20 +136,31 @@ namespace NovatecEnergyWeb.Controllers
             {
                 ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo] {0},{1},{2},{3},{4},{5}," +
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
-                    loteAtivo.IdLote, loteAtivo.CasaStatus, loteAtivo.IdultMotivo, loteAtivo.Dtult,
-                    loteAtivo.ClId, loteAtivo.ZId, loteAtivo.DId, loteAtivo.AId, loteAtivo.StatusId,
-                    loteAtivo.CondId, loteAtivo.CondNome, loteAtivo.Localidade, loteAtivo.Bairro,
-                    loteAtivo.Logradouro, loteAtivo.Numero1, loteAtivo.Numero2);
+                    filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
+                    filtros.ClId, filtros.ZId, filtros.DId, filtros.AId, filtros.StatusId,
+                    filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
+                    filtros.Logradouro, filtros.Numero1, filtros.Numero2);
             }
             return ev.ToList();
         }
 
-        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersViewModels loteAtivo, bool eIndex)
+        public List<_11_LoteAtivoB> GetListLoteAtivoB(FormFiltersViewModels filtros)
         {
-            setFiltrosSessao(loteAtivo); // salva os filtros na sessão
+            IQueryable<_11_LoteAtivoB> lb;
+            //if(filtros == null)
+            //{
+            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] ");
+            //}
+
+            return lb.ToList();
+        }
+
+        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersViewModels filtros, bool eIndex)
+        {
+            setFiltrosSessao(filtros); // salva os filtros na sessão
 
             //executa a SP e tras os valores filtrados
-            var evList = GetListLoteAtivo(loteAtivo);
+            var evList = GetListLoteAtivo(filtros);
 
             ViewBag.Visitados = evList.Sum(c => c.Visitado);
             ViewBag.VisitadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Visitados), Convert.ToDecimal(evList.Count())) * 100):0;
@@ -252,7 +263,6 @@ namespace NovatecEnergyWeb.Controllers
             return ffvm;
         }
 
-
         public FileResult ExportaExcel()
         {
             
@@ -263,6 +273,37 @@ namespace NovatecEnergyWeb.Controllers
            
             return File(fileBytes, "application/x-msdownload", exporter.FileName);
         }
+
+        public FileResult ExportaPadraoGasNatural()
+        {
+            var filtros = getFiltrosSessao();
+            // fazer crítica de lote vazio
+
+            var data = GetListLoteAtivoB(filtros);
+
+            var lote = (from l in _context._11Lotes
+                         where l.Id == Convert.ToInt32(filtros.IdLote)
+                         join ti in _context._00TabelasItems on l.Status equals ti.Id
+                         select new
+                         {
+                             Id = l.Id,
+                             LoteNum = l.LoteNum,
+                             Ge = l.Ge,
+                             DataLote = l.DataLote,
+                             Item = ti.Item,
+                             Potencial = l.Potencial,
+                             DataEntrega = l.DataEntrega
+                         });
+           
+            EnderecoVisitasDataExporter exp = new EnderecoVisitasDataExporter(_hostingEnvironment);
+            byte[] fileBytes = exp.ExportaPadraoGasNatural(data,lote);
+
+            return File(fileBytes, "application/x-msdownload", exp.FileName);
+
+        }
+        
+
+        
 
     }
 }

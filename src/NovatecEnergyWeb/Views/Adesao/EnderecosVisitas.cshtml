@@ -209,10 +209,14 @@
                         </a>
 
                             <br />
+                       
                             <label class="fontTableBodyNavBar">Exportar Pijama Formato Gás Natural</label>
-                            <img src="~/images/excel.png" width="25" height="25" />
-                            <br />
                         
+                        <a href="#" onclick="ExportaPadraoGas();">
+                            <img src="~/images/excel.png" width="25" height="25" />
+                        </a>
+                            <br />
+
 </form>
                
         </nav>
@@ -435,8 +439,13 @@
         
     }
 
-    function DownloadExcel(data) {
-       
+    function ExportaPadraoGas() {
+
+        var data = getFormDataAsJson();
+        //   $.get('/Adesao/ExportaExcel', data, DownloadExcel); //loteAtivo=' + JSON.stringify(data)
+        //  window.location = '/Adesao/ExportaExcel?loteAtivo=' + JSON.stringify(data);
+
+        window.location.href = '/Adesao/ExportaPadraoGasNatural?loteAtivo=' + JSON.stringify(data);
     }
    
 </script>
