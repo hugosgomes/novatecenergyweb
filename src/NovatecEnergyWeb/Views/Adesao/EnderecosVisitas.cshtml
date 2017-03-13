@@ -11,57 +11,57 @@
             <nav class="navbar navbar-default navbar-fixed-side">
                 <!-- normal collapsible navbar markup -->
                 <h4 class="text-center">Clientes de Lotes Ativos</h4>
-                
-               
+
+
                 <table>
                     <tbody class="fontTableBodyNavBar">
-                        <tr>        
+                        <tr>
                             <td class="col-sm-8">Total de Endereços </td>
                             <td id="e0" class="col-sm-2 text-right">@Model.Count()</td>
-                            <td  class="col-sm-2 text-right">100%</td>
+                            <td class="col-sm-2 text-right">100%</td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Endereços Visitados</td>
-                            <td id ="e1" class="col-sm-2 text-right">@ViewBag.Visitados</td>
-                            <td id ="ep0" class="col-sm-2 text-right">@ViewBag.VisitadosPercent%</td>
+                            <td id="e1" class="col-sm-2 text-right">@ViewBag.Visitados</td>
+                            <td id="ep0" class="col-sm-2 text-right">@ViewBag.VisitadosPercent%</td>
                         </tr>
                         <tr class="espacoAbaixo">
                             <td class="col-sm-8">Endereços Não Visitados</td>
-                            <td id ="e2"class="col-sm-2 text-right">@ViewBag.NaoVisitados</td>
-                            <td id ="ep1" class="col-sm-2 text-right">@ViewBag.NaoVisitadosPercent%</td>
+                            <td id="e2" class="col-sm-2 text-right">@ViewBag.NaoVisitados</td>
+                            <td id="ep1" class="col-sm-2 text-right">@ViewBag.NaoVisitadosPercent%</td>
                         </tr>
 
                         <tr>
                             <td class="col-sm-8">Contratados</td>
-                            <td id ="e3" class="col-sm-2 text-right">@ViewBag.Contratados</td>
-                            <td id ="ep2" class="col-sm-2 text-right">@ViewBag.ContratadosPercent%</td>
+                            <td id="e3" class="col-sm-2 text-right">@ViewBag.Contratados</td>
+                            <td id="ep2" class="col-sm-2 text-right">@ViewBag.ContratadosPercent%</td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Não Contratados</td>
-                            <td id ="e4" class="col-sm-2 text-right">@ViewBag.NaoContratados</td>
-                            <td id ="ep3" class="col-sm-2 text-right">@ViewBag.NaoContratadosPercent%</td>
+                            <td id="e4" class="col-sm-2 text-right">@ViewBag.NaoContratados</td>
+                            <td id="ep3" class="col-sm-2 text-right">@ViewBag.NaoContratadosPercent%</td>
 
                         </tr>
                         <tr class="espacoAbaixo">
                             <td class="col-sm-8">Visita Agendada</td>
-                            <td id ="e5" class="col-sm-2 text-right">@ViewBag.VisitaAgendada</td>
-                            <td id ="ep4" class="col-sm-2 text-right">@ViewBag.VisitaAgendadaPercent%</td>
+                            <td id="e5" class="col-sm-2 text-right">@ViewBag.VisitaAgendada</td>
+                            <td id="ep4" class="col-sm-2 text-right">@ViewBag.VisitaAgendadaPercent%</td>
                         </tr>
-                        
+
                         <tr>
                             <td class="col-sm-8">Visitas Realizadas</td>
-                            <td id ="e6" class="col-sm-2 text-right">@ViewBag.Visitas</td>
+                            <td id="e6" class="col-sm-2 text-right">@ViewBag.Visitas</td>
                             <td class="col-sm-2 text-right">100%</td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Visitas com Resposta</td>
-                            <td id ="e7" class="col-sm-2 text-right">@ViewBag.VisitasComResposta</td>
-                            <td id ="ep5" class="col-sm-2 text-right">@ViewBag.VisitasComRespostaPercent%</td>
+                            <td id="e7" class="col-sm-2 text-right">@ViewBag.VisitasComResposta</td>
+                            <td id="ep5" class="col-sm-2 text-right">@ViewBag.VisitasComRespostaPercent%</td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Visitas - Ausentes</td>
-                            <td id ="e8"  class="col-sm-2 text-right">@ViewBag.Ausentes</td>
-                            <td id ="ep6" class="col-sm-2 text-right">@ViewBag.AusentesPercent%</td>
+                            <td id="e8" class="col-sm-2 text-right">@ViewBag.Ausentes</td>
+                            <td id="ep6" class="col-sm-2 text-right">@ViewBag.AusentesPercent%</td>
                         </tr>
                     </tbody>
                 </table>
@@ -69,13 +69,13 @@
                 <div class="buttonGroupNavBar">
                     <ul class="nav ">
                         <li class="fontTableBodyNavBar">
-                            <a href="#" >Clientes de Lotes - Todos</a>
+                            <a href="#">Clientes de Lotes - Todos</a>
                         </li>
-                        <li class="disabled fontTableBodyNavBar a-desableColor" >
-                            <a  href="#"> Clientes de Lotes Ativos</a>
+                        <li class="disabled fontTableBodyNavBar a-desableColor">
+                            <a href="#"> Clientes de Lotes Ativos</a>
                         </li>
                         <li class="fontTableBodyNavBar">
-                            <a href="#" >Clientes Sem Lote - Todos</a>
+                            <a href="#">Clientes Sem Lote - Todos</a>
                         </li>
                         <li class="fontTableBodyNavBar ">
                             <a href="#">Clientes Sem Lote - Não Contratados</a>
@@ -83,144 +83,206 @@
                     </ul>
                 </div>
 
-                
-                    <form class="form-horizontal">
-                            <label class="labelsFormNav">Lote</label>                    
-                            <select id="lotes" name="LoteError"  onchange="postToController();" class="fontTableBodyNavBar selectsNav">
-                                   
+
+                <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Lote</label>
+                        <div class="controls">
+                            <select id="lotes" name="LoteError" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
+
                                 @foreach (var item in ViewBag.Lotes)
                                 {
-                                <option value="@item[0]">@item[1]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                              
-                                @item[2]
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @item[3]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item[4]</option>
+                                    <option value="@item[0]">
+                                        @item[1]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @item[2]
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @item[3]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item[4]
+                                    </option>
                                 }
 
                             </select>
-                                @Html.ValidationMessage("LoteError", new { @class = "text-danger" })    
-                            <br />
-                        
-                            <label class="labelsFormNav" >Status Casa</label>
-                            <select id="CasaStatus" name="CasaStatus" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Status Casa</label>
+                        <div class="controls">
+                            <select id="CasaStatus" name="CasaStatus" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 <option value="1">NÃO CONTRATADO</option>
                                 <option value="2">VISITA AGENDADA</option>
                                 <option value="3">CONTRATADO</option>
                             </select>
-                            <br />
-                  
-                            <label class="labelsFormNav">Ult. Rejeição</label>                                             
-                            <select id="motivosRejeicao" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
+                        </div>
+                    </div>
+
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Ult. Rejeição</label>
+                        <div class="controls">
+                            <select id="motivosRejeicao" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.MotivosRejeicao)
                                 {
                                     <option value="@item.Id">@item.Motivo</option>
                                 }
                             </select>
-                            <br />
-                
-                            <label class="labelsFormNav">Data da Ult. Rejeição</label>
-                            <input id="dtult" class="fontTableBodyNavBar" type="text" >
-                            <br />
+                        </div>
+                    </div>
 
-                            <label class="labelsFormNav">Cliente</label>
-                            <select id="clientesCeg" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Data da Ult. Rejeição</label>
+                        <div class="controls">
+                            <input id="dtult" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Cliente</label>
+                        <div class="controls">
+                            <select id="clientesCeg" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 <option value="12">CEG</option>
                                 <option value="13">CEG RIO</option>
                             </select>
-                            <br />
-                            <label class="labelsFormNav">Zona</label>
-                            <select id="zonas" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Zona</label>
+                        <div class="controls">
+                            <select id="zonas" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.Zonas)
                                 {
                                     <option value="@item.Id">@item.Zona</option>
                                 }
                             </select>
-                            <br />
+                        </div>
+                    </div>
 
-                            <label class="labelsFormNav">Delegação</label>
-                            <select id="delegacoes" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Delegação</label>
+                        <div class="controls">
+                            <select id="delegacoes" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.Delegacao)
                                 {
                                     <option value="@item.Id">@item.Delegacao</option>
                                 }
                             </select>
-                            <br />
-                            <label class="labelsFormNav">Área</label>
-                            <select id="areas" onchange="postToController();" class="fontTableBodyNavBar" style="width:50px;">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Área</label>
+                        <div class="controls">
+                            <select id="areas" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
                                 @foreach (var item in ViewBag.Areas)
                                 {
                                     <option value="@item.Id">@item.Area</option>
                                 }
                             </select>
-                            <br />
-                            <label class="labelsFormNav">Status Cond.</label>
-                            <select id="statusCond" onchange="postToController();" class="fontTableBodyNavBar selectsNav">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Status Cond.</label>
+                        <div class="controls">
+                            <select id="statusCond" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.StatusCondominios)
                                 {
                                     <option value="@item.Id">@item.Item</option>
                                 }
                             </select>
-                            <br />
-                            <label class="labelsFormNav">Condomínio</label>
-                            <select id="condominiosId" onclick="postToController();" class="fontTableBodyNavBar selectsNav"  >
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Condomínio</label>
+                        <div class="controls">
+                            <select id="condominiosId" onclick="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.ListaCondominios)
                                 {
-                                    <option value="@item.Id">@item.Nome
-                                @item.Num 
-                                @item.Complemento 
-                                @item.Item 
-                                @item.Z 
-                                @item.D</option>
+                                    <option value="@item.Id">
+                                        @item.Nome
+                                        @item.Num
+                                        @item.Complemento
+                                        @item.Item
+                                        @item.Z
+                                        @item.D
+                                    </option>
                                 }
                             </select>
-                            <br />
-                        
-                       <label class="labelsFormNav">Condomínio</label>
-                       <input id="CondNome" class="fontTableBodyNavBar" type="text" />
-                       <br />
-                            
-                        <label class="labelsFormNav">Localidade</label>
-                            <input id="Localidade" class="fontTableBodyNavBar" type="text" />
-                            <br />
-                       
-                        <label class="labelsFormNav">Bairro</label>
-                            <input id="Bairro" class="fontTableBodyNavBar" type="text" />
-                            <br />
-                        
-                        <label class="labelsFormNav">Logradouro</label>
-                            <input id="Logradouro" class="fontTableBodyNavBar" type="text" />
-                            <br />
-                       
-                        <label class="labelsFormNav">Número</label>
-                        <label class="labelsFormNav">Entre</label>
-                        <input id="Numero1" class="fontTableBodyNavBar" style="width:60px" type="text" />
-                       
-                       <label class="labelsFormNav">E</label>
-                       <input id="Numero2" class="fontTableBodyNavBar" style="width:50px" type="text" />
-                            
-                        <br />
-                        
-                        <a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a>
-                        <a href="#" onclick="postToController();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a>
-                        
+                        </div>
+                    </div>
 
-                         <br />
-                        <label class="fontTableBodyNavBar">Exportar Pijama Formato Novatec</label>
-                        <a  href="#" onclick="ExportaPadraoNovatec();" >
-                            <img src="~/images/ms_excel.png" width="30" height="30" />
-                        </a>
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Condomínio</label>
+                        <div class="controls">
+                            <input id="CondNome" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
 
-                            <br />
-                       
-                            <label class="fontTableBodyNavBar">Exportar Pijama Formato Gás Natural</label>
-                        
-                        <a href="#" onclick="ExportaPadraoGas();">
-                            <img src="~/images/excel.png" width="25" height="25" />
-                        </a>
-                            <br />
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Localidade</label>
+                        <div class="controls">
+                            <input id="Localidade" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
 
-</form>
-               
-        </nav>
+                    <div class="control-group">
+                        <label class="control-label  labelsFormNav">Bairro</label>
+                        <div class="controls">
+                            <input id="Bairro" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Logradouro</label>
+                        <div class="controls">
+                            <input id="Logradouro" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="labelsFormNav">Número Entre</label>
+                        <input id="Numero1" class="form-control fontTableBodyNavBar" style="width:60px" type="text" />
+                        <label class="labelsFormNav">E</label>
+                        <input id="Numero2" class="form-control fontTableBodyNavBar" style="width:50px" type="text" />
+                    </div>
+
+
+                    <br />
+
+                    <a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a>
+                    <a href="#" onclick="postToController();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a>
+
+
+                    <br />
+                    <label class="fontTableBodyNavBar">Exportar Pijama Formato Novatec</label>
+                    <a href="#" onclick="ExportaPadraoNovatec();">
+                        <img src="~/images/ms_excel.png" width="30" height="30" />
+                    </a>
+
+                    <br />
+
+                    <label class="fontTableBodyNavBar">Exportar Pijama Formato Gás Natural</label>
+
+                    <a href="#" onclick="ExportaPadraoGas();">
+                        <img src="~/images/excel.png" width="25" height="25" />
+                    </a>
+                    <br />
+
+                </form>
+
+
+
+
+
+
+
+
+
+
+
+
+            </nav>
         </div>
         <div class="col-sm-9 col-lg-10">
             <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
