@@ -287,29 +287,27 @@ namespace NovatecEnergyWeb.Controllers
             var data = GetListLoteAtivoB(filtros);
 
             var lote = (from l in _context._11Lotes
-                         where l.Id == Convert.ToInt32(filtros.IdLote)
-                         join ti in _context._00TabelasItems on l.Status equals ti.Id
-                         select new
-                         {
-                             Id = l.Id,
-                             LoteNum = l.LoteNum,
-                             Ge = l.Ge,
-                             DataLote = l.DataLote,
-                             Item = ti.Item,
-                             Potencial = l.Potencial,
-                             DataEntrega = l.DataEntrega,
-                             Meta = l.Meta
-                         });
-           
+                        where l.Id == Convert.ToInt32(filtros.IdLote)
+                        join ti in _context._00TabelasItems on l.Status equals ti.Id
+                        select new
+                        {
+                            Id = l.Id,
+                            LoteNum = l.LoteNum,
+                            Ge = l.Ge,
+                            DataLote = l.DataLote,
+                            Item = ti.Item,
+                            Potencial = l.Potencial,
+                            DataEntrega = l.DataEntrega,
+                            Meta = l.Meta
+                        });
+
             EnderecoVisitasDataExporter exp = new EnderecoVisitasDataExporter(_hostingEnvironment);
-            byte[] fileBytes = exp.ExportaPadraoGasNatural(data,lote);
+            byte[] fileBytes = exp.ExportaPadraoGasNatural(data, lote);
 
             return File(fileBytes, "application/x-msdownload", exp.FileName);
 
+
         }
         
-
-        
-
     }
 }

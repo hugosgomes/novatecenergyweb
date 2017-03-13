@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - NovatecEnergyWeb</title>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+
+  <!--  <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.pt-BR.min.js"></script> -->
     <environment names="Development,Production">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
-        
     </environment>
     <environment names="Staging">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -53,27 +53,26 @@
 
         </footer>
     </div>
-
-    <script src="~/lib/jquery/dist/jquery.js"></script>
+   
     <environment names="Development">
-        
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js" ></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="~/js/encrypto.js" asp-append-version="true"></script>
-        <script src="~/lib/Chart.js/dist/Chart.bundle.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/lib/jquery/dist/jquery.js" ></script>
+        <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"  asp-append-version="true" ></script>
+        <script type="text/javascript" src="~/js/site.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/encrypto.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/lib/Chart.js/dist/Chart.bundle.js" asp-append-version="true"></script>
 
-        <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="~/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js" ></script>
 
     </environment>
     <environment names="Staging,Production">
-        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-        <script src="~/js/encrypto.js" asp-append-version="true"></script>
-        <script src="~/lib/Chart.js/dist/Chart.bundle.js" asp-append-version="true"></script>
-        <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js" asp-append-version="true"></script>
-        
-        
+        <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/site.min.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/encrypto.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/lib/Chart.js/dist/Chart.bundle.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js" asp-append-version="true"></script>
     </environment>
     @RenderSection("scripts", required: false)
 </body>
