@@ -149,7 +149,12 @@ namespace NovatecEnergyWeb.Controllers
             IQueryable<_11_LoteAtivoB> lb;
             //if(filtros == null)
             //{
-            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] ");
+            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB2] {0},{1},{2},{3},{4},{5}," +
+                     "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
+                    filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
+                    filtros.ClId, filtros.ZId, filtros.DId, filtros.AId, filtros.StatusId,
+                    filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
+                    filtros.Logradouro, filtros.Numero1, filtros.Numero2);
             //}
 
             return lb.ToList();
@@ -263,7 +268,7 @@ namespace NovatecEnergyWeb.Controllers
             return ffvm;
         }
 
-        public FileResult ExportaExcel()
+        public IActionResult ExportaExcel()
         {
             
             var ev = GetListLoteAtivo(getFiltrosSessao());
@@ -274,7 +279,7 @@ namespace NovatecEnergyWeb.Controllers
             return File(fileBytes, "application/x-msdownload", exporter.FileName);
         }
 
-        public FileResult ExportaPadraoGasNatural()
+        public IActionResult ExportaPadraoGasNatural()
         {
             var filtros = getFiltrosSessao();
             // fazer crítica de lote vazio
@@ -292,7 +297,8 @@ namespace NovatecEnergyWeb.Controllers
                              DataLote = l.DataLote,
                              Item = ti.Item,
                              Potencial = l.Potencial,
-                             DataEntrega = l.DataEntrega
+                             DataEntrega = l.DataEntrega,
+                             Meta = l.Meta
                          });
            
             EnderecoVisitasDataExporter exp = new EnderecoVisitasDataExporter(_hostingEnvironment);

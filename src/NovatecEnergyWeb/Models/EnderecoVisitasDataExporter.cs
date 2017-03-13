@@ -186,7 +186,7 @@ namespace NovatecEnergyWeb.Models
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
 
                 worksheet.Cells["C4"].Value = data.Count();
-                worksheet.Cells["D5"].Value = l[0].Potencial;
+                worksheet.Cells["D5"].Value = l[0].Meta;
                 
                 worksheet.Cells["F3"].Value = l[0].DataLote.ToString("dd/MM/yy");
 
