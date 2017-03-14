@@ -149,7 +149,7 @@ namespace NovatecEnergyWeb.Controllers
             IQueryable<_11_LoteAtivoB> lb;
             //if(filtros == null)
             //{
-            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB2] {0},{1},{2},{3},{4},{5}," +
+            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] {0},{1},{2},{3},{4},{5}," +
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
                     filtros.ClId, filtros.ZId, filtros.DId, filtros.AId, filtros.StatusId,
