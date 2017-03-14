@@ -68,17 +68,17 @@
 
                 <div class="buttonGroupNavBar">
                     <ul class="nav ">
-                        <li class="fontTableBodyNavBar">
-                            <a href="#">Clientes de Lotes - Todos</a>
+                        <li id ="todosli" class="fontTableBodyNavBar">
+                            <a href="#" id="todos" onclick="$(this).data('clicked', true);  clickLote(); ">Clientes de Lotes - Todos</a>
                         </li>
-                        <li class="disabled fontTableBodyNavBar a-desableColor">
-                            <a href="#"> Clientes de Lotes Ativos</a>
+                        <li id ="ativosli" class="disabled fontTableBodyNavBar">
+                            <a href="#" id="ativos" onclick="$(this).data('clicked', true);  clickLote(); "> Clientes de Lotes Ativos</a>
                         </li>
-                        <li class="fontTableBodyNavBar">
-                            <a href="#">Clientes Sem Lote - Todos</a>
+                        <li id ="semLoteTodosli" class="fontTableBodyNavBar">
+                            <a href="#" id="semLoteTodos" onclick="$(this).data('clicked', true);  clickLote(); ">Clientes Sem Lote - Todos</a>
                         </li>
-                        <li class="fontTableBodyNavBar ">
-                            <a href="#">Clientes Sem Lote - Não Contratados</a>
+                        <li id ="semLoteNaoli" class="fontTableBodyNavBar ">
+                            <a href="#" id="semLoteNao" onclick="$(this).data('clicked', true);  clickLote();">Clientes Sem Lote - Não Contratados</a>
                         </li>
                     </ul>
                 </div>
@@ -271,17 +271,6 @@
 
                 </form>
 
-
-
-
-
-
-
-
-
-
-
-
             </nav>
         </div>
         <div class="col-sm-9 col-lg-10">
@@ -386,8 +375,9 @@
             orientation: "bottom left"
         });
 
-
         function getFormDataAsJson() {
+            var botaoClicado = clicado();
+
             return {
                 IdLote: $('#lotes').val(),
                 CasaStatus: $('#CasaStatus').val(),
@@ -404,7 +394,8 @@
                 Bairro: $('#Bairro').val().toString().trim(),
                 Logradouro: $('#Logradouro').val().toString().trim(),
                 Numero1: $('#Numero1').val(),
-                Numero2: $('#Numero2').val()
+                Numero2: $('#Numero2').val(),
+                Botao: botaoClicado
             }
         }
 
@@ -499,14 +490,10 @@
             var data = getFormDataAsJson();
         //   $.get('/Adesao/ExportaExcel', data, DownloadExcel); //loteAtivo=' + JSON.stringify(data)
             //  window.location = '/Adesao/ExportaExcel?loteAtivo=' + JSON.stringify(data);
-
             window.location.href = '/Adesao/ExportaExcel?loteAtivo=' + JSON.stringify(data);
-
-
         }
 
         function ExportaPadraoGas() {
-
             var data = getFormDataAsJson();
             //   $.get('/Adesao/ExportaExcel', data, DownloadExcel); //loteAtivo=' + JSON.stringify(data)
             //  window.location = '/Adesao/ExportaExcel?loteAtivo=' + JSON.stringify(data);
@@ -517,9 +504,62 @@
             } else {
                 alert('Selecione um lote');
             }
-
-           //
         }
+
+        function clicado() {
+            var id = '';
+
+
+            if ($('#todos').data('clicked')) {
+                $('#todos').data('clicked', false)
+                id = 'todos';
+
+                $('#todosli').addClass('disabled')
+
+                $('#ativosli').removeClass('disabled');
+                $('#semLoteTodosli').removeClass('disabled');
+                $('#semLoteNaoli').removeClass('disabled');
+                
+            } else if ($('#ativos').data('clicked')) {
+                $('#ativos').data('clicked', false)
+                id = 'ativos';
+
+                $('#todosli').removeClass('disabled')
+                $('#ativosli').addClass('disabled');
+
+                $('#semLoteTodosli').removeClass('disabled');
+                $('#semLoteNaoli').removeClass('disabled');
+
+
+            } else if ($('#semLoteTodos').data('clicked')) {
+                $('#semLoteTodos').data('clicked', false)
+                id = 'semLoteTodos';
+
+                $('#todosli').removeClass('disabled')
+                $('#ativosli').removeClass('disabled');
+
+                $('#semLoteTodosli').addClass('disabled');
+                $('#semLoteNaoli').removeClass('disabled');
+
+            } else if ($('#semLoteNao').data('clicked')) {
+                $('#semLoteNao').data('clicked', false)
+                id = 'semLoteNao';
+
+
+                $('#todosli').removeClass('disabled')
+                $('#ativosli').removeClass('disabled');
+                $('#semLoteTodosli').removeClass('disabled');
+
+                $('#semLoteNaoli').addClass('disabled');
+            }
+
+            return id;
+        }
+
+        function clickLote() {
+            postToController();
+        }
+
 
     </script>
     }

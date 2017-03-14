@@ -122,19 +122,21 @@ namespace NovatecEnergyWeb.Controllers
             } 
                 
 
-            return GetListLoteAtivoView(null, true);
+            return GetListLoteAtivoView(null, true,"");
         }
 
-        public List<_11_LoteAtivo>GetListLoteAtivo([FromForm]FormFiltersViewModels filtros)
+        public List<_11_LoteAtivo> GetListLoteAtivo([FromForm]FormFiltersViewModels filtros)
         {
+            string storedProcedure = HttpContext.Session.GetString("SP_Lote");
+
             IQueryable<_11_LoteAtivo> ev;
             if (filtros == null)
             {
-                ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo] ");
+                ev = _context._11_LoteAtivo.FromSql("exec "+ storedProcedure);
             }
             else
             {
-                ev = _context._11_LoteAtivo.FromSql("exec [dbo].[11_LoteAtivo] {0},{1},{2},{3},{4},{5}," +
+                ev = _context._11_LoteAtivo.FromSql("exec "+storedProcedure+" {0},{1},{2},{3},{4},{5}," +
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
                     filtros.ClId, filtros.ZId, filtros.DId, filtros.AId, filtros.StatusId,
@@ -144,6 +146,7 @@ namespace NovatecEnergyWeb.Controllers
             return ev.ToList();
         }
 
+        //fornece os dados para Exportação padrão Gás Natural
         public List<_11_LoteAtivoB> GetListLoteAtivoB(FormFiltersViewModels filtros)
         {
             IQueryable<_11_LoteAtivoB> lb;
@@ -160,9 +163,9 @@ namespace NovatecEnergyWeb.Controllers
             return lb.ToList();
         }
 
-        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersViewModels filtros, bool eIndex)
+        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersViewModels filtros,  bool eIndex,string Botao)
         {
-            setFiltrosSessao(filtros); // salva os filtros na sessão
+            setFiltrosSessao(filtros, Botao); // salva os filtros na sessão
 
             //executa a SP e tras os valores filtrados
             var evList = GetListLoteAtivo(filtros);
@@ -219,10 +222,10 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult LimpaFiltros()
         {
-            return GetListLoteAtivoView(null, false);
+            return GetListLoteAtivoView(null, false, "ativos");
         }
 
-        private void setFiltrosSessao(FormFiltersViewModels data)
+        private void setFiltrosSessao(FormFiltersViewModels data, string Botao)
         {
             if (data != null)
             {
@@ -243,6 +246,19 @@ namespace NovatecEnergyWeb.Controllers
                 HttpContext.Session.SetString("Numero1", (data.Numero1 == null) ? "" : data.Numero1);
                 HttpContext.Session.SetString("Numero2", (data.Numero2 == null) ? "" : data.Numero2);
             }
+
+            string valorSP = "[dbo].[11_LoteAtivo]";
+            if (Botao == "todos")
+                valorSP = "[dbo].[11_LoteTodos]";
+            else if (Botao == "semLoteTodos")
+            {
+
+            }
+            else if (Botao == "semLoteNao")
+            {
+
+            }
+            HttpContext.Session.SetString("SP_Lote", valorSP);
         }
 
         private FormFiltersViewModels getFiltrosSessao()
