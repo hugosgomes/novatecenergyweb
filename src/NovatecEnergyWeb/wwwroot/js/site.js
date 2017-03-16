@@ -46,6 +46,11 @@ function postToController() {
     $.post('/Adesao/GetListLoteAtivoView', data, atualizaView);
 }
 
+function postToControllerSemLote() {
+    var data = getFormDataAsJson();
+    $.post('/Adesao/GetListLoteNaoView', data, atualizaViewNao);
+}
+
 function tabelaLoteAtivos(retorno) {
     $('#corpoTabelaAtivos tr').remove();
 
@@ -90,6 +95,40 @@ function tabelaLoteAtivos(retorno) {
 
 };
 
+function tabelaLoteNao(retorno) {
+    $('#corpoTabelaAtivos tr').remove();
+
+    var tr;
+
+    for (var i = 0; i < retorno.EV.length; i++) {
+        tr = $('<tr/>');
+
+        tr.append("<td>" + retorno.EV[i].casa + "</td>");
+        tr.append("<td>" + retorno.EV[i].lote + "</td>");
+        tr.append("<td>" + retorno.EV[i].ar + "</td>");
+        tr.append("<td>" + retorno.EV[i].localidade + "</td>");
+        tr.append("<td>" + retorno.EV[i].bairro + "</td>");
+        tr.append("<td>" + retorno.EV[i].endereco + "</td>");
+        tr.append("<td>" + retorno.EV[i].pt + "</td>");
+        tr.append("<td>" + retorno.EV[i].ultMotivo + "</td>");
+        tr.append("<td>" + retorno.EV[i].agult + "</td>");
+        tr.append("<td>" + retorno.EV[i].dtult + "</td>");
+        tr.append("<td>" + retorno.EV[i].hrult + "</td>");
+        tr.append("<td>" + retorno.EV[i].casaStatus + "</td>");
+        tr.append("<td>" + retorno.EV[i].zid + "</td>");
+        tr.append("<td>" + retorno.EV[i].aid + "</td>");
+        tr.append("<td>" + retorno.EV[i].condid + "</td>");
+        tr.append("<td>" + retorno.EV[i].ptId + "</td>");
+        tr.append("<td>" + retorno.EV[i].idLote + "</td>");
+        tr.append("<td>" + retorno.EV[i].statusClid + "</td>");
+        tr.append("<td>" + retorno.EV[i].Clid + "</td>");
+
+
+        $('#corpoTabelaAtivos').append(tr);
+    }
+
+};
+
 function tabelaEstatisticas(retorno) {
     for (var i = 0; i < retorno.Numeracoes.length; i++) {
         $('#e' + i).html(retorno.Numeracoes[i]);
@@ -105,6 +144,11 @@ function atualizaView(retorno) {
     tabelaEstatisticas(retorno)
     tabelaLoteAtivos(retorno);
 };
+
+function atualizaViewNao(retorno) {
+    tabelaEstatisticas(retorno)
+    tabelaLoteNao(retorno)
+}
 
 function limpaFiltro() {
     $('#lotes').val("");

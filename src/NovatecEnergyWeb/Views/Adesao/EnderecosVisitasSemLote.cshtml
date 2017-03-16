@@ -69,13 +69,13 @@
                 <div class="buttonGroupNavBar">
                     <ul class="nav ">
                         <li id="todosli" class="fontTableBodyNavBar">
-                            <a  href="/Adesao/EnderecosVisitasAtivosTodos" id="todos" >Clientes de Lotes - Todos</a>
+                            <a href="#" onclick="$(this).data('clicked', true); postToController();" id="todos" >Clientes de Lotes - Todos</a>
                         </li>
                         <li id="ativosli" class="fontTableBodyNavBar">
-                            <a href="/Adesao/EnderecosVisitas" id="ativos" > Clientes de Lotes Ativos</a>
+                            <a href="#" onclick="$(this).data('clicked', true); postToController();" id="ativos" > Clientes de Lotes Ativos</a>
                         </li>
                         <li id="semLoteTodosli" class="disabled fontTableBodyNavBar">
-                            <a href="/Adesao/EnderecosVisitasSemLote" id="semLoteTodos">Clientes Sem Lote - Todos</a>
+                            <a href="#" onclick="$(this).data('clicked', true);  postToControllerSemLote();" id="semLoteTodos">Clientes Sem Lote - Todos</a>
                         </li>
                         <li id="semLoteNaoli" class="fontTableBodyNavBar ">
                             <a href="/Adesao/EnderecosVisitasSemLoteNao" id="semLoteNao" >Clientes Sem Lote - Não Contratados</a>

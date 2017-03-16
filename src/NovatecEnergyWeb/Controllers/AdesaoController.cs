@@ -159,7 +159,7 @@ namespace NovatecEnergyWeb.Controllers
             else
             {
                 evn = _context._11_LoteNao.FromSql("exec "+ storedProcedure+" {0},{1},{2},{3},{4},{5}," +
-                     "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
+                     "{6},{7},{8},{9},{10},{11},{12},{13},{14}",
                      filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
                     filtros.ClId, filtros.ZId, filtros.DId, filtros.AId, filtros.StatusId,
                     filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
