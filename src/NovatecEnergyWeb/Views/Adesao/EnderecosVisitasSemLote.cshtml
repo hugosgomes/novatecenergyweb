@@ -1,7 +1,7 @@
 ﻿@using NovatecEnergyWeb.Models.StoredProcedures;
 
-@model IEnumerable<_11_LoteAtivo>
-@{ 
+@model IEnumerable<_11_LoteNao>
+@{
     Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
     ViewData["Title"] = "Status de Clientes Com Tratamento Comercial";
 }
@@ -9,8 +9,9 @@
     <div class="row">
         <div class="col-sm-3 col-lg-2">
             <nav class="navbar navbar-default navbar-fixed-side">
-                <h4 class="text-center">Clientes de Lotes Ativos</h4>
-
+                <!-- normal collapsible navbar markup -->
+                <h4 class="text-center">Clientes Sem Lote - Todos</h4>
+                
 
                 <table>
                     <tbody class="fontTableBodyNavBar">
@@ -67,17 +68,17 @@
 
                 <div class="buttonGroupNavBar">
                     <ul class="nav ">
-                        <li id ="todosli" class="fontTableBodyNavBar">
-                            <a href="#" id="todos" onclick="$(this).data('clicked', true);  clickLote(); ">Clientes de Lotes - Todos</a>
+                        <li id="todosli" class="fontTableBodyNavBar">
+                            <a  href="/Adesao/EnderecosVisitasAtivosTodos" id="todos" >Clientes de Lotes - Todos</a>
                         </li>
-                        <li id ="ativosli" class="disabled fontTableBodyNavBar">
-                            <a href="#" id="ativos" > Clientes de Lotes Ativos</a>
+                        <li id="ativosli" class="fontTableBodyNavBar">
+                            <a href="/Adesao/EnderecosVisitas" id="ativos" > Clientes de Lotes Ativos</a>
                         </li>
-                        <li id ="semLoteTodosli" class="fontTableBodyNavBar">
-                            <a href="/Adesao/EnderecosVisitasSemLote" id="semLoteTodos" >Clientes Sem Lote - Todos</a>
+                        <li id="semLoteTodosli" class="disabled fontTableBodyNavBar">
+                            <a href="/Adesao/EnderecosVisitasSemLote" id="semLoteTodos">Clientes Sem Lote - Todos</a>
                         </li>
-                        <li id ="semLoteNaoli" class="fontTableBodyNavBar ">
-                            <a href="#" id="semLoteNao">Clientes Sem Lote - Não Contratados</a>
+                        <li id="semLoteNaoli" class="fontTableBodyNavBar ">
+                            <a href="/Adesao/EnderecosVisitasSemLoteNao" id="semLoteNao" >Clientes Sem Lote - Não Contratados</a>
                         </li>
                     </ul>
                 </div>
@@ -278,72 +279,51 @@
                     <tr>
                         <th class="text-center">Casa</th>
                         <th class="text-center">Lote</th>
-                        <th class="text-center">Z</th>
-                        <th class="text-center">D</th>
                         <th class="text-center">AR</th>
-                        <th class="text-center">PT</th>
                         <th class="text-center">Localidade</th>
                         <th class="text-center">Bairro</th>
-                        <th class="text-center">Via</th>
-                        <th class="text-center">Logradouro</th>
-                        <th class="text-center">Num</th>
-                        <th class="text-center">Comp</th>
-                        <th class="text-center">Bloco</th>
-                        <th class="text-center">Apt</th>
+                        <th class="text-center">Endereço</th>
+                        <th class="text-center">PT</th>
                         <th class="text-center">ULTMOTIVO</th>
                         <th class="text-center">AGULT</th>
                         <th class="text-center">DTULT</th>
-                        <th class="text-center">STATUSCL</th>
-                        <th class="text-center">DTSTATUSCL</th>
-                        <th class="text-center">CASASTATUS</th>
-                        <th class="text-center">Visitado</th>
-                        <th class="text-center">Visitas</th>
-                        <th class="text-center">Ausentes</th>
-                        <th class="text-center">VendaApp</th>
-                        <th class="text-center">Condomínio</th>
-                        <th class="text-center">CASOA</th>
-                        <th class="text-center">CASOB</th>
-                        <th class="text-center">CASOC</th>
-                        <th class="text-center">CASOD</th>
-                        <th class="text-center">DTULT2</th>
                         <th class="text-center">HRULT</th>
+                        <th class="text-center">CASASTATUS</th>
+                        <th class="text-center">Zid</th>
+                        <th class="text-center">Did</th>
+                        <th class="text-center">Aid</th>
+                        <th class="text-center">CondId</th>
+                        <th class="text-center">PtId</th>
+                        <th class="text-center">IdLote</th>
+                        <th class="text-center">STATUSCLID</th>
+                        <th class="text-center">CLID</th>
+                                               
                     </tr>
                 </thead>
                 <tbody id="corpoTabelaAtivos" class="corpoTabela">
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td id="Casa_@item.Id" class="text-left">@item.Casa</td>
-                            <td id="Lote_@item.Id">@item.Lote</td>
-                            <td id="Z_@item.Id">@item.Z</td>
-                            <td id="D_@item.Id">@item.D</td>
-                            <td id="AR_@item.Id">@item.Ar</td>
-                            <td id="PT_@item.Id">@item.Pt</td>
-                            <td id="Localidade_@item.Id">@item.Localidade</td>
-                            <td id="Bairro_@item.Id">@item.Bairro</td>
-                            <td id="Via_@item.Id">@item.Via</td>
-                            <td id="Logradouro_@item.Id" class="text-left" >@item.Logradouro</td>
-                            <td id="Num_@item.Id">@item.Num</td>
-                            <td id="Comp_@item.Id">@item.Complemento</td>
-                            <td id="Bloco_@item.Id">@item.Bloco</td>
-                            <td id="Apt_@item.Id">@item.Apt</td>
-                            <td id="UltMotivo_@item.Id">@item.UltMotivo</td>
-                            <td id="Agult_@item.Id">@item.Agult</td>
-                            <td id="Dtult_@item.Id">@item.Dtult</td>
-                            <td id="StatusCl_@item.Id">@item.StatusCl</td>
-                            <td id="DtStatusCl_@item.Id">@item.DtStatusCl</td>
-                            <td id="CasaStatus_@item.Id">@item.CasaStatus</td>
-                            <td id="Visitado_@item.Id">@item.Visitado</td>
-                            <td id="Visitas_@item.Id">@item.Visitas</td>
-                            <td id="Ausentes_@item.Id">@item.Ausentes</td>
-                            <td id="VendaApp_@item.Id">@item.VendaApp</td>
-                            <td id="Condominio_@item.Id">@item.Condominio</td>
-                            <td id="CasoA_@item.Id">@item.CasoA</td>
-                            <td id="CasoB_@item.Id">@item.CasoB</td>
-                            <td id="CasoC_@item.Id">@item.CasoC</td>
-                            <td id="CasoD_@item.Id">@item.CasoD</td>
-                            <td id="Dtult2_@item.Id">@item.Dtult2</td>
-                            <td id="Hrult_@item.Id">@item.Hrult</td>
+                            <td id="Casa_@item.Casa" class="text-left">@item.Casa</td>
+                            <td id="Lote_@item.Casa">@item.Lote</td>
+                            <td id="Ar_@item.Casa">@item.Ar</td>
+                            <td id="Localidade_@item.Casa">@item.Localidade</td>
+                            <td id="Bairro_@item.Casa">@item.Bairro</td>
+                            <td id="Endereco_@item.Casa">@item.Endereco</td>
+                            <td id="Pt_@item.Casa">@item.Pt</td>
+                            <td id="UltMotivo_@item.Casa">@item.UltMotivo</td>
+                            <td id="Agult_@item.Casa">@item.Agult</td>
+                            <td id="Dtult_@item.Casa">@item.Dtult</td>
+                            <td id="Hrult_@item.Casa">@item.Hrult</td>
+                            <td id="CasaStatus_@item.Casa">@item.CasaStatus</td>
+                            <td id="Zid_@item.Casa">@item.Zid</td>
+                            <td id="Did_@item.Casa">@item.Did</td>
+                            <td id="Aid_@item.Casa">@item.Aid</td>
+                            <td id="CondId_@item.Casa">@item.CondId</td>
+                            <td id="PtId_@item.Casa">@item.PtId</td>
+                            <td id="IdLote_@item.Casa">@item.IdLote</td>
+                            <td id="StatusClid_@item.Casa">@item.StatusClid</td>
+                            <td id="ClId_@item.Casa">@item.ClId</td>
 
                         </tr>
                     }
@@ -401,7 +381,7 @@
         function postToController() {
             var data = getFormDataAsJson();
             //, 'application/json; charset=utf-8'
-            $.post('/Adesao/GetListLoteAtivoView', data, atualizaView);
+            $.post('/Adesao/GetListLoteNaoView', data, atualizaView);
         }
 
         function tabelaLoteAtivos(retorno) {
@@ -413,36 +393,26 @@
                 tr = $('<tr/>');
 
                 tr.append("<td>" + retorno.EV[i].casa + "</td>");
-                tr.append("<td>" +retorno.EV[i].lote+ "</td>");
-                tr.append("<td>" +retorno.EV[i].z+ "</td>");
-                tr.append("<td>" +retorno.EV[i].d+ "</td>");
-                tr.append("<td>" +retorno.EV[i].ar+ "</td>");
-                tr.append("<td>" +retorno.EV[i].pt+ "</td>");
-                tr.append("<td>" +retorno.EV[i].localidade+ "</td>");
-                tr.append("<td>" +retorno.EV[i].bairro+ "</td>");
-                tr.append("<td>" +retorno.EV[i].via+ "</td>");
-                tr.append("<td>" + retorno.EV[i].logradouro + "</td>");
-                tr.append("<td>" + retorno.EV[i].num + "</td>");
-                tr.append("<td>" + retorno.EV[i].complemento + "</td>");
-                tr.append("<td>" + retorno.EV[i].bloco + "</td>");
-                tr.append("<td>" + retorno.EV[i].apt + "</td>");
+                tr.append("<td>" + retorno.EV[i].lote + "</td>");
+                tr.append("<td>" + retorno.EV[i].ar + "</td>");
+                tr.append("<td>" + retorno.EV[i].localidade + "</td>");
+                tr.append("<td>" + retorno.EV[i].bairro + "</td>");
+                tr.append("<td>" + retorno.EV[i].endereco + "</td>");
+                tr.append("<td>" + retorno.EV[i].pt + "</td>");
                 tr.append("<td>" + retorno.EV[i].ultMotivo + "</td>");
                 tr.append("<td>" + retorno.EV[i].agult + "</td>");
                 tr.append("<td>" + retorno.EV[i].dtult + "</td>");
-                tr.append("<td>" + retorno.EV[i].statusCl + "</td>");
-                tr.append("<td>" + retorno.EV[i].dtStatusCl + "</td>");
-                tr.append("<td>" + retorno.EV[i].casaStatus + "</td>");
-                tr.append("<td>" + retorno.EV[i].visitado + "</td>");
-                tr.append("<td>" + retorno.EV[i].visitas + "</td>");
-                tr.append("<td>" + retorno.EV[i].ausentes + "</td>");
-                tr.append("<td>" + retorno.EV[i].vendaApp + "</td>");
-                tr.append("<td>" + retorno.EV[i].condominio + "</td>");
-                tr.append("<td>" + retorno.EV[i].casoA + "</td>");
-                tr.append("<td>" + retorno.EV[i].casoB + "</td>");
-                tr.append("<td>" + retorno.EV[i].casoC + "</td>");
-                tr.append("<td>" + retorno.EV[i].casoD + "</td>");
-                tr.append("<td>" + retorno.EV[i].dtult2 + "</td>");
                 tr.append("<td>" + retorno.EV[i].hrult + "</td>");
+                tr.append("<td>" + retorno.EV[i].casaStatus + "</td>");
+                tr.append("<td>" + retorno.EV[i].zid + "</td>");
+                tr.append("<td>" + retorno.EV[i].aid + "</td>");
+                tr.append("<td>" + retorno.EV[i].condid + "</td>");
+                tr.append("<td>" + retorno.EV[i].ptId + "</td>");
+                tr.append("<td>" + retorno.EV[i].idLote + "</td>");
+                tr.append("<td>" + retorno.EV[i].statusClid + "</td>");
+                tr.append("<td>" + retorno.EV[i].Clid + "</td>");
+                
+                
                 $('#corpoTabelaAtivos').append(tr);
             }
 
@@ -518,7 +488,7 @@
                 $('#ativosli').removeClass('disabled');
                 $('#semLoteTodosli').removeClass('disabled');
                 $('#semLoteNaoli').removeClass('disabled');
-                
+
             } else if ($('#ativos').data('clicked')) {
                 $('#ativos').data('clicked', false)
                 id = 'ativos';
@@ -561,4 +531,4 @@
 
 
     </script>
-    }
+}

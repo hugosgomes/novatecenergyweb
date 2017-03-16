@@ -24,19 +24,20 @@ namespace NovatecEnergyWeb.Controllers
             _context = context;
             _hostingEnvironment = he;
         }
-        
-        public IActionResult EnderecosVisitas()
+
+        public void BindSelects()
         {
+
             var lotes = (from l in _context._11Lotes
-                        join ti in _context._00TabelasItems on l.Status equals ti.Id
-                        select new
-                        {
-                            Id = l.Id,
-                            LoteNum = l.LoteNum,
-                            Ge = l.Ge,
-                            DataLote = l.DataLote,
-                            Item = ti.Item
-                        }).ToList();
+                         join ti in _context._00TabelasItems on l.Status equals ti.Id
+                         select new
+                         {
+                             Id = l.Id,
+                             LoteNum = l.LoteNum,
+                             Ge = l.Ge,
+                             DataLote = l.DataLote,
+                             Item = ti.Item
+                         }).ToList();
 
             ViewBag.Lotes = new List<List<dynamic>>();
             foreach (var item in lotes)
@@ -49,7 +50,7 @@ namespace NovatecEnergyWeb.Controllers
                 d.Add(item.Item);
                 ViewBag.Lotes.Add(d);
             }
-         //   ViewBag.Lotes = lotes.ToList(); // terminar depois
+            //   ViewBag.Lotes = lotes.ToList(); // terminar depois
 
             var motivosRejeicao = _context._11MotivosRej.Select(c => new { c.Id, c.Motivo }).ToList();
             ViewBag.MotivosRejeicao = new List<_11MotivosRej>();
@@ -119,10 +120,52 @@ namespace NovatecEnergyWeb.Controllers
                 c.Z = item.Z;
                 c.D = item.D;
                 ViewBag.ListaCondominios.Add(c);
-            } 
-                
+            }
+        }
 
-            return GetListLoteAtivoView(null, true,"");
+        public IActionResult EnderecosVisitasAtivosTodos()
+        {
+            BindSelects();
+            return GetListLoteAtivoView(null, true, "todos");
+        }
+
+        public IActionResult EnderecosVisitas()
+        {
+            BindSelects();
+            return GetListLoteAtivoView(null, true, "ativos");
+        }
+
+        public IActionResult EnderecosVisitasSemLote()
+        {
+            BindSelects();
+            return GetListLoteNaoView(null, true, "semLoteTodos");
+        }
+
+        public IActionResult EnderecosVisitasSemLoteNao()
+        {
+            BindSelects();
+            return GetListLoteNaoView(null, true, "semLoteNao");
+        }
+
+        public List<_11_LoteNao> GetListLoteNao([FromForm]FormFiltersViewModels filtros)
+        {
+            string storedProcedure = HttpContext.Session.GetString("SP_Lote");
+
+            IQueryable<_11_LoteNao> evn;
+            if (filtros == null)
+            {
+                evn = _context._11_LoteNao.FromSql("exec " + storedProcedure);
+            }
+            else
+            {
+                evn = _context._11_LoteNao.FromSql("exec "+ storedProcedure+" {0},{1},{2},{3},{4},{5}," +
+                     "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
+                     filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
+                    filtros.ClId, filtros.ZId, filtros.DId, filtros.AId, filtros.StatusId,
+                    filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
+                    filtros.Logradouro, filtros.Numero1, filtros.Numero2);
+            }
+            return evn.ToList();
         }
 
         public List<_11_LoteAtivo> GetListLoteAtivo([FromForm]FormFiltersViewModels filtros)
@@ -189,7 +232,63 @@ namespace NovatecEnergyWeb.Controllers
             ViewBag.AusentesPercent = (ViewBag.Visitas != 0) ?  Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Ausentes), Convert.ToDecimal(ViewBag.Visitas)) * 100):0;
 
             if (eIndex)
-                return View(evList);
+                return View("EnderecosVisitas",evList);
+            else
+            {
+                dynamic jsonModel = new ExpandoObject();
+                jsonModel.Numeracoes = new List<string>();
+                jsonModel.Porcentagens = new List<string>();
+
+                jsonModel.Numeracoes.Add(evList.Count().ToString());
+                jsonModel.Numeracoes.Add(ViewBag.Visitados.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.NaoVisitados.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.Contratados.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.NaoContratados.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.VisitaAgendada.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.Visitas.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.VisitasComResposta.ToString());
+                jsonModel.Numeracoes.Add(ViewBag.Ausentes.ToString());
+
+                jsonModel.Porcentagens.Add(ViewBag.VisitadosPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.NaoVisitadosPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.ContratadosPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.NaoContratadosPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.VisitaAgendadaPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.VisitasComRespostaPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.AusentesPercent.ToString());
+
+                jsonModel.EV = evList;
+
+                return Json(jsonModel);
+            }
+        }
+
+        public IActionResult GetListLoteNaoView([FromForm]FormFiltersViewModels filtros, bool eIndex, string Botao)
+        {
+            setFiltrosSessao(filtros, Botao);
+
+            var evList = GetListLoteNao(filtros);
+
+            ViewBag.Visitados = 0;
+            ViewBag.VisitadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Visitados), Convert.ToDecimal(evList.Count())) * 100) : 0;
+            ViewBag.NaoVisitados = evList.Count() - ViewBag.Visitados;
+            ViewBag.NaoVisitadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.NaoVisitados), Convert.ToDecimal(evList.Count())) * 100) : 0;
+
+            ViewBag.Contratados = 0;
+            ViewBag.ContratadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Contratados), Convert.ToDecimal(evList.Count())) * 100) : 0;
+            ViewBag.NaoContratados = 0;
+            ViewBag.NaoContratadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.NaoContratados), Convert.ToDecimal(evList.Count())) * 100) : 0;
+            ViewBag.VisitaAgendada = 0;
+            ViewBag.VisitaAgendadaPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitaAgendada), Convert.ToDecimal(evList.Count())) * 100) : 0;
+
+            ViewBag.Visitas = 0;
+            ViewBag.Ausentes = 0;
+            ViewBag.VisitasComResposta = ViewBag.Visitas - ViewBag.Ausentes;
+            ViewBag.VisitasComRespostaPercent = (ViewBag.Visitas != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitasComResposta), Convert.ToDecimal(ViewBag.Visitas)) * 100) : 0;
+            ViewBag.AusentesPercent = (ViewBag.Visitas != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Ausentes), Convert.ToDecimal(ViewBag.Visitas)) * 100) : 0;
+
+            if (eIndex)
+                return View("EnderecosVisitasSemLote",evList);
             else
             {
                 dynamic jsonModel = new ExpandoObject();
@@ -247,17 +346,24 @@ namespace NovatecEnergyWeb.Controllers
                 HttpContext.Session.SetString("Numero2", (data.Numero2 == null) ? "" : data.Numero2);
             }
 
-            string valorSP = "[dbo].[11_LoteAtivo]";
-            if (Botao == "todos")
-                valorSP = "[dbo].[11_LoteTodos]";
-            else if (Botao == "semLoteTodos")
-            {
+            string valorSP = "";
 
-            }
-            else if (Botao == "semLoteNao")
+            switch (Botao)
             {
-
+                case "ativos":
+                    valorSP = "[dbo].[11_LoteAtivo]";
+                    break;
+                case "todos":
+                    valorSP = "[dbo].[11_LoteTodos]";
+                    break;
+                case "semLoteTodos":
+                    valorSP = "[dbo].[11_LoteNao]";
+                    break;
+                case "semLoteNao":
+                    valorSP = ""; //lembrar de implementar
+                    break;
             }
+
             HttpContext.Session.SetString("SP_Lote", valorSP);
         }
 
