@@ -88,7 +88,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Lote</label>
                         <div class="controls">
-                            <select id="lotes" name="LoteError" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar disabled" style="width:100px;">
+                            <select id="lotes" disabled name="LoteError" onchange="postToControllerSemLote();" class="alturaFormNavInput form-control fontTableBodyNavBar"  style="width:100px;">
 
                                 @foreach (var item in ViewBag.Lotes)
                                 {
@@ -107,7 +107,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Status Casa</label>
                         <div class="controls">
-                            <select id="CasaStatus" name="CasaStatus" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="CasaStatus" name="CasaStatus" onchange="postToControllerSemLote();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 <option value="1">NÃO CONTRATADO</option>
                                 <option value="2">VISITA AGENDADA</option>
                                 <option value="3">CONTRATADO</option>
@@ -119,7 +119,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Ult. Rejeição</label>
                         <div class="controls">
-                            <select id="motivosRejeicao" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="motivosRejeicao" onchange="postToControllerSemLote();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.MotivosRejeicao)
                                 {
                                     <option value="@item.Id">@item.Motivo</option>
@@ -138,7 +138,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Cliente</label>
                         <div class="controls">
-                            <select id="clientesCeg" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="clientesCeg" onchange="postToControllerSemLote();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 <option value="12">CEG</option>
                                 <option value="13">CEG RIO</option>
                             </select>
@@ -148,7 +148,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Zona</label>
                         <div class="controls">
-                            <select id="zonas" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="zonas" onchange="postToControllerSemLote();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.Zonas)
                                 {
                                     <option value="@item.Id">@item.Zona</option>
@@ -160,7 +160,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Delegação</label>
                         <div class="controls">
-                            <select id="delegacoes" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="delegacoes" onchange="postToControllerSemLote();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.Delegacao)
                                 {
                                     <option value="@item.Id">@item.Delegacao</option>
@@ -172,7 +172,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Área</label>
                         <div class="controls">
-                            <select id="areas" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
+                            <select id="areas" onchange="postToControllerSemLote();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
                                 @foreach (var item in ViewBag.Areas)
                                 {
                                     <option value="@item.Id">@item.Area</option>
@@ -184,7 +184,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Status Cond.</label>
                         <div class="controls">
-                            <select id="statusCond" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="statusCond" onchange="postToControllerSemLote();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.StatusCondominios)
                                 {
                                     <option value="@item.Id">@item.Item</option>
@@ -196,7 +196,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Condomínio</label>
                         <div class="controls">
-                            <select id="condominiosId" onclick="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="condominiosId" onclick="postToControllerSemLote();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.ListaCondominios)
                                 {
                                     <option value="@item.Id">
@@ -251,7 +251,7 @@
                     <br />
 
                     <a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a>
-                    <a href="#" onclick="postToController();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a>
+                    <a href="#" onclick="postToControllerSemLote();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a>
 
 
                     <br />
@@ -275,7 +275,7 @@
         </div>
         <div class="col-sm-9 col-lg-10">
             <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
-                <thead>
+                <thead id="headTabelaLoteNao">
                     <tr>
                         <th class="text-center">Casa</th>
                         <th class="text-center">Lote</th>

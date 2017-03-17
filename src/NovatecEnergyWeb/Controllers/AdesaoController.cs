@@ -319,9 +319,14 @@ namespace NovatecEnergyWeb.Controllers
             }
         }
 
-        public IActionResult LimpaFiltros()
+        public IActionResult LimpaFiltros(string Botao)
         {
-            return GetListLoteAtivoView(null, false, "ativos");
+            return GetListLoteAtivoView(null, false, Botao);
+        }
+
+        public IActionResult LimpaFiltrosNao(string Botao)
+        {
+            return GetListLoteNaoView(null, false, Botao);
         }
 
         private void setFiltrosSessao(FormFiltersViewModels data, string Botao)
