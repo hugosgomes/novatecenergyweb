@@ -40,6 +40,139 @@ function getFormDataAsJson() {
     }
 }
 
+function clicado() {
+    var id = '';
+    if ($('#todos').data('clicked')) {
+        $('#todos').data('clicked', false);
+        id = 'todos';
+        $('#todosli').addClass('disabled');
+
+        $('#ativosli').removeClass('disabled');
+        $('#semLoteTodosli').removeClass('disabled');
+        $('#semLoteNaoli').removeClass('disabled');
+
+    } else if ($('#ativos').data('clicked')) {
+        $('#ativos').data('clicked', false);
+        id = 'ativos';
+        $('#todosli').removeClass('disabled')
+        $('#ativosli').addClass('disabled');
+
+        $('#semLoteTodosli').removeClass('disabled');
+        $('#semLoteNaoli').removeClass('disabled');
+
+
+    } else if ($('#semLoteTodos').data('clicked')) {
+        $('#semLoteTodos').data('clicked', false)
+        id = 'semLoteTodos';
+        $('#todosli').removeClass('disabled')
+        $('#ativosli').removeClass('disabled');
+
+        $('#semLoteTodosli').addClass('disabled');
+        $('#semLoteNaoli').removeClass('disabled');
+
+    } else if ($('#semLoteNao').data('clicked')) {
+        $('#semLoteNao').data('clicked', false)
+        id = 'semLoteNao';
+        $('#todosli').removeClass('disabled')
+        $('#ativosli').removeClass('disabled');
+        $('#semLoteTodosli').removeClass('disabled');
+
+        $('#semLoteNaoli').addClass('disabled');
+    } else if (id == '') {
+        if ($("#todosli").hasClass('disabled')) {
+            id = 'todos';
+        } else if ($("#ativosli").hasClass('disabled')) {
+            id = 'ativos';
+        } else if ($("#semLoteTodosli").hasClass('disabled')) {
+            id = 'semLoteTodos';
+        } else if ($("#semLoteNaoli").hasClass('disabled')) {
+            id = 'semLoteNao';
+        }
+    }
+
+    return id;
+}
+
+function atualizaView(retorno) {
+    tabelaEstatisticas(retorno)
+    tabelaLoteAtivos(retorno);
+};
+
+function atualizaViewNao(retorno) {
+    tabelaEstatisticas(retorno)
+    tabelaLoteNao(retorno)
+}
+
+function montaHeadTabelaNao() {
+
+    $('#headTabelaLote tr').remove();
+
+    var tr = $('<tr/>');
+
+    tr.append('<th class="text-center">Casa</th>');
+    tr.append('<th class="text-center">Lote</th>');
+    tr.append('<th class="text-center">AR</th>');
+    tr.append('<th class="text-center">Localidade</th>');
+    tr.append('<th class="text-center">Bairro</th>');
+    tr.append('<th class="text-center">Endereço</th>');
+    tr.append('<th class="text-center">PT</th>');
+    tr.append('<th class="text-center">ULTMOTIVO</th>');
+    tr.append('<th class="text-center">AGULT</th>');
+    tr.append('<th class="text-center">DTULT</th>');
+    tr.append('<th class="text-center">HRULT</th>');
+    tr.append('<th class="text-center">CASASTATUS</th>');
+    tr.append('<th class="text-center">Zid</th>');
+    tr.append('<th class="text-center">Did</th>');
+    tr.append('<th class="text-center">Aid</th>');
+    tr.append('<th class="text-center">CondId</th>');
+    tr.append('<th class="text-center">PtId</th>');
+    tr.append('<th class="text-center">IdLote</th>');
+    tr.append('<th class="text-center">STATUSCLID</th>');
+    tr.append('<th class="text-center">CLID</th>');
+
+    $('#headTabelaLote').append(tr);
+};
+
+function montaHeadLocal() {
+    $('#headTabelaLote tr').remove();
+
+    var tr = $('<tr/>');
+
+    tr.append('<th class="text-center">Casa</th>');
+    tr.append('<th class="text-center">Lote</th>');
+    tr.append('<th class="text-center">Z</th>');
+    tr.append('<th class="text-center">D</th>');
+    tr.append('<th class="text-center">AR</th>');
+    tr.append('<th class="text-center">PT</th>');
+    tr.append('<th class="text-center">Localidade</th>');
+    tr.append('<th class="text-center">Bairro</th>');
+    tr.append('<th class="text-center">Via</th>');
+    tr.append('<th class="text-center">Logradouro</th>');
+    tr.append('<th class="text-center">Num</th>');
+    tr.append('<th class="text-center">Comp</th>');
+    tr.append('<th class="text-center">Bloco</th>');
+    tr.append('<th class="text-center">Apt</th>');
+    tr.append('<th class="text-center">ULTMOTIVO</th>');
+    tr.append('<th class="text-center">AGULT</th>');
+    tr.append('<th class="text-center">DTULT</th>');
+    tr.append('<th class="text-center">STATUSCL</th>');
+    tr.append('<th class="text-center">DTSTATUSCL</th>');
+    tr.append('<th class="text-center">CASASTATUS</th>');
+    tr.append('<th class="text-center">Visitado</th>');
+    tr.append('<th class="text-center">Visitas</th>');
+    tr.append('<th class="text-center">Ausentes</th>');
+    tr.append('<th class="text-center">VendaApp</th>');
+    tr.append('<th class="text-center">Condomínio</th>');
+    tr.append('<th class="text-center">CASOA</th>');
+    tr.append('<th class="text-center">CASOB</th>');
+    tr.append('<th class="text-center">CASOC</th>');
+    tr.append('<th class="text-center">CASOD</th>');
+    tr.append('<th class="text-center">DTULT2</th>');
+    tr.append('<th class="text-center">HRULT</th>');
+
+    $('#headTabelaLote').append(tr);
+};
+
 function postToController() {
     var data = getFormDataAsJson();
     //, 'application/json; charset=utf-8'
@@ -97,76 +230,6 @@ function tabelaLoteAtivos(retorno) {
 
 };
 
-function montaHeadTabelaNao() {
-    
-    $('#headTabelaLote tr').remove();
-
-    var tr = $('<tr/>');
-
-    tr.append('<th class="text-center">Casa</th>');
-    tr.append('<th class="text-center">Lote</th>');
-    tr.append('<th class="text-center">AR</th>');
-    tr.append('<th class="text-center">Localidade</th>');
-    tr.append('<th class="text-center">Bairro</th>');
-    tr.append('<th class="text-center">Endereço</th>');
-    tr.append('<th class="text-center">PT</th>');
-    tr.append('<th class="text-center">ULTMOTIVO</th>');
-    tr.append('<th class="text-center">AGULT</th>');
-    tr.append('<th class="text-center">DTULT</th>');
-    tr.append('<th class="text-center">HRULT</th>');
-    tr.append('<th class="text-center">CASASTATUS</th>');
-    tr.append('<th class="text-center">Zid</th>');
-    tr.append('<th class="text-center">Did</th>');
-    tr.append('<th class="text-center">Aid</th>');
-    tr.append('<th class="text-center">CondId</th>');
-    tr.append('<th class="text-center">PtId</th>');
-    tr.append('<th class="text-center">IdLote</th>');
-    tr.append('<th class="text-center">STATUSCLID</th>');
-    tr.append('<th class="text-center">CLID</th>');
-
-    $('#headTabelaLote').append(tr);
-};
-
-function montaHeadLocal() {
-    $('#headTabelaLote tr').remove();
-    
-    var tr = $('<tr/>');
-
-    tr.append('<th class="text-center">Casa</th>');
-    tr.append('<th class="text-center">Lote</th>');
-    tr.append('<th class="text-center">Z</th>');
-    tr.append('<th class="text-center">D</th>');
-    tr.append('<th class="text-center">AR</th>');
-    tr.append('<th class="text-center">PT</th>');
-    tr.append('<th class="text-center">Localidade</th>');
-    tr.append('<th class="text-center">Bairro</th>');
-    tr.append('<th class="text-center">Via</th>');
-    tr.append('<th class="text-center">Logradouro</th>');
-    tr.append('<th class="text-center">Num</th>');
-    tr.append('<th class="text-center">Comp</th>');
-    tr.append('<th class="text-center">Bloco</th>');
-    tr.append('<th class="text-center">Apt</th>');
-    tr.append('<th class="text-center">ULTMOTIVO</th>');
-    tr.append('<th class="text-center">AGULT</th>');
-    tr.append('<th class="text-center">DTULT</th>');
-    tr.append('<th class="text-center">STATUSCL</th>');
-    tr.append('<th class="text-center">DTSTATUSCL</th>');
-    tr.append('<th class="text-center">CASASTATUS</th>');
-    tr.append('<th class="text-center">Visitado</th>');
-    tr.append('<th class="text-center">Visitas</th>');
-    tr.append('<th class="text-center">Ausentes</th>');
-    tr.append('<th class="text-center">VendaApp</th>');
-    tr.append('<th class="text-center">Condomínio</th>');
-    tr.append('<th class="text-center">CASOA</th>');
-    tr.append('<th class="text-center">CASOB</th>');
-    tr.append('<th class="text-center">CASOC</th>');
-    tr.append('<th class="text-center">CASOD</th>');
-    tr.append('<th class="text-center">DTULT2</th>');
-    tr.append('<th class="text-center">HRULT</th>');
-
-    $('#headTabelaLote').append(tr);
-};
-
 function tabelaLoteNao(retorno) {
     // montaHeadTabelaNao();
     montaHeadTabelaNao();
@@ -213,16 +276,6 @@ function tabelaEstatisticas(retorno) {
         $('#ep' + i).html(retorno.Porcentagens[i] + '%');
     }
 
-}
-
-function atualizaView(retorno) {
-    tabelaEstatisticas(retorno)
-    tabelaLoteAtivos(retorno);
-};
-
-function atualizaViewNao(retorno) {
-    tabelaEstatisticas(retorno)
-    tabelaLoteNao(retorno)
 }
 
 function limpaFiltro() {
@@ -284,55 +337,4 @@ function ExportaPadraoGas() {
     }
 }
 
-function clicado() {
-    var id = '';
-    if ($('#todos').data('clicked')) {
-        $('#todos').data('clicked', false);
-        id = 'todos';
-        $('#todosli').addClass('disabled');
 
-        $('#ativosli').removeClass('disabled');
-        $('#semLoteTodosli').removeClass('disabled');
-        $('#semLoteNaoli').removeClass('disabled');
-
-    } else if ($('#ativos').data('clicked')) {
-        $('#ativos').data('clicked', false);
-        id = 'ativos';
-        $('#todosli').removeClass('disabled')
-        $('#ativosli').addClass('disabled');
-
-        $('#semLoteTodosli').removeClass('disabled');
-        $('#semLoteNaoli').removeClass('disabled');
-
-
-    } else if ($('#semLoteTodos').data('clicked')) {
-        $('#semLoteTodos').data('clicked', false)
-        id = 'semLoteTodos';
-        $('#todosli').removeClass('disabled')
-        $('#ativosli').removeClass('disabled');
-
-        $('#semLoteTodosli').addClass('disabled');
-        $('#semLoteNaoli').removeClass('disabled');
-
-    } else if ($('#semLoteNao').data('clicked')) {
-        $('#semLoteNao').data('clicked', false)
-        id = 'semLoteNao';
-        $('#todosli').removeClass('disabled')
-        $('#ativosli').removeClass('disabled');
-        $('#semLoteTodosli').removeClass('disabled');
-
-        $('#semLoteNaoli').addClass('disabled');
-    } else if (id == '') {
-        if ( $("#todosli").hasClass('disabled')){
-            id = 'todos';
-        } else if ($("#ativosli").hasClass('disabled')) {
-            id = 'ativos';
-        } else if ($("#semLoteTodosli").hasClass('disabled')) {
-            id = 'semLoteTodos';
-        } else if ($("#semLoteNaoli").hasClass('disabled')) {
-            id = 'semLoteNao';
-        }
-    }
-
-    return id;
-}
