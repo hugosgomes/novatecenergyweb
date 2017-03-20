@@ -15,5 +15,6 @@ namespace NovatecEnergyWeb.Models
         public string Z { get; set; }
 
         public virtual ICollection<_00Delegação> _00Delegação { get; set; }
+        public IEnumerable<ClientesWeb> ClientesWeb { get;  set; }
     }
 }

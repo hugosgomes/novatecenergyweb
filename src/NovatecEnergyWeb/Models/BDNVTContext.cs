@@ -9042,6 +9042,31 @@ namespace NovatecEnergyWeb.Models
                 entity.Property(e => e.Email)
                 .HasColumnName("EMAIL")
                 .HasMaxLength(255);
+
+                entity.Property(e => e.Zona)
+                .HasColumnName("ZONA");
+
+                entity.HasOne(d => d.ZonaObj)
+                .WithMany(e => e.ClientesWeb)
+                .HasForeignKey(d => d.Zona)
+                .HasConstraintName("FK_ClientesWeb_00_Zona");
+                
+                entity.Property(e => e.Delegacao)
+                .HasColumnName("DELEGACAO");
+
+                entity.HasOne(d => d.DelegacaoObj)
+                .WithMany(e => e.ClientesWeb)
+                .HasForeignKey(d => d.Delegacao)
+                .HasConstraintName("FK_ClientesWeb_00_Delegação");
+
+                entity.Property(e => e.Area)
+                .HasColumnName("AREA");
+
+                entity.HasOne(d => d.AreaObj)
+                .WithMany(e => e.ClientesWeb)
+                .HasForeignKey(d => d.Area)
+                .HasConstraintName("FK_ClientesWeb_00_Areas");
+
             });
 
         }

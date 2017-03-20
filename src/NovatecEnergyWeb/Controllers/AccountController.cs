@@ -59,6 +59,10 @@ namespace NovatecEnergyWeb.Controllers
                         HttpContext.Session.SetString("Login", cliente[0].Login);
                         HttpContext.Session.SetString("UserTipo", account.Tipo);
                         HttpContext.Session.SetInt32("Grupo", -1); // cliente não possui grupo e 0 é grupo de TI
+                        HttpContext.Session.SetInt32("Zona", cliente[0].Zona);
+                        HttpContext.Session.SetInt32("Delegação", cliente[0].Delegacao);
+                        HttpContext.Session.SetInt32("Área", cliente[0].Area);
+
                     }
 
                 }
@@ -79,6 +83,10 @@ namespace NovatecEnergyWeb.Controllers
             HttpContext.Session.Remove("Login");
             HttpContext.Session.Remove("UserTipo");
             HttpContext.Session.Remove("Grupo");
+            HttpContext.Session.Remove("Zona");
+            HttpContext.Session.Remove("Delegação");
+            HttpContext.Session.Remove("Área");
+
 
             return RedirectToAction("Login", "Account");
         }

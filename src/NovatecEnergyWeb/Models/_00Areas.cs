@@ -20,5 +20,6 @@ namespace NovatecEnergyWeb.Models
         public virtual ICollection<_00Bairro> _00Bairro { get; set; }
         public virtual ICollection<_30ComerciaisAreas> _30ComerciaisAreas { get; set; }
         public virtual _00Delegação DelegacaoNavigation { get; set; }
+        public IEnumerable<ClientesWeb> ClientesWeb { get; set; }
     }
 }

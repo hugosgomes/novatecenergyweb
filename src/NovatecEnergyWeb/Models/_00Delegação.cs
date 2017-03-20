@@ -24,5 +24,6 @@ namespace NovatecEnergyWeb.Models
         public virtual ICollection<_50PrecertId> _50PrecertId { get; set; }
         public virtual Clientes ClienteNavigation { get; set; }
         public virtual _00Zona ZonaNavigation { get; set; }
+        public IEnumerable<ClientesWeb> ClientesWeb { get;  set; }
     }
 }

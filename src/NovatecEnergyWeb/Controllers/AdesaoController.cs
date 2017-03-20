@@ -11,6 +11,7 @@ using System.Dynamic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using NovatecEnergyWeb.Filters.ActionFilters;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -129,12 +130,14 @@ namespace NovatecEnergyWeb.Controllers
             return GetListLoteAtivoView(null, true, "todos");
         }
 
+       
         public IActionResult EnderecosVisitas()
         {
             BindSelects();
             return GetListLoteAtivoView(null, true, "ativos");
         }
 
+       
         public IActionResult EnderecosVisitasSemLote()
         {
             BindSelects();
@@ -171,18 +174,22 @@ namespace NovatecEnergyWeb.Controllers
         public List<_11_LoteAtivo> GetListLoteAtivo([FromForm]FormFiltersViewModels filtros)
         {
             string storedProcedure = HttpContext.Session.GetString("SP_Lote");
-
+            int ? area = HttpContext.Session.GetInt32("Área");
+            int ? delegacao = HttpContext.Session.GetInt32("Delegação");
+            int ? zona = HttpContext.Session.GetInt32("Zona");
+            
             IQueryable<_11_LoteAtivo> ev;
             if (filtros == null)
             {
-                ev = _context._11_LoteAtivo.FromSql("exec "+ storedProcedure);
+                ev = _context._11_LoteAtivo.FromSql("exec "+ storedProcedure + " {0},{1},{2},{3},{4},{5},{6},{7} ",null,null,null,null,null,zona,delegacao, area);
             }
             else
             {
                 ev = _context._11_LoteAtivo.FromSql("exec "+storedProcedure+" {0},{1},{2},{3},{4},{5}," +
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
-                    filtros.ClId, filtros.ZId, filtros.DId, filtros.AId, filtros.StatusId,
+                    filtros.ClId, ((zona != null)? zona.ToString(): filtros.ZId), 
+                    ((delegacao !=null)? delegacao.ToString(): filtros.DId.ToString()), ((area != null)? area.ToString():filtros.AId), filtros.StatusId,
                     filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
                     filtros.Logradouro, filtros.Numero1, filtros.Numero2);
             }
@@ -192,13 +199,18 @@ namespace NovatecEnergyWeb.Controllers
         //fornece os dados para Exportação padrão Gás Natural
         public List<_11_LoteAtivoB> GetListLoteAtivoB(FormFiltersViewModels filtros)
         {
+            int? area = HttpContext.Session.GetInt32("Área");
+            int? delegacao = HttpContext.Session.GetInt32("Delegação");
+            int? zona = HttpContext.Session.GetInt32("Zona");
+
             IQueryable<_11_LoteAtivoB> lb;
             //if(filtros == null)
             //{
             lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] {0},{1},{2},{3},{4},{5}," +
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
-                    filtros.ClId, filtros.ZId, filtros.DId, filtros.AId, filtros.StatusId,
+                    filtros.ClId, ((zona != null) ? zona.ToString() : filtros.ZId), ((delegacao != null) ? delegacao.ToString() : filtros.DId.ToString()),
+                    ((area != null) ? area.ToString() : filtros.AId), filtros.StatusId,
                     filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
                     filtros.Logradouro, filtros.Numero1, filtros.Numero2);
             //}
