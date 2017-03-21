@@ -152,15 +152,22 @@
                         <div class="controls">
                             @{ 
                                 int? zona = Context.Session.GetInt32("Zona");
-                                // int? area = Context.Session.GetInt32("Área");
-                                // int? delegacao =  Context.Session.GetInt32("Delegação");
 
                                 if (zona != null) {
                                     <select id="zonas" onchange="postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
-                                        @foreach (var item in ViewBag.Zonas)
-                                        {
-                                            <option value="@item.Id">@item.Zona</option>
-                                        }
+                                       @for(int i = 0; i < ViewBag.Zonas.Count; i++)
+                                       {
+                                           if (zona == ViewBag.Zonas[i].Id)
+                                           {
+                                               ViewBag.ZonaSelecionada = i;
+                                               <option value="@ViewBag.Zonas[i].Id">@ViewBag.Zonas[i].Zona</option>
+                                           }
+                                           else
+                                           {
+                                                <option value="@ViewBag.Zonas[i].Id">@ViewBag.Zonas[i].Zona</option>
+                                           }
+                                       }
+                                       
                                     </select>
                                 }
                                 else
@@ -172,7 +179,6 @@
                                         }
                                     </select>
                                 }
-
                             }
                         </div>
                     </div>
@@ -186,15 +192,18 @@
                                 if (delegacao != null)
                                 {
                                     <select id="delegacoes" onchange="postToController();"  disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
-                                        @foreach (var item in ViewBag.Delegacao)
-                                        {
-                                            <option value="@item.Id">@item.Delegacao</option>
-                                        }
+                                       @for (int i = 0; i < ViewBag.Delegacao.Count; i++)
+                                       {
+                                           if (delegacao == ViewBag.Delegacao[i].Id)
+                                           {
+                                               ViewBag.DelegacaoSel = i;
+                                           }
+                                        <option value="@ViewBag.Delegacao[i].Id">@ViewBag.Delegacao[i].Delegacao</option>
+                                       }
                                     </select>
                                 }
                                 else
                                 {
-
                                     <select id="delegacoes" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                         @foreach (var item in ViewBag.Delegacao)
                                         {
@@ -212,14 +221,16 @@
 
                             @{
                                 int? area = Context.Session.GetInt32("Área");
-
                                 if (area != null)
                                 {
-
                                     <select id="areas" onchange="postToController();"  disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
-                                        @foreach (var item in ViewBag.Areas)
+                                        @for (int i = 0; i < ViewBag.Areas.Count; i++)
                                         {
-                                            <option value="@item.Id">@item.Area</option>
+                                            if (area == ViewBag.Areas[i].Id)
+                                            {
+                                                ViewBag.AreaSel = i;
+                                            }
+                                            <option value="@ViewBag.Areas[i].Id">@ViewBag.Areas[i].Area</option>
                                         }
                                     </select>
                                 }
@@ -297,18 +308,24 @@
                         </div>
                     </div>
 
-                    <div class="control-group">
+                    <div class="col-xs-6">
                         <label class="labelsFormNav">Número Entre</label>
                         <input id="Numero1" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:60px" type="text" />
+                    </div>
+                    <div class="col-xs-offset-3"></div>
+                    <div class="col-xs-4">
                         <label class="labelsFormNav">E</label>
-                        <input id="Numero2" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:50px" type="text" />
+                        <input id="Numero2" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:60px" type="text" />
                     </div>
 
 
                     <br />
+                    <br />
+                    <br />
 
-                    <a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a>
-                    <a href="#" onclick="postToController();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a>
+                    <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
+                    <div class="col-xs-8"><a href="#" onclick="postToController();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
+                    
 
 
                     <br />
@@ -414,8 +431,20 @@
 
 @section scripts {
     <script type="text/javascript">
+        var zs = @ViewBag.ZonaSelecionada;
+        var ds = @ViewBag.DelegacaoSel;
+        var as = @ViewBag.AreaSel;
 
-     
+        if (zs != null){
+            $("#zonas").prop("selectedIndex", zs);
+        }
 
+        if (ds !=null){
+            $("#delegacoes").prop("selectedIndex", ds);
+        }
+
+        if (as != null){
+            $("#areas").prop("selectedIndex", as);
+        }
     </script>
     }
