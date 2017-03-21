@@ -188,8 +188,9 @@ namespace NovatecEnergyWeb.Controllers
                 ev = _context._11_LoteAtivo.FromSql("exec "+storedProcedure+" {0},{1},{2},{3},{4},{5}," +
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
-                    filtros.ClId, ((zona != null)? zona.ToString(): filtros.ZId), 
-                    ((delegacao !=null)? delegacao.ToString(): filtros.DId.ToString()), ((area != null)? area.ToString():filtros.AId), filtros.StatusId,
+                    filtros.ClId, ((zona != null)? zona.ToString(): (filtros.ZId != null) ? filtros.ZId.ToString() : null), 
+                    ((delegacao !=null)? delegacao.ToString(): (filtros.DId != null) ? filtros.DId.ToString() : null),
+                    ((area != null)? area.ToString(): (filtros.AId !=null)? filtros.AId: null), filtros.StatusId,
                     filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
                     filtros.Logradouro, filtros.Numero1, filtros.Numero2);
             }
@@ -209,8 +210,9 @@ namespace NovatecEnergyWeb.Controllers
             lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] {0},{1},{2},{3},{4},{5}," +
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
-                    filtros.ClId, ((zona != null) ? zona.ToString() : filtros.ZId), ((delegacao != null) ? delegacao.ToString() : filtros.DId.ToString()),
-                    ((area != null) ? area.ToString() : filtros.AId), filtros.StatusId,
+                    filtros.ClId, ((zona != null) ? zona.ToString() : (filtros.ZId != null) ? filtros.ZId.ToString() : null),
+                    ((delegacao != null) ? delegacao.ToString() : (filtros.DId != null) ? filtros.DId.ToString() : null),
+                    ((area != null) ? area.ToString() : (filtros.AId != null) ? filtros.AId : null), filtros.StatusId,
                     filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
                     filtros.Logradouro, filtros.Numero1, filtros.Numero2);
             //}
