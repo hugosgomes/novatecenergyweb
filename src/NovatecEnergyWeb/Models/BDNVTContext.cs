@@ -8,6 +8,7 @@ namespace NovatecEnergyWeb.Models
 {
     public partial class BDNVTContext : DbContext
     {
+        public virtual DbSet<ClientesAreas> ClientesAreas { get; set; }
         public virtual DbSet<_11_LoteNao> _11_LoteNao { get; set; }
         public virtual DbSet<_11_LoteAtivoB> _11_LoteAtivoB { get; set; }
         public virtual DbSet<_11_LoteAtivos_Condominios> _11_LoteAtivo_Condominios { get; set; }
@@ -219,6 +220,7 @@ namespace NovatecEnergyWeb.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<_11_LoteNao>().HasKey(c => c.Casa);
             modelBuilder.Entity<_11_LoteAtivoB>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_LoteAtivos_Condominios>().HasKey(c => c.Id);
@@ -228,6 +230,33 @@ namespace NovatecEnergyWeb.Models
             modelBuilder.Entity<_10_CargasMetas>().HasKey(c => c.Id);
             modelBuilder.Entity<_10_MetasCargas>().HasKey(c => c.Id);
             modelBuilder.Entity<_50_AvancoMes>().HasKey(c => c.Id);
+
+            modelBuilder.Entity<ClientesAreas>(entity => 
+            {
+                entity.ToTable("70_ClientesAreas");
+
+                entity.HasKey(e => e.Id)
+                .HasName("PK_ClientesWebAreas");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.IdArea)
+                .HasColumnName("IDAREA");
+
+                entity.Property(e => e.IdCliente)
+                .HasColumnName("IDCLIENTE");
+
+                entity.HasOne(d => d.ClienteObj)
+                .WithMany(e => e.ClientesAreas)
+                .HasForeignKey(e => e.IdCliente)
+                .HasConstraintName("FK_70_ClientesAreas_70_ClientesWeb");
+
+                entity.HasOne(d => d.AreaObj)
+                .WithMany(e => e.ClientesAreas)
+                .HasForeignKey(e => e.IdArea)
+                .HasConstraintName("FK_ClientesWebAreas_00_Areas");
+
+            });
 
             modelBuilder.Entity<Cdtributacao>(entity =>
             {
@@ -5366,6 +5395,7 @@ namespace NovatecEnergyWeb.Models
                 entity.Property(e => e.UserSystem).HasColumnName("USERSYSTEM");
                 entity.Property(e => e.DataSystem).HasColumnName("DATASYSTEM");
                 entity.Property(e => e.Status).HasColumnName("STATUS");
+                entity.Property(e => e.Area).HasColumnName("AREA");
             });
 
 
@@ -9020,7 +9050,7 @@ namespace NovatecEnergyWeb.Models
 
             modelBuilder.Entity<ClientesWeb>(entity =>
             {
-                entity.ToTable("ClientesWeb");
+                entity.ToTable("70_ClientesWeb");
 
                 entity.HasKey(e => e.Id)
                 .HasName("PK_ClientesWeb");
@@ -9059,13 +9089,13 @@ namespace NovatecEnergyWeb.Models
                 .HasForeignKey(d => d.Delegacao)
                 .HasConstraintName("FK_ClientesWeb_00_Delegação");
 
-                entity.Property(e => e.Area)
+            /*    entity.Property(e => e.Area)
                 .HasColumnName("AREA");
 
                 entity.HasOne(d => d.AreaObj)
                 .WithMany(e => e.ClientesWeb)
                 .HasForeignKey(d => d.Area)
-                .HasConstraintName("FK_ClientesWeb_00_Areas");
+                .HasConstraintName("FK_ClientesWeb_00_Areas"); */
 
             });
 

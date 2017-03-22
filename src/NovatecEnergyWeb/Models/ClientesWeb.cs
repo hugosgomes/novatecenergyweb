@@ -41,11 +41,12 @@ namespace NovatecEnergyWeb.Models
         [Required(ErrorMessage = "Informe a delegação")]
         public int Delegacao { get; set; }
 
-        [Required(ErrorMessage = "Informe a área")]
-        public int Area { get; set; }
+       /* [Required(ErrorMessage = "Informe a área")]
+        public int Area { get; set; }*/
 
         public virtual _00Zona ZonaObj { get; set; }
         public virtual _00Delegação DelegacaoObj { get; set; }
-        public virtual _00Areas AreaObj { get; set; }
+        // public virtual _00Areas AreaObj { get; set; }
+        public virtual IEnumerable<ClientesAreas> ClientesAreas { get; set; }
     }
 }

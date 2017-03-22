@@ -43,21 +43,33 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
 
         public int? Visitado { get; set; }
 
-        public int? Visitas { get; set; }
-
-        public int? Ausentes { get; set; }
+        public int? Contratado { get; set; }
 
         public int? VendaApp { get; set; }
 
-        public string UltMotivo { get; set; }
+        public int? Visitas { get; set; }
 
-        public string Dtult { get; set; }
+        public int? Entrevistas { get; set; }
+
+        public int? Ausencias { get; set; }
+
+        public int? Endinex { get; set; }
+
+        public int? D2 { get; set; }
+
+        public int? Svg { get; set; }
+
+        public int? Sve { get; set; }
+
+        public string UltMotivo { get; set; }
 
         public String Agult { get; set; }
 
+        public DateTime? Dtult { get; set; }
+        
         public String StatusCl { get; set; }
 
-        public string DtStatusCl { get; set; }
+        public  DateTime ? DtStatusCl { get; set; }
 
         public int? CasoA { get; set; }
 
@@ -79,18 +91,16 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
 
         public int? IdLote { get; set; }
 
-        public int? IdultMotivo { get; set; }
-
-        public int? IdAgult { get; set; }
-
         public int? StatusClid { get; set; }
 
         public int? ClId { get; set; }
+
+        public int? CondStatus { get; set; }
 
         public String Dtult2 { get; set; }
 
         public String Hrult { get; set; }
 
-
+        public int? IdultMotivo { get; set; }
     }
 }

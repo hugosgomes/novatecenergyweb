@@ -88,7 +88,7 @@ namespace NovatecEnergyWeb.Models
                     worksheet.Cells["R" + (i + 2).ToString()].Value = data[i].Visitas;
                     worksheet.Cells["R" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["S" + (i + 2).ToString()].Value = data[i].Ausentes;
+                    worksheet.Cells["S" + (i + 2).ToString()].Value = data[i].Ausencias;
                     worksheet.Cells["S" + (i + 2).ToString()].Style.Font.Size = 8;
 
                     worksheet.Cells["T" + (i + 2).ToString()].Value = data[i].VendaApp;
@@ -139,23 +139,17 @@ namespace NovatecEnergyWeb.Models
                     worksheet.Cells["AI" + (i + 2).ToString()].Value = data[i].IdLote;
                     worksheet.Cells["AI" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AJ" + (i + 2).ToString()].Value = data[i].IdultMotivo;
+                    worksheet.Cells["AJ" + (i + 2).ToString()].Value = data[i].StatusClid;
                     worksheet.Cells["AJ" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AK" + (i + 2).ToString()].Value = data[i].IdAgult;
+                    worksheet.Cells["AK" + (i + 2).ToString()].Value = data[i].ClId;
                     worksheet.Cells["AK" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AL" + (i + 2).ToString()].Value = data[i].StatusClid;
+                    worksheet.Cells["AL" + (i + 2).ToString()].Value = data[i].Dtult2;
                     worksheet.Cells["AL" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AM" + (i + 2).ToString()].Value = data[i].ClId;
+                    worksheet.Cells["AM" + (i + 2).ToString()].Value = data[i].Hrult;
                     worksheet.Cells["AM" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["AN" + (i + 2).ToString()].Value = data[i].Dtult2;
-                    worksheet.Cells["AN" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["AO" + (i + 2).ToString()].Value = data[i].Hrult;
-                    worksheet.Cells["AO" + (i + 2).ToString()].Style.Font.Size = 8;
 
                 }
                 package.Save();

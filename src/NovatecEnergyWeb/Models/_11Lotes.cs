@@ -17,5 +17,6 @@ namespace NovatecEnergyWeb.Models
         public string UserSystem { get; set; }
         public DateTime? DataSystem { get; set; }
         public int Status { get; set; }
+        public int Area { get; set; }
     }
 }

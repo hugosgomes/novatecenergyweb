@@ -174,25 +174,26 @@ namespace NovatecEnergyWeb.Controllers
         public List<_11_LoteAtivo> GetListLoteAtivo([FromForm]FormFiltersViewModels filtros)
         {
             string storedProcedure = HttpContext.Session.GetString("SP_Lote");
-            int ? area = HttpContext.Session.GetInt32("Área");
+            int? id = HttpContext.Session.GetInt32("UserId");
             int ? delegacao = HttpContext.Session.GetInt32("Delegação");
             int ? zona = HttpContext.Session.GetInt32("Zona");
-            
+            string tipo = HttpContext.Session.GetString("UserTipo");
+
             IQueryable<_11_LoteAtivo> ev;
             if (filtros == null)
             {
-                ev = _context._11_LoteAtivo.FromSql("exec "+ storedProcedure + " {0},{1},{2},{3},{4},{5},{6},{7} ",null,null,null,null,null,zona,delegacao, area);
+                ev = _context._11_LoteAtivo.FromSql("exec " + storedProcedure + " {0},{1},{2},{3},{4},{5},{6},{7},{8}," +
+                    "{9},{10},{11},{12},{13},{14},{15},{16}", null,null,null,null,null,zona,delegacao, null,null, null, null, null, null, null, null,null, (tipo == "cli") ? id : null);
             }
             else
             {
                 ev = _context._11_LoteAtivo.FromSql("exec "+storedProcedure+" {0},{1},{2},{3},{4},{5}," +
-                     "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
+                     "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16}",
                     filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
                     filtros.ClId, ((zona != null)? zona.ToString(): (filtros.ZId != null) ? filtros.ZId.ToString() : null), 
                     ((delegacao !=null)? delegacao.ToString(): (filtros.DId != null) ? filtros.DId.ToString() : null),
-                    ((area != null)? area.ToString(): (filtros.AId !=null)? filtros.AId: null), filtros.StatusId,
-                    filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
-                    filtros.Logradouro, filtros.Numero1, filtros.Numero2);
+                    filtros.AId , filtros.StatusId,filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
+                    filtros.Logradouro, filtros.Numero1, filtros.Numero2, (tipo == "cli")? id:null);
             }
             return ev.ToList();
         }
@@ -240,7 +241,7 @@ namespace NovatecEnergyWeb.Controllers
             ViewBag.VisitaAgendadaPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitaAgendada), Convert.ToDecimal(evList.Count())) * 100):0;
 
             ViewBag.Visitas = evList.Sum(c => c.Visitas);
-            ViewBag.Ausentes = evList.Sum(c => c.Ausentes);
+            ViewBag.Ausentes = evList.Sum(c => c.Ausencias);
             ViewBag.VisitasComResposta = ViewBag.Visitas - ViewBag.Ausentes;
             ViewBag.VisitasComRespostaPercent =(ViewBag.Visitas != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitasComResposta), Convert.ToDecimal(ViewBag.Visitas)) * 100):0;
             ViewBag.AusentesPercent = (ViewBag.Visitas != 0) ?  Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Ausentes), Convert.ToDecimal(ViewBag.Visitas)) * 100):0;

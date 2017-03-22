@@ -16,28 +16,28 @@
                 <table>
                     <tbody class="fontTableBodyNavBar">
                         <tr>
-                            <td class="col-sm-8">Total de Endereços </td>
-                            <td id="e0" class="col-sm-2 text-right">@Model.Count()</td>
-                            <td class="col-sm-2 text-right">100%</td>
+                            <td class="col-xs-9">Total Unidades (Potencial) </td>
+                            <td id="e0" class="col-xs-2 text-right">@Model.Count()</td>
+                            <td class="col-xs-1 text-right">100%</td>
                         </tr>
                         <tr>
-                            <td class="col-sm-8">Endereços Visitados</td>
+                            <td class="col-sm-8">Unidades Visitadas</td>
                             <td id="e1" class="col-sm-2 text-right">@ViewBag.Visitados</td>
                             <td id="ep0" class="col-sm-2 text-right">@ViewBag.VisitadosPercent%</td>
                         </tr>
                         <tr class="espacoAbaixo">
-                            <td class="col-sm-8">Endereços Não Visitados</td>
+                            <td class="col-sm-8">Unidades Não Visitadas</td>
                             <td id="e2" class="col-sm-2 text-right">@ViewBag.NaoVisitados</td>
                             <td id="ep1" class="col-sm-2 text-right">@ViewBag.NaoVisitadosPercent%</td>
                         </tr>
 
                         <tr>
-                            <td class="col-sm-8">Contratados</td>
+                            <td class="col-sm-8">Unidades Contratadas</td>
                             <td id="e3" class="col-sm-2 text-right">@ViewBag.Contratados</td>
                             <td id="ep2" class="col-sm-2 text-right">@ViewBag.ContratadosPercent%</td>
                         </tr>
                         <tr>
-                            <td class="col-sm-8">Não Contratados</td>
+                            <td class="col-sm-8">Unidades Não Contratadas</td>
                             <td id="e4" class="col-sm-2 text-right">@ViewBag.NaoContratados</td>
                             <td id="ep3" class="col-sm-2 text-right">@ViewBag.NaoContratadosPercent%</td>
 
@@ -372,9 +372,15 @@
                         <th class="text-center">DTSTATUSCL</th>
                         <th class="text-center">CASASTATUS</th>
                         <th class="text-center">Visitado</th>
-                        <th class="text-center">Visitas</th>
-                        <th class="text-center">Ausentes</th>
+                        <th class="text-center">Contratado</th>
                         <th class="text-center">VendaApp</th>
+                        <th class="text-center">Visitas</th>
+                        <th class="text-center">Entrevistas</th>
+                        <th class="text-center">Ausentes</th>
+                        <th class="text-center">Endinex</th>
+                        <th class="text-center">D2</th>
+                        <th class="text-center">SVG</th>
+                        <th class="text-center">SVE</th>
                         <th class="text-center">Condomínio</th>
                         <th class="text-center">CASOA</th>
                         <th class="text-center">CASOB</th>
@@ -409,9 +415,15 @@
                             <td id="DtStatusCl_@item.Id">@item.DtStatusCl</td>
                             <td id="CasaStatus_@item.Id">@item.CasaStatus</td>
                             <td id="Visitado_@item.Id">@item.Visitado</td>
-                            <td id="Visitas_@item.Id">@item.Visitas</td>
-                            <td id="Ausentes_@item.Id">@item.Ausentes</td>
+                            <td id="Contratado_@item.Id">@item.Contratado</td>
                             <td id="VendaApp_@item.Id">@item.VendaApp</td>
+                            <td id="Visitas_@item.Id">@item.Visitas</td>
+                            <td id="Entrevistas_@item.Id">@item.Entrevistas</td>
+                            <td id="Ausentes_@item.Id">@item.Ausencias</td>
+                            <td id="Endinex_@item.Id">@item.Endinex</td>
+                            <td id="D2_@item.Id">@item.D2</td>
+                            <td id="Svg_@item.Id">@item.Svg</td>
+                            <td id="Sve_@item.Id">@item.Sve</td>
                             <td id="Condominio_@item.Id">@item.Condominio</td>
                             <td id="CasoA_@item.Id">@item.CasoA</td>
                             <td id="CasoB_@item.Id">@item.CasoB</td>
