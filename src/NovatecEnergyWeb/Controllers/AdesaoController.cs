@@ -237,9 +237,16 @@ namespace NovatecEnergyWeb.Controllers
             ViewBag.ContratadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Contratados), Convert.ToDecimal(evList.Count())) * 100):0;
             ViewBag.NaoContratados = evList.Sum(c => c.CasoA);
             ViewBag.NaoContratadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.NaoContratados), Convert.ToDecimal(evList.Count())) * 100):0;
+
+            ViewBag.D2 = evList.Sum(e => e.D2);
+            ViewBag.D2Percent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.D2), Convert.ToDecimal(evList.Count())) * 100) : 0;
+            ViewBag.Svg = evList.Sum(e => e.Svg);
+            ViewBag.SvgPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Svg), Convert.ToDecimal(evList.Count())) * 100) : 0;
+            ViewBag.Sve = evList.Sum(e => e.Sve);
+            ViewBag.SvePercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Sve), Convert.ToDecimal(evList.Count())) * 100) : 0;
+
             ViewBag.VisitaAgendada = evList.Sum(c => c.CasoB);
             ViewBag.VisitaAgendadaPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitaAgendada), Convert.ToDecimal(evList.Count())) * 100):0;
-
             ViewBag.Visitas = evList.Sum(c => c.Visitas);
             ViewBag.Ausentes = evList.Sum(c => c.Ausencias);
             ViewBag.VisitasComResposta = ViewBag.Visitas - ViewBag.Ausentes;
@@ -254,23 +261,29 @@ namespace NovatecEnergyWeb.Controllers
                 jsonModel.Numeracoes = new List<string>();
                 jsonModel.Porcentagens = new List<string>();
 
-                jsonModel.Numeracoes.Add(evList.Count().ToString());
-                jsonModel.Numeracoes.Add(ViewBag.Visitados.ToString());
-                jsonModel.Numeracoes.Add(ViewBag.NaoVisitados.ToString());
-                jsonModel.Numeracoes.Add(ViewBag.Contratados.ToString());
-                jsonModel.Numeracoes.Add(ViewBag.NaoContratados.ToString());
-                jsonModel.Numeracoes.Add(ViewBag.VisitaAgendada.ToString());
-                jsonModel.Numeracoes.Add(ViewBag.Visitas.ToString());
-                jsonModel.Numeracoes.Add(ViewBag.VisitasComResposta.ToString());
-                jsonModel.Numeracoes.Add(ViewBag.Ausentes.ToString());
+                jsonModel.Numeracoes.Add(evList.Count().ToString()); //e0
+                jsonModel.Numeracoes.Add(ViewBag.Visitados.ToString()); //e1
+                jsonModel.Numeracoes.Add(ViewBag.NaoVisitados.ToString());//e2
+                jsonModel.Numeracoes.Add(ViewBag.Contratados.ToString());//e3
+                jsonModel.Numeracoes.Add(ViewBag.NaoContratados.ToString());//e4
+                jsonModel.Numeracoes.Add(ViewBag.D2.ToString());//e5
+                jsonModel.Numeracoes.Add(ViewBag.Svg.ToString());//e6
+                jsonModel.Numeracoes.Add(ViewBag.Sve.ToString());//e7
+                jsonModel.Numeracoes.Add(ViewBag.VisitaAgendada.ToString());//e8
+                jsonModel.Numeracoes.Add(ViewBag.Visitas.ToString());//e9
+                jsonModel.Numeracoes.Add(ViewBag.VisitasComResposta.ToString());//e10
+                jsonModel.Numeracoes.Add(ViewBag.Ausentes.ToString());//e11
 
-                jsonModel.Porcentagens.Add(ViewBag.VisitadosPercent.ToString());
-                jsonModel.Porcentagens.Add(ViewBag.NaoVisitadosPercent.ToString());
-                jsonModel.Porcentagens.Add(ViewBag.ContratadosPercent.ToString());
-                jsonModel.Porcentagens.Add(ViewBag.NaoContratadosPercent.ToString());
-                jsonModel.Porcentagens.Add(ViewBag.VisitaAgendadaPercent.ToString());
-                jsonModel.Porcentagens.Add(ViewBag.VisitasComRespostaPercent.ToString());
-                jsonModel.Porcentagens.Add(ViewBag.AusentesPercent.ToString());
+                jsonModel.Porcentagens.Add(ViewBag.VisitadosPercent.ToString()); //ep0
+                jsonModel.Porcentagens.Add(ViewBag.NaoVisitadosPercent.ToString()); //ep1
+                jsonModel.Porcentagens.Add(ViewBag.ContratadosPercent.ToString());//ep2
+                jsonModel.Porcentagens.Add(ViewBag.NaoContratadosPercent.ToString());//ep3
+                jsonModel.Porcentagens.Add(ViewBag.D2Percent.ToString());//ep4
+                jsonModel.Porcentagens.Add(ViewBag.SvgPercent.ToString());//ep5
+                jsonModel.Porcentagens.Add(ViewBag.SvePercent.ToString());//ep6
+                jsonModel.Porcentagens.Add(ViewBag.VisitaAgendadaPercent.ToString());//ep7
+                jsonModel.Porcentagens.Add(ViewBag.VisitasComRespostaPercent.ToString());//ep8
+                jsonModel.Porcentagens.Add(ViewBag.AusentesPercent.ToString()); //ep9
 
                 jsonModel.EV = evList;
 
