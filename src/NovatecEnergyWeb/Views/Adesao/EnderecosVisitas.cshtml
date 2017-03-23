@@ -159,7 +159,7 @@
 
                                 if (delegacao != null)
                                 {
-                                    <select id="delegacoes" onchange="postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                    <select id="delegacoes" onchange="postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
                                         @for (int i = 0; i < ViewBag.Delegacao.Count; i++)
                                         {
                                             if (delegacao == ViewBag.Delegacao[i].Id)
@@ -172,7 +172,7 @@
                                 }
                                 else
                                 {
-                                    <select id="delegacoes" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                    <select id="delegacoes" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
                                         @foreach (var item in ViewBag.Delegacao)
                                         {
                                             <option value="@item.Id">@item.Delegacao</option>
