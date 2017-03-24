@@ -26,6 +26,42 @@ namespace NovatecEnergyWeb.Controllers
             _hostingEnvironment = he;
         }
 
+        public IActionResult ClienteCascade(int cliente)
+        {
+            var zonas = (from z in _context._00Zona
+                         join dl in _context._00Delegacao on z.Id equals dl.Zona
+                         where z.Id < 3 && dl.Cliente == cliente
+                         select new
+                         {
+                             Id = z.Id,
+                             Zona = z.Zona,
+                         })
+                .GroupBy(x => new {  x.Id, x.Zona })
+               .Select(c => new _00Zona { Id = c.Key.Id , Zona = c.Key.Zona }).ToList();
+
+            //delegacao
+            var delegacao = _context._00Delegacao.Where(c => c.Zona == zonas.FirstOrDefault().Id
+            && c.Cliente == cliente).Select(c => new _00Delegação{ Id= c.Id, Delegacao = c.Delegacao, Zona = c.Zona })
+            .ToList();
+
+            var listint = new List<int>();
+            foreach (var item in delegacao)
+            {
+                listint.Add(item.Id);
+            }
+            //area
+            // var areasL = _context._00Areas.Include(x => x.DelegacaoNavigation).ToList();
+            // var areafinal = areasL.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
+            var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
+
+            dynamic retorno = new ExpandoObject();
+            retorno.Zonas = zonas;
+            retorno.Delegaco = delegacao;
+            retorno.Area = areasL;
+
+            return Json(retorno);
+        }
+
         public void BindSelects()
         {
 
