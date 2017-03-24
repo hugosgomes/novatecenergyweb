@@ -349,4 +349,32 @@ function ExportaPadraoGas() {
     }
 }
 
+function postCascade() {
+    var p = {};
+    p.cliente = $('#clientesCeg').val();
+    $.post('/Adesao/ClienteCascade', p, atualizaDrops);
+
+}
+function atualizaDrops(retorno) {
+    $("#zonas").empty();
+    $("#delegacoes").empty();
+    $("#areas").empty();
+
+
+    $.each(retorno.Zonas, function () {
+        $("#zonas").append($("<option />").val(this.id).text(this.zona));
+    });
+
+    $.each(retorno.Delegacao, function () {
+        $("#delegacoes").append($("<option />").val(this.id).text(this.delegacao));
+    });
+
+    $.each(retorno.Area, function () {
+        $("#areas").append($("<option />").val(this.id).text(this.area));
+    });
+   
+    $("#zonas").prop("selectedIndex", -1);
+    $("#delegacoes").prop("selectedIndex", -1);
+    $("#areas").prop("selectedIndex", -1);
+}
 

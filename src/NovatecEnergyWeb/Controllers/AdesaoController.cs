@@ -54,11 +54,16 @@ namespace NovatecEnergyWeb.Controllers
             // var areafinal = areasL.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
             var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
 
+            //condominio
+            var listCond = _context._11_LoteAtivo_Condominios.FromSql("exec [dbo].[11_LoteAtivo_Condominios]").ToList();
+            ViewBag.ListaCondominios = new List<_11_LoteAtivos_Condominios>();
+            
+
             dynamic retorno = new ExpandoObject();
             retorno.Zonas = zonas;
-            retorno.Delegaco = delegacao;
+            retorno.Delegacao = delegacao;
             retorno.Area = areasL;
-
+            retorno.Condominio = listCond;
             return Json(retorno);
         }
 
