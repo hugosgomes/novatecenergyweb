@@ -360,8 +360,8 @@ function atualizaDrops(retorno) {
     $("#zonas").empty();
     $("#delegacoes").empty();
     $("#areas").empty();
-
-
+    $("#lotes").empty();
+    
     $.each(retorno.Zonas, function () {
         $("#zonas").append($("<option />").val(this.id).text(this.zona));
     });
@@ -374,9 +374,14 @@ function atualizaDrops(retorno) {
         $("#areas").append($("<option />").val(this.id).text(this.area));
     });
    
+    $.each(retorno.Lote, function () {
+        $("#lotes").append($("<option />").val(this.id).text(this.ge));
+    });
+
     $("#zonas").prop("selectedIndex", -1);
     $("#delegacoes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
+    $("#lotes").prop("selectedIndex", -1);
 }
 
 function postZona() {

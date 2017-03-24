@@ -55,7 +55,23 @@ namespace NovatecEnergyWeb.Controllers
             var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
 
             //lotes 
-          //  var lotes = _context.
+            var listAreaInt = new List<int>();
+            foreach (var item in areasL)
+            {
+                listAreaInt.Add(item.Id);
+            }
+
+            var lotes = (from l in _context._11Lotes
+                         where listAreaInt.Contains(l.Area)
+                         join ti in _context._00TabelasItems on l.Status equals ti.Id
+                         select new
+                         {
+                             Id = l.Id,
+                             LoteNum = l.LoteNum,
+                             Ge = l.Ge,
+                             DataLote = l.DataLote,
+                             Item = ti.Item
+                         }).ToList();
 
             //condominio
             var listCond = _context._11_LoteAtivo_Condominios.FromSql("exec [dbo].[11_LoteAtivo_Condominios]").ToList();
@@ -66,7 +82,8 @@ namespace NovatecEnergyWeb.Controllers
             retorno.Zonas = zonas;
             retorno.Delegacao = delegacao;
             retorno.Area = areasL;
-            retorno.Condominio = listCond;
+           // retorno.Condominio = listCond;
+            retorno.Lote = lotes;
             return Json(retorno);
         }
 
@@ -104,7 +121,7 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult AreaCascade(int area)
         {
             var lotes = (from l in _context._11Lotes
-                         where l.Area == area
+                         where l.Area == area && l.Id == 1
                          join ti in _context._00TabelasItems on l.Status equals ti.Id
                          select new 
                          {
@@ -119,7 +136,6 @@ namespace NovatecEnergyWeb.Controllers
             retorno.Lote = lotes;
             return Json(retorno);
         }
-
 
 
         public void BindSelects()
