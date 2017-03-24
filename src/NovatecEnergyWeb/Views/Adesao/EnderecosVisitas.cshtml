@@ -122,7 +122,7 @@
 
                                 if (zona != null)
                                 {
-                                    <select id="zonas" onchange="postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                    <select id="zonas" onchange="postZona(); postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                         @for (int i = 0; i < ViewBag.Zonas.Count; i++)
                                         {
                                             if (zona == ViewBag.Zonas[i].Id)
@@ -140,7 +140,7 @@
                                 }
                                 else
                                 {
-                                    <select id="zonas" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                    <select id="zonas" onchange="postZona(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                         @foreach (var item in ViewBag.Zonas)
                                         {
                                             <option value="@item.Id">@item.Zona</option>
@@ -159,7 +159,7 @@
 
                                 if (delegacao != null)
                                 {
-                                    <select id="delegacoes" onchange="postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
+                                    <select id="delegacoes" onchange="postDelegacao(); postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
                                         @for (int i = 0; i < ViewBag.Delegacao.Count; i++)
                                         {
                                             if (delegacao == ViewBag.Delegacao[i].Id)
@@ -191,7 +191,7 @@
                                 int? area = Context.Session.GetInt32("Área");
                                 if (area != null)
                                 {
-                                    <select id="areas" onchange="postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
+                                    <select id="areas" onchange="postArea(); postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
                                         @for (int i = 0; i < ViewBag.Areas.Count; i++)
                                         {
                                             if (area == ViewBag.Areas[i].Id)
@@ -204,13 +204,12 @@
                                 }
                                 else
                                 {
-                                    <select id="areas" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
+                                    <select id="areas" onchange="postArea(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
                                         @foreach (var item in ViewBag.Areas)
                                         {
                                             <option value="@item.Id">@item.Area</option>
                                         }
                                     </select>
-
                                 }
                             }
 

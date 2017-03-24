@@ -54,6 +54,9 @@ namespace NovatecEnergyWeb.Controllers
             // var areafinal = areasL.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
             var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
 
+            //lotes 
+          //  var lotes = _context.
+
             //condominio
             var listCond = _context._11_LoteAtivo_Condominios.FromSql("exec [dbo].[11_LoteAtivo_Condominios]").ToList();
             ViewBag.ListaCondominios = new List<_11_LoteAtivos_Condominios>();
@@ -67,9 +70,60 @@ namespace NovatecEnergyWeb.Controllers
             return Json(retorno);
         }
 
+        public IActionResult ZonaCascade(int zona)
+        {
+            //delegacao
+            //&& c.Cliente == cliente
+            var delegacao = _context._00Delegacao.Where(c => c.Zona == zona)
+                .Select(c => new _00Delegação { Id = c.Id, Delegacao = c.Delegacao, Zona = c.Zona })
+            .ToList();
+
+            var listint = new List<int>();
+            foreach (var item in delegacao)
+            {
+                listint.Add(item.Id);
+            }
+            //area
+            var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
+
+            dynamic retorno = new ExpandoObject();
+            retorno.Delegacao = delegacao;
+            retorno.Area = areasL;
+            return Json(retorno);
+        }
+
+        public IActionResult DelegacaoCascade(int delegacao)
+        {
+            var areasL = _context._00Areas.Where(x => x.Delegacao == delegacao).ToList();
+
+            dynamic retorno = new ExpandoObject();
+            retorno.Area = areasL;
+            return Json(retorno);
+        }
+
+        public IActionResult AreaCascade(int area)
+        {
+            var lotes = (from l in _context._11Lotes
+                         where l.Area == area
+                         join ti in _context._00TabelasItems on l.Status equals ti.Id
+                         select new 
+                         {
+                             Id = l.Id,
+                             LoteNum = l.LoteNum,
+                             Ge = l.Ge,
+                             DataLote = l.DataLote,
+                             Item = ti.Item
+                         }) .ToList();
+
+            dynamic retorno = new ExpandoObject();
+            retorno.Lote = lotes;
+            return Json(retorno);
+        }
+
+
+
         public void BindSelects()
         {
-
             var lotes = (from l in _context._11Lotes
                          join ti in _context._00TabelasItems on l.Status equals ti.Id
                          select new
@@ -170,15 +224,13 @@ namespace NovatecEnergyWeb.Controllers
             BindSelects();
             return GetListLoteAtivoView(null, true, "todos");
         }
-
-       
+   
         public IActionResult EnderecosVisitas()
         {
             BindSelects();
             return GetListLoteAtivoView(null, true, "ativos");
         }
-
-       
+   
         public IActionResult EnderecosVisitasSemLote()
         {
             BindSelects();

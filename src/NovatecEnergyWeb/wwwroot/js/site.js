@@ -355,6 +355,7 @@ function postCascade() {
     $.post('/Adesao/ClienteCascade', p, atualizaDrops);
 
 }
+
 function atualizaDrops(retorno) {
     $("#zonas").empty();
     $("#delegacoes").empty();
@@ -376,5 +377,62 @@ function atualizaDrops(retorno) {
     $("#zonas").prop("selectedIndex", -1);
     $("#delegacoes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
+}
+
+function postZona() {
+    var p = {};
+    p.zona = $("#zonas").val();
+    $.post('/Adesao/ZonaCascade', p, atualizaDropsZona);
+
+}
+
+function atualizaDropsZona(retorno) {
+    $("#delegacoes").empty();
+    $("#areas").empty();
+
+    $.each(retorno.Delegacao, function () {
+        $("#delegacoes").append($("<option />").val(this.id).text(this.delegacao));
+    });
+
+    $.each(retorno.Area, function () {
+        $("#areas").append($("<option />").val(this.id).text(this.area));
+    });
+
+    $("#delegacoes").prop("selectedIndex", -1);
+    $("#areas").prop("selectedIndex", -1);
+}
+
+function postDelegacao() {
+    var p = {};
+    p.delegacao = $("#delegacoes").val();
+    $.post('/Adesao/DelegacaoCascade', p, atualizaDropsZona);
+}
+
+function atualizaDropsDelegacao(retorno) {
+    $("#areas").empty();
+
+    $.each(retorno.Area, function () {
+        $("#areas").append($("<option />").val(this.id).text(this.area));
+    });
+
+    $("#areas").prop("selectedIndex", -1);
+}
+
+function postArea() {
+    var p = {};
+
+    p.area = $("#areas").val();
+    $.post('/Adesao/AreaCascade', p, atualizaDropsArea);
+}
+
+function atualizaDropsArea(retorno) {
+    $("#lotes").empty();
+
+    $.each(retorno.Lote, function () {
+        $("#lotes").append($("<option />").val(this.id).text(this.ge));
+    });
+
+    $("#lotes").prop("selectedIndex", -1);
+
 }
 
