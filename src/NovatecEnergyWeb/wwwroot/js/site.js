@@ -494,4 +494,45 @@ function atualizaDropsArea(retorno) {
     $("#condominiosId").prop("selectedIndex", -1);
 }
 
+function postLote() {
+    var p = {};
+
+    p.lote = $("#lotes").val();
+    $.post('/Adesao/LoteCascade', p, atualizaDropsLote);
+}
+
+function atualizaDropsLote(retorno) {
+    $("#condominiosId").empty();
+
+    $.each(retorno.Condominio, function () {
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+        $("#condominiosId").append($("<option />").val(this.id)
+        .text(this.nome + p.text() + this.num + p.text() + this.complemento + p.text() +
+        this.item + p.text() + this.z + p.text() + this.d));
+    });
+
+    $("#condominiosId").prop("selectedIndex", -1);
+}
+
+function postStatusCond() {
+    var p = {};
+
+    p.status = $("#statusCond").val();
+    p.area = $("#areas").val();
+    $.post('/Adesao/StatusCliCascade', p, atualizaDropsStatus);
+}
+
+function atualizaDropsStatus(retorno) {
+    $("#condominiosId").empty();
+    
+    $.each(retorno.Condominio, function () {
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+        $("#condominiosId").append($("<option />").val(this.id)
+        .text(this.nome + p.text() + this.num + p.text() + this.complemento + p.text() +
+        this.item + p.text() + this.z + p.text() + this.d));
+    });
+
+    $("#condominiosId").prop("selectedIndex", -1);
+}
+
 

@@ -220,7 +220,7 @@
                      <div class="control-group">
                         <label class="control-label labelsFormNav">Lote</label>
                         <div class="controls">
-                            <select id="lotes" name="LoteError" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
+                            <select id="lotes" name="LoteError" onchange="postLote(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
 
                                 @foreach (var item in ViewBag.Lotes)
                                 {
@@ -274,7 +274,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Status Cond.</label>
                         <div class="controls">
-                            <select id="statusCond" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="statusCond" onchange="postStatusCond(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.StatusCondominios)
                                 {
                                     <option value="@item.Id">@item.Item</option>
