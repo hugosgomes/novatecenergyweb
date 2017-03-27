@@ -209,6 +209,7 @@ namespace NovatecEnergyWeb.Controllers
             retorno.Condominio = condominio;
             return Json(retorno);
         }
+
         public List<_11_LoteAtivos_Condominios> getCondominios(List<int> areas, int area, int status)
         {
 
@@ -333,7 +334,7 @@ namespace NovatecEnergyWeb.Controllers
             }
 
             var statusCondominio = _context._00TabelasItems
-                .Where(c => (c.Tabela == 237) && (c.Campo == "STATUS"))
+                .Where(c => (c.Tabela == 237) && (c.Campo == "STATUS") && (c.Id != 25))
                 .OrderBy(c => c.Ordem)
                 .Select(c => new { c.Id, c.Item }).ToList();
             ViewBag.StatusCondominios = new List<_00TabelasItems>();
