@@ -225,10 +225,10 @@
                                 @foreach (var item in ViewBag.Lotes)
                                 {
                                     <option value="@item[0]">
-                                        @item[1]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @item[1]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         @item[2]
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        @item[3]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item[4]
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @item[3]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item[4]
                                     </option>
                                 }
 
@@ -286,7 +286,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Condomínio</label>
                         <div class="controls">
-                            <select id="condominiosId" onclick="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="condominiosId" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 @foreach (var item in ViewBag.ListaCondominios)
                                 {
                                     <option value="@item.Id">

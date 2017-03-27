@@ -395,6 +395,7 @@ function atualizaDropsZona(retorno) {
     $("#delegacoes").empty();
     $("#areas").empty();
     $("#lotes").empty();
+    $("#condominiosId").empty();
 
     $.each(retorno.Delegacao, function () {
         $("#delegacoes").append($("<option />").val(this.id).text(this.delegacao));
@@ -413,9 +414,17 @@ function atualizaDropsZona(retorno) {
               + this.item));
     });
 
+    $.each(retorno.Condominio, function () {
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+        $("#condominiosId").append($("<option />").val(this.id)
+        .text(this.nome + p.text() + this.num + p.text() + this.complemento + p.text()+
+        this.item + p.text() + this.z + p.text()+this.d));
+    });
+
     $("#lotes").prop("selectedIndex", -1);
     $("#delegacoes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
+    $("#condominiosId").prop("selectedIndex", -1);
 }
 
 function postDelegacao() {
@@ -427,6 +436,7 @@ function postDelegacao() {
 function atualizaDropsDelegacao(retorno) {
     $("#areas").empty();
     $("#lotes").empty();
+    $("#condominiosId").empty();
 
     $.each(retorno.Area, function () {
         $("#areas").append($("<option />").val(this.id).text(this.area));
@@ -441,8 +451,16 @@ function atualizaDropsDelegacao(retorno) {
               + this.item));
     });
 
+    $.each(retorno.Condominio, function () {
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+        $("#condominiosId").append($("<option />").val(this.id)
+        .text(this.nome + p.text() + this.num + p.text() + this.complemento + p.text() +
+        this.item + p.text() + this.z + p.text() + this.d));
+    });
+    
     $("#lotes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
+    $("#condominiosId").prop("selectedIndex", -1);
 }
 
 function postArea() {
@@ -454,6 +472,7 @@ function postArea() {
 
 function atualizaDropsArea(retorno) {
     $("#lotes").empty();
+    $("#condominiosId").empty();
 
     $.each(retorno.Lote, function () {
         var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
@@ -464,7 +483,15 @@ function atualizaDropsArea(retorno) {
               + this.item));
     });
 
-    $("#lotes").prop("selectedIndex", -1);
+    $.each(retorno.Condominio, function () {
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+        $("#condominiosId").append($("<option />").val(this.id)
+        .text(this.nome + p.text() + this.num + p.text() + this.complemento + p.text() +
+        this.item + p.text() + this.z + p.text() + this.d));
+    });
 
+    $("#lotes").prop("selectedIndex", -1);
+    $("#condominiosId").prop("selectedIndex", -1);
 }
+
 
