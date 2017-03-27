@@ -349,14 +349,14 @@ function ExportaPadraoGas() {
     }
 }
 
-function postCascade() {
+function postCascadeCliente() {
     var p = {};
     p.cliente = $('#clientesCeg').val();
-    $.post('/Adesao/ClienteCascade', p, atualizaDrops);
+    $.post('/Adesao/ClienteCascade', p, atualizaDropsCliente);
 
 }
 
-function atualizaDrops(retorno) {
+function atualizaDropsCliente(retorno) {
     $("#zonas").empty();
     $("#delegacoes").empty();
     $("#areas").empty();
@@ -394,6 +394,7 @@ function postZona() {
 function atualizaDropsZona(retorno) {
     $("#delegacoes").empty();
     $("#areas").empty();
+    $("#lotes").empty();
 
     $.each(retorno.Delegacao, function () {
         $("#delegacoes").append($("<option />").val(this.id).text(this.delegacao));
@@ -403,6 +404,16 @@ function atualizaDropsZona(retorno) {
         $("#areas").append($("<option />").val(this.id).text(this.area));
     });
 
+    $.each(retorno.Lote, function () {
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+        $("#lotes").append($("<option />").val(this.id).text(this.loteNum + p.text()
+              + this.ge + p.text()
+              + this.dataLote + p.text()
+              + this.item));
+    });
+
+    $("#lotes").prop("selectedIndex", -1);
     $("#delegacoes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
 }
@@ -410,16 +421,27 @@ function atualizaDropsZona(retorno) {
 function postDelegacao() {
     var p = {};
     p.delegacao = $("#delegacoes").val();
-    $.post('/Adesao/DelegacaoCascade', p, atualizaDropsZona);
+    $.post('/Adesao/DelegacaoCascade', p, atualizaDropsDelegacao);
 }
 
 function atualizaDropsDelegacao(retorno) {
     $("#areas").empty();
+    $("#lotes").empty();
 
     $.each(retorno.Area, function () {
         $("#areas").append($("<option />").val(this.id).text(this.area));
     });
 
+    $.each(retorno.Lote, function () {
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+        $("#lotes").append($("<option />").val(this.id).text(this.loteNum + p.text()
+              + this.ge + p.text()
+              + this.dataLote + p.text()
+              + this.item));
+    });
+
+    $("#lotes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
 }
 
@@ -434,7 +456,12 @@ function atualizaDropsArea(retorno) {
     $("#lotes").empty();
 
     $.each(retorno.Lote, function () {
-        $("#lotes").append($("<option />").val(this.id).text(this.ge));
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+        $("#lotes").append($("<option />").val(this.id).text(this.loteNum + p.text()
+              + this.ge + p.text()
+              + this.dataLote + p.text()
+              + this.item));
     });
 
     $("#lotes").prop("selectedIndex", -1);

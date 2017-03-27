@@ -104,15 +104,15 @@
 
 
                 <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
-                    <div class="control-group">
+                   <!-- <div class="control-group">
                         <label class="control-label labelsFormNav">Cliente</label>
                         <div class="controls">
-                            <select id="clientesCeg" onchange="postCascade(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="clientesCeg" onchange="postCascadeCliente(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                 <option value="12">CEG</option>
                                 <option value="13">CEG RIO</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                     
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Zona</label>
@@ -172,7 +172,7 @@
                                 }
                                 else
                                 {
-                                    <select id="delegacoes" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
+                                    <select id="delegacoes" onchange="postDelegacao(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
                                         @foreach (var item in ViewBag.Delegacao)
                                         {
                                             <option value="@item.Id">@item.Delegacao</option>

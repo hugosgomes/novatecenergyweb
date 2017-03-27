@@ -103,32 +103,76 @@ namespace NovatecEnergyWeb.Controllers
             //area
             var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
 
+            //lotes
+            //lotes 
+            var listAreaInt = new List<int>();
+            foreach (var item in areasL)
+            {
+                listAreaInt.Add(item.Id);
+            }
+
+            var lotes = (from l in _context._11Lotes
+                         where listAreaInt.Contains(l.Area)
+                         join ti in _context._00TabelasItems on l.Status equals ti.Id
+                         select new
+                         {
+                             Id = l.Id,
+                             LoteNum = l.LoteNum,
+                             Ge = l.Ge,
+                             DataLote = l.DataLote, //.GetValueOrDefault().ToString("dd/MM/yyyy")
+                             Item = ti.Item
+                         }).ToList();
+
             dynamic retorno = new ExpandoObject();
             retorno.Delegacao = delegacao;
             retorno.Area = areasL;
+            retorno.Lote = lotes;
+
             return Json(retorno);
         }
 
         public IActionResult DelegacaoCascade(int delegacao)
         {
+            //áreas
             var areasL = _context._00Areas.Where(x => x.Delegacao == delegacao).ToList();
+
+            //lotes 
+            var listAreaInt = new List<int>();
+            foreach (var item in areasL)
+            {
+                listAreaInt.Add(item.Id);
+            }
+
+            var lotes = (from l in _context._11Lotes
+                         where listAreaInt.Contains(l.Area)
+                         join ti in _context._00TabelasItems on l.Status equals ti.Id
+                         select new
+                         {
+                             Id = l.Id,
+                             LoteNum = l.LoteNum,
+                             Ge = l.Ge,
+                             DataLote = l.DataLote,
+                             Item = ti.Item
+                         }).ToList();
 
             dynamic retorno = new ExpandoObject();
             retorno.Area = areasL;
+            retorno.Lote = lotes;
+
             return Json(retorno);
         }
 
         public IActionResult AreaCascade(int area)
         {
             var lotes = (from l in _context._11Lotes
-                         where l.Area == area && l.Id == 1
+                         where l.Area == area //&& l.Id == 1
                          join ti in _context._00TabelasItems on l.Status equals ti.Id
                          select new 
                          {
                              Id = l.Id,
                              LoteNum = l.LoteNum,
                              Ge = l.Ge,
-                             DataLote = l.DataLote,
+                             DataLote = l.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"),
                              Item = ti.Item
                          }) .ToList();
 
