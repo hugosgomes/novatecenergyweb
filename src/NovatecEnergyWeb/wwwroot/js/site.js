@@ -406,7 +406,6 @@ function atualizaDropsZona(retorno) {
     $("#delegacoes").empty();
     $("#areas").empty();
     $("#lotes").empty();
-    $("#CasaStatus").empty();
     $("#condominiosId").empty();
 
 
