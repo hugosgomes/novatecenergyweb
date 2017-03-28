@@ -407,7 +407,6 @@ function atualizaDropsZona(retorno) {
     $("#areas").empty();
     $("#lotes").empty();
     $("#CasaStatus").empty();
-    $("#statusCond").empty();
     $("#condominiosId").empty();
 
 
@@ -438,7 +437,6 @@ function atualizaDropsZona(retorno) {
     $("#lotes").prop("selectedIndex", -1);
     $("#delegacoes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
-    $("#statusCond").prop("selectedIndex", -1);
     $("#condominiosId").prop("selectedIndex", -1);
 }
 
