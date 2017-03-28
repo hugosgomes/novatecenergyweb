@@ -433,8 +433,20 @@
                             <td id="UltMotivo_@item.Id">@item.UltMotivo</td>
                             <td id="Agult_@item.Id">@item.Agult</td>
                             <td id="Dtult_@item.Id">@item.Dtult</td>
+                            
                             <td id="StatusCl_@item.Id">@item.StatusCl</td>
-                            <td id="DtStatusCl_@item.Id">@item.DtStatusCl</td>
+                            @{
+                                if (item.DtStatusCl == null)
+                                {
+                                    <td id="DtStatusCl_@item.Id"></td>
+
+                                }
+                                else
+                                {
+                                <td id="DtStatusCl_@item.Id">@item.DtStatusCl</td>
+                                }
+                             }
+
                             <td id="CasaStatus_@item.Id">@item.CasaStatus</td>
                             <td id="Visitado_@item.Id">@item.Visitado</td>
                             <td id="Contratado_@item.Id">@item.Contratado</td>

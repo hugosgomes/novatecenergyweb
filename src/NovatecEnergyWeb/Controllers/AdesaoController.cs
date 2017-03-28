@@ -522,6 +522,7 @@ namespace NovatecEnergyWeb.Controllers
                 jsonModel.Porcentagens.Add(ViewBag.VisitasComRespostaPercent.ToString());//ep8
                 jsonModel.Porcentagens.Add(ViewBag.AusentesPercent.ToString()); //ep9
 
+
                 jsonModel.EV = evList;
 
                 return Json(jsonModel);

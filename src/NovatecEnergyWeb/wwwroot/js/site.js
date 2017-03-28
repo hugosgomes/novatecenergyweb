@@ -214,11 +214,22 @@ function tabelaLoteAtivos(retorno) {
         tr.append("<td>" + retorno.EV[i].complemento + "</td>");
         tr.append("<td>" + retorno.EV[i].bloco + "</td>");
         tr.append("<td>" + retorno.EV[i].apt + "</td>");
-        tr.append("<td>" + retorno.EV[i].ultMotivo + "</td>");
-        tr.append("<td>" + retorno.EV[i].agult + "</td>");
+        
+        if (retorno.EV[i].ultMotivo == null) {
+            tr.append("<td></td>");
+        } else {
+            tr.append("<td>" + retorno.EV[i].ultMotivo + "</td>");
+        }
+        
+        if (retorno.EV[i].agult == null) {
+            tr.append("<td></td>");
+        } else {
+            tr.append("<td>" + retorno.EV[i].agult + "</td>");
+        }
+        
         tr.append("<td>" + retorno.EV[i].dtult + "</td>");
         tr.append("<td>" + retorno.EV[i].statusCl + "</td>");
-        tr.append("<td>" + retorno.EV[i].dtStatusCl + "</td>");
+        tr.append("<td>" + retorno.EV[i].dtStatusCl + "</td>");      
         tr.append("<td>" + retorno.EV[i].casaStatus + "</td>");
         tr.append("<td>" + retorno.EV[i].visitado + "</td>");
         tr.append("<td>" + retorno.EV[i].contratado + "</td>");
@@ -284,8 +295,8 @@ function tabelaEstatisticas(retorno) {
         $('#e' + i).html(retorno.Numeracoes[i]);
     }
 
-    for (var i = 0; i < retorno.Porcentagens.length; i++) {
-        $('#ep' + i).html(retorno.Porcentagens[i] + '%');
+    for (var j = 0; j < retorno.Porcentagens.length; j++) {
+        $('#ep' + j).html(retorno.Porcentagens[j] + '%');
     }
 
 }
@@ -395,7 +406,10 @@ function atualizaDropsZona(retorno) {
     $("#delegacoes").empty();
     $("#areas").empty();
     $("#lotes").empty();
+    $("#CasaStatus").empty();
+    $("#statusCond").empty();
     $("#condominiosId").empty();
+
 
     $.each(retorno.Delegacao, function () {
         $("#delegacoes").append($("<option />").val(this.id).text(this.delegacao));
@@ -424,6 +438,7 @@ function atualizaDropsZona(retorno) {
     $("#lotes").prop("selectedIndex", -1);
     $("#delegacoes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
+    $("#statusCond").prop("selectedIndex", -1);
     $("#condominiosId").prop("selectedIndex", -1);
 }
 
