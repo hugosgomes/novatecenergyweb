@@ -321,6 +321,7 @@ function limpaFiltro() {
 
     var parametro = {};
     parametro.Botao = clicado();
+    parametro.LimpaFiltro = true;
 
 
     if ($("#todosli").hasClass('disabled')) {
@@ -333,11 +334,80 @@ function limpaFiltro() {
         id = 'semLoteNao';
     }
 
-    if ((parametro.Botao == 'todos') || (parametro.Botao == 'ativos'))
-        $.post('/Adesao/LimpaFiltros', parametro, atualizaView);
+    if ((parametro.Botao == 'todos') || (parametro.Botao == 'ativos')) {
+        $.post('/Adesao/LimpaFiltros', parametro, bindSelects);
+
+    }
     else {
         $.post('/Adesao/LimpaFiltrosNao', parametro, atualizaViewNao);
     }
+}
+
+function bindSelects(retorno) {
+    atualizaView(retorno);
+    var parametro = {};
+    
+    parametro.LimpaFiltro = true;
+    $.post('/Adesao/LimpaSelects', parametro, atualizaSelects);
+}
+
+function atualizaSelects(retorno) {
+
+    $('#lotes').empty();
+    $('#motivosRejeicao').empty();
+    $('#zonas').empty();
+    $('#delegacoes').empty();
+    $('#areas').empty();
+    $('#statusCond').empty();
+    $('#condominiosId').empty();
+
+    var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+    for (var i = 0; i < retorno.Lotes.length; i++) {
+        $("#lotes").append($("<option />").val(retorno.Lotes[i][0]).text(retorno.Lotes[i][1] + p.text()
+              + retorno.Lotes[i][2] + p.text()
+              + retorno.Lotes[i][3] + p.text()
+              + retorno.Lotes[i][4]));
+    }
+
+    for (var i = 0; i <  retorno.MotivosRejeicao.length; i++) {
+        $('#motivosRejeicao').append($("<option />").val(retorno.MotivosRejeicao[i].id).text(retorno.MotivosRejeicao[i].motivo));
+    }
+
+    for (var i = 0; i < retorno.Zonas.length; i++) {
+        $('#zonas').append($("<option />").val(retorno.Zonas[i].id).text(retorno.Zonas[i].zona));
+    }
+
+    for (var i = 0; i < retorno.Delegacao.length; i++) {
+        $('#delegacoes').append($("<option />").val(retorno.Delegacao[i].id).text(retorno.Delegacao[i].delegacao));
+    }
+
+    for (var i = 0; i < retorno.Areas.length; i++) {
+        $('#areas').append($("<option />").val(retorno.Areas[i].id).text(retorno.Areas[i].area));
+    }
+
+    for (var i = 0; i < retorno.StatusCondominios.length; i++) {
+        $('#statusCond').append($("<option />").val(retorno.StatusCondominios[i].id).text(retorno.StatusCondominios[i].item));
+    }
+
+    for (var i = 0; i < retorno.ListaCondominios.length; i++) {
+        var b = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+        $('#condominiosId').append($("<option />").val(retorno.ListaCondominios[i].id).text(retorno.ListaCondominios[i].nome +
+            b.text() +
+            retorno.ListaCondominios[i].num + b.text() + retorno.ListaCondominios[i].complemento + b.text() +
+            retorno.ListaCondominios[i].item + b.text() + retorno.ListaCondominios[i].z + b.text()
+            + retorno.ListaCondominios[i].d))
+    }
+
+    $("#lotes").prop("selectedIndex", -1);
+    $('#CasaStatus').prop("selectedIndex", -1);
+    $('#motivosRejeicao').prop("selectedIndex", -1);
+    $('#zonas').prop("selectedIndex", -1);
+    $('#delegacoes').prop("selectedIndex", -1);
+    $('#areas').prop("selectedIndex", -1);
+    $('#statusCond').prop("selectedIndex", -1);
+    $('#condominiosId').prop("selectedIndex", -1);
+
 }
 
 function ExportaPadraoNovatec() {
@@ -386,7 +456,12 @@ function atualizaDropsCliente(retorno) {
     });
    
     $.each(retorno.Lote, function () {
-        $("#lotes").append($("<option />").val(this.id).text(this.ge));
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+        $("#lotes").append($("<option />").val(this.id).text(this.loteNum + p.text()
+              + this.ge + p.text()
+              + this.dataLote + p.text()
+              + this.item));
     });
 
     $("#zonas").prop("selectedIndex", -1);

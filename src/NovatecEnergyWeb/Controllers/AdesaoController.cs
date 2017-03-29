@@ -361,6 +361,8 @@ namespace NovatecEnergyWeb.Controllers
                 c.D = item.D;
                 ViewBag.ListaCondominios.Add(c);
             }
+
+
         }
 
         public IActionResult EnderecosVisitasAtivosTodos()
@@ -588,6 +590,23 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult LimpaFiltros(string Botao)
         {
             return GetListLoteAtivoView(null, false, Botao);
+        }
+
+        public IActionResult LimpaSelects(bool LimpaFiltro)
+        {
+            BindSelects();
+            var i = ViewBag.Lotes;
+
+            dynamic jsonModel = new ExpandoObject();
+            jsonModel.Lotes = ViewBag.Lotes;
+            jsonModel.MotivosRejeicao = ViewBag.MotivosRejeicao;
+            jsonModel.Zonas = ViewBag.Zonas;
+            jsonModel.Delegacao = ViewBag.Delegacao;
+            jsonModel.Areas = ViewBag.Areas;
+            jsonModel.StatusCondominios = ViewBag.StatusCondominios;
+            jsonModel.ListaCondominios = ViewBag.ListaCondominios;
+
+            return Json(jsonModel);
         }
 
         public IActionResult LimpaFiltrosNao(string Botao)
