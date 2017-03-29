@@ -418,12 +418,14 @@ namespace NovatecEnergyWeb.Controllers
             int ? delegacao = HttpContext.Session.GetInt32("Delegação");
             int ? zona = HttpContext.Session.GetInt32("Zona");
             string tipo = HttpContext.Session.GetString("UserTipo");
+            int? area = HttpContext.Session.GetInt32("Área");
 
-            IQueryable<_11_LoteAtivo> ev;
+            IQueryable <_11_LoteAtivo> ev;
             if (filtros == null)
             {
                 ev = _context._11_LoteAtivo.FromSql("exec " + storedProcedure + " {0},{1},{2},{3},{4},{5},{6},{7},{8}," +
-                    "{9},{10},{11},{12},{13},{14},{15},{16}", null,null,null,null,null,zona,delegacao, null,null, null, null, null, null, null, null,null, (tipo == "cli") ? id : null);
+                    "{9},{10},{11},{12},{13},{14},{15},{16}", null,null,null,null,null,zona,delegacao, null,null, null, null, null, null, null, null,null, 
+                    (tipo == "cli" && (area != null)) ? id : null);
             }
             else
             {
@@ -433,7 +435,7 @@ namespace NovatecEnergyWeb.Controllers
                     filtros.ClId, ((zona != null)? zona.ToString(): (filtros.ZId != null) ? filtros.ZId.ToString() : null), 
                     ((delegacao !=null)? delegacao.ToString(): (filtros.DId != null) ? filtros.DId.ToString() : null),
                     filtros.AId , filtros.StatusId,filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
-                    filtros.Logradouro, filtros.Numero1, filtros.Numero2, (tipo == "cli")? id:null);
+                    filtros.Logradouro, filtros.Numero1, filtros.Numero2, (tipo == "cli" && (area != null))? id:null);
             }
             return ev.ToList();
         }
