@@ -371,6 +371,7 @@ namespace NovatecEnergyWeb.Controllers
             return GetListLoteAtivoView(null, true, "todos");
         }
    
+        [AutenticacaoFilter]
         public IActionResult EnderecosVisitas()
         {
             BindSelects();

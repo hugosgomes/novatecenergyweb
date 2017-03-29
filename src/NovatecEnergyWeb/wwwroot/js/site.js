@@ -1,13 +1,5 @@
 ﻿// Write your Javascript code.
-$("#lotes").prop("selectedIndex", -1);
-$("#CasaStatus").prop("selectedIndex", -1);
-$("#motivosRejeicao").prop("selectedIndex", -1);
-$("#clientesCeg").prop("selectedIndex", -1);
-$("#zonas").prop("selectedIndex", -1);
-$("#delegacoes").prop("selectedIndex", -1);
-$("#areas").prop("selectedIndex", -1);
-$("#statusCond").prop("selectedIndex", -1);
-$("#condominiosId").prop("selectedIndex", -1);
+
 
 $('#dtult').datepicker({
     format: "dd/mm/yyyy",

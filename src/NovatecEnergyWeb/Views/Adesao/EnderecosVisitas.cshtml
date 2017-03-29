@@ -6,6 +6,7 @@
     Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
     ViewData["Title"] = "Status de Clientes Com Tratamento Comercial";
 }
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-lg-2">
@@ -473,25 +474,56 @@
         </div>
     </div>
 </div>
+@section Scripts{
+<script type="text/javascript">
+
+    $("#lotes").prop("selectedIndex", -1);
+    $("#CasaStatus").prop("selectedIndex", -1);
+    $("#motivosRejeicao").prop("selectedIndex", -1);
+    $("#clientesCeg").prop("selectedIndex", -1);
+    $("#zonas").prop("selectedIndex", -1);
+    $("#delegacoes").prop("selectedIndex", -1);
+    $("#areas").prop("selectedIndex", -1);
+    $("#statusCond").prop("selectedIndex", -1);
+    $("#condominiosId").prop("selectedIndex", -1);
+
+    var as = '';
+    var zs = '';
+    var ds = '';
+
+    //var zs = '@ViewBag.ZonaSelecionada';
+    //ds = '@ViewBag.DelegacaoSel';
+
+    if ('@ViewBag.ZonaSelecionada' !='') {
+        zs = '@ViewBag.ZonaSelecionada';
+    }
+
+    if ('@ViewBag.AreaSel' != '') {
+        as = '@ViewBag.AreaSel';
+    }
+
+    if ('@ViewBag.DelegacaoSel' != '') {
+        ds = '@ViewBag.DelegacaoSel';
+    }
+
+    if (zs != '') {
+        $("#zonas").prop("selectedIndex", zs);
+    }
+
+    if (ds != '') {
+        $("#delegacoes").prop("selectedIndex", ds);
+        postDelegacao();
+    }
+
+    if (as != '') {
+        $("#areas").prop("selectedIndex", as);
+        alert('oi');
+    }
 
 
+    $("#areas").prop("selectedIndex", -1);
 
-    <script type="text/javascript">
-        var zs = @ViewBag.ZonaSelecionada;
-        var ds = @ViewBag.DelegacaoSel;
-        var as = @ViewBag.AreaSel;
-
-        if (zs != null){
-            $("#zonas").prop("selectedIndex", zs);
-        }
-
-        if (ds !=null){
-            $("#delegacoes").prop("selectedIndex", ds);
-        }
-
-        if (as != null){
-            $("#areas").prop("selectedIndex", as);
-        }
-
-    </script>
+</script>
+    }
+   
    
