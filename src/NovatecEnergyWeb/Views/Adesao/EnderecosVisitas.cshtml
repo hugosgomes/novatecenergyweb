@@ -11,14 +11,14 @@
     <div class="row">
         <div class="col-sm-3 col-lg-2">
             <nav class="navbar navbar-default navbar-fixed-side">
-                <h4 class="text-center">Clientes de Lotes Ativos</h4>
+                <h4 id="titulo" class="text-center">Clientes de Lotes Ativos</h4>
 
                 <table>
                     <tbody class="fontTableBodyNavBar">
                         <tr>
-                            <td class="col-xs-9">Total Unidades (Potencial) </td>
+                            <td class="col-xs-9" style="padding-right:0px;">Total Unidades (Potencial) </td>
                             <td id="e0" class="col-xs-2 text-right">@Model.Count()</td>
-                            <td class="col-xs-1 text-right">100%</td>
+                            <td class="col-xs-1 text-right"></td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Unidades Visitadas</td>
@@ -26,9 +26,16 @@
                             <td id="ep0" class="col-sm-2 text-right">@ViewBag.VisitadosPercent%</td>
                         </tr>
                         <tr class="espacoAbaixo">
-                            <td class="col-sm-8">Unidades Não Visitadas</td>
-                            <td id="e2" class="col-sm-2 text-right">@ViewBag.NaoVisitados</td>
-                            <td id="ep1" class="col-sm-2 text-right">@ViewBag.NaoVisitadosPercent%</td>
+                            <td class="col-xs-8"style="padding-right:0px;">Unidades Não Visitadas</td>
+                            <td id="e2" class="col-xs-2 text-right">@ViewBag.NaoVisitados</td>
+                            <td id="ep1" class="col-xs-2 text-right">@ViewBag.NaoVisitadosPercent%</td>
+                        </tr>
+
+
+                        <tr class="espacoAbaixo">
+                            <td class="col-sm-8">Unidades Agendadas</td>
+                            <td id="e8" class="col-sm-2 text-right">@ViewBag.VisitaAgendada</td>
+                            <td id="ep7" class="col-sm-2 text-right">@ViewBag.VisitaAgendadaPercent%</td>
                         </tr>
 
                         <tr>
@@ -37,7 +44,7 @@
                             <td id="ep2" class="col-sm-2 text-right">@ViewBag.ContratadosPercent%</td>
                         </tr>
                         <tr  class="espacoAbaixo">
-                            <td class="col-sm-8">Unidades Não Contratadas</td>
+                            <td class="col-sm-8" style="padding-right:0px;">Unidades Não Contratadas</td>
                             <td id="e4" class="col-sm-2 text-right">@ViewBag.NaoContratados</td>
                             <td id="ep3" class="col-sm-2 text-right">@ViewBag.NaoContratadosPercent%</td>
 
@@ -59,16 +66,14 @@
                             <td id="ep6" class="col-sm-2 text-right">@ViewBag.SvePercent%</td>
                         </tr>
 
-                        <tr >
-                            <td class="col-sm-8">Visita Agendadas</td>
-                            <td id="e8" class="col-sm-2 text-right">@ViewBag.VisitaAgendada</td>
-                            <td id="ep7" class="col-sm-2 text-right">@ViewBag.VisitaAgendadaPercent%</td>
-                        </tr>
+                       <tr class="espacoAbaixo">
+                            <td class="col-xs-8"style="padding-right:0px;">Visitas Agendadas</td>
+                       </tr>
 
                         <tr>
                             <td class="col-sm-8">Visitas Realizadas</td>
                             <td id="e9" class="col-sm-2 text-right">@ViewBag.Visitas</td>
-                            <td class="col-sm-2 text-right">100%</td>
+                            <td class="col-sm-2 text-right"></td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Entrevistas Realizadas</td>
@@ -80,16 +85,23 @@
                             <td id="e11" class="col-sm-2 text-right">@ViewBag.Ausentes</td>
                             <td id="ep9" class="col-sm-2 text-right">@ViewBag.AusentesPercent%</td>
                         </tr>
+                        <tr>
+                            <td class="col-sm-8">Visitas - Endereços Inex.</td>
+                            <td id="e11" class="col-sm-2 text-right">0</td>
+                            <td id="ep9" class="col-sm-2 text-right">0%</td>
+                        </tr>
+
+
                     </tbody>
                 </table>
 
                 <div class="buttonGroupNavBar">
                     <ul class="nav ">
                         <li id ="todosli" class="fontTableBodyNavBar">
-                            <a href="#" onclick="$(this).data('clicked', true); postToController();" id="todos" >Clientes de Lotes - Todos</a>
+                            <a href="#" onclick="$(this).data('clicked', true); $('#titulo').html('Clientes de Lotes - Todos'); postToController();" id="todos" >Clientes de Lotes - Todos</a>
                         </li>
                         <li id ="ativosli" class="disabled fontTableBodyNavBar">
-                            <a href="#" id="ativos" onclick="$(this).data('clicked', true); postToController();" > Clientes de Lotes Ativos</a>
+                            <a href="#" id="ativos" onclick="$(this).data('clicked', true); $('#titulo').html('Clientes de Lotes Ativos'); postToController();" > Clientes de Lotes Ativos</a>
                         </li>
                      <!--    <li id ="semLoteTodosli" class="fontTableBodyNavBar">
                             !--href="/Adesao/EnderecosVisitasSemLote"-- 
@@ -331,7 +343,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-6">
+                    <div class="col-xs-6" style="padding-left:0px;">
                         <label class="labelsFormNav">Número Entre</label>
                         <input id="Numero1" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:60px" type="text" />
                     </div>
@@ -352,7 +364,7 @@
 
 
                     <br />
-                    <label class="fontTableBodyNavBar">Exportar Pijama Formato Novatec</label>
+                    <label  class="fontTableBodyNavBar">Exportar Pijama Formato Novatec</label>
                     <a href="#" onclick="ExportaPadraoNovatec();">
                         <img src="~/images/ms_excel.png" width="30" height="30" />
                     </a>
