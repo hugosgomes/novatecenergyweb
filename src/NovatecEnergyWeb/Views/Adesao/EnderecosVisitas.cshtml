@@ -189,7 +189,8 @@
 
                             @{
                                 int? area = Context.Session.GetInt32("Área");
-                                if (area != null)
+                                int? areaQuantidade = Context.Session.GetInt32("QuantidadeArea");
+                                if ((area != null) && (areaQuantidade != null && areaQuantidade == 1))
                                 {
                                     <select id="areas" onchange="postArea(); postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
                                         @for (int i = 0; i < ViewBag.Areas.Count; i++)
@@ -673,7 +674,7 @@
             $.post( "@Url.Action("GetListLoteNaoView","Adesao")", data, atualizaViewNao);
         }
 
-        function tabelaLoteAtivos(retorno) {
+   function tabelaLoteAtivos(retorno) {
             montaHeadLocal();
 
         $('#corpoTabelaAtivos tr').remove();
@@ -736,7 +737,7 @@
 
     };
 
-    function tabelaLoteNao(retorno) {
+   function tabelaLoteNao(retorno) {
         // montaHeadTabelaNao();
         montaHeadTabelaNao();
 
@@ -773,7 +774,7 @@
 
     };
 
-    function tabelaEstatisticas(retorno) {
+   function tabelaEstatisticas(retorno) {
         for (var i = 0; i < retorno.Numeracoes.length; i++) {
             $('#e' + i).html(retorno.Numeracoes[i]);
         }
@@ -784,7 +785,7 @@
 
     }
 
-    function limpaFiltro() {
+   function limpaFiltro() {
         $('#lotes').val("");
         $('#CasaStatus').val("");
         $('#motivosRejeicao').val("");
@@ -1109,19 +1110,10 @@
         $("#condominiosId").prop("selectedIndex", -1);
     }
 
-
-
     ///-----------------------------------------FIM---COLADO de site.js
-
-
-
-
     var as = '';
     var zs = '';
     var ds = '';
-
-    //var zs = '@ViewBag.ZonaSelecionada';
-    //ds = '@ViewBag.DelegacaoSel';
 
     if ('@ViewBag.ZonaSelecionada' !='') {
         zs = '@ViewBag.ZonaSelecionada';
