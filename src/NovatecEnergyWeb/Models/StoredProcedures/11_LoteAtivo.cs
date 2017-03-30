@@ -49,6 +49,8 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
 
         public int? Visitas { get; set; }
 
+        public int? VisitasAgendadas { get; set; }
+
         public int? Entrevistas { get; set; }
 
         public int? Ausencias { get; set; }

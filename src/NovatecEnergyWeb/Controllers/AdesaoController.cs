@@ -477,7 +477,7 @@ namespace NovatecEnergyWeb.Controllers
 
             ViewBag.Contratados = evList.Sum(c => c.CasoC);
             ViewBag.ContratadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Contratados), Convert.ToDecimal(evList.Count())) * 100):0;
-            ViewBag.NaoContratados = evList.Sum(c => c.CasoA);
+            ViewBag.NaoContratados = evList.Count() - ViewBag.Contratados;
             ViewBag.NaoContratadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.NaoContratados), Convert.ToDecimal(evList.Count())) * 100):0;
 
             ViewBag.D2 = evList.Sum(e => e.D2);
@@ -487,6 +487,8 @@ namespace NovatecEnergyWeb.Controllers
             ViewBag.Sve = evList.Sum(e => e.Sve);
             ViewBag.SvePercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Sve), Convert.ToDecimal(evList.Count())) * 100) : 0;
 
+            ViewBag.NovaVisitaAgendada = evList.Sum(e => e.VisitasAgendadas);
+
             ViewBag.VisitaAgendada = evList.Sum(c => c.CasoB);
             ViewBag.VisitaAgendadaPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitaAgendada), Convert.ToDecimal(evList.Count())) * 100):0;
             ViewBag.Visitas = evList.Sum(c => c.Visitas);
@@ -494,6 +496,8 @@ namespace NovatecEnergyWeb.Controllers
             ViewBag.VisitasComResposta = ViewBag.Visitas - ViewBag.Ausentes;
             ViewBag.VisitasComRespostaPercent =(ViewBag.Visitas != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitasComResposta), Convert.ToDecimal(ViewBag.Visitas)) * 100):0;
             ViewBag.AusentesPercent = (ViewBag.Visitas != 0) ?  Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Ausentes), Convert.ToDecimal(ViewBag.Visitas)) * 100):0;
+
+            ViewBag.Endinex = evList.Sum(c => c.Endinex);
 
             if (eIndex)
                 return View("EnderecosVisitas",evList);
