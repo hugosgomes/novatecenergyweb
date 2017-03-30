@@ -8,5 +8,6 @@ namespace NovatecEnergyWeb.Core
     public class AppSettings
     {
         public static BDNVTContext contexto { get; set; }
+        public static string ExcelExportUrl { get; set; }
     }
 }
