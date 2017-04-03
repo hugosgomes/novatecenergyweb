@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using NovatecEnergyWeb.Models.Exportacao;
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace NovatecEnergyWeb.Controllers

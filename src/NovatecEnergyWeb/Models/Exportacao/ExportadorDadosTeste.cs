@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using OfficeOpenXml;
 
-namespace NovatecEnergyWeb.Models
+namespace NovatecEnergyWeb.Models.Exportacao
 {
     public class ExportadorDadosTeste
     {

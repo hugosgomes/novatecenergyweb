@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using NovatecEnergyWeb.Models.StoredProcedures;
 using System.IO;
 using OfficeOpenXml;
-namespace NovatecEnergyWeb.Models
+namespace NovatecEnergyWeb.Models.Exportacao
 {
     public class EnderecoVisitasDataExporter
     {
@@ -187,7 +187,12 @@ namespace NovatecEnergyWeb.Models
             var l = lote.ToList();
             
             FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Relatório_Lote_" + l[0].LoteNum + ".xlsm";
-            File.Copy(Path.Combine(WebRootFolder, @"formatoGasNatural.xlsm"), Path.Combine(WebRootFolder, FileName));
+
+            var zonaid = data.FirstOrDefault().Zid;
+            if (zonaid == 2)
+                File.Copy(Path.Combine(WebRootFolder, @"formatoGasNaturalFluminense.xlsm"), Path.Combine(WebRootFolder, FileName));
+            else
+                File.Copy(Path.Combine(WebRootFolder, @"formatoGasNaturalMetropolitana.xlsm"), Path.Combine(WebRootFolder, FileName));
 
             FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
 
@@ -206,6 +211,8 @@ namespace NovatecEnergyWeb.Models
                 worksheet.Cells["F4"].Value = l[0].DataEntrega.ToString("dd/MM/yy");
 
                 worksheet.Cells["I3"].Value = l[0].Ge;
+
+                worksheet.Cells["I4"].Value = data.FirstOrDefault().Localidade;
 
                 for (int i = 0; i < data.Count(); i++)
                 {
@@ -231,5 +238,6 @@ namespace NovatecEnergyWeb.Models
 
             return fileBytes;
         }
+
     }
 }
