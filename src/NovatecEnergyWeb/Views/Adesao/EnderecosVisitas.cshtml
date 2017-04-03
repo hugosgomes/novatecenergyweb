@@ -154,7 +154,7 @@
                                 }
                                 else
                                 {
-                                    <select id="zonas" onchange="postZona(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                    <select id="zonas" onchange="postZona();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                         @foreach (var item in ViewBag.Zonas)
                                         {
                                             <option value="@item.Id">@item.Zona</option>
@@ -173,7 +173,7 @@
 
                                 if (delegacao != null)
                                 {
-                                    <select id="delegacoes" onchange="postDelegacao(); postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
+                                    <select id="delegacoes" onchange="postDelegacao();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
                                         @for (int i = 0; i < ViewBag.Delegacao.Count; i++)
                                         {
                                             if (delegacao == ViewBag.Delegacao[i].Id)
@@ -278,7 +278,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Data da Ult. Rejeição</label>
                         <div class="controls">
-                            <input id="dtult" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text">
+                            <input id="dtult" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;" type="text">
                         </div>
                     </div>
 
@@ -504,8 +504,6 @@
 
 
 
-
-
     ///--------------------------------------------COLADO de site.js
     $('#dtult').datepicker({
         format: "dd/mm/yyyy",
@@ -594,6 +592,10 @@
     function atualizaView(retorno) {
         tabelaEstatisticas(retorno)
         tabelaLoteAtivos(retorno);
+    };
+
+    window.onload = function () {
+        postToController();
     };
 
     function atualizaViewNao(retorno) {
@@ -689,65 +691,147 @@
         }
 
    function tabelaLoteAtivos(retorno) {
-            montaHeadLocal();
 
-        $('#corpoTabelaAtivos tr').remove();
+       montaHeadLocal();
 
-            var tr;
+       $('#corpoTabelaAtivos tr').remove();
 
-            for (var i = 0; i < retorno.EV.length; i++) {
-            tr = $('<tr/>');
+       var tr;
+       var r = new Array();
+       var j = -1;
 
-            tr.append("<td>" + retorno.EV[i].casa + "</td>");
-            tr.append("<td>" + retorno.EV[i].lote + "</td>");
-            tr.append("<td>" + retorno.EV[i].z + "</td>");
-            tr.append("<td>" + retorno.EV[i].d + "</td>");
-            tr.append("<td>" + retorno.EV[i].ar + "</td>");
-            tr.append("<td>" + retorno.EV[i].pt + "</td>");
-            tr.append("<td>" + retorno.EV[i].localidade + "</td>");
-            tr.append("<td>" + retorno.EV[i].bairro + "</td>");
-            tr.append("<td>" + retorno.EV[i].via + "</td>");
-            tr.append("<td>" + retorno.EV[i].logradouro + "</td>");
-            tr.append("<td>" + retorno.EV[i].num + "</td>");
-            tr.append("<td>" + retorno.EV[i].complemento + "</td>");
-            tr.append("<td>" + retorno.EV[i].bloco + "</td>");
-            tr.append("<td>" + retorno.EV[i].apt + "</td>");
+        //tr = $('<tr/>');
+
+       for (var i = 0; i < retorno.EV.length; i++) {
+            
+            r[++j] = "<tr>";
+            r[++j] = "<td>" ;
+            r[++j] = retorno.EV[i].casa;
+            r[++j] =  "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].lote;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].z;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].d;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].ar;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].pt;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].localidade;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].bairro;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].via;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].logradouro;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].num;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].complemento;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].bloco;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].apt;
+            r[++j] = "</td>";
 
             if (retorno.EV[i].ultMotivo == null) {
-                tr.append("<td></td>");
+                r[++j] = "<td>";
+                r[++j] = "</td>";
             } else {
-                tr.append("<td>" + retorno.EV[i].ultMotivo + "</td>");
+                r[++j] = "<td>";
+                r[++j] = retorno.EV[i].ultMotivo;
+                r[++j] = "</td>";
             }
 
             if (retorno.EV[i].agult == null) {
-                tr.append("<td></td>");
+                r[++j] = "<td>";
+                r[++j] = "</td>";
             } else {
-                tr.append("<td>" + retorno.EV[i].agult + "</td>");
+                r[++j] = "<td>";
+                r[++j] = retorno.EV[i].agult;
+                r[++j] = "</td>";
             }
 
-            tr.append("<td>" + retorno.EV[i].dtult + "</td>");
-            tr.append("<td>" + retorno.EV[i].statusCl + "</td>");
-            tr.append("<td>" + retorno.EV[i].dtStatusCl + "</td>");
-            tr.append("<td>" + retorno.EV[i].casaStatus + "</td>");
-            tr.append("<td>" + retorno.EV[i].visitado + "</td>");
-            tr.append("<td>" + retorno.EV[i].contratado + "</td>");
-            tr.append("<td>" + retorno.EV[i].vendaApp + "</td>");
-            tr.append("<td>" + retorno.EV[i].visitas + "</td>");
-            tr.append("<td>" + retorno.EV[i].entrevistas + "</td>");
-            tr.append("<td>" + retorno.EV[i].ausencias + "</td>");
-            tr.append("<td>" + retorno.EV[i].endinex + "</td>");
-            tr.append("<td>" + retorno.EV[i].d2 + "</td>");
-            tr.append("<td>" + retorno.EV[i].svg + "</td>");
-            tr.append("<td>" + retorno.EV[i].sve + "</td>");
-            tr.append("<td>" + retorno.EV[i].condominio + "</td>");
-            tr.append("<td>" + retorno.EV[i].casoA + "</td>");
-            tr.append("<td>" + retorno.EV[i].casoB + "</td>");
-            tr.append("<td>" + retorno.EV[i].casoC + "</td>");
-            tr.append("<td>" + retorno.EV[i].casoD + "</td>");
-            tr.append("<td>" + retorno.EV[i].dtult2 + "</td>");
-            tr.append("<td>" + retorno.EV[i].hrult + "</td>");
-            $('#corpoTabelaAtivos').append(tr);
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].dtult;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].statusCl;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].dtStatusCl;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].casaStatus;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].visitado;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].contratado;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].vendaApp;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].visitas;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].entrevistas;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].ausencias;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].endinex;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].d2;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].svg;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].sve;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].condominio;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].casoA;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].casoB;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].casoC;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].casoD;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].dtult2;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].hrult;
+            r[++j] = "</td>";
+            r[++j] = "</tr>";
         }
+        $('#corpoTabelaAtivos').html(r.join(''));
 
     };
 
@@ -1014,6 +1098,8 @@
         $("#delegacoes").prop("selectedIndex", -1);
         $("#areas").prop("selectedIndex", -1);
         $("#condominiosId").prop("selectedIndex", -1);
+
+        postToController();
     }
 
     function postDelegacao() {
@@ -1050,6 +1136,8 @@
         $("#lotes").prop("selectedIndex", -1);
         $("#areas").prop("selectedIndex", -1);
         $("#condominiosId").prop("selectedIndex", -1);
+
+        postToController();
     }
 
     function postArea() {
