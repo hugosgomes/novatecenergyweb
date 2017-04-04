@@ -1,5 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="js/encrypto.js" />
+/// <reference path="js/jquery.bootpag.min.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" />
