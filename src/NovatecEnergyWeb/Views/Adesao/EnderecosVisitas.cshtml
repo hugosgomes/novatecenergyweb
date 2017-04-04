@@ -116,7 +116,7 @@
                     </ul>
                 </div>
 
-
+               
                 <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
                    <!-- <div class="control-group">
                         <label class="control-label labelsFormNav">Cliente</label>
@@ -385,6 +385,7 @@
             </nav>
         </div>
         <div class="col-sm-9 col-lg-10">
+            <div id="page-selection"></div>
             <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
                 <thead id="headTabelaLote" >
                     <tr>
@@ -501,7 +502,12 @@
     $("#statusCond").prop("selectedIndex", -1);
     $("#condominiosId").prop("selectedIndex", -1);
 
-
+    //paginação
+  /*  $('#page-selection').bootpag({
+        total: 10
+    }).on("page", function (event, /* page number here  num) {
+        // some ajax content loading...
+    }); */
 
 
     ///--------------------------------------------COLADO de site.js
