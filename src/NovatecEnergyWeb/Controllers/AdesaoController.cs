@@ -143,7 +143,7 @@ namespace NovatecEnergyWeb.Controllers
             {
                 listAreaInt.Add(item.Id);
             }
-
+            
             var lotes = (from l in _context._11Lotes
                          where listAreaInt.Contains(l.Area)
                          join ti in _context._00TabelasItems on l.Status equals ti.Id
@@ -152,15 +152,27 @@ namespace NovatecEnergyWeb.Controllers
                              Id = l.Id,
                              LoteNum = l.LoteNum,
                              Ge = l.Ge,
-                             DataLote = l.DataLote,
+                             DataLote =  l.DataLote,
                              Item = ti.Item
                          }).ToList();
 
             var condominio = getCondominios(listAreaInt,0,0);
 
+            var Lote = new List<List<dynamic>>();
+            foreach (var item in lotes)
+            {
+                var d = new List<dynamic>();
+                d.Add(item.Id);
+                d.Add(item.LoteNum);
+                d.Add(item.Ge);
+                d.Add(item.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"));
+                d.Add(item.Item);
+                Lote.Add(d);
+            }
+
             dynamic retorno = new ExpandoObject();
             retorno.Area = areasL;
-            retorno.Lote = lotes;
+            retorno.Lote = Lote;
             retorno.Condominio = condominio;
 
             return Json(retorno);
@@ -183,8 +195,20 @@ namespace NovatecEnergyWeb.Controllers
             //condominio
             var condominio = getCondominios(null, area,0);
 
+            var Lote = new List<List<dynamic>>();
+            foreach (var item in lotes)
+            {
+                var d = new List<dynamic>();
+                d.Add(item.Id);
+                d.Add(item.LoteNum);
+                d.Add(item.Ge);
+                d.Add(item.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"));
+                d.Add(item.Item);
+                Lote.Add(d);
+            }
+
             dynamic retorno = new ExpandoObject();
-            retorno.Lote = lotes;
+            retorno.Lote = Lote;
             retorno.Condominio = condominio;
             return Json(retorno);
         }
