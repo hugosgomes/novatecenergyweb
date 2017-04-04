@@ -22,11 +22,13 @@ namespace NovatecEnergyWeb.Controllers
             _context = context;
         }
 
+        [FuncionarioFilter]
         [AutenticacaoFilter]
         public IActionResult Index()
         {
             return BuscaMetasFiltradas(DateTime.Now.Year,true);
         }
+        [FuncionarioFilter]
         [AutenticacaoFilter]
         public IActionResult BuscaMetasFiltradas(int anoSelecionado, bool index)
         {

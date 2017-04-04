@@ -36,10 +36,10 @@ namespace NovatecEnergyWeb.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Informe a zona")]
-        public int Zona { get; set; }
+        public int? Zona { get; set; }
 
         [Required(ErrorMessage = "Informe a delegação")]
-        public int Delegacao { get; set; }
+        public int? Delegacao { get; set; }
 
        /* [Required(ErrorMessage = "Informe a área")]
         public int Area { get; set; }*/
