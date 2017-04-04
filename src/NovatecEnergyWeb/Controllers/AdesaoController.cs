@@ -369,7 +369,7 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult EnderecosVisitasAtivosTodos()
         {
             BindSelects();
-            return GetListLoteAtivoView(null, true, "todos");
+            return GetListLoteAtivoView(null, true, "todos",0);
         }
    
         [AutenticacaoFilter]
@@ -440,6 +440,7 @@ namespace NovatecEnergyWeb.Controllers
                     filtros.AId , filtros.StatusId,filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
                     filtros.Logradouro, filtros.Numero1, filtros.Numero2, (tipo == "cli" && (area != null))? id:null);
             }
+            // return ev.Skip(0).Take(5).ToList();
             return ev.ToList();
         }
 
@@ -466,7 +467,7 @@ namespace NovatecEnergyWeb.Controllers
             return lb.ToList();
         }
 
-        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersViewModels filtros,  bool eIndex,string Botao)
+        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersViewModels filtros,  bool eIndex,string Botao, int PaginaClicada)
         {
             setFiltrosSessao(filtros, Botao); // salva os filtros na sessão
 
@@ -537,7 +538,14 @@ namespace NovatecEnergyWeb.Controllers
                 jsonModel.Porcentagens.Add(ViewBag.VisitasComRespostaPercent.ToString());//ep8
                 jsonModel.Porcentagens.Add(ViewBag.AusentesPercent.ToString()); //ep9
 
-                jsonModel.EV = evList;
+                // jsonModel.EV = evList;
+                var pagina = 0;
+                if (PaginaClicada != 0)
+                {
+                     pagina = (PaginaClicada - 1) * 200;
+                }
+                jsonModel.EV = evList.Skip(pagina).Take(200);
+                jsonModel.QuantasPaginasExistem = (evList.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(evList.Count()),200)) : 0;
 
                 return Json(jsonModel);
             }
@@ -601,7 +609,7 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult LimpaFiltros(string Botao)
         {
-            return GetListLoteAtivoView(null, false, Botao);
+            return GetListLoteAtivoView(null, false, Botao,0);
         }
 
         public IActionResult LimpaSelects(bool LimpaFiltro)
