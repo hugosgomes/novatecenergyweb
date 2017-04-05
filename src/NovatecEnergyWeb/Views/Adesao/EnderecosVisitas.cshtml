@@ -395,6 +395,7 @@
                         <th class="text-center">D</th>
                         <th class="text-center">AR</th>
                         <th class="text-center">PT</th>
+                        <th class="text-center">Condomínio</th>
                         <th class="text-center">Localidade</th>
                         <th class="text-center">Bairro</th>
                         <th class="text-center">Via</th>
@@ -406,7 +407,7 @@
                         <th class="text-center">ULTMOTIVO</th>
                         <th class="text-center">AGULT</th>
                         <th class="text-center">DTULT</th>
-                        <th class="text-center">STATUSCL</th>
+                       <!-- <th class="text-center">STATUSCL</th>
                         <th class="text-center">DTSTATUSCL</th>
                         <th class="text-center">CASASTATUS</th>
                         <th class="text-center">Visitado</th>
@@ -419,13 +420,13 @@
                         <th class="text-center">D2</th>
                         <th class="text-center">SVG</th>
                         <th class="text-center">SVE</th>
-                        <th class="text-center">Condomínio</th>
+                        
                         <th class="text-center">CASOA</th>
                         <th class="text-center">CASOB</th>
                         <th class="text-center">CASOC</th>
                         <th class="text-center">CASOD</th>
                         <th class="text-center">DTULT2</th>
-                        <th class="text-center">HRULT</th>
+                        <th class="text-center">HRULT</th> -->
                     </tr>
                 </thead>
                 <tbody id="corpoTabelaAtivos" class="corpoTabela">
@@ -624,7 +625,7 @@
     }
 
     window.onload = function () {
-        postToController();
+       postToController();
     };
 
     function atualizaViewNao(retorno) {
@@ -673,6 +674,8 @@
         tr.append('<th class="text-center">D</th>');
         tr.append('<th class="text-center">AR</th>');
         tr.append('<th class="text-center">PT</th>');
+        tr.append('<th class="text-center">Condomínio</th>');
+
         tr.append('<th class="text-center">Localidade</th>');
         tr.append('<th class="text-center">Bairro</th>');
         tr.append('<th class="text-center">Via</th>');
@@ -684,7 +687,7 @@
         tr.append('<th class="text-center">ULTMOTIVO</th>');
         tr.append('<th class="text-center">AGULT</th>');
         tr.append('<th class="text-center">DTULT</th>');
-        tr.append('<th class="text-center">STATUSCL</th>');
+      /*  tr.append('<th class="text-center">STATUSCL</th>');
         tr.append('<th class="text-center">DTSTATUSCL</th>');
         tr.append('<th class="text-center">CASASTATUS</th>');
         tr.append('<th class="text-center">Visitado</th>');
@@ -697,13 +700,13 @@
         tr.append('<th class="text-center">D2</th>');
         tr.append('<th class="text-center">SVG</th>');
         tr.append('<th class="text-center">SVE</th>');
-        tr.append('<th class="text-center">Condomínio</th>');
+        
         tr.append('<th class="text-center">CASOA</th>');
         tr.append('<th class="text-center">CASOB</th>');
         tr.append('<th class="text-center">CASOC</th>');
         tr.append('<th class="text-center">CASOD</th>');
         tr.append('<th class="text-center">DTULT2</th>');
-        tr.append('<th class="text-center">HRULT</th>');
+        tr.append('<th class="text-center">HRULT</th>'); */
 
         $('#headTabelaLote').append(tr);
     };
@@ -753,6 +756,9 @@
             r[++j] = retorno.EV[i].pt;
             r[++j] = "</td>";
             r[++j] = "<td>";
+            r[++j] = retorno.EV[i].condominio;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
             r[++j] = retorno.EV[i].localidade;
             r[++j] = "</td>";
             r[++j] = "<td>";
@@ -798,7 +804,7 @@
             r[++j] = "<td>";
             r[++j] = retorno.EV[i].dtult;
             r[++j] = "</td>";
-            r[++j] = "<td>";
+        /*    r[++j] = "<td>";
             r[++j] = retorno.EV[i].statusCl;
             r[++j] = "</td>";
             r[++j] = "<td>";
@@ -837,9 +843,7 @@
             r[++j] = "<td>";
             r[++j] = retorno.EV[i].sve;
             r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].condominio;
-            r[++j] = "</td>";
+           
             r[++j] = "<td>";
             r[++j] = retorno.EV[i].casoA;
             r[++j] = "</td>";
@@ -857,7 +861,7 @@
             r[++j] = "</td>";
             r[++j] = "<td>";
             r[++j] = retorno.EV[i].hrult;
-            r[++j] = "</td>";
+            r[++j] = "</td>";*/
             r[++j] = "</tr>";
         }
         $('#corpoTabelaAtivos').html(r.join(''));
