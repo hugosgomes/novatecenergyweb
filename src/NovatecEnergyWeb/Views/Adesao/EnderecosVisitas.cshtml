@@ -1026,6 +1026,19 @@
         $('#statusCond').prop("selectedIndex", -1);
         $('#condominiosId').prop("selectedIndex", -1);
 
+        if (zs != '') {
+            $("#zonas").prop("selectedIndex", zs);
+        }
+
+        if (ds != '') {
+            $("#delegacoes").prop("selectedIndex", ds);
+            postDelegacao();
+        }
+
+        if (as != '') {
+            $("#areas").prop("selectedIndex", as);
+        }
+
     }
 
     function ExportaPadraoNovatec() {
