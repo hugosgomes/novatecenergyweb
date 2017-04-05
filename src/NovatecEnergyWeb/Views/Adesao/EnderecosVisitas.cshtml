@@ -599,6 +599,8 @@
 
     function montaPaginacao(retorno) {
         //paginação
+        $('#page-selection').unbind(); // limpa os eventos adicionados nessa tag
+
           $('#page-selection').bootpag({
               total: retorno.QuantasPaginasExistem,
               page: 1,
@@ -614,6 +616,7 @@
           }).on("page", function (event, num) {
               // some ajax content loading...
               postPaginacao(num);
+              
           }); 
 
     }
