@@ -1117,10 +1117,10 @@
         $.each(retorno.Lote, function () {
             var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
 
-            $("#lotes").append($("<option />").val(this.id).text(this.loteNum + p.text()
-                  + this.ge + p.text()
-                  + this.dataLote + p.text()
-                  + this.item));
+            $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
+                  + this[2] + p.text()
+                  + this[3] + p.text()
+                  + this[4]));
         });
 
         $.each(retorno.Condominio, function () {

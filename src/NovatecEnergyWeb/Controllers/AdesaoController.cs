@@ -122,11 +122,23 @@ namespace NovatecEnergyWeb.Controllers
 
             //Condominio
             var condominio = getCondominios(listAreaInt,0,0);
-           
+
+            var Lote = new List<List<dynamic>>();
+            foreach (var item in lotes)
+            {
+                var d = new List<dynamic>();
+                d.Add(item.Id);
+                d.Add(item.LoteNum);
+                d.Add(item.Ge);
+                d.Add(item.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"));
+                d.Add(item.Item);
+                Lote.Add(d);
+            }
+
             dynamic retorno = new ExpandoObject();
             retorno.Delegacao = delegacao;
             retorno.Area = areasL;
-            retorno.Lote = lotes;
+            retorno.Lote = Lote;
             retorno.Condominio = condominio;
 
             return Json(retorno);
