@@ -429,7 +429,7 @@ namespace NovatecEnergyWeb.Controllers
             return GetListLoteNaoView(null, true, "semLoteNao");
         }
 
-        public List<_11_LoteNao> GetListLoteNao([FromForm]FormFiltersViewModels filtros)
+        public List<_11_LoteNao> GetListLoteNao([FromForm]FormFiltersVisitaClienteViewModels filtros)
         {
             string storedProcedure = HttpContext.Session.GetString("SP_Lote");
 
@@ -450,7 +450,7 @@ namespace NovatecEnergyWeb.Controllers
             return evn.ToList();
         }
 
-        public List<_11_LoteAtivo> GetListLoteAtivo([FromForm]FormFiltersViewModels filtros)
+        public List<_11_LoteAtivo> GetListLoteAtivo([FromForm]FormFiltersVisitaClienteViewModels filtros)
         {
             string storedProcedure = HttpContext.Session.GetString("SP_Lote");
             int? id = HttpContext.Session.GetInt32("UserId");
@@ -481,7 +481,7 @@ namespace NovatecEnergyWeb.Controllers
         }
 
         //fornece os dados para Exportação padrão Gás Natural
-        public List<_11_LoteAtivoB> GetListLoteAtivoB(FormFiltersViewModels filtros)
+        public List<_11_LoteAtivoB> GetListLoteAtivoB(FormFiltersVisitaClienteViewModels filtros)
         {
             int? area = HttpContext.Session.GetInt32("Área");
             int? delegacao = HttpContext.Session.GetInt32("Delegação");
@@ -503,7 +503,7 @@ namespace NovatecEnergyWeb.Controllers
             return lb.ToList();
         }
 
-        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersViewModels filtros,  bool eIndex,string Botao, int PaginaClicada)
+        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersVisitaClienteViewModels filtros,  bool eIndex,string Botao, int PaginaClicada)
         {
             setFiltrosSessao(filtros, Botao); // salva os filtros na sessão
 
@@ -587,7 +587,7 @@ namespace NovatecEnergyWeb.Controllers
             }
         }
 
-        public IActionResult GetListLoteNaoView([FromForm]FormFiltersViewModels filtros, bool eIndex, string Botao)
+        public IActionResult GetListLoteNaoView([FromForm]FormFiltersVisitaClienteViewModels filtros, bool eIndex, string Botao)
         {
             setFiltrosSessao(filtros, Botao);
 
@@ -670,7 +670,7 @@ namespace NovatecEnergyWeb.Controllers
             return GetListLoteNaoView(null, false, Botao);
         }
 
-        private void setFiltrosSessao(FormFiltersViewModels data, string Botao)
+        private void setFiltrosSessao(FormFiltersVisitaClienteViewModels data, string Botao)
         {
             if (data != null)
             {
@@ -713,9 +713,9 @@ namespace NovatecEnergyWeb.Controllers
             HttpContext.Session.SetString("SP_Lote", valorSP);
         }
 
-        private FormFiltersViewModels getFiltrosSessao()
+        private FormFiltersVisitaClienteViewModels getFiltrosSessao()
         {
-            var ffvm = new FormFiltersViewModels();
+            var ffvm = new FormFiltersVisitaClienteViewModels();
             ffvm.IdLote =  (HttpContext.Session.GetString("IdLote") == "")?null: HttpContext.Session.GetString("IdLote");
             ffvm.CasaStatus = (HttpContext.Session.GetString("CasaStatus") == "") ? null : HttpContext.Session.GetString("CasaStatus");
             ffvm.IdultMotivo = (HttpContext.Session.GetString("IdultMotivo") == "") ? null : HttpContext.Session.GetString("IdultMotivo");

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NovatecEnergyWeb.Models.AdesaoViewModels
 {
-    public class FormFiltersViewModels
+    public class FormFiltersVisitaClienteViewModels
     {
         [Required]
         public string IdLote { get; set; }

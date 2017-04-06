@@ -67,5 +67,8 @@ namespace NovatecEnergyWeb.Controllers
             var enderecos = _context._11_LoteAtivoEndereco.FromSql("exec [dbo].[11_LoteAtivoEnderecos]").ToList();
             return View("VisitasEnderecos", new List<_11_LoteAtivoEnderecos>());
         }
+
+
+
     }
 }
