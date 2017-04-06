@@ -1,0 +1,183 @@
+﻿@using NovatecEnergyWeb.Models.StoredProcedures;
+@using Microsoft.AspNetCore.Http;
+@using NovatecEnergyWeb.Core;
+@model IEnumerable<_11_LoteAtivoEnderecos>
+@{
+    Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
+    ViewData["Title"] = "Status de Clientes Com Tratamento Comercial";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-lg-2">
+            <nav class="navbar navbar-default navbar-fixed-side">
+                <h4 id="titulo" class="text-center">Clientes de Lotes Ativos</h4>
+
+
+                <div class="buttonGroupNavBar">
+                    <ul class="nav ">
+                        <li id="todosli" class="fontTableBodyNavBar">
+                            <a href="#" onclick="$(this).data('clicked', true); $('#titulo').html('Clientes de Lotes - Todos'); postToController();" id="todos">Todos os Lotes</a>
+                        </li>
+                        <li id="ativosli" class="disabled fontTableBodyNavBar">
+                            <a href="#" id="ativos" onclick="$(this).data('clicked', true); $('#titulo').html('Clientes de Lotes Ativos'); postToController();">Lotes Ativos</a>
+                        </li>
+                   
+                    </ul>
+                </div>
+
+
+
+                <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Lote</label>
+                        <div class="controls">
+                            <select id="lotes" name="LoteError" onchange="postLote(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
+
+                                @foreach (var item in ViewBag.Lotes)
+                                {
+                                    <option value="@item[0]">
+                                        @item[1]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @item[2]
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @item[3]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item[4]
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item[5]
+                                    </option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Zona</label>
+                        <div class="controls">
+                            @{
+                                int? zona = Context.Session.GetInt32("Zona");
+
+                                if (zona != null)
+                                {
+                                    <select id="zonas" onchange="postZona(); postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                        @for (int i = 0; i < ViewBag.Zonas.Count; i++)
+                                        {
+                                            if (zona == ViewBag.Zonas[i].Id)
+                                            {
+                                                ViewBag.ZonaSelecionada = i;
+                                                <option value="@ViewBag.Zonas[i].Id">@ViewBag.Zonas[i].Zona</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@ViewBag.Zonas[i].Id">@ViewBag.Zonas[i].Zona</option>
+                                            }
+                                        }
+
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select id="zonas" onchange="postZona();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                        @foreach (var item in ViewBag.Zonas)
+                                        {
+                                            <option value="@item.Id">@item.Zona</option>
+                                        }
+                                    </select>
+                                }
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Delegação</label>
+                        <div class="controls">
+                            @{
+                                int? delegacao = Context.Session.GetInt32("Delegação");
+
+                                if (delegacao != null)
+                                {
+                                    <select id="delegacoes" onchange="postDelegacao();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
+                                        @for (int i = 0; i < ViewBag.Delegacao.Count; i++)
+                                        {
+                                            if (delegacao == ViewBag.Delegacao[i].Id)
+                                            {
+                                                ViewBag.DelegacaoSel = i;
+                                            }
+                                            <option value="@ViewBag.Delegacao[i].Id">@ViewBag.Delegacao[i].Delegacao</option>
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select id="delegacoes" onchange="postDelegacao(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
+                                        @foreach (var item in ViewBag.Delegacao)
+                                        {
+                                            <option value="@item.Id">@item.Delegacao</option>
+                                        }
+                                    </select>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Área</label>
+                        <div class="controls">
+
+                            @{
+                                int? area = Context.Session.GetInt32("Área");
+                                int? areaQuantidade = Context.Session.GetInt32("QuantidadeArea");
+                                if ((area != null) && (areaQuantidade != null && areaQuantidade == 1))
+                                {
+                                    <select id="areas" onchange="postArea(); postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
+                                        @for (int i = 0; i < ViewBag.Areas.Count; i++)
+                                        {
+                                            if (area == ViewBag.Areas[i].Id)
+                                            {
+                                                ViewBag.AreaSel = i;
+                                            }
+                                            <option value="@ViewBag.Areas[i].Id">@ViewBag.Areas[i].Area</option>
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select id="areas" onchange="postArea(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
+                                        @foreach (var item in ViewBag.Areas)
+                                        {
+                                            <option value="@item.Id">@item.Area</option>
+                                        }
+                                    </select>
+                                }
+                            }
+
+                        </div>
+                    </div>
+
+
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Endereço</label>
+                        <div class="controls">
+                            <input id="Endereco" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+
+                    
+                  
+                    <br />
+                    <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
+                    <div class="col-xs-8"><a href="#" onclick="postToController();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
+
+                    <br />
+
+                    <label class="fontTableBodyNavBar">Exportar Agenda Formato Gás Natural</label>
+
+                    <a href="#" onclick="ExportaPadraoGas();">
+                        <img src="~/images/ms_excel.png" width="30" height="30" />
+                    </a>
+                </form>
+            </nav>
+        </div>
+    </div>
+</div>
