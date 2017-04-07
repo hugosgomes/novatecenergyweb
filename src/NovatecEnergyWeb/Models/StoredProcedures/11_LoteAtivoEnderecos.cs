@@ -20,6 +20,7 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public int Visitas { get; set; }
         public int VisitasAgendadas { get; set; }
         public int Entrevistas { get; set; }
+        public int Ausencias { get; set; }
         public int Endinex { get; set; }
         public int D2 { get; set; }
         public int Svg { get; set; }
