@@ -147,7 +147,7 @@
                                 }
                                 else
                                 {
-                                    <select id="zonas" onchange="postZona();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                    <select id="zonas" onchange="postZona(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                         @foreach (var item in ViewBag.Zonas)
                                         {
                                             <option value="@item.Id">@item.Zona</option>
@@ -167,7 +167,7 @@
 
                                 if (delegacao != null)
                                 {
-                                    <select id="delegacoes" onchange="postDelegacao();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
+                                    <select id="delegacoes" onchange="postDelegacao(); postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar delegacaoSelect">
                                         @for (int i = 0; i < ViewBag.Delegacao.Count; i++)
                                         {
                                             if (delegacao == ViewBag.Delegacao[i].Id)
@@ -229,7 +229,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Lote</label>
                         <div class="controls">
-                            <select id="lotes" name="LoteError" onchange="postLote(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
+                            <select id="lotes" name="LoteError" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
 
                                 @foreach (var item in ViewBag.Lotes)
                                 {
@@ -441,10 +441,14 @@
 
     }
 
-    function atualizaDropZona(retorno) {       
+    function atualizaDropZona(retorno) {
         preencheDelegacao(retorno);
         preencheArea(retorno);
-        preencheLotes(retorno);    
+        preencheLotes(retorno);
+    }
+    function preencheZona(retorno) {
+
+
     }
 
     function preencheDelegacao(retorno) {
@@ -484,11 +488,59 @@
 
     function postDelegacao() {
         var p = {};
-        p.zona = $("#delegacoes").val();
+        p.delegacao = $("#delegacoes").val();
         $.post("@Url.Action("DelegacaoCascade", "AdesaoEnderecos")", p, atualizaDropsDelegacao);
     }
 
     function atualizaDropsDelegacao(retorno) {
+        preencheArea(retorno);
+        preencheLotes(retorno);
+    }
+
+    function postArea() {
+        var p = {};
+        p.lote = $("#areas").val();
+        $.post("@Url.Action("AreaCascade", "AdesaoEnderecos")", p, atualizaDropArea);
+    }
+
+    function atualizaDropArea(retorno) {
+        preencheLotes(retorno);
+    }
+
+    function limpaFiltro() {
+        $('#zonas').val("");
+        $('#delegacoes').val("");
+        $('#areas').val("");
+        $('#lotes').val("");
+        $('#Endereco').val("");
+
+        var parametro = {};
+        parametro.Botao = clicado();
+        parametro.LimpaFiltro = true;
+
+
+        if ($("#todosli").hasClass('disabled')) {
+            id = 'todos';
+        } else if ($("#ativosli").hasClass('disabled')) {
+            id = 'ativos';
+        }
+
+        if ((parametro.Botao == 'todos') || (parametro.Botao == 'ativos')) {
+            $.post("@Url.Action("LimpaFiltros", "AdesaoEnderecos")", parametro, bindSelects);
+
+        }
+
+    }
+
+    function bindSelects(retorno) {
+        atualizaView(retorno);
+        parametro = {};
+
+        $.post("@Url.Action("LimpaSelects", "AdesaoEnderecos")", parametro, atualizaSelects);
+    }
+
+    function atualizaSelects(retorno){
+        preencheDelegacao(retorno);
         preencheArea(retorno);
         preencheLotes(retorno);
     }

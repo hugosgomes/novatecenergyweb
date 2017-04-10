@@ -21,6 +21,44 @@ namespace NovatecEnergyWeb.Controllers
             _context = context;
         }
 
+        public List<List<dynamic>> GetLotes(List<int> areas,int area)
+        {
+            if (area != 0)
+            {
+                areas.Add(area);
+            }
+
+            var lotes = (from l in _context._11Lotes
+                         where areas.Contains(l.Area)
+                         join ti in _context._00TabelasItems on l.Status equals ti.Id
+                         join ti2 in _context._00TabelasItems on l.Procedencia equals ti2.Id
+                         select new
+                         {
+                             Id = l.Id,
+                             LoteNum = l.LoteNum,
+                             Ge = l.Ge,
+                             DataLote = l.DataLote,
+                             Tipo = ti2.Item,
+                             Status = ti.Item
+                         }).ToList();
+            
+
+            var Lotes = new List<List<dynamic>>();
+            foreach (var item in lotes)
+            {
+                var d = new List<dynamic>();
+                d.Add(item.Id);
+                d.Add(item.LoteNum);
+                d.Add(item.Ge);
+                d.Add(item.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"));
+                d.Add(item.Tipo);
+                d.Add(item.Status);
+                Lotes.Add(d);
+            }
+
+            return Lotes;
+        }
+
         public IActionResult ZonaCascade(int zona)
         {
             //delegacao
@@ -43,43 +81,40 @@ namespace NovatecEnergyWeb.Controllers
             {
                 listAreaInt.Add(item.Id);
             }
-
-            var lotes = (from l in _context._11Lotes
-                         where listAreaInt.Contains(l.Area)
-                         join ti in _context._00TabelasItems on l.Status equals ti.Id
-                         join ti2 in _context._00TabelasItems on l.Procedencia equals ti2.Id
-                         select new
-                         {
-                             Id = l.Id,
-                             LoteNum = l.LoteNum,
-                             Ge = l.Ge,
-                             DataLote = l.DataLote,
-                             Tipo = ti2.Item,
-                             Status = ti.Item
-                         }).ToList();
-
-            var Lotes = new List<List<dynamic>>();
-            foreach (var item in lotes)
-            {
-                var d = new List<dynamic>();
-                d.Add(item.Id);
-                d.Add(item.LoteNum);
-                d.Add(item.Ge);
-                d.Add(item.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"));
-                d.Add(item.Tipo);
-                d.Add(item.Status);
-                Lotes.Add(d);
-            }
-
+            
             dynamic retorno = new ExpandoObject();
             retorno.Delegacao = delegacao;
             retorno.Area = areasL;
-            retorno.Lote = Lotes;
+            retorno.Lote = GetLotes(listAreaInt,0);
+
+            return Json(retorno);
+        }
+ 
+        public IActionResult DelegacaoCascade(int delegacao)
+        {
+            //area
+            var AreasL = _context._00Areas.Where(c => c.Delegacao == delegacao).ToList();
+            var listAreaInt = new List<int>();
+            foreach (var item in AreasL)
+            {
+                listAreaInt.Add(item.Id);
+            }
+
+            dynamic retorno = new ExpandoObject();
+            retorno.Area = AreasL;
+            retorno.Lote = GetLotes(listAreaInt,0);
 
             return Json(retorno);
         }
 
-       
+        public IActionResult AreaCascade(int lote)
+        {
+            var listInt = new List<int>();
+            dynamic retorno = new ExpandoObject();
+            retorno.Lote = GetLotes(listInt, lote);
+
+            return Json(retorno);
+        }
 
         public void BindSelects()
         {
@@ -257,6 +292,22 @@ namespace NovatecEnergyWeb.Controllers
             }
         }
 
+        public IActionResult LimpaFiltros(string Botao)
+        {
+            return GetListLoteAtivoView(null, false, Botao, 0);
+        }
 
+        public IActionResult LimpaSelects()
+        {
+            BindSelects();
+
+            dynamic jsonModel = new ExpandoObject();
+            jsonModel.Zonas = ViewBag.Zonas;
+            jsonModel.Delegacao = ViewBag.Delegacao;
+            jsonModel.Area = ViewBag.Areas;
+            jsonModel.Lote = ViewBag.Lotes;
+
+            return Json(jsonModel);
+        }
     }
 }
