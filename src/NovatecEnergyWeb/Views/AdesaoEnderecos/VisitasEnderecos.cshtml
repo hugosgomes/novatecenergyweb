@@ -117,25 +117,7 @@
 
 
                 <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
-                    <div class="control-group">
-                        <label class="control-label labelsFormNav">Lote</label>
-                        <div class="controls">
-                            <select id="lotes" name="LoteError" onchange="postLote(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
-
-                                @foreach (var item in ViewBag.Lotes)
-                                {
-                                    <option value="@item[0]">
-                                        @item[1]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        @item[2]
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        @item[3]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item[4]
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item[5]
-                                    </option>
-                                }
-
-                            </select>
-                        </div>
-                    </div>
+                   
 
 
 
@@ -147,7 +129,7 @@
 
                                 if (zona != null)
                                 {
-                                    <select id="zonas" onchange="/*postZona(); */ postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                    <select id="zonas" onchange="postZona();  postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                         @for (int i = 0; i < ViewBag.Zonas.Count; i++)
                                         {
                                             if (zona == ViewBag.Zonas[i].Id)
@@ -165,7 +147,7 @@
                                 }
                                 else
                                 {
-                                    <select id="zonas" onchange="//postZona();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                    <select id="zonas" onchange="postZona();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                         @foreach (var item in ViewBag.Zonas)
                                         {
                                             <option value="@item.Id">@item.Zona</option>
@@ -245,6 +227,26 @@
 
 
                     <div class="control-group">
+                        <label class="control-label labelsFormNav">Lote</label>
+                        <div class="controls">
+                            <select id="lotes" name="LoteError" onchange="postLote(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
+
+                                @foreach (var item in ViewBag.Lotes)
+                                {
+                                    <option value="@item[0]">
+                                        @item[1]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @item[2]
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @item[3]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item[4]
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item[5]
+                                    </option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
                         <label class="control-label labelsFormNav">Endereço</label>
                         <div class="controls">
                             <input id="Endereco" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
@@ -306,6 +308,7 @@
     $("#delegacoes").prop("selectedIndex", -1);
     $("#areas").prop("selectedIndex", -1);
 
+
     window.onload = function () {
         postToController();
     };
@@ -319,7 +322,7 @@
             DId: $('#delegacoes').val(),
             AId: $('#areas').val(),
             Endereco: $('#Endereco').val().toString().trim(),
-            
+
             Botao: botaoClicado
         }
     }
@@ -374,8 +377,6 @@
         var tr;
         var r = new Array();
         var j = -1;
-
-        
 
         for (var i = 0; i < retorno.EV.length; i++) {
 
@@ -432,6 +433,60 @@
 
         $('#corpoTabelaAtivos').html(r.join(''));
     }
+    function postLote() {
+        var p = {};
+        p.lote = $("#lotes").val();
+        $.post("@Url.Action("LoteCascade", "AdesaoEnderecos")", p, atualizaDropsLote);
+    }
 
+
+    function atualizaDropsLote(retorno){
+        $("#zonas").empty();
+        $("#delegacoes").empty();
+        $("#areas").empty();
+
+        $.each(retorno.Delegacao, function () {
+            $("#zonas").append($("<option />").val(this.id).text(this.zona));
+        });
+
+        $.each(retorno.Delegacao, function () {
+            $("#delegacoes").append($("<option />").val(this.id).text(this.delegacao));
+        });
+
+        $.each(retorno.Area, function () {
+            $("#areas").append($("<option />").val(this.id).text(this.area));
+        });
+    
+
+    };
+    function postZona() {
+        var p = {};
+        p.zona = $("#zonas").val();
+        $.post("@Url.Action("ZonaCascade", "AdesaoEnderecos")", p, atualizaDropsZona);
+
+    }
+
+    function atualizaDropsZona(retorno) {
+        $("#delegacoes").empty();
+        $("#areas").empty();
+        $("#lotes").empty();
+
+        $.each(retorno.Delegacao, function () {
+            $("#delegacoes").append($("<option />").val(this.id).text(this.delegacao));
+        });
+
+        $.each(retorno.Area, function () {
+            $("#areas").append($("<option />").val(this.id).text(this.area));
+        });
+
+        $.each(retorno.Lote, function () {
+            var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+            $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
+                  + this[2] + p.text()
+                  + this[3] + p.text()
+                  + this[4] + p.text()+this[5]));
+        });
+    }
 </script>
 }
