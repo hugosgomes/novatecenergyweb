@@ -201,7 +201,7 @@ namespace NovatecEnergyWeb.Controllers
                     valorSP = "[dbo].[11_LoteAtivoEnderecos]";
                     break;
                 case "todos":
-                    valorSP = " "; //implementar depois
+                    valorSP = "[dbo].[11_LoteTodosEnderecos]"; 
                     break;
             }
 
