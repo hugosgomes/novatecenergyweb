@@ -447,8 +447,13 @@
         preencheLotes(retorno);
     }
     function preencheZona(retorno) {
+        $('#zonas').empty();
 
+        $.each(retorno.Zonas, function () {
+            $("#zonas").append($("<option />").val(this.id).text(this.zona));
+        });
 
+        $("#zonas").prop("selectedIndex", -1);
     }
 
     function preencheDelegacao(retorno) {
@@ -464,7 +469,7 @@
     function preencheArea(retorno) {
         $("#areas").empty();
 
-        $.each(retorno.Area, function () {
+        $.each(retorno.Areas, function () {
             $("#areas").append($("<option />").val(this.id).text(this.area));
         });
 
@@ -474,7 +479,7 @@
     function preencheLotes(retorno) {
         $("#lotes").empty();
 
-        $.each(retorno.Lote, function () {
+        $.each(retorno.Lotes, function () {
             var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
 
             $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
@@ -539,7 +544,8 @@
         $.post("@Url.Action("LimpaSelects", "AdesaoEnderecos")", parametro, atualizaSelects);
     }
 
-    function atualizaSelects(retorno){
+    function atualizaSelects(retorno) {
+        preencheZona(retorno);
         preencheDelegacao(retorno);
         preencheArea(retorno);
         preencheLotes(retorno);

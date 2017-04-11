@@ -101,8 +101,8 @@ namespace NovatecEnergyWeb.Controllers
             }
 
             dynamic retorno = new ExpandoObject();
-            retorno.Area = AreasL;
-            retorno.Lote = GetLotes(listAreaInt,0);
+            retorno.Areas = AreasL;
+            retorno.Lotes = GetLotes(listAreaInt,0);
 
             return Json(retorno);
         }
@@ -111,7 +111,7 @@ namespace NovatecEnergyWeb.Controllers
         {
             var listInt = new List<int>();
             dynamic retorno = new ExpandoObject();
-            retorno.Lote = GetLotes(listInt, lote);
+            retorno.Lotes = GetLotes(listInt, lote);
 
             return Json(retorno);
         }
@@ -145,15 +145,34 @@ namespace NovatecEnergyWeb.Controllers
 
             var zonas = _context._00Zona.Where(c => c.Id < 3).ToList();
             ViewBag.Zonas = new List<_00Zona>();
-            ViewBag.Zonas = zonas;
+            foreach (var item in zonas)
+            {
+                var z = new _00Zona();
+                z.Id = item.Id;
+                z.Zona = item.Zona;
+                ViewBag.Zonas.Add(z);
+            }
 
             var delegacoes = _context._00Delegacao.ToList();
             ViewBag.Delegacao = new List<_00Delegação>();
-            ViewBag.Delegacao = delegacoes;
+            foreach (var item in delegacoes)
+            {
+                var d = new _00Delegação();
+                d.Id = item.Id;
+                d.Delegacao = item.Delegacao;
+                d.Zona = item.Zona;
+                ViewBag.Delegacao.Add(d);
+            }
 
             var areas = _context._00Areas.ToList();
             ViewBag.Areas = new List<_00Areas>();
-            ViewBag.Areas = areas;
+            foreach (var item in areas)
+            {
+                var a = new _00Areas();
+                a.Id = item.Id;
+                a.Area = item.Area;
+                ViewBag.Areas.Add(a);
+            }
         }
 
         public IActionResult VisitasEnderecos()
@@ -300,13 +319,14 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult LimpaSelects()
         {
             BindSelects();
+            var i = ViewBag.Lotes; // parece que se eu não fizer isso a ViewBag não atualiza
 
             dynamic jsonModel = new ExpandoObject();
             jsonModel.Zonas = ViewBag.Zonas;
             jsonModel.Delegacao = ViewBag.Delegacao;
-            jsonModel.Area = ViewBag.Areas;
-            jsonModel.Lote = ViewBag.Lotes;
-
+            jsonModel.Areas = ViewBag.Areas;
+            jsonModel.Lotes = ViewBag.Lotes; 
+           
             return Json(jsonModel);
         }
     }
