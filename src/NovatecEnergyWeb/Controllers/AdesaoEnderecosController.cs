@@ -304,7 +304,14 @@ namespace NovatecEnergyWeb.Controllers
                 jsonModel.Porcentagens.Add(ViewBag.VisitasComRespostaPercent.ToString());//ep8
                 jsonModel.Porcentagens.Add(ViewBag.AusentesPercent.ToString()); //ep9
 
-                jsonModel.EV = evList;
+
+                var pagina = 0;
+                if (PaginaClicada != 0)
+                {
+                    pagina = (PaginaClicada - 1) * 200;
+                }
+                jsonModel.EV = evList.Skip(pagina).Take(200);
+                jsonModel.QuantasPaginasExistem = (evList.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(evList.Count()), 200)) : 0;
 
                 return Json(jsonModel);
  

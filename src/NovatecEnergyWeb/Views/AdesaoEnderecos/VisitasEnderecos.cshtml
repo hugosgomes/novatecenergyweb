@@ -271,6 +271,7 @@
         </div>
 
          <div class="col-sm-9 col-lg-10">
+             <div id="page-selection"></div>
              <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
                  <thead id="headTabelaLote">
                      <tr>
@@ -358,6 +359,7 @@
 
     function atualizaView(retorno) {
         tabelaEstatisticas(retorno);
+        montaPaginacao(retorno);
         tabelaLoteAtivos(retorno);
     };
 
@@ -549,6 +551,36 @@
         preencheDelegacao(retorno);
         preencheArea(retorno);
         preencheLotes(retorno);
+    }
+
+    function montaPaginacao(retorno) {
+        //paginação
+        $('#page-selection').unbind(); // limpa os eventos adicionados nessa tag
+
+        $('#page-selection').bootpag({
+            total: retorno.QuantasPaginasExistem,
+            page: 1,
+            maxVisible: 5,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+
+        }).on("page", function (event, num) {
+            // some ajax content loading...
+            postPaginacao(num);
+
+        });
+
+    }
+
+    function postPaginacao(num) {
+        var data = getFormDataAsJson();
+        data.PaginaClicada = num;
+        $.post("@Url.Action("GetListLoteAtivoView", "AdesaoEnderecos")", data, tabelaLoteAtivos);
     }
 </script>
 }
