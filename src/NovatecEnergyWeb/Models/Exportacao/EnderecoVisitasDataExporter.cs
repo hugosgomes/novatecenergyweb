@@ -243,11 +243,11 @@ namespace NovatecEnergyWeb.Models.Exportacao
 
         public byte[] ExportaAgendaAdesao(List<_11_LoteAtivoEnderecos> data, List<_11_LoteAtivoEnderecosExportacao> data2, IEnumerable<dynamic> lote, FormFiltersAgendaVisitaEnderecosViewModel filtros)
         {
-
             var l = lote.ToList();
+            var enumMeses = (FormFiltersAgendaVisitaEnderecosViewModel.meses) Convert.ToInt32(filtros.Mes);
 
             //terminar a lógica do nome depois
-            FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Lote" + l[0].LoteNum + "- Agenda" + " De "+ filtros.Ano+ ".xlsx";
+            FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Lote " + l[0].LoteNum + "- Agenda " +enumMeses.ToString()+ " De "+ filtros.Ano+ ".xlsx";
 
             File.Copy(Path.Combine(WebRootFolder, @"formatoAgendaAdesao.xlsx"), Path.Combine(WebRootFolder, FileName));
             FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
