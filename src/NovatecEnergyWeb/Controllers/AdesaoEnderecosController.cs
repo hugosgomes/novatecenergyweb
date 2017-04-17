@@ -9,16 +9,20 @@ using NovatecEnergyWeb.Models.StoredProcedures;
 using NovatecEnergyWeb.Models.AdesaoViewModels;
 using Microsoft.AspNetCore.Http;
 using System.Dynamic;
+using NovatecEnergyWeb.Models.Exportacao;
+using Microsoft.AspNetCore.Hosting;
 
 namespace NovatecEnergyWeb.Controllers
 {
     public class AdesaoEnderecosController : Controller
     {
         private BDNVTContext _context;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AdesaoEnderecosController(BDNVTContext context)
+        public AdesaoEnderecosController(BDNVTContext context, IHostingEnvironment he)
         {
             _context = context;
+            _hostingEnvironment = he;
         }
 
         public List<List<dynamic>> GetLotes(List<int> areas,int area)
@@ -182,6 +186,18 @@ namespace NovatecEnergyWeb.Controllers
 
         }
 
+        private FormFiltersVisitaEnderecosViewModels GetFiltrosSessao()
+        {
+            var ffvm = new FormFiltersVisitaEnderecosViewModels();
+            ffvm.IdLote = (HttpContext.Session.GetString("IdLote") == "") ? null : HttpContext.Session.GetString("IdLote");
+            ffvm.ZId = (HttpContext.Session.GetString("ZId") == "") ? null : HttpContext.Session.GetString("ZId");
+            ffvm.DId = (HttpContext.Session.GetString("DId") == "") ? null : HttpContext.Session.GetString("DId");
+            ffvm.AId = (HttpContext.Session.GetString("AId") == "") ? null : HttpContext.Session.GetString("AId");
+            ffvm.Endereco = (HttpContext.Session.GetString("Endereco") == "") ? null : HttpContext.Session.GetString("Endereco");
+
+            return ffvm;
+        }
+
         private void setFiltrosSessao(FormFiltersVisitaEnderecosViewModels data, string Botao)
         {
             if (data != null)
@@ -335,6 +351,56 @@ namespace NovatecEnergyWeb.Controllers
             jsonModel.Lotes = ViewBag.Lotes; 
            
             return Json(jsonModel);
+        }
+
+        public void setFiltrosTelaExportacao([FromForm]FormFiltersAgendaVisitaEnderecosViewModel filtrosTelaExportacao)
+        {
+            if (filtrosTelaExportacao != null)
+            {
+                HttpContext.Session.SetString("Ano", (filtrosTelaExportacao.Ano == null) ? "" : filtrosTelaExportacao.Ano);
+                HttpContext.Session.SetString("Mes", (filtrosTelaExportacao.Mes == null) ? "" : filtrosTelaExportacao.Mes);
+            }
+        }
+        private FormFiltersAgendaVisitaEnderecosViewModel GetFiltrosAgenda()
+        {
+            var ffavem = new FormFiltersAgendaVisitaEnderecosViewModel();
+            ffavem.Ano = (HttpContext.Session.GetString("Ano") == "") ? null : HttpContext.Session.GetString("Ano");
+            ffavem.Mes = (HttpContext.Session.GetString("Mes") == "") ? null : HttpContext.Session.GetString("Mes");
+
+            return ffavem;
+        }
+
+        public IActionResult ExportaAgendaAdesao()
+        {
+            var filtrosTelaAnterior = GetFiltrosSessao();
+            var idLoteFiltro = HttpContext.Session.GetString("IdLote"); 
+
+            // dados vindos das SPs 11_LoteAtivoEnderecos/ 11_LoteRodosEnderecos
+            var dataEnderecosAtivos = GetEnderecosAtivos(filtrosTelaAnterior);
+
+            var filtrosTelaExportacao = GetFiltrosAgenda();
+
+            var dataExporta = _context._11_LoteAtivoEnderecosExportacao
+                                .FromSql("exec [dbo].[11_LoteAtivoEnderecosExportacao] {0},{1},{2}", idLoteFiltro, filtrosTelaExportacao.Ano,
+                                filtrosTelaExportacao.Mes).ToList();
+
+            var lote = (from l in _context._11Lotes
+                        where l.Id == Convert.ToInt32(idLoteFiltro)
+                        join ti in _context._00TabelasItems on l.Status equals ti.Id
+                        join a in _context._00Areas on l.Area equals a.Id
+                        select new
+                        {
+                            Id = l.Id,
+                            LoteNum = l.LoteNum,
+                            Area = a.Area,
+                            Ge = l.Ge,
+                            DataLote = l.DataLote
+                        });
+
+            EnderecoVisitasDataExporter exp = new EnderecoVisitasDataExporter(_hostingEnvironment);
+            byte[] fileBytes = exp.ExportaAgendaAdesao(dataEnderecosAtivos, dataExporta, lote, filtrosTelaExportacao);
+
+            return File(fileBytes, "application/x-msdownload", exp.FileName);
         }
     }
 }

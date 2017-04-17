@@ -750,7 +750,7 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult ExportaPadraoGasNatural()
         {
             var filtros = getFiltrosSessao();
-            // fazer crítica de lote vazio
+          
 
             var data = GetListLoteAtivoB(filtros);
 

@@ -26,7 +26,7 @@
                             <label class="control-label labelsFormNav">Ano</label>
                             <div class="controls">
 
-                                <select id="anos" style="width:80px;" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                <select id="anos" style="width:80px;" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" onchange="postFilters();">
                                     <option>2016</option>
                                     <option>2017</option>
                                 </select>
@@ -36,7 +36,7 @@
                         <div class="control-group">
                             <label class="control-label labelsFormNav">Mês</label>
                             <div class="controls">
-                                <select id="mes" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                <select id="mes" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" onchange="postFilters();">
                                     <option value="1">JANEIRO</option>
                                     <option value="2">FEVEREIRO</option>
                                     <option value="3">MARÇO</option>
@@ -56,7 +56,7 @@
                         
                         <div class="control-group">
                             <div class="controls">
-                                <a href="#">
+                                <a href="#" onclick="ExportaAgenda();">
                                     <img src="~/images/ms_excel.png" width="30" title="Exportar" height="30" />
                                 </a>
                             </div>
@@ -329,7 +329,7 @@
 
                     <label class="fontTableBodyNavBar">Exportar Agenda Formato Gás Natural</label>
 
-                    <a href="#"  data-toggle="modal" data-target="#myModal" onclick="telaExportacao();">
+                    <a href="#"  data-toggle="modal" data-target="#myModal" onclick="entrarNaTelaExportacao();">
                         <img src="~/images/ms_excel.png" width="30" height="30" />
                     </a>
                 </form>
@@ -649,9 +649,29 @@
         $.post("@Url.Action("GetListLoteAtivoView", "AdesaoEnderecos")", data, tabelaLoteAtivos);
     }
 
-    function telaExportacao() {
+    function entrarNaTelaExportacao() {
         $("#mes").val("@DateTime.Now.Month");
         $("#anos").val("@DateTime.Now.Year");
+
+        postFilters();
+    }
+
+    function postFilters() {
+        var data = {
+            Ano: $("#anos").val(),
+            Mes: $("#mes").val()
+        }
+
+        $.post("@Url.Action("setFiltrosTelaExportacao", "AdesaoEnderecos")", data, nothing);
+    }
+    function nothing() {
+
+
+    }
+    function ExportaAgenda() {
+        
+        var url = '@AppSettings.ExcelExportUrl';
+        window.location.href = '' + url + '/AdesaoEnderecos/ExportaAgendaAdesao?';
     }
 </script>
 }

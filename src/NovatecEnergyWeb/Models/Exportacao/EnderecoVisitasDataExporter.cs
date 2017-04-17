@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Hosting;
 using NovatecEnergyWeb.Models.StoredProcedures;
 using System.IO;
 using OfficeOpenXml;
+using NovatecEnergyWeb.Models.AdesaoViewModels;
+
 namespace NovatecEnergyWeb.Models.Exportacao
 {
     public class EnderecoVisitasDataExporter
@@ -233,6 +235,68 @@ namespace NovatecEnergyWeb.Models.Exportacao
             }
 
             byte[] fileBytes = File.ReadAllBytes(Path.Combine(WebRootFolder, FileName)); ;
+            if (file.Exists)
+                file.Delete();
+
+            return fileBytes;
+        }
+
+        public byte[] ExportaAgendaAdesao(List<_11_LoteAtivoEnderecos> data, List<_11_LoteAtivoEnderecosExportacao> data2, IEnumerable<dynamic> lote, FormFiltersAgendaVisitaEnderecosViewModel filtros)
+        {
+
+            var l = lote.ToList();
+
+            //terminar a lógica do nome depois
+            FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Lote" + l[0].LoteNum + "- Agenda" + " De "+ filtros.Ano+ ".xlsx";
+
+            File.Copy(Path.Combine(WebRootFolder, @"formatoAgendaAdesao.xlsx"), Path.Combine(WebRootFolder, FileName));
+            FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
+
+            using (ExcelPackage package = new ExcelPackage(file))
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Where(c => c.Name == "Import").FirstOrDefault(); //
+
+                for (int i = 0; i < data.Count(); i++)
+                {
+                    worksheet.Cells["A" + (i + 4).ToString()].Value = data[i].Endereco;
+                    worksheet.Cells["B" + (i + 4).ToString()].Value = data[i].Potencial;
+                    worksheet.Cells["C" + (i + 4).ToString()].Value = data[i].Agente;
+                }
+
+                for (int i = 0; i < data2.Count(); i++)
+                {
+                    worksheet.Cells["G" + (i + 4).ToString()].Value = data2[i].Endereco;
+                    worksheet.Cells["H" + (i + 4).ToString()].Value = data2[i].Datah;
+                    worksheet.Cells["I" + (i + 4).ToString()].Value = data2[i].Entrevistas;
+                    worksheet.Cells["J" + (i + 4).ToString()].Value = data2[i].EntrevistasD2;
+                    worksheet.Cells["M" + (i + 4).ToString()].Value = data2[i].Contratados;
+                    worksheet.Cells["N" + (i + 4).ToString()].Value = data2[i].D2;
+                    worksheet.Cells["O" + (i + 4).ToString()].Value = data2[i].Svg;
+                    worksheet.Cells["P" + (i + 4).ToString()].Value = data2[i].Sve;
+                }
+
+                //Remove aba "Import"
+                //worksheet.Hidden = eWorkSheetHidden.Hidden;
+                worksheet.Hidden = eWorkSheetHidden.VeryHidden;
+                //package.Workbook.Worksheets.Delete(worksheet);
+
+                var worksheetAgenda = package.Workbook.Worksheets.Where(c => c.Name == "Agenda").FirstOrDefault();
+
+                worksheetAgenda.Cells["BR1"].Value = l[0].Area;
+                worksheetAgenda.Cells["BR2"].Value = l[0].Ge;
+                worksheetAgenda.Cells["BR3"].Value = filtros.Mes + "/" + filtros.Ano;
+
+                
+                //deleta linhas restantes
+                var ondeComecaDelecao = 7 + (data.Count * 4);
+                var qtdLinhasDelecao  = worksheetAgenda.Cells["A"+ ondeComecaDelecao.ToString()+ ":G410"].Rows;
+                worksheetAgenda.DeleteRow(ondeComecaDelecao, qtdLinhasDelecao);
+
+                worksheetAgenda.Select("B7");
+                package.Save();        
+            }
+
+            byte[] fileBytes = File.ReadAllBytes(Path.Combine(WebRootFolder, FileName));
             if (file.Exists)
                 file.Delete();
 
