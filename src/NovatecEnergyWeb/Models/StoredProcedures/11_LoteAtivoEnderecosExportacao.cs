@@ -7,9 +7,9 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
 {
     public class _11_LoteAtivoEnderecosExportacao
     {
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
         public string Endereco { get; set; }
-        public string Datah { get; set; }
+        public DateTime Datah { get; set; }
         public int Entrevistas { get; set; }
         public int EntrevistasD2 { get; set; }
         public int Contratados { get; set; }

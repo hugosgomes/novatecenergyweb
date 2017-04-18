@@ -276,15 +276,15 @@ namespace NovatecEnergyWeb.Models.Exportacao
                 }
 
                 //Remove aba "Import"
-                //worksheet.Hidden = eWorkSheetHidden.Hidden;
-                worksheet.Hidden = eWorkSheetHidden.VeryHidden;
+                worksheet.Hidden = eWorkSheetHidden.Hidden;
+                //worksheet.Hidden = eWorkSheetHidden.VeryHidden;
                 //package.Workbook.Worksheets.Delete(worksheet);
 
                 var worksheetAgenda = package.Workbook.Worksheets.Where(c => c.Name == "Agenda").FirstOrDefault();
 
                 worksheetAgenda.Cells["BR1"].Value = l[0].Area;
                 worksheetAgenda.Cells["BR2"].Value = l[0].Ge;
-                worksheetAgenda.Cells["BR3"].Value = filtros.Mes + "/" + filtros.Ano;
+                worksheetAgenda.Cells["BR3"].Value = enumMeses + "/" + filtros.Ano;
 
                 
                 //deleta linhas restantes

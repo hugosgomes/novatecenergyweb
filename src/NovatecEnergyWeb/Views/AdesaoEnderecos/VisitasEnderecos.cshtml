@@ -22,6 +22,8 @@
                 <div class="modal-body">
                     <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
 
+                        <h5 id="loteExibicao">Lote </h5>
+
                         <div class="control-group">
                             <label class="control-label labelsFormNav">Ano</label>
                             <div class="controls">
@@ -653,6 +655,10 @@
         $("#mes").val("@DateTime.Now.Month");
         $("#anos").val("@DateTime.Now.Year");
 
+        var lt = $("#lotes :selected").text().toString();
+        var ltf = lt.split(" ").join("").substr(0,5).toString();
+        document.getElementById("loteExibicao").innerHTML = 'Lote '+ ltf;
+
         postFilters();
     }
 
@@ -660,13 +666,9 @@
         var data = {
             Ano: $("#anos").val(),
             Mes: $("#mes").val()
-        }
-
-        $.post("@Url.Action("setFiltrosTelaExportacao", "AdesaoEnderecos")", data, nothing);
-    }
-    function nothing() {
-
-
+        };
+        
+        $.post("@Url.Action("SetFiltrosTelaExportacao", "AdesaoEnderecos")", data);
     }
     function ExportaAgenda() {
         

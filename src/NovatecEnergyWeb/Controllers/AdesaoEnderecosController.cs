@@ -353,13 +353,14 @@ namespace NovatecEnergyWeb.Controllers
             return Json(jsonModel);
         }
 
-        public void setFiltrosTelaExportacao([FromForm]FormFiltersAgendaVisitaEnderecosViewModel filtrosTelaExportacao)
+        public IActionResult SetFiltrosTelaExportacao([FromForm]FormFiltersAgendaVisitaEnderecosViewModel filtrosTelaExportacao)
         {
             if (filtrosTelaExportacao != null)
             {
                 HttpContext.Session.SetString("Ano", (filtrosTelaExportacao.Ano == null) ? "" : filtrosTelaExportacao.Ano);
                 HttpContext.Session.SetString("Mes", (filtrosTelaExportacao.Mes == null) ? "" : filtrosTelaExportacao.Mes);
             }
+            return Json("OK");
         }
         private FormFiltersAgendaVisitaEnderecosViewModel GetFiltrosAgenda()
         {
