@@ -11,7 +11,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog  modal-sm">
 
             <!-- Modal content-->
             <div class="modal-content">
@@ -297,7 +297,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Lote</label>
                         <div class="controls">
-                            <select id="lotes" name="LoteError" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
+                            <select id="lotes" name="LoteError" onchange="postToController(); atribuiDataToggle();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
 
                                 @foreach (var item in ViewBag.Lotes)
                                 {
@@ -331,7 +331,7 @@
 
                     <label class="fontTableBodyNavBar">Exportar Agenda Formato Gás Natural</label>
 
-                    <a href="#"  data-toggle="modal" data-target="#myModal" onclick="entrarNaTelaExportacao();">
+                    <a id="botaoExporta" href="#"  data-target="#myModal" onclick="entrarNaTelaExportacao();">
                         <img src="~/images/ms_excel.png" width="30" height="30" />
                     </a>
                 </form>
@@ -588,6 +588,7 @@
         $('#areas').val("");
         $('#lotes').val("");
         $('#Endereco').val("");
+        $('#botaoExporta').removeAttr('data-toggle');
 
         var parametro = {};
         parametro.Botao = clicado();
@@ -655,10 +656,13 @@
         $("#mes").val("@DateTime.Now.Month");
         $("#anos").val("@DateTime.Now.Year");
 
-        var lt = $("#lotes :selected").text().toString();
-        var ltf = lt.split(" ").join("").substr(0,5).toString();
-        document.getElementById("loteExibicao").innerHTML = 'Lote '+ ltf;
-
+        if ($("#lotes").val() != null) {
+            var lt = $("#lotes :selected").text().toString();
+            var ltf = lt.split(" ").join("").substr(0, 5).toString();
+            document.getElementById("loteExibicao").innerHTML = 'Lote ' + ltf;
+        } else {
+            alert('Selecione um lote');
+        }
         postFilters();
     }
 
@@ -674,6 +678,14 @@
         
         var url = '@AppSettings.ExcelExportUrl';
         window.location.href = '' + url + '/AdesaoEnderecos/ExportaAgendaAdesao?';
+    }
+
+    //usado na combo de lote para acrescentar o atributo data-toggle pra abrir a telinha de exportação
+    function atribuiDataToggle() {
+        var vatt = $('#botaoExporta').attr('data-toggle');
+        if (vatt == null) {
+            $('#botaoExporta').attr('data-toggle', 'modal');
+        } 
     }
 </script>
 }
