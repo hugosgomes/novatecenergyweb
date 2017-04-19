@@ -273,7 +273,7 @@
                                         {
                                             if (area == ViewBag.Areas[i].Id)
                                             {
-                                                ViewBag.AreaSel = i;
+                                                ViewBag.AreaSel = ViewBag.Areas[i].Id;
                                             }
                                             <option value="@ViewBag.Areas[i].Id">@ViewBag.Areas[i].Area</option>
                                         }
@@ -380,6 +380,7 @@
 
     window.onload = function () {
         postToController();
+        selecionaInfoCliente();
     };
 
     function getFormDataAsJson() {
@@ -516,6 +517,7 @@
         preencheArea(retorno);
         preencheLotes(retorno);
     }
+
     function preencheZona(retorno) {
         $('#zonas').empty();
 
@@ -570,6 +572,7 @@
     function atualizaDropsDelegacao(retorno) {
         preencheArea(retorno);
         preencheLotes(retorno);
+
     }
 
     function postArea() {
@@ -620,6 +623,7 @@
         preencheDelegacao(retorno);
         preencheArea(retorno);
         preencheLotes(retorno);
+        selecionaInfoCliente();
     }
 
     function montaPaginacao(retorno) {
@@ -671,11 +675,11 @@
             Ano: $("#anos").val(),
             Mes: $("#mes").val()
         };
-        
+
         $.post("@Url.Action("SetFiltrosTelaExportacao", "AdesaoEnderecos")", data);
     }
     function ExportaAgenda() {
-        
+
         var url = '@AppSettings.ExcelExportUrl';
         window.location.href = '' + url + '/AdesaoEnderecos/ExportaAgendaAdesao?';
     }
@@ -685,7 +689,36 @@
         var vatt = $('#botaoExporta').attr('data-toggle');
         if (vatt == null) {
             $('#botaoExporta').attr('data-toggle', 'modal');
-        } 
+        }
+    }
+
+    //Parte de exibição "travada" das informações do cliente(zona, delegação, área e lote)
+    //----------------------------
+    function selecionaInfoCliente() {
+       
+        var zs = '';
+        var ds = '';
+
+        if ('@ViewBag.ZonaSelecionada' != '') {
+            zs = '@ViewBag.ZonaSelecionada';
+            $("#zonas").prop("selectedIndex", zs);
+        }
+
+        if ('@ViewBag.DelegacaoSel' != '') {
+            ds = '@ViewBag.DelegacaoSel';
+            $("#delegacoes").prop("selectedIndex", ds);
+            postDelegacao();
+        }
+    }
+
+    function selecionaAreaCliente() {
+        var as = '';
+        if ('@ViewBag.AreaSel' != '') {
+            as = '@ViewBag.AreaSel';
+            $("#areas").val(as);
+
+            postToController();
+        }
     }
 </script>
 }

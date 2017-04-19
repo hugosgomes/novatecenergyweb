@@ -58,7 +58,7 @@ namespace NovatecEnergyWeb.Controllers
                         var area = _context.ClientesAreas.Where(c => c.IdCliente == cliente[0].Id).ToList();
                         if (area.Count > 0)
                         {
-                            HttpContext.Session.SetInt32("Área", area[0].IdArea); // usado para verificar se possui 
+                            HttpContext.Session.SetInt32("Área", area[0].IdArea); // usado para verificar se possui área
                             HttpContext.Session.SetInt32("QuantidadeArea", area.Count);
                         }
                         HttpContext.Session.SetInt32("UserId", cliente[0].Id);

@@ -198,7 +198,7 @@ namespace NovatecEnergyWeb.Controllers
             return ffvm;
         }
 
-        private void setFiltrosSessao(FormFiltersVisitaEnderecosViewModels data, string Botao)
+        private void SetFiltrosSessao(FormFiltersVisitaEnderecosViewModels data, string Botao)
         {
             if (data != null)
             {
@@ -230,26 +230,29 @@ namespace NovatecEnergyWeb.Controllers
             int? id = HttpContext.Session.GetInt32("UserId");
             int? delegacao = HttpContext.Session.GetInt32("Delegação");
             int? zona = HttpContext.Session.GetInt32("Zona");
+            string tipo = HttpContext.Session.GetString("UserTipo");
+            int? area = HttpContext.Session.GetInt32("Área");
 
             IQueryable<_11_LoteAtivoEnderecos> e;
 
             if( filtros == null)
             {
-                e = _context._11_LoteAtivoEndereco.FromSql("exec "+storedProcedure+" {0},{1},{2},{3},{4}",null,zona, delegacao,null,null);
+                e = _context._11_LoteAtivoEndereco.FromSql("exec "+storedProcedure+" {0},{1},{2},{3},{4},{5}",null,zona, delegacao,null,null,
+                    (tipo == "cli" && (area != null)) ? id : null);
             }
             else
             {
-                e = _context._11_LoteAtivoEndereco.FromSql("exec " + storedProcedure + " {0},{1},{2},{3},{4}", filtros.IdLote,
+                e = _context._11_LoteAtivoEndereco.FromSql("exec " + storedProcedure + " {0},{1},{2},{3},{4},{5}", filtros.IdLote,
                     ((zona != null) ? zona.ToString() : (filtros.ZId != null) ? filtros.ZId.ToString() : null),
                     ((delegacao != null) ? delegacao.ToString() : (filtros.DId != null) ? filtros.DId.ToString() : null),
-                     filtros.AId, filtros.Endereco);
+                     filtros.AId, filtros.Endereco, (tipo == "cli" && (area != null)) ? id : null);
             }
             return e.ToList();
         }
 
         public IActionResult GetListLoteAtivoView([FromForm]FormFiltersVisitaEnderecosViewModels filtros, bool eIndex, string Botao, int PaginaClicada)
         {
-            setFiltrosSessao(filtros, Botao);
+            SetFiltrosSessao(filtros, Botao);
 
             //lista vinda da SP
             var evList = GetEnderecosAtivos(filtros);
@@ -362,6 +365,7 @@ namespace NovatecEnergyWeb.Controllers
             }
             return Json("OK");
         }
+
         private FormFiltersAgendaVisitaEnderecosViewModel GetFiltrosAgenda()
         {
             var ffavem = new FormFiltersAgendaVisitaEnderecosViewModel();
