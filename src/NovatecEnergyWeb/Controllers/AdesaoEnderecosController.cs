@@ -120,6 +120,42 @@ namespace NovatecEnergyWeb.Controllers
             return Json(retorno);
         }
 
+        public IActionResult AreasDoCliente()
+        {
+            int? id = HttpContext.Session.GetInt32("UserId");
+            dynamic retorno = new ExpandoObject();
+            if (id != null)
+            {
+                var areas = (from ca in _context.ClientesAreas
+                             where ca.IdCliente == Convert.ToInt32(id)
+                             join a in _context._00Areas on ca.IdArea equals a.Id
+                             select new _00Areas
+                             {
+                                 Id = a.Id,
+                                 Area = a.Area,
+                                 Delegacao = a.Delegacao,
+                                 Ge = a.Ge
+                             }).ToList();
+
+                
+                retorno.Areas = areas;
+
+                var listAreaInt = new List<int>();
+                foreach (var item in areas)
+                {
+                    listAreaInt.Add(item.Id);
+                }
+
+                retorno.Areas = areas;
+                retorno.Lotes = GetLotes(listAreaInt, 0);
+                return Json(retorno);
+            }else
+            {
+                retorno.Areas = null;
+                retorno.Lotes = null;
+                return Json(retorno);
+            }
+        }
         public void BindSelects()
         {
             var lotes = (from l in _context._11Lotes

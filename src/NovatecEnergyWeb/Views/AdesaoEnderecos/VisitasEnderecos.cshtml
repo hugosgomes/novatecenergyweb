@@ -281,6 +281,13 @@
                                 }
                                 else
                                 {
+                                    
+                                        if ((areaQuantidade != null) && (areaQuantidade > 1))
+                                        {
+                                            ViewBag.areaQuantidade = areaQuantidade;
+
+                                        }
+                                    
                                     <select id="areas" onchange="postArea(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
                                         @foreach (var item in ViewBag.Areas)
                                         {
@@ -539,28 +546,32 @@
     }
 
     function preencheArea(retorno) {
-        $("#areas").empty();
+        if (retorno.Areas.length > 0) {
+            $("#areas").empty();
 
-        $.each(retorno.Areas, function () {
-            $("#areas").append($("<option />").val(this.id).text(this.area));
-        });
+            $.each(retorno.Areas, function () {
+                $("#areas").append($("<option />").val(this.id).text(this.area));
+            });
 
-        $("#areas").prop("selectedIndex", -1);
+            $("#areas").prop("selectedIndex", -1);
+        }
     }
 
     function preencheLotes(retorno) {
-        $("#lotes").empty();
+        if (retorno.Lotes.length > 0) {
+            $("#lotes").empty();
 
-        $.each(retorno.Lotes, function () {
-            var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+            $.each(retorno.Lotes, function () {
+                var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
 
-            $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
-                  + this[2] + p.text()
-                  + this[3] + p.text()
-                  + this[4] + p.text() + this[5]));
-        });
+                $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
+                      + this[2] + p.text()
+                      + this[3] + p.text()
+                      + this[4] + p.text() + this[5]));
+            });
 
-        $("#lotes").prop("selectedIndex", -1);
+            $("#lotes").prop("selectedIndex", -1);
+        }
     }
 
     function postDelegacao() {
@@ -572,7 +583,6 @@
     function atualizaDropsDelegacao(retorno) {
         preencheArea(retorno);
         preencheLotes(retorno);
-
     }
 
     function postArea() {
@@ -707,18 +717,17 @@
         if ('@ViewBag.DelegacaoSel' != '') {
             ds = '@ViewBag.DelegacaoSel';
             $("#delegacoes").prop("selectedIndex", ds);
-            postDelegacao();
+           // postDelegacao();
         }
+        selecionaAreaCliente();
+
     }
 
     function selecionaAreaCliente() {
-        var as = '';
-        if ('@ViewBag.AreaSel' != '') {
-            as = '@ViewBag.AreaSel';
-            $("#areas").val(as);
-
-            postToController();
-        }
+        var data = {};
+        $.post("@Url.Action("AreasDoCliente", "AdesaoEnderecos")", data, atualizaDropsDelegacao);
+        
     }
+
 </script>
 }
