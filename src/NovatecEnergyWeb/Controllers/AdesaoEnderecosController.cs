@@ -88,8 +88,8 @@ namespace NovatecEnergyWeb.Controllers
             
             dynamic retorno = new ExpandoObject();
             retorno.Delegacao = delegacao;
-            retorno.Area = areasL;
-            retorno.Lote = GetLotes(listAreaInt,0);
+            retorno.Areas = areasL;
+            retorno.Lotes = GetLotes(listAreaInt,0);
 
             return Json(retorno);
         }
