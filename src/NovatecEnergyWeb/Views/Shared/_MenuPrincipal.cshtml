@@ -19,7 +19,14 @@
                       </ul>
                  </li>
                  <li><a href="#">Rede</a></li>
-                <li><a asp-controller="Adesao" asp-action="EnderecosVisitas">Lotes</a></li>
+                <!--  <li><a asp-controller="Adesao" asp-action="EnderecosVisitas">Lotes</a></li> -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Lotes<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a asp-area="" asp-controller="Adesao" asp-action="EnderecosVisitas">Por Cliente</a></li>
+                        <li><a asp-area="" asp-controller="AdesaoEnderecos" asp-action="VisitasEnderecos">Por Endereços</a></li>
+                    </ul>
+                </li>
             if (grupo == 1)
             {
                 <li><a asp-area="" asp-controller="ClientesWeb" asp-action="Index">Ativação de clientes</a></li>
@@ -35,7 +42,14 @@
                 </ul>
             </li> -->
             <li><a href="#">Rede</a></li>
-            <li><a asp-controller="Adesao" asp-action="EnderecosVisitas">Lotes</a></li>
+            <!--  <li><a asp-controller="Adesao" asp-action="EnderecosVisitas">Lotes</a></li> -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Lotes<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a asp-area="" asp-controller="Adesao" asp-action="EnderecosVisitas">Por Cliente</a></li>
+                    <li><a asp-area="" asp-controller="AdesaoEnderecos" asp-action="VisitasEnderecos">Por Endereços</a></li>
+                </ul>
+            </li>
 
         }
 
