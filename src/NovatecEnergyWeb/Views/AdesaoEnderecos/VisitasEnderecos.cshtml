@@ -5,6 +5,7 @@
 @{
     Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
     ViewData["Title"] = "Status de Clientes Com Tratamento Comercial";
+    
 }
 
 <div class="container">
@@ -559,20 +560,20 @@
     }
 
     function preencheLotes(retorno) {
-      //  if (retorno.Lotes.length > 0) {
-            $("#lotes").empty();
+        //  if (retorno.Lotes.length > 0) {
+        $("#lotes").empty();
 
-            $.each(retorno.Lotes, function () {
-                var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+        $.each(retorno.Lotes, function () {
+            var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
 
-                $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
-                      + this[2] + p.text()
-                      + this[3] + p.text()
-                      + this[4] + p.text() + this[5]));
-            });
+            $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
+                  + this[2] + p.text()
+                  + this[3] + p.text()
+                  + this[4] + p.text() + this[5]));
+        });
 
-            $("#lotes").prop("selectedIndex", -1);
-     //   }
+        $("#lotes").prop("selectedIndex", -1);
+        //   }
     }
 
     function postDelegacao() {
@@ -595,6 +596,7 @@
 
     function atualizaDropArea(retorno) {
         preencheLotes(retorno);
+        postToController();
     }
 
     function limpaFiltro() {
@@ -707,7 +709,7 @@
     //Parte de exibição "travada" das informações do cliente(zona, delegação, área e lote)
     //----------------------------
     function selecionaInfoCliente() {
-       
+
         var zs = '';
         var ds = '';
 
@@ -724,13 +726,16 @@
                 postDelegacao();
             }
         }
-        selecionaAreaCliente();
+
+        if ('@Context.Session.GetString("UserTipo")' == 'cli') {
+            selecionaAreaCliente();
+        }
     }
 
     function selecionaAreaCliente() {
         var data = {};
         $.post("@Url.Action("AreasDoCliente", "AdesaoEnderecos")", data, atualizaDropsDelegacao);
-        
+
     }
 
 </script>
