@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using System.Dynamic;
 using NovatecEnergyWeb.Models.Exportacao;
 using Microsoft.AspNetCore.Hosting;
+using NovatecEnergyWeb.Filters.ActionFilters;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -156,6 +157,7 @@ namespace NovatecEnergyWeb.Controllers
                 return Json(retorno);
             }
         }
+
         public void BindSelects()
         {
             var lotes = (from l in _context._11Lotes
@@ -215,6 +217,7 @@ namespace NovatecEnergyWeb.Controllers
             }
         }
 
+        [AutenticacaoFilter]
         public IActionResult VisitasEnderecos()
         {
             BindSelects();
