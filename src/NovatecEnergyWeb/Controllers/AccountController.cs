@@ -98,6 +98,9 @@ namespace NovatecEnergyWeb.Controllers
             HttpContext.Session.Remove("Delegação");
             HttpContext.Session.Remove("Área");
             HttpContext.Session.Remove("QuantidadeArea");
+
+            TempData.Remove("mensagem");
+
             return RedirectToAction("Login", "Account");
         }
 
