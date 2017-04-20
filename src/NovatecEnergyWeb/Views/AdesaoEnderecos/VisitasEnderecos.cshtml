@@ -559,7 +559,7 @@
     }
 
     function preencheLotes(retorno) {
-        if (retorno.Lotes.length > 0) {
+      //  if (retorno.Lotes.length > 0) {
             $("#lotes").empty();
 
             $.each(retorno.Lotes, function () {
@@ -572,7 +572,7 @@
             });
 
             $("#lotes").prop("selectedIndex", -1);
-        }
+     //   }
     }
 
     function postDelegacao() {
