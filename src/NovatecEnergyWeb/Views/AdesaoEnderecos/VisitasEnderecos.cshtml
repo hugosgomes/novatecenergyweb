@@ -197,7 +197,7 @@
 
                                 if (zona != null)
                                 {
-                                    <select id="zonas" onchange="postZona();  postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                    <select id="zonas" onchange="postZona();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                         @for (int i = 0; i < ViewBag.Zonas.Count; i++)
                                         {
                                             if (zona == ViewBag.Zonas[i].Id)
@@ -215,7 +215,7 @@
                                 }
                                 else
                                 {
-                                    <select id="zonas" onchange="postZona(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                    <select id="zonas" onchange="postZona(); " class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                                         @foreach (var item in ViewBag.Zonas)
                                         {
                                             <option value="@item.Id">@item.Zona</option>
@@ -523,6 +523,7 @@
         preencheDelegacao(retorno);
         preencheArea(retorno);
         preencheLotes(retorno);
+        postToController();
     }
 
     function preencheZona(retorno) {
@@ -717,12 +718,12 @@
         if ('@ViewBag.DelegacaoSel' != '') {
             ds = '@ViewBag.DelegacaoSel';
             $("#delegacoes").prop("selectedIndex", ds);
-           // postDelegacao();
+
+            if ('@ViewBag.areaQuantidade' < 1) {
+                postDelegacao();
+            }
         }
-
         selecionaAreaCliente();
-        
-
     }
 
     function selecionaAreaCliente() {
