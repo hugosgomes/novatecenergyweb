@@ -21,11 +21,15 @@ namespace NovatecEnergyWeb.Controllers
     {
         private BDNVTContext _context;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private IAreaRepository _areaRepository;
+        private ILoteRepository _loteRepository;
 
-        public AdesaoController(BDNVTContext context, IHostingEnvironment he )
+        public AdesaoController(BDNVTContext context, IHostingEnvironment he, IAreaRepository areaRepository, ILoteRepository loteRepository)
         {
             _context = context;
             _hostingEnvironment = he;
+            _areaRepository = areaRepository;
+            _loteRepository = loteRepository;
         }
 
         public IActionResult ClienteCascade(int cliente)
@@ -99,24 +103,16 @@ namespace NovatecEnergyWeb.Controllers
                 listint.Add(item.Id);
             }
             //area
-            var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
+            var areasL = _areaRepository.GetAreas(listint, 0);
+            var listAreaInt = _areaRepository.GetAreasIds(areasL);
 
-            //lotes
-            //lotes 
-            var listAreaInt = new List<int>();
-            foreach (var item in areasL)
-            {
-                listAreaInt.Add(item.Id);
-            }
             //Condominio
             var condominio = getCondominios(listAreaInt,0,0);
-
-            var loteRepo = new LoteRepository(_context);
 
             dynamic retorno = new ExpandoObject();
             retorno.Delegacao = delegacao;
             retorno.Area = areasL;
-            retorno.Lote = loteRepo.GetLotes(listAreaInt,0);
+            retorno.Lote = _loteRepository.GetLotes(listAreaInt, 0);
             retorno.Condominio = condominio;
 
             return Json(retorno);
@@ -125,19 +121,14 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult DelegacaoCascade(int delegacao)
         {
             //áreas
-            var areasL = _context._00Areas.Where(x => x.Delegacao == delegacao).ToList();
+            var areasList = _areaRepository.GetAreas(new List<int>(), delegacao);
+            var listAreaInt = _areaRepository.GetAreasIds(areasList);
             //lotes 
-            var listAreaInt = new List<int>();
-            foreach (var item in areasL)
-            {
-                listAreaInt.Add(item.Id);
-            }
-            var loteRepo = new LoteRepository(_context);
-            var condominio = getCondominios(listAreaInt,0,0);
+            var condominio = getCondominios(listAreaInt, 0, 0);
 
             dynamic retorno = new ExpandoObject();
-            retorno.Area = areasL;
-            retorno.Lote = loteRepo.GetLotes(listAreaInt,0);
+            retorno.Area = areasList;
+            retorno.Lote = _loteRepository.GetLotes(listAreaInt, 0);
             retorno.Condominio = condominio;
 
             return Json(retorno);

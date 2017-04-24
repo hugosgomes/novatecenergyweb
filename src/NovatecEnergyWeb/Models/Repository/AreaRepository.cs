@@ -7,6 +7,12 @@ namespace NovatecEnergyWeb.Models.Repository
 {
     public class AreaRepository : IAreaRepository
     {
+        private BDNVTContext _context;
+        public AreaRepository(BDNVTContext context)
+        {
+            _context = context;
+        }
+
         public List<_00Areas> GetAreas(List<int> delegacoes, int delegacao)
         {
             if (delegacao != 0)
@@ -15,9 +21,21 @@ namespace NovatecEnergyWeb.Models.Repository
             }
 
             // continuar olhando método ZonaCascade
-            var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
+            var areasL = _context._00Areas.Where(x => delegacoes.Contains(Convert.ToInt32(x.Delegacao))).ToList();
 
+            return areasL;
 
+        }
+
+        public List<int> GetAreasIds(List<_00Areas> areas)
+        {
+            var listAreaInt = new List<int>();
+            foreach (var item in areas)
+            {
+                listAreaInt.Add(item.Id);
+            }
+
+            return listAreaInt;
         }
     }
 }
