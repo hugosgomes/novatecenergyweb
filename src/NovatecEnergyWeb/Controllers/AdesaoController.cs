@@ -23,13 +23,17 @@ namespace NovatecEnergyWeb.Controllers
         private readonly IHostingEnvironment _hostingEnvironment;
         private IAreaRepository _areaRepository;
         private ILoteRepository _loteRepository;
+        private ICondominioLoteAtivo _condominioRepository;
 
-        public AdesaoController(BDNVTContext context, IHostingEnvironment he, IAreaRepository areaRepository, ILoteRepository loteRepository)
+        public AdesaoController(BDNVTContext context, IHostingEnvironment he, 
+            IAreaRepository areaRepository, ILoteRepository loteRepository, 
+            ICondominioLoteAtivo condominioRepository)
         {
             _context = context;
             _hostingEnvironment = he;
             _areaRepository = areaRepository;
             _loteRepository = loteRepository;
+            _condominioRepository = condominioRepository;
         }
 
         public IActionResult ClienteCascade(int cliente)
@@ -106,14 +110,11 @@ namespace NovatecEnergyWeb.Controllers
             var areasL = _areaRepository.GetAreas(listint, 0);
             var listAreaInt = _areaRepository.GetAreasIds(areasL);
 
-            //Condominio
-            var condominio = getCondominios(listAreaInt,0,0);
-
             dynamic retorno = new ExpandoObject();
             retorno.Delegacao = delegacao;
             retorno.Area = areasL;
             retorno.Lote = _loteRepository.GetLotes(listAreaInt, 0);
-            retorno.Condominio = condominio;
+            retorno.Condominio = _condominioRepository.GetCondominios(listAreaInt,0,0);
 
             return Json(retorno);
         }
@@ -123,13 +124,11 @@ namespace NovatecEnergyWeb.Controllers
             //áreas
             var areasList = _areaRepository.GetAreas(new List<int>(), delegacao);
             var listAreaInt = _areaRepository.GetAreasIds(areasList);
-            //lotes 
-            var condominio = getCondominios(listAreaInt, 0, 0);
 
             dynamic retorno = new ExpandoObject();
             retorno.Area = areasList;
             retorno.Lote = _loteRepository.GetLotes(listAreaInt, 0);
-            retorno.Condominio = condominio;
+            retorno.Condominio = _condominioRepository.GetCondominios(listAreaInt, 0, 0); 
 
             return Json(retorno);
         }
@@ -138,91 +137,27 @@ namespace NovatecEnergyWeb.Controllers
         {
             var loteRepo = new LoteRepository(_context);
 
-            //condominio
-            var condominio = getCondominios(null, area,0);
-
             dynamic retorno = new ExpandoObject();
             retorno.Lote = loteRepo.GetLotes(new List<int>(), area);
-            retorno.Condominio = condominio;
+            retorno.Condominio = _condominioRepository.GetCondominios(null, area, 0); 
             return Json(retorno);
         }
 
         public IActionResult LoteCascade(int lote)
         {
             //area
-            var area = _context._11Lotes.Where(c => c.Id == lote).FirstOrDefault();
-
-            var condominio = getCondominios(null, area.Area, 0);
+            var loteParam = _context._11Lotes.Where(c => c.Id == lote).FirstOrDefault();
 
             dynamic retorno = new ExpandoObject();
-            retorno.Condominio = condominio;
+            retorno.Condominio = _condominioRepository.GetCondominios(null, loteParam.Area, 0);
             return Json(retorno);
         }
 
         public IActionResult StatusCliCascade(int status, int area)
         {
-
-            var condominio = getCondominios(new List<int>(), area, status);
-
             dynamic retorno = new ExpandoObject();
-            retorno.Condominio = condominio;
+            retorno.Condominio = _condominioRepository.GetCondominios(new List<int>(), area, status);
             return Json(retorno);
-        }
-
-        public List<_11_LoteAtivos_Condominios> getCondominios(List<int> areas, int area, int status)
-        {
-
-            List< _11_LoteAtivos_Condominios> condominio;
-            if (status == 0)
-            {
-                 condominio = (from c in _context._11Condominios
-                                  join lo in _context._00Logradouro on c.Logradouro equals lo.Id
-                                  join ba in _context._00Bairro on lo.Bairro equals ba.Id
-                                  join ar in _context._00Areas on ba.Area equals ar.Id
-                                  join de in _context._00Delegacao on ar.Delegacao equals de.Id
-                                  join zo in _context._00Zona on de.Zona equals zo.Id
-                                  join ti in _context._00TabelasItems on c.Status equals ti.Id
-                                  where (area != 0) ? ba.Area == area : areas.Contains(Convert.ToInt32(ba.Area))
-                                  && ti.Campo == "STATUS" && ti.Tabela == 237 && ti.Id != 25
-                                  orderby ti.Ordem, zo.Id, de.Id, c.Nome ascending
-                                  select new _11_LoteAtivos_Condominios
-                                  {
-                                      Id = c.Id,
-                                      Nome = c.Nome,
-                                      Num = c.Num,
-                                      Complemento = c.Complemento,
-                                      Item = ti.Item,
-                                      Z = zo.Z,
-                                      D = de.D
-                                  }).ToList();
-            }else
-            {
-
-                condominio = (from c in _context._11Condominios
-                              join lo in _context._00Logradouro on c.Logradouro equals lo.Id
-                              join ba in _context._00Bairro on lo.Bairro equals ba.Id
-                              join ar in _context._00Areas on ba.Area equals ar.Id
-                              join de in _context._00Delegacao on ar.Delegacao equals de.Id
-                              join zo in _context._00Zona on de.Zona equals zo.Id
-                              join ti in _context._00TabelasItems on c.Status equals ti.Id
-                              where (area != 0) ? ba.Area == area : areas.Contains(Convert.ToInt32(ba.Area)) 
-                              && ti.Campo == "STATUS" && ti.Tabela == 237 && ti.Id != 25
-                              && ti.Id == status
-                              orderby ti.Ordem, zo.Id, de.Id, c.Nome ascending
-                              select new _11_LoteAtivos_Condominios
-                              {
-                                  Id = c.Id,
-                                  Nome = c.Nome,
-                                  Num = c.Num,
-                                  Complemento = c.Complemento,
-                                  Item = ti.Item,
-                                  Z = zo.Z,
-                                  D = de.D
-                              }).ToList();
-            }
-
-
-            return condominio;
         }
 
         public void BindSelects()
