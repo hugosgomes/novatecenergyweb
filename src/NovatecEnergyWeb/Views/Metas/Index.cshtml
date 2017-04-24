@@ -81,14 +81,15 @@
     };
 
     function alteraColunas(retorno) {
-        tabelaResultados(retorno);
-        tabelaMetas(retorno);
+       /* tabelaResultados(retorno);
+        tabelaMetas(retorno); */
         tabelaCargas(retorno);
-        tabelaMetasD2(retorno);
+       
+        /*tabelaMetasD2(retorno);
         tabelaNumeroCargasD2(retorno);
         tabelaResultadoD2(retorno);
         tabelaPorcentagemD2(retorno);
-        tabelaResumos(retorno);
+        tabelaResumos(retorno); */
         graficoAlteraValores(retorno);
     }
 
@@ -374,6 +375,7 @@
     <canvas id="canvas"></canvas>
 </div>
 
+<!--
 <hr />
         <table class="tableMetasResumo table-bordered">
             <colgroup>
@@ -403,34 +405,36 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Resumos)
-            {
-                    <tr>
-                        <td class="text-center" id="ResumoZona_@item.Id">@item.Zona</td>
-                        <td class="text-center" id="ResumoMes0_@item.Id">@item.Meses[0]</td>
-                        <td class="text-center" id="ResumoMes1_@item.Id">@item.Meses[1]</td>
-                        <td class="text-center" id="ResumoMes2_@item.Id">@item.Meses[2]</td>
-                        <td class="text-center" id="ResumoTri1_@item.Id">@item.Trim1</td>
-                        <td class="text-center" id="ResumoMes3_@item.Id">@item.Meses[3]</td>
-                        <td class="text-center" id="ResumoMes4_@item.Id">@item.Meses[4]</td>
-                        <td class="text-center" id="ResumoMes5_@item.Id">@item.Meses[5]</td>
-                        <td class="text-center" id="ResumoTri2_@item.Id">@item.Trim2</td>
-                        <td class="text-center" id="ResumoMes6_@item.Id">@item.Meses[6]</td>
-                        <td class="text-center" id="ResumoMes7_@item.Id">@item.Meses[7]</td>
-                        <td class="text-center" id="ResumoMes8_@item.Id">@item.Meses[8]</td>
-                        <td class="text-center" id="ResumoTri3_@item.Id">@item.Trim3</td>
-                        <td class="text-center" id="ResumoMes9_@item.Id">@item.Meses[9]</td>
-                        <td class="text-center" id="ResumoMes10_@item.Id">@item.Meses[10]</td>
-                        <td class="text-center" id="ResumoMes11_@item.Id">@item.Meses[11]</td>
-                        <td class="text-center" id="ResumoTri4_@item.Id">@item.Trim4</td>
-                        <td class="text-center" id="ResumoAnual_@item.Id">@item.Anual</td>
-                    </tr>
-                }
-
+           @*     @foreach (var item in Model.Resumos)
+    {
+            <tr>
+                <td class="text-center" id="ResumoZona_@item.Id">@item.Zona</td>
+                <td class="text-center" id="ResumoMes0_@item.Id">@item.Meses[0]</td>
+                <td class="text-center" id="ResumoMes1_@item.Id">@item.Meses[1]</td>
+                <td class="text-center" id="ResumoMes2_@item.Id">@item.Meses[2]</td>
+                <td class="text-center" id="ResumoTri1_@item.Id">@item.Trim1</td>
+                <td class="text-center" id="ResumoMes3_@item.Id">@item.Meses[3]</td>
+                <td class="text-center" id="ResumoMes4_@item.Id">@item.Meses[4]</td>
+                <td class="text-center" id="ResumoMes5_@item.Id">@item.Meses[5]</td>
+                <td class="text-center" id="ResumoTri2_@item.Id">@item.Trim2</td>
+                <td class="text-center" id="ResumoMes6_@item.Id">@item.Meses[6]</td>
+                <td class="text-center" id="ResumoMes7_@item.Id">@item.Meses[7]</td>
+                <td class="text-center" id="ResumoMes8_@item.Id">@item.Meses[8]</td>
+                <td class="text-center" id="ResumoTri3_@item.Id">@item.Trim3</td>
+                <td class="text-center" id="ResumoMes9_@item.Id">@item.Meses[9]</td>
+                <td class="text-center" id="ResumoMes10_@item.Id">@item.Meses[10]</td>
+                <td class="text-center" id="ResumoMes11_@item.Id">@item.Meses[11]</td>
+                <td class="text-center" id="ResumoTri4_@item.Id">@item.Trim4</td>
+                <td class="text-center" id="ResumoAnual_@item.Id">@item.Anual</td>
+            </tr>
+        }
+        *@
 
             </tbody>
         </table>
-<hr class="hrMetas" />
+<hr class="hrMetas" /> -->
+
+<!--
 <table class="tableMetas table-bordered">
     <colgroup>
         <col class="col-md-2">
@@ -459,34 +463,37 @@
         </tr>
     </thead>
     <tbody>
-            @foreach (var item in Model.Resultados)
-            {
-                <tr>
-                    <td class="text-center" id="zonaRes_@item.Id">@item.Zona</td>
-                    <td class="text-center" id="zonaResmes0_@item.Id">@item.Meses[0]</td>
-                    <td class="text-center" id="zonaResmes1_@item.Id">@item.Meses[1]</td>
-                    <td class="text-center" id="zonaResmes2_@item.Id">@item.Meses[2]</td>
-                    <td class="text-center" id="zonaResTri1_@item.Id">@item.Trim1</td>
-                    <td class="text-center" id="zonaResmes3_@item.Id">@item.Meses[3]</td>
-                    <td class="text-center" id="zonaResmes4_@item.Id">@item.Meses[4]</td>
-                    <td class="text-center" id="zonaResmes5_@item.Id">@item.Meses[5]</td>
-                    <td class="text-center" id="zonaResTri2_@item.Id">@item.Trim2</td>
-                    <td class="text-center" id="zonaResmes6_@item.Id">@item.Meses[6]</td>
-                    <td class="text-center" id="zonaResmes7_@item.Id">@item.Meses[7]</td>
-                    <td class="text-center" id="zonaResmes8_@item.Id">@item.Meses[8]</td>
-                    <td class="text-center" id="zonaResTri3_@item.Id">@item.Trim3</td>
-                    <td class="text-center" id="zonaResmes9_@item.Id">@item.Meses[9]</td>
-                    <td class="text-center" id="zonaResmes10_@item.Id">@item.Meses[10]</td>
-                    <td class="text-center" id="zonaResmes11_@item.Id">@item.Meses[11]</td>
-                    <td class="text-center" id="zonaResTri4_@item.Id">@item.Trim4</td>
-                    <td class="text-center" id="zonaResAnual_@item.Id">@item.Anual</td>
-                </tr>
-            }
-            
+         @*   @foreach (var item in Model.Resultados)
+    {
+        <tr>
+            <td class="text-center" id="zonaRes_@item.Id">@item.Zona</td>
+            <td class="text-center" id="zonaResmes0_@item.Id">@item.Meses[0]</td>
+            <td class="text-center" id="zonaResmes1_@item.Id">@item.Meses[1]</td>
+            <td class="text-center" id="zonaResmes2_@item.Id">@item.Meses[2]</td>
+            <td class="text-center" id="zonaResTri1_@item.Id">@item.Trim1</td>
+            <td class="text-center" id="zonaResmes3_@item.Id">@item.Meses[3]</td>
+            <td class="text-center" id="zonaResmes4_@item.Id">@item.Meses[4]</td>
+            <td class="text-center" id="zonaResmes5_@item.Id">@item.Meses[5]</td>
+            <td class="text-center" id="zonaResTri2_@item.Id">@item.Trim2</td>
+            <td class="text-center" id="zonaResmes6_@item.Id">@item.Meses[6]</td>
+            <td class="text-center" id="zonaResmes7_@item.Id">@item.Meses[7]</td>
+            <td class="text-center" id="zonaResmes8_@item.Id">@item.Meses[8]</td>
+            <td class="text-center" id="zonaResTri3_@item.Id">@item.Trim3</td>
+            <td class="text-center" id="zonaResmes9_@item.Id">@item.Meses[9]</td>
+            <td class="text-center" id="zonaResmes10_@item.Id">@item.Meses[10]</td>
+            <td class="text-center" id="zonaResmes11_@item.Id">@item.Meses[11]</td>
+            <td class="text-center" id="zonaResTri4_@item.Id">@item.Trim4</td>
+            <td class="text-center" id="zonaResAnual_@item.Id">@item.Anual</td>
+        </tr>
+    }
+        *@
           
     </tbody>
 </table>
 <hr class="hrMetas" />
+    -->
+
+<!--
 <table class="tableMetas table-bordered">
     <colgroup>
         <col class="col-md-2">
@@ -515,34 +522,36 @@
         </tr>
     </thead>
     <tbody>
-
-        @foreach (var item in Model.Metas)
-            {
-            <tr>
-                <td class="text-center" id="MetasZona_@item.Id">@item.Zona</td>
-                <td class="text-center" id="MetasMes0_@item.Id">@item.Meses[0]</td>
-                <td class="text-center" id="MetasMes1_@item.Id">@item.Meses[1]</td>
-                <td class="text-center" id="MetasMes2_@item.Id">@item.Meses[2]</td>
-                <td class="text-center" id="MetasTri1_@item.Id">@item.Trim1</td>
-                <td class="text-center" id="MetasMes3_@item.Id">@item.Meses[3]</td>
-                <td class="text-center" id="MetasMes4_@item.Id">@item.Meses[4]</td>
-                <td class="text-center" id="MetasMes5_@item.Id">@item.Meses[5]</td>
-                <td class="text-center" id="MetasTri2_@item.Id">@item.Trim2</td>
-                <td class="text-center" id="MetasMes6_@item.Id">@item.Meses[6]</td>
-                <td class="text-center" id="MetasMes7_@item.Id">@item.Meses[7]</td>
-                <td class="text-center" id="MetasMes8_@item.Id">@item.Meses[8]</td>
-                <td class="text-center" id="MetasTri3_@item.Id">@item.Trim3</td>
-                <td class="text-center" id="MetasMes9_@item.Id">@item.Meses[9]</td>
-                <td class="text-center" id="MetasMes10_@item.Id">@item.Meses[10]</td>
-                <td class="text-center" id="MetasMes11_@item.Id">@item.Meses[11]</td>
-                <td class="text-center" id="MetasTri4_@item.Id">@item.Trim4</td>
-                <td class="text-center" id="MetasAnual_@item.Id">@item.Anual</td>
-            </tr>
-         }
-
+        @*
+    @foreach (var item in Model.Metas)
+        {
+        <tr>
+            <td class="text-center" id="MetasZona_@item.Id">@item.Zona</td>
+            <td class="text-center" id="MetasMes0_@item.Id">@item.Meses[0]</td>
+            <td class="text-center" id="MetasMes1_@item.Id">@item.Meses[1]</td>
+            <td class="text-center" id="MetasMes2_@item.Id">@item.Meses[2]</td>
+            <td class="text-center" id="MetasTri1_@item.Id">@item.Trim1</td>
+            <td class="text-center" id="MetasMes3_@item.Id">@item.Meses[3]</td>
+            <td class="text-center" id="MetasMes4_@item.Id">@item.Meses[4]</td>
+            <td class="text-center" id="MetasMes5_@item.Id">@item.Meses[5]</td>
+            <td class="text-center" id="MetasTri2_@item.Id">@item.Trim2</td>
+            <td class="text-center" id="MetasMes6_@item.Id">@item.Meses[6]</td>
+            <td class="text-center" id="MetasMes7_@item.Id">@item.Meses[7]</td>
+            <td class="text-center" id="MetasMes8_@item.Id">@item.Meses[8]</td>
+            <td class="text-center" id="MetasTri3_@item.Id">@item.Trim3</td>
+            <td class="text-center" id="MetasMes9_@item.Id">@item.Meses[9]</td>
+            <td class="text-center" id="MetasMes10_@item.Id">@item.Meses[10]</td>
+            <td class="text-center" id="MetasMes11_@item.Id">@item.Meses[11]</td>
+            <td class="text-center" id="MetasTri4_@item.Id">@item.Trim4</td>
+            <td class="text-center" id="MetasAnual_@item.Id">@item.Anual</td>
+        </tr>
+     }
+        *@
     </tbody>
 </table>
 <hr class="hrMetas" />
+    -->
+
 <table class="tableMetas table-bordered">
     <colgroup>
         <col class="col-md-2">
@@ -599,6 +608,8 @@
     </tbody>
 </table>
 <hr class="hrMetas" />
+
+<!--
 <table class="tableMetas table-bordered">
     <colgroup>
         <col class="col-md-2">
@@ -627,7 +638,7 @@
         </tr>
     </thead>
     <tbody>
-
+    @*
 
         @foreach (var item in Model.MetasD2)
             {
@@ -653,10 +664,12 @@
             </tr>
        }
        
-
+        *@
     </tbody>
 </table>
 <hr class="hrMetas" />
+    -->
+<!--
 <table class="tableMetas table-bordered">
     <colgroup>
         <col class="col-md-2">
@@ -685,6 +698,7 @@
         </tr>
     </thead>
     <tbody>
+    @*
         @foreach (var item in Model.CargasD2)
             {
             <tr>
@@ -708,11 +722,14 @@
                 <td class="text-center" id="Nd2Anual_@item.Id">@item.Anual</td>
             </tr>
          }
-
+        *@
 
     </tbody>
 </table>
 <hr class="hrMetas" />
+    -->
+
+<!--
 <table class="tableMetas table-bordered">
     <colgroup>
         <col class="col-md-2">
@@ -742,7 +759,7 @@
     </thead>
     <tbody>
 
-
+    @*
         @foreach (var item in Model.ResultadoD2)
             {
             <tr>
@@ -767,11 +784,14 @@
             </tr>
 
         }
-
+        *@
 
     </tbody>
 </table>
 <hr class="hrMetas" />
+
+    -->
+<!--
 <table class="tableMetas table-bordered">
     <colgroup>
         <col class="col-md-2">
@@ -801,7 +821,7 @@
     </thead>
     <tbody>
 
-
+    @*
 
         @foreach (var item in Model.PorcentagemD2)
         {
@@ -876,5 +896,7 @@
                 }
             </tr>
           }
+        *@
     </tbody>
 </table>
+    -->
