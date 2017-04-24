@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models.MetasViewModels;
 using System.Dynamic;
 using NovatecEnergyWeb.Filters.ActionFilters;
+using Microsoft.AspNetCore.Http;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -22,13 +23,13 @@ namespace NovatecEnergyWeb.Controllers
             _context = context;
         }
 
-        [FuncionarioFilter]
+       // [FuncionarioFilter]
         [AutenticacaoFilter]
         public IActionResult Index()
         {
             return BuscaMetasFiltradas(DateTime.Now.Year,true);
         }
-        [FuncionarioFilter]
+     //   [FuncionarioFilter]
         [AutenticacaoFilter]
         public IActionResult BuscaMetasFiltradas(int anoSelecionado, bool index)
         {
@@ -53,6 +54,7 @@ namespace NovatecEnergyWeb.Controllers
             else
                 return Json(mymodel);
         }
+
         public List<ResultadosViewModel> GetResultados(List<_10_MetasCargas> metasCargas, string tipoMeta)
         {
             var fluminense = new ResultadosViewModel();
@@ -263,6 +265,7 @@ namespace NovatecEnergyWeb.Controllers
 
         public List<ResultadosViewModel> GetNumerosD2(List<_10_CargasMetas> listaD2, string tipoMeta)
         {
+
             var fluminense = new ResultadosViewModel();
             var metropolitana = new ResultadosViewModel();
 
@@ -587,7 +590,7 @@ namespace NovatecEnergyWeb.Controllers
                     fluminense.Meses[i] = "";
             }
 
-                resultados.Add(fluminense);
+            resultados.Add(fluminense);
             resultados.Add(metropolitana);
 
 

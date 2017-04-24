@@ -1,4 +1,5 @@
 ﻿@using NovatecEnergyWeb.Models;
+@using Microsoft.AspNetCore.Http;
 
 @model dynamic
 @{ 
@@ -580,31 +581,70 @@
         </tr>
     </thead>
     <tbody>
+        @{ 
+            string tipo =   Context.Session.GetString("UserTipo");
+            int? zona = Context.Session.GetInt32("Zona");
 
-        @foreach (var item in Model.Cargas)
+            if (tipo == "cli" && (zona != null))
             {
-            <tr>
-                <td class="text-center" id="CargasZona_@item.Id">@item.Zona</td>
-                <td class="text-center" id="CargasMes0_@item.Id">@item.Meses[0]</td>
-                <td class="text-center" id="CargasMes1_@item.Id">@item.Meses[1]</td>
-                <td class="text-center" id="CargasMes2_@item.Id">@item.Meses[2]</td>
-                <td class="text-center" id="CargasTri1_@item.Id">@item.Trim1</td>
-                <td class="text-center" id="CargasMes3_@item.Id">@item.Meses[3]</td>
-                <td class="text-center" id="CargasMes4_@item.Id">@item.Meses[4]</td>
-                <td class="text-center" id="CargasMes5_@item.Id">@item.Meses[5]</td>
-                <td class="text-center" id="CargasTri2_@item.Id">@item.Trim2</td>
-                <td class="text-center" id="CargasMes6_@item.Id">@item.Meses[6]</td>
-                <td class="text-center" id="CargasMes7_@item.Id">@item.Meses[7]</td>
-                <td class="text-center" id="CargasMes8_@item.Id">@item.Meses[8]</td>
-                <td class="text-center" id="CargasTri3_@item.Id">@item.Trim3</td>
-                <td class="text-center" id="CargasMes9_@item.Id">@item.Meses[9]</td>
-                <td class="text-center" id="CargasMes10_@item.Id">@item.Meses[10]</td>
-                <td class="text-center" id="CargasMes11_@item.Id">@item.Meses[11]</td>
-                <td class="text-center" id="CargasTri4_@item.Id">@item.Trim4</td>
-                <td class="text-center" id="CargasAnual_@item.Id">@item.Anual</td>
-            </tr>
-        }
+                        @foreach (var item in Model.Cargas)
+                        {
+                            if (item.Id == zona)
+                            {
 
+                                <tr>
+                                    <td class="text-center" id="CargasZona_@item.Id">@item.Zona</td>
+                                    <td class="text-center" id="CargasMes0_@item.Id">@item.Meses[0]</td>
+                                    <td class="text-center" id="CargasMes1_@item.Id">@item.Meses[1]</td>
+                                    <td class="text-center" id="CargasMes2_@item.Id">@item.Meses[2]</td>
+                                    <td class="text-center" id="CargasTri1_@item.Id">@item.Trim1</td>
+                                    <td class="text-center" id="CargasMes3_@item.Id">@item.Meses[3]</td>
+                                    <td class="text-center" id="CargasMes4_@item.Id">@item.Meses[4]</td>
+                                    <td class="text-center" id="CargasMes5_@item.Id">@item.Meses[5]</td>
+                                    <td class="text-center" id="CargasTri2_@item.Id">@item.Trim2</td>
+                                    <td class="text-center" id="CargasMes6_@item.Id">@item.Meses[6]</td>
+                                    <td class="text-center" id="CargasMes7_@item.Id">@item.Meses[7]</td>
+                                    <td class="text-center" id="CargasMes8_@item.Id">@item.Meses[8]</td>
+                                    <td class="text-center" id="CargasTri3_@item.Id">@item.Trim3</td>
+                                    <td class="text-center" id="CargasMes9_@item.Id">@item.Meses[9]</td>
+                                    <td class="text-center" id="CargasMes10_@item.Id">@item.Meses[10]</td>
+                                    <td class="text-center" id="CargasMes11_@item.Id">@item.Meses[11]</td>
+                                    <td class="text-center" id="CargasTri4_@item.Id">@item.Trim4</td>
+                                    <td class="text-center" id="CargasAnual_@item.Id">@item.Anual</td>
+                                </tr>
+                                }
+                            }
+                        }
+            else
+            {
+                @foreach (var item in Model.Cargas)
+                {
+
+                    <tr>
+                        <td class="text-center" id="CargasZona_@item.Id">@item.Zona</td>
+                        <td class="text-center" id="CargasMes0_@item.Id">@item.Meses[0]</td>
+                        <td class="text-center" id="CargasMes1_@item.Id">@item.Meses[1]</td>
+                        <td class="text-center" id="CargasMes2_@item.Id">@item.Meses[2]</td>
+                        <td class="text-center" id="CargasTri1_@item.Id">@item.Trim1</td>
+                        <td class="text-center" id="CargasMes3_@item.Id">@item.Meses[3]</td>
+                        <td class="text-center" id="CargasMes4_@item.Id">@item.Meses[4]</td>
+                        <td class="text-center" id="CargasMes5_@item.Id">@item.Meses[5]</td>
+                        <td class="text-center" id="CargasTri2_@item.Id">@item.Trim2</td>
+                        <td class="text-center" id="CargasMes6_@item.Id">@item.Meses[6]</td>
+                        <td class="text-center" id="CargasMes7_@item.Id">@item.Meses[7]</td>
+                        <td class="text-center" id="CargasMes8_@item.Id">@item.Meses[8]</td>
+                        <td class="text-center" id="CargasTri3_@item.Id">@item.Trim3</td>
+                        <td class="text-center" id="CargasMes9_@item.Id">@item.Meses[9]</td>
+                        <td class="text-center" id="CargasMes10_@item.Id">@item.Meses[10]</td>
+                        <td class="text-center" id="CargasMes11_@item.Id">@item.Meses[11]</td>
+                        <td class="text-center" id="CargasTri4_@item.Id">@item.Trim4</td>
+                        <td class="text-center" id="CargasAnual_@item.Id">@item.Anual</td>
+                    </tr>
+                }
+
+            }
+
+        }
     </tbody>
 </table>
 <hr class="hrMetas" />
