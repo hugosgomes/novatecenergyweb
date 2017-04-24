@@ -9,6 +9,6 @@ namespace NovatecEnergyWeb.Models.Repository
     {
         List<_00Areas> GetAreas(List<int> delegacoes, int delegacao);
         List<int> GetAreasIds(List<_00Areas> areas);
-        List<_00Areas> GetAreasAll();
+        
     }
 }
