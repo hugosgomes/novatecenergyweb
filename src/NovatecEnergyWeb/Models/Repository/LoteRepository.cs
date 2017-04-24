@@ -47,5 +47,33 @@ namespace NovatecEnergyWeb.Models.Repository
 
             return Lote;
         }
+
+        public List<List<dynamic>> GetLotesJoinItems()
+        {
+            var lotes = (from l in _context._11Lotes
+                         join ti in _context._00TabelasItems on l.Status equals ti.Id
+                         select new
+                         {
+                             Id = l.Id,
+                             LoteNum = l.LoteNum,
+                             Ge = l.Ge,
+                             DataLote = l.DataLote,
+                             Item = ti.Item
+                         }).ToList();
+
+            var Lotes = new List<List<dynamic>>();
+            foreach (var item in lotes)
+            {
+                var d = new List<dynamic>();
+                d.Add(item.Id);
+                d.Add(item.LoteNum);
+                d.Add(item.Ge);
+                d.Add(item.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"));
+                d.Add(item.Item);
+                Lotes.Add(d);
+            }
+
+            return Lotes;
+        }
     }
 }

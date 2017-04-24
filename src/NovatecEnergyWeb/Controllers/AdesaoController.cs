@@ -36,67 +36,9 @@ namespace NovatecEnergyWeb.Controllers
             _condominioRepository = condominioRepository;
         }
 
-        public IActionResult ClienteCascade(int cliente)
-        {
-            var zonas = (from z in _context._00Zona
-                         join dl in _context._00Delegacao on z.Id equals dl.Zona
-                         where z.Id < 3 && dl.Cliente == cliente
-                         select new
-                         {
-                             Id = z.Id,
-                             Zona = z.Zona,
-                         })
-                .GroupBy(x => new {  x.Id, x.Zona })
-               .Select(c => new _00Zona { Id = c.Key.Id , Zona = c.Key.Zona }).ToList();
-
-            //delegacao
-            var delegacao = _context._00Delegacao.Where(c => c.Zona == zonas.FirstOrDefault().Id
-            && c.Cliente == cliente).Select(c => new _00Delegação{ Id= c.Id, Delegacao = c.Delegacao, Zona = c.Zona })
-            .ToList();
-
-            var listint = new List<int>();
-            foreach (var item in delegacao)
-            {
-                listint.Add(item.Id);
-            }
-            //area
-            // var areasL = _context._00Areas.Include(x => x.DelegacaoNavigation).ToList();
-            // var areafinal = areasL.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
-            var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
-
-            //lotes 
-            var listAreaInt = new List<int>();
-            foreach (var item in areasL)
-            {
-                listAreaInt.Add(item.Id);
-            }
-
-            var lotes = (from l in _context._11Lotes
-                         where listAreaInt.Contains(l.Area)
-                         join ti in _context._00TabelasItems on l.Status equals ti.Id
-                         select new
-                         {
-                             Id = l.Id,
-                             LoteNum = l.LoteNum,
-                             Ge = l.Ge,
-                             DataLote = l.DataLote,
-                             Item = ti.Item
-                         }).ToList();
-     
-
-            dynamic retorno = new ExpandoObject();
-            retorno.Zonas = zonas;
-            retorno.Delegacao = delegacao;
-            retorno.Area = areasL;
-           // retorno.Condominio = listCond;
-            retorno.Lote = lotes;
-            return Json(retorno);
-        }
-
         public IActionResult ZonaCascade(int zona)
         {
             //delegacao
-            //&& c.Cliente == cliente
             var delegacao = _context._00Delegacao.Where(c => c.Zona == zona)
                 .Select(c => new _00Delegação { Id = c.Id, Delegacao = c.Delegacao, Zona = c.Zona })
             .ToList();
@@ -135,10 +77,8 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult AreaCascade(int area)
         {
-            var loteRepo = new LoteRepository(_context);
-
             dynamic retorno = new ExpandoObject();
-            retorno.Lote = loteRepo.GetLotes(new List<int>(), area);
+            retorno.Lote = _loteRepository.GetLotes(new List<int>(), area);
             retorno.Condominio = _condominioRepository.GetCondominios(null, area, 0); 
             return Json(retorno);
         }
@@ -162,29 +102,8 @@ namespace NovatecEnergyWeb.Controllers
 
         public void BindSelects()
         {
-            var lotes = (from l in _context._11Lotes
-                         join ti in _context._00TabelasItems on l.Status equals ti.Id
-                         select new
-                         {
-                             Id = l.Id,
-                             LoteNum = l.LoteNum,
-                             Ge = l.Ge,
-                             DataLote = l.DataLote,
-                             Item = ti.Item
-                         }).ToList();
-
             ViewBag.Lotes = new List<List<dynamic>>();
-            foreach (var item in lotes)
-            {
-                var d = new List<dynamic>();
-                d.Add(item.Id);
-                d.Add(item.LoteNum);
-                d.Add(item.Ge);
-                d.Add(item.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"));
-                d.Add(item.Item);
-                ViewBag.Lotes.Add(d);
-            }
-            //   ViewBag.Lotes = lotes.ToList(); // terminar depois
+            ViewBag.Lotes = _loteRepository.GetLotesJoinItems();
 
             var motivosRejeicao = _context._11MotivosRej.Select(c => new { c.Id, c.Motivo }).ToList();
             ViewBag.MotivosRejeicao = new List<_11MotivosRej>();
@@ -570,7 +489,7 @@ namespace NovatecEnergyWeb.Controllers
             HttpContext.Session.SetString("SP_Lote", valorSP);
         }
 
-        private FormFiltersVisitaClienteViewModels getFiltrosSessao()
+        private FormFiltersVisitaClienteViewModels GetFiltrosSessao()
         {
             var ffvm = new FormFiltersVisitaClienteViewModels();
             ffvm.IdLote =  (HttpContext.Session.GetString("IdLote") == "")?null: HttpContext.Session.GetString("IdLote");
@@ -596,7 +515,7 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult ExportaExcel()
         {
             
-            var ev = GetListLoteAtivo(getFiltrosSessao());
+            var ev = GetListLoteAtivo(GetFiltrosSessao());
 
             EnderecoVisitasDataExporter exporter = new EnderecoVisitasDataExporter(_hostingEnvironment);
             byte[] fileBytes = exporter.ExportaPadraoNovatec(ev);
@@ -606,7 +525,7 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult ExportaPadraoGasNatural()
         {
-            var filtros = getFiltrosSessao();
+            var filtros = GetFiltrosSessao();
           
 
             var data = GetListLoteAtivoB(filtros);

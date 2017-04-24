@@ -8,5 +8,6 @@ namespace NovatecEnergyWeb.Models.Repository
     public interface ILoteRepository
     {
         List<List<dynamic>> GetLotes(List<int> areas, int area);
+        List<List<dynamic>> GetLotesJoinItems();
     }
 }
