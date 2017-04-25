@@ -1,0 +1,263 @@
+﻿@using NovatecEnergyWeb.Models;
+@using Microsoft.AspNetCore.Http;
+
+@model dynamic
+@{
+    ViewData["Title"] = "Cargas";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+<script type="text/javascript">
+
+    var config = {
+        type: 'line',
+        data: {
+            labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dec"],
+            datasets: [ {
+                    label: "Cargas",
+                    data: [],
+                    fill: true
+                }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: ''
+            },
+            tooltips: {
+                mode: 'label',
+                callbacks: {
+
+                }
+            },
+            hover: {
+                mode: 'dataset'
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Meses'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Valores'
+                    },
+                    ticks: {
+                        suggestedMin: -500,
+                        suggestedMax: 1500,
+                    }
+                }]
+            }
+        }
+    };
+
+    configuraCores();
+
+    function chamaGetResultados() {
+        var parametro = {};
+        parametro.anoSelecionado = document.getElementById("anos").value;
+
+        $.post("@Url.Action("BuscaCargasFiltradas", "Cargas")", parametro, alteraColunas);
+    };
+
+    function alteraColunas(retorno) {
+        tabelaCargas(retorno);
+        graficoAlteraValores(retorno);
+    }
+
+    function tabelaCargas(retorno) {
+        for (var j = 0; j < retorno.Cargas.length; j++) {
+            $("#CargasZona_" + retorno.Cargas[j].id).html(retorno.Cargas[j].zona);
+
+            for (var i = 0; i < 12; i++) {
+                $("#CargasMes"+i+"_" + retorno.Cargas[j].id).html(retorno.Cargas[j].meses[i]);
+            }
+            $("#CargasTri1_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim1);
+            $("#CargasTri2_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim2);
+            $("#CargasTri3_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim3);
+            $("#CargasTri4_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim4);
+
+            $("#CargasAnual_" + retorno.Cargas[j].id).html(retorno.Cargas[j].anual);
+        }
+       
+    }
+
+
+    function graficoAlteraValores(retorno) {
+        //limpa o gráficos
+        config.data.datasets = [];
+        var newCargas = {
+            label: "Cargas",
+            data: [],
+            fill: true
+        };
+        config.data.datasets.push(newCargas);
+        configuraCores();
+        //O gráfico era preeenchido com as infos da Tabela Resumo
+        if (retorno.Cargas.length > 1){
+            for (var i = 0; i < 12; i++) {
+                config.data.datasets[0].data.push(parseInt(retorno.Cargas[2].meses[i]));
+            }
+        }else{
+            for (var i = 0; i < 12; i++) {
+                config.data.datasets[0].data.push(parseInt(retorno.Cargas[0].meses[i]));
+            }
+        }
+       
+        window.myLine.update();
+    }
+
+    function configuraCores() {
+        //Cargas
+        config.data.datasets[0].pointBorderWidth = 1;
+        config.data.datasets[0].pointBorderColor = 'rgba(255,199,0,0.7)';
+        config.data.datasets[0].pointBackgroundColor = 'rgba(255, 0, 0, 0)';
+        config.data.datasets[0].borderColor = 'rgba(255,199,0,0.7)';
+        config.data.datasets[0].backgroundColor = 'rgba(255, 198, 0, 0.2)';
+
+    }
+
+    var parametro = {};
+    parametro.anoSelecionado = @DateTime.Now.Year;
+
+    $.post("@Url.Action("BuscaCargasFiltradas", "Cargas")", parametro, function (retorno) {
+        
+        if (retorno.Cargas.length > 1){
+            for (var i = 0; i < 12; i++) {
+                config.data.datasets[0].data.push(parseInt(retorno.Cargas[2].meses[i]));
+            }
+        }else{
+            for (var i = 0; i < 12; i++) {
+                config.data.datasets[0].data.push(parseInt(retorno.Cargas[0].meses[i]));
+            }
+        }
+
+        window.myLine.update();
+    });
+
+    //Muda o valor selecionado do select para ano atual
+    window.onload = function () {
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+        $("#anos").val("@DateTime.Now.Year");
+    };
+
+</script>
+
+<select id="anos" onchange="chamaGetResultados()">
+    <option>2015</option>
+    <option>2016</option>
+    <option>2017</option>
+</select>
+
+<div style="width:100%">
+    <canvas id="canvas"></canvas>
+</div>
+
+<hr class="hrMetas" />
+<table class="tableMetas table-bordered">
+    <colgroup>
+        <col class="col-md-2">
+        <col span="17" class="tdMetas">
+    </colgroup>
+    <thead>
+        <tr>
+            <th class="text-center">Cargas</th>
+            <th class="text-center">Jan</th>
+            <th class="text-center">Fev</th>
+            <th class="text-center">Mar</th>
+            <th class="text-center">1ºTrim</th>
+            <th class="text-center">Abr</th>
+            <th class="text-center">Mai</th>
+            <th class="text-center">Jun</th>
+            <th class="text-center">2ºTrim</th>
+            <th class="text-center">Jul</th>
+            <th class="text-center">Ago</th>
+            <th class="text-center">Set</th>
+            <th class="text-center">3ºTrim</th>
+            <th class="text-center">Out</th>
+            <th class="text-center">Nov</th>
+            <th class="text-center">Dec</th>
+            <th class="text-center">4ºTrim</th>
+            <th class="text-center">Anual</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            string tipo = Context.Session.GetString("UserTipo");
+            int? zona = Context.Session.GetInt32("Zona");
+
+            if (tipo == "cli" && (zona != null))
+            {
+                @foreach (var item in Model.Cargas)
+                {
+                    if (item.Id == zona)
+                    {
+
+                        <tr>
+                            <td class="text-center" id="CargasZona_@item.Id">@item.Zona</td>
+                            <td class="text-center" id="CargasMes0_@item.Id">@item.Meses[0]</td>
+                            <td class="text-center" id="CargasMes1_@item.Id">@item.Meses[1]</td>
+                            <td class="text-center" id="CargasMes2_@item.Id">@item.Meses[2]</td>
+                            <td class="text-center" id="CargasTri1_@item.Id">@item.Trim1</td>
+                            <td class="text-center" id="CargasMes3_@item.Id">@item.Meses[3]</td>
+                            <td class="text-center" id="CargasMes4_@item.Id">@item.Meses[4]</td>
+                            <td class="text-center" id="CargasMes5_@item.Id">@item.Meses[5]</td>
+                            <td class="text-center" id="CargasTri2_@item.Id">@item.Trim2</td>
+                            <td class="text-center" id="CargasMes6_@item.Id">@item.Meses[6]</td>
+                            <td class="text-center" id="CargasMes7_@item.Id">@item.Meses[7]</td>
+                            <td class="text-center" id="CargasMes8_@item.Id">@item.Meses[8]</td>
+                            <td class="text-center" id="CargasTri3_@item.Id">@item.Trim3</td>
+                            <td class="text-center" id="CargasMes9_@item.Id">@item.Meses[9]</td>
+                            <td class="text-center" id="CargasMes10_@item.Id">@item.Meses[10]</td>
+                            <td class="text-center" id="CargasMes11_@item.Id">@item.Meses[11]</td>
+                            <td class="text-center" id="CargasTri4_@item.Id">@item.Trim4</td>
+                            <td class="text-center" id="CargasAnual_@item.Id">@item.Anual</td>
+                        </tr>
+                    }
+                }
+            }
+            else
+            {
+                @foreach (var item in Model.Cargas)
+                {
+
+                    <tr>
+                        <td class="text-center" id="CargasZona_@item.Id">@item.Zona</td>
+                        <td class="text-center" id="CargasMes0_@item.Id">@item.Meses[0]</td>
+                        <td class="text-center" id="CargasMes1_@item.Id">@item.Meses[1]</td>
+                        <td class="text-center" id="CargasMes2_@item.Id">@item.Meses[2]</td>
+                        <td class="text-center" id="CargasTri1_@item.Id">@item.Trim1</td>
+                        <td class="text-center" id="CargasMes3_@item.Id">@item.Meses[3]</td>
+                        <td class="text-center" id="CargasMes4_@item.Id">@item.Meses[4]</td>
+                        <td class="text-center" id="CargasMes5_@item.Id">@item.Meses[5]</td>
+                        <td class="text-center" id="CargasTri2_@item.Id">@item.Trim2</td>
+                        <td class="text-center" id="CargasMes6_@item.Id">@item.Meses[6]</td>
+                        <td class="text-center" id="CargasMes7_@item.Id">@item.Meses[7]</td>
+                        <td class="text-center" id="CargasMes8_@item.Id">@item.Meses[8]</td>
+                        <td class="text-center" id="CargasTri3_@item.Id">@item.Trim3</td>
+                        <td class="text-center" id="CargasMes9_@item.Id">@item.Meses[9]</td>
+                        <td class="text-center" id="CargasMes10_@item.Id">@item.Meses[10]</td>
+                        <td class="text-center" id="CargasMes11_@item.Id">@item.Meses[11]</td>
+                        <td class="text-center" id="CargasTri4_@item.Id">@item.Trim4</td>
+                        <td class="text-center" id="CargasAnual_@item.Id">@item.Anual</td>
+                    </tr>
+                }
+
+            }
+
+        }
+    </tbody>
+</table>
+
+
