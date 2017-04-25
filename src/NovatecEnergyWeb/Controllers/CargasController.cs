@@ -55,36 +55,18 @@ namespace NovatecEnergyWeb.Controllers
 
             metropolitana.Id = 1;
             fluminense.Id = 2;
-    
 
+            #region for
             foreach (var item in cargas)
             {
                 if (item.ZonaId == 1) // metropolitana
                 {
-
                     for (int i = 1; i <= 12; i++)
                     {
                         if (item.MesCarga == i)
                         {
                             metropolitana.Meses[i - 1] = Convert.ToInt32(item.Cargas).ToString();
                         }
-                    }
-
-                    if (item.MesCarga == 1 || item.MesCarga == 2 || item.MesCarga == 3)
-                    {
-                        metropolitana.Trim1 = metropolitana.Trim1 + Convert.ToInt32(item.Cargas);
-                    }
-                    else if (item.MesCarga == 4 || item.MesCarga == 5 || item.MesCarga == 6)
-                    {
-                        metropolitana.Trim2 = metropolitana.Trim2 + Convert.ToInt32(item.Cargas);
-                    }
-                    else if (item.MesCarga == 7 || item.MesCarga == 8 || item.MesCarga == 9)
-                    {
-                        metropolitana.Trim3 = metropolitana.Trim3 + Convert.ToInt32(item.Cargas);
-                    }
-                    else if (item.MesCarga == 10 || item.MesCarga == 11 || item.MesCarga == 12)
-                    {
-                        metropolitana.Trim4 = metropolitana.Trim4 + Convert.ToInt32(item.Cargas);
                     }
 
                 }else // fluminense
@@ -96,24 +78,19 @@ namespace NovatecEnergyWeb.Controllers
                             fluminense.Meses[i - 1] = Convert.ToInt32(item.Cargas).ToString();
                         }
                     }
-                    if (item.MesCarga == 1 || item.MesCarga == 2 || item.MesCarga == 3)
-                    {
-                        fluminense.Trim1 = fluminense.Trim1 + Convert.ToInt32(item.Cargas);
-                    }
-                    else if (item.MesCarga == 4 || item.MesCarga == 5 || item.MesCarga == 6)
-                    {
-                        fluminense.Trim2 = fluminense.Trim2 + Convert.ToInt32(item.Cargas);
-                    }
-                    else if (item.MesCarga == 7 || item.MesCarga == 8 || item.MesCarga == 9)
-                    {
-                        fluminense.Trim3 = fluminense.Trim3 + Convert.ToInt32(item.Cargas);
-                    }
-                    else if (item.MesCarga == 10 || item.MesCarga == 11 || item.MesCarga == 12)
-                    {
-                        fluminense.Trim4 = fluminense.Trim4 + Convert.ToInt32(item.Cargas);
-                    }
                 }
             }
+            #endregion
+
+            metropolitana.Trim1 = cargas.Where(c => c.Zona =="METROPOLITANA").Select(c => c.Cargas).Take(3).Sum();
+            metropolitana.Trim2 = cargas.Where(c => c.Zona =="METROPOLITANA").Select(c => c.Cargas).Skip(3).Take(3).Sum();
+            metropolitana.Trim3 = cargas.Where(c => c.Zona =="METROPOLITANA").Select(c => c.Cargas).Skip(6).Take(3).Sum();
+            metropolitana.Trim4 = cargas.Where(c => c.Zona == "METROPOLITANA").Select(c => c.Cargas).Skip(9).Take(3).Sum();
+
+            fluminense.Trim1 = cargas.Where(c => c.Zona == "FLUMINENSE").Select(c => c.Cargas).Take(3).Sum();
+            fluminense.Trim2 = cargas.Where(c => c.Zona == "FLUMINENSE").Select(c => c.Cargas).Skip(3).Take(3).Sum();
+            fluminense.Trim3 = cargas.Where(c => c.Zona == "FLUMINENSE").Select(c => c.Cargas).Skip(6).Take(3).Sum();
+            fluminense.Trim4 = cargas.Where(c => c.Zona == "FLUMINENSE").Select(c => c.Cargas).Skip(9).Take(3).Sum();
 
             //caso não tenha as colunas todas de meses preenchidos
             metropolitana.AcrescentaMesesQueFaltam();
@@ -141,6 +118,7 @@ namespace NovatecEnergyWeb.Controllers
                 
             }
 
+            //caso o cliente tenha Zona 
             int? zonaCliente = HttpContext.Session.GetInt32("Zona");
             if (zonaCliente !=null  && (zonaCliente == metropolitana.Id))
             {
