@@ -57,6 +57,8 @@ namespace NovatecEnergyWeb
             services.AddMvc();
 
             
+
+
             services.AddMemoryCache();
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -87,6 +89,8 @@ namespace NovatecEnergyWeb
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
+
+            
 
             app.UseMvc(routes =>
             {
