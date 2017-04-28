@@ -211,7 +211,7 @@
                                         {
                                             if (area == ViewBag.Areas[i].Id)
                                             {
-                                                ViewBag.AreaSel = i;
+                                                ViewBag.AreaSel = ViewBag.Areas[i].Id;
                                             }
                                             <option value="@ViewBag.Areas[i].Id">@ViewBag.Areas[i].Area</option>
                                         }
@@ -482,13 +482,17 @@
     $("#statusCond").prop("selectedIndex", -1);
     $("#condominiosId").prop("selectedIndex", -1);
 
-    ///--------------------------------------------COLADO de site.js
     $('#dtult').datepicker({
         format: "dd/mm/yyyy",
         todayBtn: "linked",
         language: "pt-BR",
         orientation: "bottom left"
     });
+
+    window.onload = function () {
+        postToController();
+        selecionaInfoCliente();
+    };
 
     function getFormDataAsJson() {
         var botaoClicado = clicado();
@@ -588,12 +592,12 @@
               prevClass: 'prev',
               lastClass: 'last',
               firstClass: 'first'
-              
+
           }).on("page", function (event, num) {
               // some ajax content loading...
               postPaginacao(num);
-              
-          }); 
+
+          });
 
     }
 
@@ -603,9 +607,6 @@
            $.post("@Url.Action("GetListLoteAtivoView", "Adesao")", data, tabelaLoteAtivos);
     }
 
-    window.onload = function () {
-       postToController();
-    };
 
     function atualizaViewNao(retorno) {
         tabelaEstatisticas(retorno)
@@ -666,26 +667,6 @@
         tr.append('<th class="text-center">ULTMOTIVO</th>');
         tr.append('<th class="text-center">AGULT</th>');
         tr.append('<th class="text-center">DTULT</th>');
-      /*  tr.append('<th class="text-center">STATUSCL</th>');
-        tr.append('<th class="text-center">DTSTATUSCL</th>');
-        tr.append('<th class="text-center">CASASTATUS</th>');
-        tr.append('<th class="text-center">Visitado</th>');
-        tr.append('<th class="text-center">Contratado</th>');
-        tr.append('<th class="text-center">VendaApp</th>');
-        tr.append('<th class="text-center">Visitas</th>');
-        tr.append('<th class="text-center">Entrevistas</th>');
-        tr.append('<th class="text-center">Ausentes</th>');
-        tr.append('<th class="text-center">Endinex</th>');
-        tr.append('<th class="text-center">D2</th>');
-        tr.append('<th class="text-center">SVG</th>');
-        tr.append('<th class="text-center">SVE</th>');
-        
-        tr.append('<th class="text-center">CASOA</th>');
-        tr.append('<th class="text-center">CASOB</th>');
-        tr.append('<th class="text-center">CASOC</th>');
-        tr.append('<th class="text-center">CASOD</th>');
-        tr.append('<th class="text-center">DTULT2</th>');
-        tr.append('<th class="text-center">HRULT</th>'); */
 
         $('#headTabelaLote').append(tr);
     };
@@ -714,7 +695,7 @@
         //tr = $('<tr/>');
 
        for (var i = 0; i < retorno.EV.length; i++) {
-            
+
             r[++j] = "<tr>";
             r[++j] = "<td>" ;
             r[++j] = retorno.EV[i].casa;
@@ -783,64 +764,6 @@
             r[++j] = "<td>";
             r[++j] = retorno.EV[i].dtult;
             r[++j] = "</td>";
-        /*    r[++j] = "<td>";
-            r[++j] = retorno.EV[i].statusCl;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].dtStatusCl;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].casaStatus;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].visitado;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].contratado;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].vendaApp;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].visitas;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].entrevistas;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].ausencias;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].endinex;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].d2;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].svg;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].sve;
-            r[++j] = "</td>";
-           
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].casoA;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].casoB;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].casoC;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].casoD;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].dtult2;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].hrult;
-            r[++j] = "</td>";*/
             r[++j] = "</tr>";
         }
         $('#corpoTabelaAtivos').html(r.join(''));
@@ -954,7 +877,7 @@
         preencheArea(retorno);
         $('#statusCond').empty();
         preencheCondominio(retorno);
-        
+
         for (var i = 0; i < retorno.MotivosRejeicao.length; i++) {
             $('#motivosRejeicao').append($("<option />").val(retorno.MotivosRejeicao[i].id).text(retorno.MotivosRejeicao[i].motivo));
         }
@@ -966,7 +889,7 @@
         for (var i = 0; i < retorno.StatusCondominios.length; i++) {
             $('#statusCond').append($("<option />").val(retorno.StatusCondominios[i].id).text(retorno.StatusCondominios[i].item));
         }
-        
+
         $('#CasaStatus').prop("selectedIndex", -1);
         $('#motivosRejeicao').prop("selectedIndex", -1);
         $('#zonas').prop("selectedIndex", -1);
@@ -1121,7 +1044,7 @@
         $.post("@Url.Action("DelegacaoCascade","Adesao")", p, atualizaDropsDelegacao);
     }
 
-    function atualizaDropsDelegacao(retorno) {   
+    function atualizaDropsDelegacao(retorno) {
         preencheArea(retorno);
         preencheLotes(retorno);
         preencheCondominio(retorno);
@@ -1165,34 +1088,34 @@
         postToController();
     }
 
-    ///-----------------------------------------FIM---COLADO de site.js
-    var as = '';
-    var zs = '';
-    var ds = '';
+    ///--------
 
-    if ('@ViewBag.ZonaSelecionada' !='') {
-        zs = '@ViewBag.ZonaSelecionada';
+    function selecionaInfoCliente() {
+        var zs = '';
+        var ds = '';
+
+        if ('@ViewBag.ZonaSelecionada' != '') {
+            zs = '@ViewBag.ZonaSelecionada';
+            $("#zonas").prop("selectedIndex", zs);
+        }
+
+        if ('@ViewBag.DelegacaoSel' != '') {
+            ds = '@ViewBag.DelegacaoSel';
+            $("#delegacoes").prop("selectedIndex", ds);
+
+            if ('@ViewBag.areaQuantidade' < 1) {
+                postDelegacao();
+            }
+        }
+
+        if ('@Context.Session.GetString("UserTipo")' == 'cli') {
+            selecionaAreaCliente();
+        }
     }
 
-    if ('@ViewBag.AreaSel' != '') {
-        as = '@ViewBag.AreaSel';
-    }
-
-    if ('@ViewBag.DelegacaoSel' != '') {
-        ds = '@ViewBag.DelegacaoSel';
-    }
-
-    if (zs != '') {
-        $("#zonas").prop("selectedIndex", zs);
-    }
-
-    if (ds != '') {
-        $("#delegacoes").prop("selectedIndex", ds);
-        postDelegacao();
-    }
-
-    if (as != '') {
-        $("#areas").prop("selectedIndex", as);
+    function selecionaAreaCliente() {
+        var data = {};
+        $.post("@Url.Action("AreasDoCliente", "Adesao")", data, atualizaDropsDelegacao);
     }
 
 </script>

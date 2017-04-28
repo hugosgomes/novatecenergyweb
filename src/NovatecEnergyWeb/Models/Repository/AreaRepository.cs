@@ -37,5 +37,21 @@ namespace NovatecEnergyWeb.Models.Repository
 
             return listAreaInt;
         }
+
+        public IList<_00Areas> GetAreasByClienteId(int idCliente)
+        {
+            var areas = (from ca in _context.ClientesAreas
+                         where ca.IdCliente == Convert.ToInt32(idCliente)
+                         join a in _context._00Areas on ca.IdArea equals a.Id
+                         select new _00Areas
+                         {
+                             Id = a.Id,
+                             Area = a.Area,
+                             Delegacao = a.Delegacao,
+                             Ge = a.Ge
+                         }).ToList();
+
+            return areas;
+        }
     }
 }
