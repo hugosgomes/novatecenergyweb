@@ -96,7 +96,15 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult StatusCliCascade(int status, int area)
         {
             dynamic retorno = new ExpandoObject();
-            retorno.Condominio = _condominioRepository.GetCondominios(new List<int>(), area, status);
+            if (area == 0)
+            {
+                retorno.Condominio = _condominioRepository.GetCondominios(status);
+            }
+            else
+            {
+                retorno.Condominio = _condominioRepository.GetCondominios(new List<int>(), area, status);
+            }
+            
             return Json(retorno);
         }
 
