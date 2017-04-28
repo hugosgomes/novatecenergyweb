@@ -24,16 +24,18 @@ namespace NovatecEnergyWeb.Controllers
         private IAreaRepository _areaRepository;
         private ILoteRepository _loteRepository;
         private ICondominioLoteAtivo _condominioRepository;
+        private IMotivoRejeicao _motivoRejeicaoRepository;
 
         public AdesaoController(BDNVTContext context, IHostingEnvironment he, 
             IAreaRepository areaRepository, ILoteRepository loteRepository, 
-            ICondominioLoteAtivo condominioRepository)
+            ICondominioLoteAtivo condominioRepository, IMotivoRejeicao motivoRejeicaoRepository)
         {
             _context = context;
             _hostingEnvironment = he;
             _areaRepository = areaRepository;
             _loteRepository = loteRepository;
             _condominioRepository = condominioRepository;
+            _motivoRejeicaoRepository = motivoRejeicaoRepository;
         }
 
         public IActionResult ZonaCascade(int zona)
@@ -131,16 +133,9 @@ namespace NovatecEnergyWeb.Controllers
         {
             ViewBag.Lotes = new List<List<dynamic>>();
             ViewBag.Lotes = _loteRepository.GetLotesJoinItems();
-
-            var motivosRejeicao = _context._11MotivosRej.Select(c => new { c.Id, c.Motivo }).ToList();
+            
             ViewBag.MotivosRejeicao = new List<_11MotivosRej>();
-            foreach (var item in motivosRejeicao)
-            {
-                var m = new _11MotivosRej();
-                m.Id = item.Id;
-                m.Motivo = item.Motivo;
-                ViewBag.MotivosRejeicao.Add(m);
-            }
+            ViewBag.MotivosRejeicao = _motivoRejeicaoRepository.GetMotivosProdutoSv();
 
             var zonas = _context._00Zona.Where(c => c.Id < 3).Select(c => new { c.Id, c.Zona }).ToList();
             ViewBag.Zonas = new List<_00Zona>();

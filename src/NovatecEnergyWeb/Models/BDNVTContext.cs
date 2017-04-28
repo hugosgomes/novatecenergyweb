@@ -5642,8 +5642,6 @@ namespace NovatecEnergyWeb.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Cod).HasColumnName("COD");
-
                 entity.Property(e => e.Motivo)
                     .IsRequired()
                     .HasColumnName("MOTIVO")
@@ -5652,6 +5650,9 @@ namespace NovatecEnergyWeb.Models
                 entity.Property(e => e.Obs)
                     .HasColumnName("OBS")
                     .HasMaxLength(255);
+
+                entity.Property(e => e.Produto)
+                    .HasColumnName("PT");
             });
 
             modelBuilder.Entity<_20Agencias>(entity =>

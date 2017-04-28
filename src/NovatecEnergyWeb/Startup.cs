@@ -53,6 +53,7 @@ namespace NovatecEnergyWeb
             services.AddScoped<IAreaRepository, AreaRepository>();
             services.AddScoped<ILoteRepository, LoteRepository>();
             services.AddScoped<ICondominioLoteAtivo, CondominioLoteAtivoRepository>();
+            services.AddScoped<IMotivoRejeicao, MotivoRejeicaoRepository>();
 
             services.AddMvc();
 
