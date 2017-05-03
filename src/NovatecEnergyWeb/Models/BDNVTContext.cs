@@ -5653,6 +5653,12 @@ namespace NovatecEnergyWeb.Models
 
                 entity.Property(e => e.Produto)
                     .HasColumnName("PT");
+
+                entity.Property(e => e.Ordem)
+                    .HasColumnName("ORDEM");
+
+                entity.Property(e => e.Grupo)
+                    .HasColumnName("GRUPO");
             });
 
             modelBuilder.Entity<_20Agencias>(entity =>

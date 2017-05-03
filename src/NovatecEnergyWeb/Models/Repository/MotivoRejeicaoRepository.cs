@@ -16,7 +16,7 @@ namespace NovatecEnergyWeb.Models.Repository
 
         public List<_11MotivosRej> GetMotivosProdutoSv()
         {
-            var motivosRejeicao = _context._11MotivosRej.Where(c => c.Produto == 2 && c.Id != 1).OrderBy(c =>c.Id).ToList();
+            var motivosRejeicao = _context._11MotivosRej.Where(c => c.Produto == 2 && c.Grupo != 4).OrderBy(c =>c.Id).ToList();
             return motivosRejeicao;
         }
     }
