@@ -10,7 +10,7 @@ using NovatecEnergyWeb.Models.AdesaoViewModels;
 
 namespace NovatecEnergyWeb.Models.Exportacao
 {
-    public class EnderecoVisitasDataExporter
+    public class EnderecoVisitasDataExporter : IExcelExportaLotePorCliente
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         public string FileName { get; set; }
@@ -93,69 +93,80 @@ namespace NovatecEnergyWeb.Models.Exportacao
                     worksheet.Cells["S" + (i + 2).ToString()].Value = data[i].VendaApp;
                     worksheet.Cells["S" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["T" + (i + 2).ToString()].Value = data[i].Visitas;
+                    worksheet.Cells["T" + (i + 2).ToString()].Value = data[i].D2;
                     worksheet.Cells["T" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["U" + (i + 2).ToString()].Value = data[i].Entrevistas;
+                    worksheet.Cells["U" + (i + 2).ToString()].Value = data[i].Svg;
                     worksheet.Cells["U" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["V" + (i + 2).ToString()].Value = data[i].Ausencias;
+                    worksheet.Cells["V" + (i + 2).ToString()].Value = data[i].Sve;
                     worksheet.Cells["V" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["X" + (i + 2).ToString()].Value = data[i].D2;
+                    worksheet.Cells["W" + (i + 2).ToString()].Value = data[i].Visitas;
+                    worksheet.Cells["W" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["X" + (i + 2).ToString()].Value = data[i].Entrevistas;
                     worksheet.Cells["X" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["Y" + (i + 2).ToString()].Value = data[i].Svg;
+                    worksheet.Cells["Y" + (i + 2).ToString()].Value = data[i].VisitasImpr;
                     worksheet.Cells["Y" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["Z" + (i + 2).ToString()].Value = data[i].Sve;
+                    worksheet.Cells["Z" + (i + 2).ToString()].Value = data[i].VisitasAgendadas;
                     worksheet.Cells["Z" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AA" + (i + 2).ToString()].Value = data[i].UltMotivo;
+                    worksheet.Cells["AA" + (i + 2).ToString()].Value = data[i].Ausencias;
                     worksheet.Cells["AA" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AB" + (i + 2).ToString()].Value = data[i].Agult;
+                    worksheet.Cells["AB" + (i + 2).ToString()].Value = data[i].UltMotivo;
                     worksheet.Cells["AB" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AC" + (i + 2).ToString()].Value = data[i].Dtult;
+                    worksheet.Cells["AC" + (i + 2).ToString()].Value = data[i].Agult;
                     worksheet.Cells["AC" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AD" + (i + 2).ToString()].Value = data[i].StatusCl;
+                    worksheet.Cells["AD" + (i + 2).ToString()].Value = data[i].Dtult;
                     worksheet.Cells["AD" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AE" + (i + 2).ToString()].Value = data[i].DtStatusCl;
+                    worksheet.Cells["AE" + (i + 2).ToString()].Value = data[i].StatusCl;
                     worksheet.Cells["AE" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AJ" + (i + 2).ToString()].Value = data[i].Zid;
+                    worksheet.Cells["AF" + (i + 2).ToString()].Value = data[i].DtStatusCl;
+                    worksheet.Cells["AF" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["AG" + (i + 2).ToString()].Value = data[i].Procedencia;
+                    worksheet.Cells["AG" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["AH" + (i + 2).ToString()].Value = data[i].Zid;
+                    worksheet.Cells["AH" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["AI" + (i + 2).ToString()].Value = data[i].Did;
+                    worksheet.Cells["AI" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["AJ" + (i + 2).ToString()].Value = data[i].Aid;
                     worksheet.Cells["AJ" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AK" + (i + 2).ToString()].Value = data[i].Did;
+                    worksheet.Cells["AK" + (i + 2).ToString()].Value = data[i].CondId;
                     worksheet.Cells["AK" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AL" + (i + 2).ToString()].Value = data[i].Aid;
+                    worksheet.Cells["AL" + (i + 2).ToString()].Value = data[i].PtId;
                     worksheet.Cells["AL" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AM" + (i + 2).ToString()].Value = data[i].CondId;
+                    worksheet.Cells["AM" + (i + 2).ToString()].Value = data[i].IdLote;
                     worksheet.Cells["AM" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AN" + (i + 2).ToString()].Value = data[i].PtId;
+                    worksheet.Cells["AN" + (i + 2).ToString()].Value = data[i].StatusClid;
                     worksheet.Cells["AN" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AO" + (i + 2).ToString()].Value = data[i].IdLote;
+                    worksheet.Cells["AO" + (i + 2).ToString()].Value = data[i].ClId;
                     worksheet.Cells["AO" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AP" + (i + 2).ToString()].Value = data[i].StatusClid;
+                    worksheet.Cells["AP" + (i + 2).ToString()].Value = data[i].CondStatus;
                     worksheet.Cells["AP" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AQ" + (i + 2).ToString()].Value = data[i].ClId;
+                    worksheet.Cells["AQ" + (i + 2).ToString()].Value = data[i].IdultMotivo;
                     worksheet.Cells["AQ" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AR" + (i + 2).ToString()].Value = data[i].CondStatus;
+                    worksheet.Cells["AR" + (i + 2).ToString()].Value = data[i].LoteStatus;
                     worksheet.Cells["AR" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["AS" + (i + 2).ToString()].Value = data[i].IdultMotivo;
-                    worksheet.Cells["AS" + (i + 2).ToString()].Style.Font.Size = 8;
-
 
                 }
                 package.Save();

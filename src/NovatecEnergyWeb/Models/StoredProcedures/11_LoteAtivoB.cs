@@ -10,7 +10,7 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
     {
         public Int64 Id { get; set; }
         public int? Casa { get; set; }
-        public string Lote { get; set; }
+        public int Lote { get; set; }
         public string Ar { get; set; }
         public string Localidade { get; set; }
         public string Bairro { get; set; }

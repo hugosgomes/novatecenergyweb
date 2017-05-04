@@ -5399,7 +5399,6 @@ namespace NovatecEnergyWeb.Models
                 entity.Property(e => e.DataSystem).HasColumnName("DATASYSTEM");
                 entity.Property(e => e.Status).HasColumnName("STATUS");
                 entity.Property(e => e.Area).HasColumnName("AREA");
-                entity.Property(e => e.Procedencia).HasColumnName("PROCEDENCIA");
             });
 
 

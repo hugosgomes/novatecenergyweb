@@ -25,10 +25,12 @@ namespace NovatecEnergyWeb.Controllers
         private ILoteRepository _loteRepository;
         private ICondominioLoteAtivo _condominioRepository;
         private IMotivoRejeicao _motivoRejeicaoRepository;
+        private IExcelExportaLotePorCliente _exportaExcelRepository;
 
         public AdesaoController(BDNVTContext context, IHostingEnvironment he, 
             IAreaRepository areaRepository, ILoteRepository loteRepository, 
-            ICondominioLoteAtivo condominioRepository, IMotivoRejeicao motivoRejeicaoRepository)
+            ICondominioLoteAtivo condominioRepository, IMotivoRejeicao motivoRejeicaoRepository,
+            IExcelExportaLotePorCliente exportaExcelRepository)
         {
             _context = context;
             _hostingEnvironment = he;
@@ -36,6 +38,7 @@ namespace NovatecEnergyWeb.Controllers
             _loteRepository = loteRepository;
             _condominioRepository = condominioRepository;
             _motivoRejeicaoRepository = motivoRejeicaoRepository;
+            _exportaExcelRepository = exportaExcelRepository;
         }
 
         public IActionResult ZonaCascade(int zona)
@@ -253,17 +256,17 @@ namespace NovatecEnergyWeb.Controllers
             int? zona = HttpContext.Session.GetInt32("Zona");
 
             IQueryable<_11_LoteAtivoB> lb;
-            //if(filtros == null)
-            //{
-            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] {0},{1},{2},{3},{4},{5}," +
+            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB]");
+
+         /*   lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] {0},{1},{2},{3},{4},{5}," +
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
                     filtros.ClId, ((zona != null) ? zona.ToString() : (filtros.ZId != null) ? filtros.ZId.ToString() : null),
                     ((delegacao != null) ? delegacao.ToString() : (filtros.DId != null) ? filtros.DId.ToString() : null),
                     ((area != null) ? area.ToString() : (filtros.AId != null) ? filtros.AId : null), filtros.StatusId,
                     filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
-                    filtros.Logradouro, filtros.Numero1, filtros.Numero2);
-            //}
+                    filtros.Logradouro, filtros.Numero1, filtros.Numero2);*/
+
 
             return lb.ToList();
         }
@@ -443,20 +446,17 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult ExportaExcel()
         {
-            
             var ev = GetListLoteAtivo(GetFiltrosSessao());
+            
+            byte[] fileBytes = _exportaExcelRepository.ExportaPadraoNovatec(ev);
 
-            EnderecoVisitasDataExporter exporter = new EnderecoVisitasDataExporter(_hostingEnvironment);
-            byte[] fileBytes = exporter.ExportaPadraoNovatec(ev);
-           
-            return File(fileBytes, "application/x-msdownload", exporter.FileName);
+            return File(fileBytes, "application/x-msdownload", _exportaExcelRepository.FileName);
         }
 
         public IActionResult ExportaPadraoGasNatural()
         {
             var filtros = GetFiltrosSessao();
           
-
             var data = GetListLoteAtivoB(filtros);
 
             var lote = (from l in _context._11Lotes
@@ -474,11 +474,9 @@ namespace NovatecEnergyWeb.Controllers
                             Meta = l.Meta
                         });
 
-            EnderecoVisitasDataExporter exp = new EnderecoVisitasDataExporter(_hostingEnvironment);
-            byte[] fileBytes = exp.ExportaPadraoGasNatural(data, lote);
+            byte[] fileBytes = _exportaExcelRepository.ExportaPadraoGasNatural(data, lote);
 
-            return File(fileBytes, "application/x-msdownload", exp.FileName);
-
+            return File(fileBytes, "application/x-msdownload", _exportaExcelRepository.FileName);
 
         }
         
