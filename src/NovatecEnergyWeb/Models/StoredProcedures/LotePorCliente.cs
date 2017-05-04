@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NovatecEnergyWeb.Models.StoredProcedures
 {
-    public class _11_LoteAtivo
+    public class LotePorCliente
     {
         public Int64 Id { get; set; }
 
@@ -46,41 +46,35 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public int? Contratado { get; set; }
 
         public int? VendaApp { get; set; }
-
-        public int? Visitas { get; set; }
-
-        public int? VisitasAgendadas { get; set; }
-
-        public int? Entrevistas { get; set; }
-
-        public int? Ausencias { get; set; }
-
-        public int? Endinex { get; set; }
-
+        
         public int? D2 { get; set; }
 
         public int? Svg { get; set; }
 
         public int? Sve { get; set; }
 
+        public int? Visitas { get; set; }
+
+        public int? Entrevistas { get; set; }
+
+        public int? VisitasImpr { get; set; }
+
+        public int? VisitasAgendadas { get; set; }
+
+        public int? Ausencias { get; set; }
+
         public string UltMotivo { get; set; }
 
         public String Agult { get; set; }
 
-        public string Dtult { get; set; }
+        public DateTime ? Dtult { get; set; }
         
         public String StatusCl { get; set; }
 
-        public  string  DtStatusCl { get; set; }
+        public DateTime ?  DtStatusCl { get; set; }
 
-        public int? CasoA { get; set; }
-
-        public int? CasoB { get; set; }
-
-        public int? CasoC { get; set; }
-
-        public int? CasoD { get; set; }
-
+        public string Procedencia { get; set; }
+        
         public int? Zid { get; set; }
 
         public int? Did { get; set; }
@@ -99,10 +93,8 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
 
         public int? CondStatus { get; set; }
 
-        public String Dtult2 { get; set; }
-
-        public String Hrult { get; set; }
-
         public int? IdultMotivo { get; set; }
+
+        public int? LoteStatus { get; set; }
     }
 }

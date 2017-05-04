@@ -22,7 +22,7 @@ namespace NovatecEnergyWeb.Models.Exportacao
             WebRootFolder = _hostingEnvironment.WebRootPath + "\\excel";
         }
 
-        public byte[] ExportaPadraoNovatec(List<_11_LoteAtivo> data)
+        public byte[] ExportaPadraoNovatec(List<LotePorCliente> data)
         {
             FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Visitas.xlsx";
             File.Copy(Path.Combine(WebRootFolder, @"formatoNovatec.xlsx"), Path.Combine(WebRootFolder, FileName));
@@ -102,9 +102,6 @@ namespace NovatecEnergyWeb.Models.Exportacao
                     worksheet.Cells["V" + (i + 2).ToString()].Value = data[i].Ausencias;
                     worksheet.Cells["V" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["W" + (i + 2).ToString()].Value = data[i].Endinex;
-                    worksheet.Cells["W" + (i + 2).ToString()].Style.Font.Size = 8;
-
                     worksheet.Cells["X" + (i + 2).ToString()].Value = data[i].D2;
                     worksheet.Cells["X" + (i + 2).ToString()].Style.Font.Size = 8;
 
@@ -128,18 +125,6 @@ namespace NovatecEnergyWeb.Models.Exportacao
 
                     worksheet.Cells["AE" + (i + 2).ToString()].Value = data[i].DtStatusCl;
                     worksheet.Cells["AE" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["AF" + (i + 2).ToString()].Value = data[i].CasoA;
-                    worksheet.Cells["AF" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["AG" + (i + 2).ToString()].Value = data[i].CasoB;
-                    worksheet.Cells["AG" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["AH" + (i + 2).ToString()].Value = data[i].CasoC;
-                    worksheet.Cells["AH" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["AI" + (i + 2).ToString()].Value = data[i].CasoD;
-                    worksheet.Cells["AI" + (i + 2).ToString()].Style.Font.Size = 8;
 
                     worksheet.Cells["AJ" + (i + 2).ToString()].Value = data[i].Zid;
                     worksheet.Cells["AJ" + (i + 2).ToString()].Style.Font.Size = 8;

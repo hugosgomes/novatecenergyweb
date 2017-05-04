@@ -1,7 +1,7 @@
 ﻿@using NovatecEnergyWeb.Models.StoredProcedures;
 @using Microsoft.AspNetCore.Http;
 @using NovatecEnergyWeb.Core;
-@model IEnumerable<_11_LoteAtivo>
+@model IEnumerable<LotePorCliente>
 @{ 
     Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
     ViewData["Title"] = "Status de Clientes Com Tratamento Comercial";
@@ -16,8 +16,8 @@
                 <table>
                     <tbody class="fontTableBodyNavBar">
                         <tr>
-                            <td class="col-xs-9" style="padding-right:0px; ">Total Unidades (Potencial) </td>
-                            <td id="e0" class="col-xs-2 text-right">@Model.Count()</td>
+                            <td class="col-xs-9" style="padding-right:0px; "><b>Unidades (Potencial)</b> </td>
+                            <td id="e0" class="col-xs-2 text-right"><b>@Model.Count()</b></td>
                             <td class="col-xs-1 text-right"></td>
                         </tr>
                         <tr>
@@ -32,67 +32,60 @@
                         </tr>
 
 
+                        <tr>
+                            <td class="col-sm-8">Unidades Contratadas</td>
+                            <td id="e3" class="col-sm-2 text-right">@ViewBag.Contratados</td>
+                            <td id="ep2" class="col-sm-2 text-right">@ViewBag.ContratadosPercent%</td>
+                        </tr>
                         <tr class="espacoAbaixo">
-                            <td class="col-sm-8">Unidades Agendadas</td>
-                            <td id="e3" class="col-sm-2 text-right">@ViewBag.VisitaAgendada</td>
-                            <td id="ep2" class="col-sm-2 text-right">@ViewBag.VisitaAgendadaPercent%</td>
+                            <td class="col-sm-8" style="padding-right:0px;">Unidades Não Contratadas</td>
+                            <td id="e4" class="col-sm-2 text-right">@ViewBag.NaoContratados</td>
+                            <td id="ep3" class="col-sm-2 text-right">@ViewBag.NaoContratadosPercent%</td>
+
                         </tr>
 
                         <tr>
-                            <td class="col-sm-8">Unidades Contratadas</td>
-                            <td id="e4" class="col-sm-2 text-right">@ViewBag.Contratados</td>
-                            <td id="ep3" class="col-sm-2 text-right">@ViewBag.ContratadosPercent%</td>
-                        </tr>
-                        <tr  class="espacoAbaixo">
-                            <td class="col-sm-8" style="padding-right:0px;">Unidades Não Contratadas</td>
-                            <td id="e5" class="col-sm-2 text-right">@ViewBag.NaoContratados</td>
-                            <td id="ep4" class="col-sm-2 text-right">@ViewBag.NaoContratadosPercent%</td>
-
-                        </tr>
-
-                        <tr >
                             <td class="col-sm-8">D2 Contratados</td>
-                            <td id="e6" class="col-sm-2 text-right">@ViewBag.D2</td>
-                            <td id="ep5" class="col-sm-2 text-right">@ViewBag.D2Percent%</td>
+                            <td id="e5" class="col-sm-2 text-right">@ViewBag.D2</td>
+                            <td id="ep4" class="col-sm-2 text-right">@ViewBag.D2Percent%</td>
                         </tr>
-                        <tr >
+                        <tr>
                             <td class="col-sm-8">SVG Contratados</td>
-                            <td id="e7" class="col-sm-2 text-right">@ViewBag.Svg</td>
-                            <td id="ep6" class="col-sm-2 text-right">@ViewBag.SvgPercent%</td>
+                            <td id="e6" class="col-sm-2 text-right">@ViewBag.Svg</td>
+                            <td id="ep5" class="col-sm-2 text-right">@ViewBag.SvgPercent%</td>
                         </tr>
                         <tr class="espacoAbaixo">
                             <td class="col-sm-8">SVE Contratados</td>
-                            <td id="e8" class="col-sm-2 text-right">@ViewBag.Sve</td>
-                            <td id="ep7" class="col-sm-2 text-right">@ViewBag.SvePercent%</td>
+                            <td id="e7" class="col-sm-2 text-right">@ViewBag.Sve</td>
+                            <td id="ep6" class="col-sm-2 text-right">@ViewBag.SvePercent%</td>
                         </tr>
 
-                       <tr class="espacoAbaixo">
-                           <td class="col-xs-8"style="padding-right:0px;">Visitas Agendadas</td>
-                           <td id="e9" class="col-sm-2 text-right">@ViewBag.NovaVisitaAgendada</td>
-                           <td class="col-sm-2 text-right"></td>
-                       </tr>
-
                         <tr>
-                            <td class="col-sm-8">Visitas Realizadas</td>
-                            <td id="e10" class="col-sm-2 text-right">@ViewBag.Visitas</td>
+                            <td class="col-sm-8"><b>Visitas Realizadas</b></td>
+                            <td id="e8" class="col-sm-2 text-right">@ViewBag.Visitas</td>
                             <td class="col-sm-2 text-right"></td>
                         </tr>
                         <tr>
                             <td class="col-sm-8">Entrevistas Realizadas</td>
-                            <td id="e11" class="col-sm-2 text-right">@ViewBag.VisitasComResposta</td>
-                            <td id="ep8" class="col-sm-2 text-right">@ViewBag.VisitasComRespostaPercent%</td>
+                            <td id="e9" class="col-sm-2 text-right">@ViewBag.VisitasComResposta</td>
+                            <td id="ep7" class="col-sm-2 text-right">@ViewBag.VisitasComRespostaPercent%</td>
                         </tr>
                         <tr>
-                            <td class="col-sm-8">Visitas - Ausentes</td>
-                            <td id="e12" class="col-sm-2 text-right">@ViewBag.Ausentes</td>
+                            <td class="col-sm-8">Visitas Improdutivas</td>
+                            <td id="e10" class="col-sm-2 text-right">@ViewBag.VisitasImprodutivas</td>
+                            <td id="ep8" class="col-sm-2 text-right">@ViewBag.VisitasImprodutivasPercent%</td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-8">Ausentes(Improdutivas)</td>
+                            <td id="e11" class="col-sm-2 text-right">@ViewBag.Ausentes</td>
                             <td id="ep9" class="col-sm-2 text-right">@ViewBag.AusentesPercent%</td>
                         </tr>
-                        <tr>
-                            <td class="col-sm-8">Visitas - Endereços Inex.</td>
-                            <td id="e13" class="col-sm-2 text-right">@ViewBag.Endinex</td>
-                            <td id="ep10"class="col-sm-2 text-right">0%</td>
-                        </tr>
 
+                        <tr>
+                            <td class="col-xs-8" style="padding-right:0px;">Visitas Agendadas</td>
+                            <td id="e12" class="col-sm-2 text-right">@ViewBag.NovaVisitaAgendada</td>
+                            <td class="col-sm-2 text-right"></td>
+                        </tr>
 
                     </tbody>
                 </table>
@@ -430,39 +423,7 @@
                             <td id="UltMotivo_@item.Id">@item.UltMotivo</td>
                             <td id="Agult_@item.Id">@item.Agult</td>
                             <td id="Dtult_@item.Id">@item.Dtult</td>
-                            
-                            <td id="StatusCl_@item.Id">@item.StatusCl</td>
-                            @{
-                                if (item.DtStatusCl == null)
-                                {
-                                    <td id="DtStatusCl_@item.Id"></td>
-
-                                }
-                                else
-                                {
-                                <td id="DtStatusCl_@item.Id">@item.DtStatusCl</td>
-                                }
-                             }
-
-                            <td id="CasaStatus_@item.Id">@item.CasaStatus</td>
-                            <td id="Visitado_@item.Id">@item.Visitado</td>
-                            <td id="Contratado_@item.Id">@item.Contratado</td>
-                            <td id="VendaApp_@item.Id">@item.VendaApp</td>
-                            <td id="Visitas_@item.Id">@item.Visitas</td>
-                            <td id="Entrevistas_@item.Id">@item.Entrevistas</td>
-                            <td id="Ausentes_@item.Id">@item.Ausencias</td>
-                            <td id="Endinex_@item.Id">@item.Endinex</td>
-                            <td id="D2_@item.Id">@item.D2</td>
-                            <td id="Svg_@item.Id">@item.Svg</td>
-                            <td id="Sve_@item.Id">@item.Sve</td>
-                            <td id="Condominio_@item.Id">@item.Condominio</td>
-                            <td id="CasoA_@item.Id">@item.CasoA</td>
-                            <td id="CasoB_@item.Id">@item.CasoB</td>
-                            <td id="CasoC_@item.Id">@item.CasoC</td>
-                            <td id="CasoD_@item.Id">@item.CasoD</td>
-                            <td id="Dtult2_@item.Id">@item.Dtult2</td>
-                            <td id="Hrult_@item.Id">@item.Hrult</td>
-
+                         
                         </tr>
                     }
                 </tbody>
@@ -607,42 +568,6 @@
            $.post("@Url.Action("GetListLoteAtivoView", "Adesao")", data, tabelaLoteAtivos);
     }
 
-
-    function atualizaViewNao(retorno) {
-        tabelaEstatisticas(retorno)
-        tabelaLoteNao(retorno)
-    }
-
-    function montaHeadTabelaNao() {
-
-        $('#headTabelaLote tr').remove();
-
-        var tr = $('<tr/>');
-
-        tr.append('<th class="text-center">Casa</th>');
-        tr.append('<th class="text-center">Lote</th>');
-        tr.append('<th class="text-center">AR</th>');
-        tr.append('<th class="text-center">Localidade</th>');
-        tr.append('<th class="text-center">Bairro</th>');
-        tr.append('<th class="text-center">Endereço</th>');
-        tr.append('<th class="text-center">PT</th>');
-        tr.append('<th class="text-center">ULTMOTIVO</th>');
-        tr.append('<th class="text-center">AGULT</th>');
-        tr.append('<th class="text-center">DTULT</th>');
-        tr.append('<th class="text-center">HRULT</th>');
-        tr.append('<th class="text-center">CASASTATUS</th>');
-        tr.append('<th class="text-center">Zid</th>');
-        tr.append('<th class="text-center">Did</th>');
-        tr.append('<th class="text-center">Aid</th>');
-        tr.append('<th class="text-center">CondId</th>');
-        tr.append('<th class="text-center">PtId</th>');
-        tr.append('<th class="text-center">IdLote</th>');
-        tr.append('<th class="text-center">STATUSCLID</th>');
-        tr.append('<th class="text-center">CLID</th>');
-
-        $('#headTabelaLote').append(tr);
-    };
-
     function montaHeadLocal() {
         $('#headTabelaLote tr').remove();
 
@@ -767,43 +692,6 @@
             r[++j] = "</tr>";
         }
         $('#corpoTabelaAtivos').html(r.join(''));
-
-    };
-
-   function tabelaLoteNao(retorno) {
-        // montaHeadTabelaNao();
-        montaHeadTabelaNao();
-
-        $('#corpoTabelaAtivos tr').remove();
-
-        var tr;
-
-        for (var i = 0; i < retorno.EV.length; i++) {
-            tr = $('<tr/>');
-
-            tr.append("<td>" + retorno.EV[i].casa + "</td>");
-            tr.append("<td>" + retorno.EV[i].lote + "</td>");
-            tr.append("<td>" + retorno.EV[i].ar + "</td>");
-            tr.append("<td>" + retorno.EV[i].localidade + "</td>");
-            tr.append("<td>" + retorno.EV[i].bairro + "</td>");
-            tr.append("<td>" + retorno.EV[i].endereco + "</td>");
-            tr.append("<td>" + retorno.EV[i].pt + "</td>");
-            tr.append("<td>" + retorno.EV[i].ultMotivo + "</td>");
-            tr.append("<td>" + retorno.EV[i].agult + "</td>");
-            tr.append("<td>" + retorno.EV[i].dtult + "</td>");
-            tr.append("<td>" + retorno.EV[i].hrult + "</td>");
-            tr.append("<td>" + retorno.EV[i].casaStatus + "</td>");
-            tr.append("<td>" + retorno.EV[i].zid + "</td>");
-            tr.append("<td>" + retorno.EV[i].aid + "</td>");
-            tr.append("<td>" + retorno.EV[i].condid + "</td>");
-            tr.append("<td>" + retorno.EV[i].ptId + "</td>");
-            tr.append("<td>" + retorno.EV[i].idLote + "</td>");
-            tr.append("<td>" + retorno.EV[i].statusClid + "</td>");
-            tr.append("<td>" + retorno.EV[i].clid + "</td>");
-
-
-            $('#corpoTabelaAtivos').append(tr);
-        }
 
     };
 

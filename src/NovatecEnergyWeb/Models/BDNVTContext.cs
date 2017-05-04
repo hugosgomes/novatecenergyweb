@@ -14,7 +14,7 @@ namespace NovatecEnergyWeb.Models
         public virtual DbSet<_11_LoteNao> _11_LoteNao { get; set; }
         public virtual DbSet<_11_LoteAtivoB> _11_LoteAtivoB { get; set; }
         public virtual DbSet<_11_LoteAtivos_Condominios> _11_LoteAtivo_Condominios { get; set; }
-        public virtual DbSet<_11_LoteAtivo> _11_LoteAtivo { get; set; }
+        public virtual DbSet<LotePorCliente> LotePorCliente { get; set; }
         public virtual DbSet<_11_Visita_Condominios> _11_Visita_Condominios { get; set; }
         public virtual DbSet<_11_CondVisitasB> _11_CondVisitasB { get; set; }
         public virtual DbSet<_50_AvancoMes> _50_AvancoMes { get; set; }
@@ -227,7 +227,7 @@ namespace NovatecEnergyWeb.Models
             modelBuilder.Entity<_11_LoteNao>().HasKey(c => c.Casa);
             modelBuilder.Entity<_11_LoteAtivoB>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_LoteAtivos_Condominios>().HasKey(c => c.Id);
-            modelBuilder.Entity<_11_LoteAtivo>().HasKey(c => c.Id);
+            modelBuilder.Entity<LotePorCliente>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_Visita_Condominios>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_CondVisitasB>().HasKey(c => c.Id);
             modelBuilder.Entity<_10_CargasMetas>().HasKey(c => c.Id);
