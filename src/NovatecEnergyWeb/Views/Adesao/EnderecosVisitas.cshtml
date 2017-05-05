@@ -200,20 +200,20 @@
                                 if ((area != null) && (areaQuantidade != null && areaQuantidade == 1))
                                 {
                                     <select id="areas" onchange="postArea(); postToController();" disabled="disabled" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
-                                        @for (int i = 0; i < ViewBag.Areas.Count; i++)
+                                        @for (int i = 0; i < ViewBag.Area.Count; i++)
                                         {
-                                            if (area == ViewBag.Areas[i].Id)
+                                            if (area == ViewBag.Area[i].Id)
                                             {
-                                                ViewBag.AreaSel = ViewBag.Areas[i].Id;
+                                                ViewBag.AreaSel = ViewBag.Area[i].Id;
                                             }
-                                            <option value="@ViewBag.Areas[i].Id">@ViewBag.Areas[i].Area</option>
+                                            <option value="@ViewBag.Areas[i].Id">@ViewBag.Area[i].Area</option>
                                         }
                                     </select>
                                 }
                                 else
                                 {
                                     <select id="areas" onchange="postArea(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:70px;">
-                                        @foreach (var item in ViewBag.Areas)
+                                        @foreach (var item in ViewBag.Area)
                                         {
                                             <option value="@item.Id">@item.Area</option>
                                         }
@@ -783,19 +783,7 @@
         $('#zonas').prop("selectedIndex", -1);
         $('#statusCond').prop("selectedIndex", -1);
 
-        if (zs != '') {
-            $("#zonas").prop("selectedIndex", zs);
-        }
-
-        if (ds != '') {
-            $("#delegacoes").prop("selectedIndex", ds);
-            postDelegacao();
-        }
-
-        if (as != '') {
-            $("#areas").prop("selectedIndex", as);
-        }
-
+        selecionaInfoCliente();
     }
 
     function ExportaPadraoNovatec() {
@@ -889,13 +877,15 @@
     }
 
     function preencheArea(retorno) {
-        $("#areas").empty();
+        if (retorno.Area.length > 0) {
+            $("#areas").empty();
 
-        $.each(retorno.Area, function () {
-            $("#areas").append($("<option />").val(this.id).text(this.area));
-        });
+            $.each(retorno.Area, function () {
+                $("#areas").append($("<option />").val(this.id).text(this.area));
+            });
 
-        $("#areas").prop("selectedIndex", -1);
+            $("#areas").prop("selectedIndex", -1);
+        }
     }
 
     function preencheLotes(retorno) {

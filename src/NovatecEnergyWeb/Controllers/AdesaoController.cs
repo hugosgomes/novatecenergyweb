@@ -162,13 +162,13 @@ namespace NovatecEnergyWeb.Controllers
             }
 
             var areas = _context._00Areas.Select(c => new { c.Id, c.Area }).ToList();
-            ViewBag.Areas = new List<_00Areas>();
+            ViewBag.Area = new List<_00Areas>();
             foreach (var item in areas)
             {
                 var a = new _00Areas();
                 a.Id = item.Id;
                 a.Area = item.Area;
-                ViewBag.Areas.Add(a);
+                ViewBag.Area.Add(a);
             }
 
             var statusCondominio = _context._00TabelasItems
@@ -347,10 +347,10 @@ namespace NovatecEnergyWeb.Controllers
                 var pagina = 0;
                 if (PaginaClicada != 0)
                 {
-                     pagina = (PaginaClicada - 1) * 200;
+                     pagina = (PaginaClicada - 1) * 45;
                 }
-                jsonModel.EV = evList.Skip(pagina).Take(200);
-                jsonModel.QuantasPaginasExistem = (evList.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(evList.Count()),200)) : 0;
+                jsonModel.EV = evList.Skip(pagina).Take(45);
+                jsonModel.QuantasPaginasExistem = (evList.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(evList.Count()),45)) : 0;
 
                 return Json(jsonModel);
             }
@@ -371,7 +371,7 @@ namespace NovatecEnergyWeb.Controllers
             jsonModel.MotivosRejeicao = ViewBag.MotivosRejeicao;
             jsonModel.Zonas = ViewBag.Zonas;
             jsonModel.Delegacao = ViewBag.Delegacao;
-            jsonModel.Areas = ViewBag.Areas;
+            jsonModel.Area = ViewBag.Area;
             jsonModel.StatusCondominios = ViewBag.StatusCondominios;
             jsonModel.ListaCondominios = ViewBag.ListaCondominios;
 
