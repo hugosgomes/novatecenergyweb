@@ -17,7 +17,7 @@ using NovatecEnergyWeb.Models.Repository;
 
 namespace NovatecEnergyWeb.Controllers
 {
-    public class AdesaoController : Controller
+    public class LotePorClienteController : Controller
     {
         private BDNVTContext _context;
         private readonly IHostingEnvironment _hostingEnvironment;
@@ -27,7 +27,7 @@ namespace NovatecEnergyWeb.Controllers
         private IMotivoRejeicao _motivoRejeicaoRepository;
         private IExcelExportaLotePorCliente _exportaExcelRepository;
 
-        public AdesaoController(BDNVTContext context, IHostingEnvironment he, 
+        public LotePorClienteController(BDNVTContext context, IHostingEnvironment he, 
             IAreaRepository areaRepository, ILoteRepository loteRepository, 
             ICondominioLoteAtivo condominioRepository, IMotivoRejeicao motivoRejeicaoRepository,
             IExcelExportaLotePorCliente exportaExcelRepository)
@@ -39,6 +39,14 @@ namespace NovatecEnergyWeb.Controllers
             _condominioRepository = condominioRepository;
             _motivoRejeicaoRepository = motivoRejeicaoRepository;
             _exportaExcelRepository = exportaExcelRepository;
+        }
+
+        [AutenticacaoFilter]
+        public IActionResult Index()
+        {
+            BindSelects();
+
+            return View("Index", new List<LotePorCliente>());
         }
 
         public IActionResult ZonaCascade(int zona)
@@ -208,15 +216,6 @@ namespace NovatecEnergyWeb.Controllers
             BindSelects();
             return GetListLoteAtivoView(null, true, "todos",0);
         }
-   
-        [AutenticacaoFilter]
-        public IActionResult EnderecosVisitas()
-        {
-            BindSelects();
-            //return GetListLoteAtivoView(null, true, "ativos");
-
-            return View("EnderecosVisitas", new List<LotePorCliente>());
-        }
      
         public List<LotePorCliente> GetListLoteAtivo([FromForm]FormFiltersVisitaClienteViewModels filtros)
         {
@@ -311,7 +310,7 @@ namespace NovatecEnergyWeb.Controllers
             
 
             if (eIndex)
-                return View("EnderecosVisitas",evList);
+                return View("Index",evList);
             else
             {
                 dynamic jsonModel = new ExpandoObject();

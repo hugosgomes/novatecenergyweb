@@ -565,7 +565,7 @@
     function postPaginacao(num) {
         var data = getFormDataAsJson();
         data.PaginaClicada = num;
-           $.post("@Url.Action("GetListLoteAtivoView", "Adesao")", data, tabelaLoteAtivos);
+           $.post("@Url.Action("GetListLoteAtivoView", "LotePorCliente")", data, tabelaLoteAtivos);
     }
 
     function montaHeadLocal() {
@@ -599,12 +599,12 @@
     function postToController() {
         var data = getFormDataAsJson();
         //, 'application/json; charset=utf-8'
-        $.post("@Url.Action("GetListLoteAtivoView", "Adesao")", data, atualizaView);
+        $.post("@Url.Action("GetListLoteAtivoView", "LotePorCliente")", data, atualizaView);
     }
 
     function postToControllerSemLote() {
             var data = getFormDataAsJson();
-            $.post( "@Url.Action("GetListLoteNaoView","Adesao")", data, atualizaViewNao);
+            $.post( "@Url.Action("GetListLoteNaoView","LotePorCliente")", data, atualizaViewNao);
         }
 
    function tabelaLoteAtivos(retorno) {
@@ -740,11 +740,11 @@
         }
 
         if ((parametro.Botao == 'todos') || (parametro.Botao == 'ativos')) {
-            $.post("@Url.Action("LimpaFiltros", "Adesao")", parametro, bindSelects);
+            $.post("@Url.Action("LimpaFiltros", "LotePorCliente")", parametro, bindSelects);
 
         }
         else {
-            $.post("@Url.Action("LimpaFiltrosNao", "Adesao")", parametro, atualizaViewNao);
+            $.post("@Url.Action("LimpaFiltrosNao", "LotePorCliente")", parametro, atualizaViewNao);
         }
     }
 
@@ -753,7 +753,7 @@
         var parametro = {};
 
         parametro.LimpaFiltro = true;
-        $.post("@Url.Action("LimpaSelects","Adesao")", parametro, atualizaSelects);
+        $.post("@Url.Action("LimpaSelects","LotePorCliente")", parametro, atualizaSelects);
     }
 
     function atualizaSelects(retorno) {
@@ -788,23 +788,23 @@
 
     function ExportaPadraoNovatec() {
         var data = getFormDataAsJson();
-        //   $.get('/Adesao/ExportaExcel', data, DownloadExcel); //loteAtivo=' + JSON.stringify(data)
-        //  window.location = '/Adesao/ExportaExcel?loteAtivo=' + JSON.stringify(data);
-        //"@Url.Action("ExportaExcel?loteAtivo= JSON.stringify(data);", "Adesao")";
+        //   $.get('/LotePorCliente/ExportaExcel', data, DownloadExcel); //loteAtivo=' + JSON.stringify(data)
+        //  window.location = '/LotePorCliente/ExportaExcel?loteAtivo=' + JSON.stringify(data);
+        //"@Url.Action("ExportaExcel?loteAtivo= JSON.stringify(data);", "LotePorCliente")";
         var urlconfig = '@AppSettings.ExcelExportUrl';
-        window.location.href = ''+urlconfig+'/Adesao/ExportaExcel?loteAtivo=' + JSON.stringify(data);
+        window.location.href = '' + urlconfig + '/LotePorCliente/ExportaExcel?loteAtivo=' + JSON.stringify(data);
         //'/Adesao/ExportaExcel?loteAtivo=' + JSON.stringify(data);
     }
 
     function ExportaPadraoGas() {
         var data = getFormDataAsJson();
-        //   $.get('/Adesao/ExportaExcel', data, DownloadExcel); //loteAtivo=' + JSON.stringify(data)
-        //  window.location = '/Adesao/ExportaExcel?loteAtivo=' + JSON.stringify(data);
+        //   $.get('/LotePorCliente/ExportaExcel', data, DownloadExcel); //loteAtivo=' + JSON.stringify(data)
+        //  window.location = '/LotePorCliente/ExportaExcel?loteAtivo=' + JSON.stringify(data);
         var lc = $('#lotes').val();
         var url = '@AppSettings.ExcelExportUrl';
 
         if (lc != null) {
-            window.location.href = '' + url + '/Adesao/ExportaPadraoGasNatural?loteAtivo=' + JSON.stringify(data);
+            window.location.href = '' + url + '/LotePorCliente/ExportaPadraoGasNatural?loteAtivo=' + JSON.stringify(data);
         } else {
             alert('Selecione um lote');
         }
@@ -853,7 +853,7 @@
     function postZona() {
         var p = {};
         p.zona = $("#zonas").val();
-        $.post("@Url.Action("ZonaCascade","Adesao")", p, atualizaDropsZona);
+        $.post("@Url.Action("ZonaCascade","LotePorCliente")", p, atualizaDropsZona);
     }
 
 
@@ -919,7 +919,7 @@
     function postDelegacao() {
         var p = {};
         p.delegacao = $("#delegacoes").val();
-        $.post("@Url.Action("DelegacaoCascade","Adesao")", p, atualizaDropsDelegacao);
+        $.post("@Url.Action("DelegacaoCascade","LotePorCliente")", p, atualizaDropsDelegacao);
     }
 
     function atualizaDropsDelegacao(retorno) {
@@ -934,7 +934,7 @@
         var p = {};
 
         p.area = $("#areas").val();
-        $.post("@Url.Action("AreaCascade", "Adesao")", p, atualizaDropsArea);
+        $.post("@Url.Action("AreaCascade", "LotePorCliente")", p, atualizaDropsArea);
     }
 
     function atualizaDropsArea(retorno) {
@@ -946,7 +946,7 @@
         var p = {};
 
         p.lote = $("#lotes").val();
-        $.post("@Url.Action("LoteCascade", "Adesao")", p, atualizaDropsLote);
+        $.post("@Url.Action("LoteCascade", "LotePorCliente")", p, atualizaDropsLote);
     }
 
     function atualizaDropsLote(retorno) {
@@ -958,7 +958,7 @@
 
         p.status = $("#statusCond").val();
         p.area = $("#areas").val();
-        $.post("@Url.Action("StatusCliCascade", "Adesao")", p, atualizaDropsStatus);
+        $.post("@Url.Action("StatusCliCascade", "LotePorCliente")", p, atualizaDropsStatus);
     }
 
     function atualizaDropsStatus(retorno) {
@@ -993,7 +993,7 @@
 
     function selecionaAreaCliente() {
         var data = {};
-        $.post("@Url.Action("AreasDoCliente", "Adesao")", data, atualizaDropsDelegacao);
+        $.post("@Url.Action("AreasDoCliente", "LotePorCliente")", data, atualizaDropsDelegacao);
     }
 
 </script>
