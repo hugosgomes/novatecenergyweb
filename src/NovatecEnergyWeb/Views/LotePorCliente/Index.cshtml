@@ -386,8 +386,8 @@
             <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
                 <thead id="headTabelaLote" >
                     <tr>
-                        <th class="text-center">Casa</th>
-                        <th class="text-center">Lote</th>
+                       <!-- <th class="text-center">Casa</th>  retirados 11/05/2017 à pedido do Javier
+                        <th class="text-center">Lote</th> --> 
                         <th class="text-center">Z</th>
                         <th class="text-center">D</th>
                         <th class="text-center">AR</th>
@@ -410,8 +410,8 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td id="Casa_@item.Id" class="text-left">@item.Casa</td>
-                            <td id="Lote_@item.Id">@item.Lote</td>
+                           <!-- <td id="Casa_Arrobaitem.Id" class="text-left">Arrobaitem.Casa</td> retirados 11/05/2017 à pedido do Javier
+                            <td id="Lote_Arrobaitem.Id">Arrobaitem.Lote</td> --> 
                             <td id="Z_@item.Id">@item.Z</td>
                             <td id="D_@item.Id">@item.D</td>
                             <td id="AR_@item.Id">@item.Ar</td>
@@ -577,8 +577,8 @@
 
         var tr = $('<tr/>');
 
-        tr.append('<th class="text-center">Casa</th>');
-        tr.append('<th class="text-center">Lote</th>');
+       // tr.append('<th class="text-center">Casa</th>');
+       // tr.append('<th class="text-center">Lote</th>'); 
         tr.append('<th class="text-center">Z</th>');
         tr.append('<th class="text-center">D</th>');
         tr.append('<th class="text-center">AR</th>');
@@ -626,12 +626,12 @@
        for (var i = 0; i < retorno.EV.length; i++) {
 
             r[++j] = "<tr>";
-            r[++j] = "<td>" ;
+           /* r[++j] = "<td>" ;
             r[++j] = retorno.EV[i].casa;
-            r[++j] =  "</td>";
+            r[++j] =  "</td>"; Retirados 11/05/2017 à pedido do Javier
             r[++j] = "<td>";
             r[++j] = retorno.EV[i].lote;
-            r[++j] = "</td>";
+            r[++j] = "</td>";*/
             r[++j] = "<td>";
             r[++j] = retorno.EV[i].z;
             r[++j] = "</td>";
@@ -743,13 +743,8 @@
             id = 'semLoteNao';
         }
 
-        //if ((parametro.Botao == 'todos') || (parametro.Botao == 'ativos')) {
-            $.post("@Url.Action("LimpaFiltros", "LotePorCliente")", parametro, bindSelects);
+        $.post("@Url.Action("LimpaFiltros", "LotePorCliente")", parametro, bindSelects);
 
-        //}
-      //  else {
-        //    $.post("Url.Action("LimpaFiltrosNao", "LotePorCliente")", parametro, atualizaViewNao);
-        //}
     }
 
     function bindSelects(retorno) {
