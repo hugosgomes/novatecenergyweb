@@ -90,8 +90,8 @@ namespace NovatecEnergyWeb.Models.Exportacao
                     worksheet.Cells["R" + (i + 2).ToString()].Value = data[i].Contratado;
                     worksheet.Cells["R" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["S" + (i + 2).ToString()].Value = data[i].VendaApp;
-                    worksheet.Cells["S" + (i + 2).ToString()].Style.Font.Size = 8;
+                   // worksheet.Cells["S" + (i + 2).ToString()].Value = data[i].VendaApp;
+                   // worksheet.Cells["S" + (i + 2).ToString()].Style.Font.Size = 8;
 
                     worksheet.Cells["T" + (i + 2).ToString()].Value = data[i].D2;
                     worksheet.Cells["T" + (i + 2).ToString()].Style.Font.Size = 8;

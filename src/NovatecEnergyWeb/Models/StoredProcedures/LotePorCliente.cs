@@ -39,13 +39,11 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
 
         public string Logradouro { get; set; }
 
-        public int? CasaStatus { get; set; }
+        public string CasaStatus { get; set; }
 
         public int? Visitado { get; set; }
 
         public int? Contratado { get; set; }
-
-        public int? VendaApp { get; set; }
         
         public int? D2 { get; set; }
 

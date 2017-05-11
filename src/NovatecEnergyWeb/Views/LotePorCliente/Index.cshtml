@@ -90,6 +90,9 @@
                     </tbody>
                 </table>
 
+
+
+                  <!-- 
                 <div class="buttonGroupNavBar">
                     <ul class="nav ">
                         <li id ="todosli" class="fontTableBodyNavBar">
@@ -98,16 +101,17 @@
                         <li id ="ativosli" class="disabled fontTableBodyNavBar">
                             <a href="#" id="ativos" onclick="$(this).data('clicked', true); $('#titulo').html('Clientes de Lotes Ativos'); postToController();" > Clientes de Lotes Ativos</a>
                         </li>
-                     <!--    <li id ="semLoteTodosli" class="fontTableBodyNavBar">
+                      <li id ="semLoteTodosli" class="fontTableBodyNavBar">
                             !--href="/Adesao/EnderecosVisitasSemLote"-- 
                             <a href="#" onclick="$(this).data('clicked', true);  postToControllerSemLote();" id="semLoteTodos" >Clientes Sem Lote - Todos</a>
                         </li>
                         <li id ="semLoteNaoli" class="fontTableBodyNavBar ">
                             <a href="#" id="semLoteNao">Clientes Sem Lote - Não Contratados</a>
                         </li> 
-                         -->
+                        
                     </ul>
                 </div>
+                       -->
 
                
                 <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
@@ -206,7 +210,7 @@
                                             {
                                                 ViewBag.AreaSel = ViewBag.Area[i].Id;
                                             }
-                                            <option value="@ViewBag.Areas[i].Id">@ViewBag.Area[i].Area</option>
+                                            <option value="@ViewBag.Area[i].Id">@ViewBag.Area[i].Area</option>
                                         }
                                     </select>
                                 }
@@ -739,13 +743,13 @@
             id = 'semLoteNao';
         }
 
-        if ((parametro.Botao == 'todos') || (parametro.Botao == 'ativos')) {
+        //if ((parametro.Botao == 'todos') || (parametro.Botao == 'ativos')) {
             $.post("@Url.Action("LimpaFiltros", "LotePorCliente")", parametro, bindSelects);
 
-        }
-        else {
-            $.post("@Url.Action("LimpaFiltrosNao", "LotePorCliente")", parametro, atualizaViewNao);
-        }
+        //}
+      //  else {
+        //    $.post("Url.Action("LimpaFiltrosNao", "LotePorCliente")", parametro, atualizaViewNao);
+        //}
     }
 
     function bindSelects(retorno) {

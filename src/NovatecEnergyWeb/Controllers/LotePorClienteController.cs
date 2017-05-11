@@ -229,13 +229,13 @@ namespace NovatecEnergyWeb.Controllers
             IQueryable <LotePorCliente> ev;
             if (filtros == null)
             {
-                ev = _context.LotePorCliente.FromSql("exec " + storedProcedure + " {0},{1},{2},{3},{4},{5},{6},{7},{8}," +
+                ev = _context.LotePorCliente.FromSql("execute " + storedProcedure + " {0},{1},{2},{3},{4},{5},{6},{7},{8}," +
                     "{9},{10},{11},{12},{13},{14},{15},{16}", null,null,null,null,null,zona,delegacao, null,null, null, null, null, null, null, null,null, 
                     (tipo == "cli" && (area != null)) ? id : null);
             }
             else
             {
-                ev = _context.LotePorCliente.FromSql("exec "+storedProcedure+" {0},{1},{2},{3},{4},{5}," +
+                ev = _context.LotePorCliente.FromSql("execute "+storedProcedure+" {0},{1},{2},{3},{4},{5}," +
                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16}",
                     filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
                     filtros.ClId, ((zona != null)? zona.ToString(): (filtros.ZId != null) ? filtros.ZId.ToString() : null), 
@@ -255,16 +255,18 @@ namespace NovatecEnergyWeb.Controllers
             int? zona = HttpContext.Session.GetInt32("Zona");
 
             IQueryable<_11_LoteAtivoB> lb;
-            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB]");
+            // lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB]");
 
-         /*   lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] {0},{1},{2},{3},{4},{5}," +
-                     "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
-                    filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
-                    filtros.ClId, ((zona != null) ? zona.ToString() : (filtros.ZId != null) ? filtros.ZId.ToString() : null),
-                    ((delegacao != null) ? delegacao.ToString() : (filtros.DId != null) ? filtros.DId.ToString() : null),
-                    ((area != null) ? area.ToString() : (filtros.AId != null) ? filtros.AId : null), filtros.StatusId,
-                    filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
-                    filtros.Logradouro, filtros.Numero1, filtros.Numero2);*/
+            /* lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] {0},{1},{2},{3},{4},{5}," +
+                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
+                     filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
+                     filtros.ClId, ((zona != null) ? zona.ToString() : (filtros.ZId != null) ? filtros.ZId.ToString() : null),
+                     ((delegacao != null) ? delegacao.ToString() : (filtros.DId != null) ? filtros.DId.ToString() : null),
+                     ((area != null) ? area.ToString() : (filtros.AId != null) ? filtros.AId : null), filtros.StatusId,
+                     filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
+                     filtros.Logradouro, filtros.Numero1, filtros.Numero2); */
+
+            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] {0}",  filtros.IdLote);
 
 
             return lb.ToList();
@@ -399,7 +401,8 @@ namespace NovatecEnergyWeb.Controllers
                 HttpContext.Session.SetString("Numero2", (data.Numero2 == null) ? "" : data.Numero2);
             }
 
-            string valorSP = "";
+            // Removido os botões de Lote Ativos; Sem Lotes, Todos e Não, não há necessidade da lógica abaixo
+           /* string valorSP = "";
 
             switch (Botao)
             {
@@ -415,9 +418,9 @@ namespace NovatecEnergyWeb.Controllers
                 case "semLoteNao":
                     valorSP = ""; //lembrar de implementar
                     break;
-            }
+            }*/
 
-            HttpContext.Session.SetString("SP_Lote", valorSP);
+            HttpContext.Session.SetString("SP_Lote", "[dbo].[LotesPorCliente_Todos]");
         }
 
         private FormFiltersVisitaClienteViewModels GetFiltrosSessao()
