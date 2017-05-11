@@ -248,7 +248,7 @@ namespace NovatecEnergyWeb.Controllers
                 HttpContext.Session.SetString("Endereco", (data.Endereco == null) ? "" : data.Endereco);
             }
 
-            string valorSP = "";
+          /*  string valorSP = "";
 
             switch (Botao)
             {
@@ -258,9 +258,9 @@ namespace NovatecEnergyWeb.Controllers
                 case "todos":
                     valorSP = "[dbo].[11_LoteTodosEnderecos]"; 
                     break;
-            }
+            } */
 
-            HttpContext.Session.SetString("SP_Enderecos", valorSP);
+            HttpContext.Session.SetString("SP_Enderecos", "[dbo].[11_LoteAtivoEnderecos]");
         }
 
         public List<_11_LoteAtivoEnderecos>GetEnderecosAtivos([FromForm]FormFiltersVisitaEnderecosViewModels filtros)
@@ -301,11 +301,13 @@ namespace NovatecEnergyWeb.Controllers
             ViewBag.VisitadosPercent = (ViewBag.Potencial != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Visitados), Convert.ToDecimal(ViewBag.Potencial)) * 100) : 0;
             ViewBag.NaoVisitados = ViewBag.Potencial - ViewBag.Visitados;
             ViewBag.NaoVisitadosPercent = (ViewBag.Potencial != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.NaoVisitados), Convert.ToDecimal(ViewBag.Potencial)) * 100) : 0;
+            //ok
 
             ViewBag.Contratados = evList.Sum(c => c.Contratados);
             ViewBag.ContratadosPercent = (ViewBag.Potencial != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Contratados), Convert.ToDecimal(ViewBag.Potencial)) * 100) : 0;
             ViewBag.NaoContratados = ViewBag.Potencial - ViewBag.Contratados;
             ViewBag.NaoContratadosPercent = (ViewBag.Potencial != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.NaoContratados), Convert.ToDecimal(ViewBag.Potencial)) * 100) : 0;
+            //ok
 
             ViewBag.D2 = evList.Sum(e => e.D2);
             ViewBag.D2Percent = (ViewBag.Potencial != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.D2), Convert.ToDecimal(ViewBag.Potencial)) * 100) : 0;
@@ -313,20 +315,18 @@ namespace NovatecEnergyWeb.Controllers
             ViewBag.SvgPercent = (ViewBag.Potencial != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Svg), Convert.ToDecimal(ViewBag.Potencial)) * 100) : 0;
             ViewBag.Sve = evList.Sum(e => e.Sve);
             ViewBag.SvePercent = (ViewBag.Potencial != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Sve), Convert.ToDecimal(ViewBag.Potencial)) * 100) : 0;
+            //ok 
 
-            ViewBag.NovaVisitaAgendada = evList.Sum(e => e.VisitasAgendadas);
-
-            ViewBag.VisitaAgendada = evList.Sum(c => c.UnidadesAgendadas);
-            ViewBag.VisitaAgendadaPercent = (ViewBag.Potencial != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitaAgendada), Convert.ToDecimal(ViewBag.Potencial)) * 100) : 0;
             ViewBag.Visitas = evList.Sum(c => c.Visitas);
+            ViewBag.Entrevistas = evList.Sum(c => c.Entrevistas);
+            ViewBag.EntrevistasPercent = (ViewBag.Visitas != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Entrevistas), Convert.ToDecimal(ViewBag.Visitas)) * 100) : 0;
+            ViewBag.VisitasImpr = evList.Sum(c => c.VisitasImpr);
+            ViewBag.VisitasImprPercent = (ViewBag.Visitas != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitasImpr), Convert.ToDecimal(ViewBag.Visitas)) * 100) : 0;
             ViewBag.Ausentes = evList.Sum(c => c.Ausencias);
-            ViewBag.VisitasComResposta = ViewBag.Visitas - ViewBag.Ausentes;
-            ViewBag.VisitasComRespostaPercent = (ViewBag.Visitas != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.VisitasComResposta), Convert.ToDecimal(ViewBag.Visitas)) * 100) : 0;
             ViewBag.AusentesPercent = (ViewBag.Visitas != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Ausentes), Convert.ToDecimal(ViewBag.Visitas)) * 100) : 0;
-
-            ViewBag.Endinex = evList.Sum(c => c.Endinex);
-            ViewBag.EndinexPercent = (ViewBag.Visitas != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Endinex), Convert.ToDecimal(ViewBag.Visitas)) * 100) : 0;
-
+            ViewBag.VisitaAgendada = evList.Sum(c => c.VisitasAgendadas);
+            //ok
+            
             if (eIndex)
                 return View("VisitasEnderecos", evList);
             else
@@ -345,23 +345,22 @@ namespace NovatecEnergyWeb.Controllers
                 jsonModel.Numeracoes.Add(ViewBag.D2.ToString());//e7
                 jsonModel.Numeracoes.Add(ViewBag.Svg.ToString());//e8
                 jsonModel.Numeracoes.Add(ViewBag.Sve.ToString());//e9
-                jsonModel.Numeracoes.Add(ViewBag.NovaVisitaAgendada.ToString());//e10
-                jsonModel.Numeracoes.Add(ViewBag.Visitas.ToString());//e11
-                jsonModel.Numeracoes.Add(ViewBag.VisitasComResposta.ToString());//e12
+                jsonModel.Numeracoes.Add(ViewBag.Visitas.ToString());//e10
+                jsonModel.Numeracoes.Add(ViewBag.Entrevistas.ToString());//e11
+                jsonModel.Numeracoes.Add(ViewBag.VisitasImpr.ToString());//e12
                 jsonModel.Numeracoes.Add(ViewBag.Ausentes.ToString());//e13
-                jsonModel.Numeracoes.Add(ViewBag.Endinex.ToString()); //e14
+                jsonModel.Numeracoes.Add(ViewBag.VisitaAgendada.ToString());//e14
 
                 jsonModel.Porcentagens.Add(ViewBag.VisitadosPercent.ToString()); //ep0
                 jsonModel.Porcentagens.Add(ViewBag.NaoVisitadosPercent.ToString()); //ep1
-                jsonModel.Porcentagens.Add(ViewBag.VisitaAgendadaPercent.ToString());//ep2
-                jsonModel.Porcentagens.Add(ViewBag.ContratadosPercent.ToString());//ep3
-                jsonModel.Porcentagens.Add(ViewBag.NaoContratadosPercent.ToString());//ep4
-                jsonModel.Porcentagens.Add(ViewBag.D2Percent.ToString());//ep5
-                jsonModel.Porcentagens.Add(ViewBag.SvgPercent.ToString());//ep6
-                jsonModel.Porcentagens.Add(ViewBag.SvePercent.ToString());//ep7
-                jsonModel.Porcentagens.Add(ViewBag.VisitasComRespostaPercent.ToString());//ep8
+                jsonModel.Porcentagens.Add(ViewBag.ContratadosPercent.ToString());//ep2
+                jsonModel.Porcentagens.Add(ViewBag.NaoContratadosPercent.ToString());//ep3
+                jsonModel.Porcentagens.Add(ViewBag.D2Percent.ToString());//ep4
+                jsonModel.Porcentagens.Add(ViewBag.SvgPercent.ToString());//ep5
+                jsonModel.Porcentagens.Add(ViewBag.SvePercent.ToString());//ep6
+                jsonModel.Porcentagens.Add(ViewBag.EntrevistasPercent.ToString());//ep7
+                jsonModel.Porcentagens.Add(ViewBag.VisitasImprPercent.ToString());//ep8
                 jsonModel.Porcentagens.Add(ViewBag.AusentesPercent.ToString()); //ep9
-
 
                 var pagina = 0;
                 if (PaginaClicada != 0)
