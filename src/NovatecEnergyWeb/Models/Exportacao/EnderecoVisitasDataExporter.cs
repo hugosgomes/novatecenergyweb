@@ -36,137 +36,137 @@ namespace NovatecEnergyWeb.Models.Exportacao
 
                 for (int i = 0; i < data.Count(); i++)
                 {
-                    worksheet.Cells["A" + (i + 2).ToString()].Value = data[i].Casa;
+                    //worksheet.Cells["A" + (i + 2).ToString()].Value = data[i].Casa;
+                    //worksheet.Cells["A" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                   // worksheet.Cells["B" + (i + 2).ToString()].Value = data[i].Lote;
+                   // worksheet.Cells["B" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["A" + (i + 2).ToString()].Value = data[i].Z;
                     worksheet.Cells["A" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["B" + (i + 2).ToString()].Value = data[i].Lote;
+                    worksheet.Cells["B" + (i + 2).ToString()].Value = data[i].D;
                     worksheet.Cells["B" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["C" + (i + 2).ToString()].Value = data[i].Z;
+                    worksheet.Cells["C" + (i + 2).ToString()].Value = data[i].Ar;
                     worksheet.Cells["C" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["D" + (i + 2).ToString()].Value = data[i].D;
+                    worksheet.Cells["D" + (i + 2).ToString()].Value = data[i].Condominio;
                     worksheet.Cells["D" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["E" + (i + 2).ToString()].Value = data[i].Ar;
+                    worksheet.Cells["E" + (i + 2).ToString()].Value = data[i].Complemento;
                     worksheet.Cells["E" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["F" + (i + 2).ToString()].Value = data[i].Condominio;
+                    worksheet.Cells["F" + (i + 2).ToString()].Value = data[i].Num;
                     worksheet.Cells["F" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["G" + (i + 2).ToString()].Value = data[i].Complemento;
+                    worksheet.Cells["G" + (i + 2).ToString()].Value = data[i].Bloco;
                     worksheet.Cells["G" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["H" + (i + 2).ToString()].Value = data[i].Num;
+                    worksheet.Cells["H" + (i + 2).ToString()].Value = data[i].Apt;
                     worksheet.Cells["H" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["I" + (i + 2).ToString()].Value = data[i].Bloco;
+                    worksheet.Cells["I" + (i + 2).ToString()].Value = data[i].Pt;
                     worksheet.Cells["I" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["J" + (i + 2).ToString()].Value = data[i].Apt;
+                    worksheet.Cells["J" + (i + 2).ToString()].Value = data[i].Localidade;
                     worksheet.Cells["J" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["K" + (i + 2).ToString()].Value = data[i].Pt;
+                    worksheet.Cells["K" + (i + 2).ToString()].Value = data[i].Bairro;
                     worksheet.Cells["K" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["L" + (i + 2).ToString()].Value = data[i].Localidade;
+                    worksheet.Cells["L" + (i + 2).ToString()].Value = data[i].Via;
                     worksheet.Cells["L" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["M" + (i + 2).ToString()].Value = data[i].Bairro;
+                    worksheet.Cells["M" + (i + 2).ToString()].Value = data[i].Logradouro;
                     worksheet.Cells["M" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["N" + (i + 2).ToString()].Value = data[i].Via;
+                    worksheet.Cells["N" + (i + 2).ToString()].Value = data[i].CasaStatus;
                     worksheet.Cells["N" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["O" + (i + 2).ToString()].Value = data[i].Logradouro;
+                    worksheet.Cells["O" + (i + 2).ToString()].Value = data[i].Visitado;
                     worksheet.Cells["O" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["P" + (i + 2).ToString()].Value = data[i].CasaStatus;
+                    worksheet.Cells["P" + (i + 2).ToString()].Value = data[i].Contratado;
                     worksheet.Cells["P" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["Q" + (i + 2).ToString()].Value = data[i].Visitado;
-                    worksheet.Cells["Q" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["R" + (i + 2).ToString()].Value = data[i].Contratado;
-                    worksheet.Cells["R" + (i + 2).ToString()].Style.Font.Size = 8;
 
                    // worksheet.Cells["S" + (i + 2).ToString()].Value = data[i].VendaApp;
                    // worksheet.Cells["S" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["T" + (i + 2).ToString()].Value = data[i].D2;
+                    worksheet.Cells["Q" + (i + 2).ToString()].Value = data[i].D2;
+                    worksheet.Cells["Q" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["R" + (i + 2).ToString()].Value = data[i].Svg;
+                    worksheet.Cells["R" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["S" + (i + 2).ToString()].Value = data[i].Sve;
+                    worksheet.Cells["S" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["T" + (i + 2).ToString()].Value = data[i].Visitas;
                     worksheet.Cells["T" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["U" + (i + 2).ToString()].Value = data[i].Svg;
+                    worksheet.Cells["U" + (i + 2).ToString()].Value = data[i].Entrevistas;
                     worksheet.Cells["U" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["V" + (i + 2).ToString()].Value = data[i].Sve;
+                    worksheet.Cells["V" + (i + 2).ToString()].Value = data[i].VisitasImpr;
                     worksheet.Cells["V" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["W" + (i + 2).ToString()].Value = data[i].Visitas;
+                    worksheet.Cells["W" + (i + 2).ToString()].Value = data[i].VisitasAgendadas;
                     worksheet.Cells["W" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["X" + (i + 2).ToString()].Value = data[i].Entrevistas;
+                    worksheet.Cells["X" + (i + 2).ToString()].Value = data[i].Ausencias;
                     worksheet.Cells["X" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["Y" + (i + 2).ToString()].Value = data[i].VisitasImpr;
+                    worksheet.Cells["Y" + (i + 2).ToString()].Value = data[i].UltMotivo;
                     worksheet.Cells["Y" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["Z" + (i + 2).ToString()].Value = data[i].VisitasAgendadas;
+                    worksheet.Cells["Z" + (i + 2).ToString()].Value = data[i].Agult;
                     worksheet.Cells["Z" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AA" + (i + 2).ToString()].Value = data[i].Ausencias;
+                    worksheet.Cells["AA" + (i + 2).ToString()].Value = data[i].Dtult;
                     worksheet.Cells["AA" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AB" + (i + 2).ToString()].Value = data[i].UltMotivo;
+                    worksheet.Cells["AB" + (i + 2).ToString()].Value = data[i].StatusCl;
                     worksheet.Cells["AB" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AC" + (i + 2).ToString()].Value = data[i].Agult;
+                    worksheet.Cells["AC" + (i + 2).ToString()].Value = data[i].DtStatusCl;
                     worksheet.Cells["AC" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AD" + (i + 2).ToString()].Value = data[i].Dtult;
+                    worksheet.Cells["AD" + (i + 2).ToString()].Value = data[i].Procedencia;
                     worksheet.Cells["AD" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AE" + (i + 2).ToString()].Value = data[i].StatusCl;
+                    worksheet.Cells["AE" + (i + 2).ToString()].Value = data[i].Zid;
                     worksheet.Cells["AE" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AF" + (i + 2).ToString()].Value = data[i].DtStatusCl;
+                    worksheet.Cells["AF" + (i + 2).ToString()].Value = data[i].Did;
                     worksheet.Cells["AF" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AG" + (i + 2).ToString()].Value = data[i].Procedencia;
+                    worksheet.Cells["AG" + (i + 2).ToString()].Value = data[i].Aid;
                     worksheet.Cells["AG" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AH" + (i + 2).ToString()].Value = data[i].Zid;
+                    worksheet.Cells["AH" + (i + 2).ToString()].Value = data[i].CondId;
                     worksheet.Cells["AH" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AI" + (i + 2).ToString()].Value = data[i].Did;
+                    worksheet.Cells["AI" + (i + 2).ToString()].Value = data[i].PtId;
                     worksheet.Cells["AI" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AJ" + (i + 2).ToString()].Value = data[i].Aid;
+                    worksheet.Cells["AJ" + (i + 2).ToString()].Value = data[i].IdLote;
                     worksheet.Cells["AJ" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AK" + (i + 2).ToString()].Value = data[i].CondId;
+                    worksheet.Cells["AK" + (i + 2).ToString()].Value = data[i].StatusClid;
                     worksheet.Cells["AK" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AL" + (i + 2).ToString()].Value = data[i].PtId;
+                    worksheet.Cells["AL" + (i + 2).ToString()].Value = data[i].ClId;
                     worksheet.Cells["AL" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AM" + (i + 2).ToString()].Value = data[i].IdLote;
+                    worksheet.Cells["AM" + (i + 2).ToString()].Value = data[i].CondStatus;
                     worksheet.Cells["AM" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AN" + (i + 2).ToString()].Value = data[i].StatusClid;
+                    worksheet.Cells["AN" + (i + 2).ToString()].Value = data[i].IdultMotivo;
                     worksheet.Cells["AN" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["AO" + (i + 2).ToString()].Value = data[i].ClId;
+                    worksheet.Cells["AO" + (i + 2).ToString()].Value = data[i].LoteStatus;
                     worksheet.Cells["AO" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["AP" + (i + 2).ToString()].Value = data[i].CondStatus;
-                    worksheet.Cells["AP" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["AQ" + (i + 2).ToString()].Value = data[i].IdultMotivo;
-                    worksheet.Cells["AQ" + (i + 2).ToString()].Style.Font.Size = 8;
-
-                    worksheet.Cells["AR" + (i + 2).ToString()].Value = data[i].LoteStatus;
-                    worksheet.Cells["AR" + (i + 2).ToString()].Style.Font.Size = 8;
 
                 }
                 package.Save();
