@@ -359,8 +359,8 @@
                          <th class="text-center">Visitados</th>
                          <th class="text-center">Contratados</th>
                          <th class="text-center">D2</th>
-                         <th class="text-center">Svg</th>
-                         <th class="text-center">Sve</th>
+                         <th class="text-center">SVG</th>
+                         <th class="text-center">SVE</th>
                          <th class="text-center">Visitas(V)</th>
                          <th class="text-center">V entrevistas</th>
                          <th class="text-center">V improdutivas</th>
@@ -480,10 +480,13 @@
             r[++j] = retorno.EV[i].contratados;
             r[++j] = "</td>";
             r[++j] = "<td>";
-            r[++j] = retorno.EV[i].unidadesAgendadas;
+            r[++j] = retorno.EV[i].d2;
             r[++j] = "</td>";
             r[++j] = "<td>";
-            r[++j] = retorno.EV[i].visitasAgendadas;
+            r[++j] = retorno.EV[i].svg;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].sve;
             r[++j] = "</td>";
             r[++j] = "<td>";
             r[++j] = retorno.EV[i].visitas;
@@ -492,19 +495,16 @@
             r[++j] = retorno.EV[i].entrevistas;
             r[++j] = "</td>";
             r[++j] = "<td>";
+            r[++j] = retorno.EV[i].visitasImpr;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
+            r[++j] = retorno.EV[i].visitasAgendadas;
+            r[++j] = "</td>";
+            r[++j] = "<td>";
             r[++j] = retorno.EV[i].ausencias;
             r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].endinex;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].d2;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].svg;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].sve;
+          
+            
             r[++j] = "</tr>";
         }
 
