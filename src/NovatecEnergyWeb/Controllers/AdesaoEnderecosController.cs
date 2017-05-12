@@ -335,21 +335,22 @@ namespace NovatecEnergyWeb.Controllers
                 jsonModel.Numeracoes = new List<string>();
                 jsonModel.Porcentagens = new List<string>();
 
-                jsonModel.Numeracoes.Add(evList.Count().ToString()); //e0
-                jsonModel.Numeracoes.Add(ViewBag.Potencial.ToString()); //e1
-                jsonModel.Numeracoes.Add(ViewBag.Visitados.ToString()); // e2
-                jsonModel.Numeracoes.Add(ViewBag.NaoVisitados.ToString());//e3
-                jsonModel.Numeracoes.Add(ViewBag.VisitaAgendada.ToString());//e4
-                jsonModel.Numeracoes.Add(ViewBag.Contratados.ToString());//e5
-                jsonModel.Numeracoes.Add(ViewBag.NaoContratados.ToString());//e6
-                jsonModel.Numeracoes.Add(ViewBag.D2.ToString());//e7
-                jsonModel.Numeracoes.Add(ViewBag.Svg.ToString());//e8
-                jsonModel.Numeracoes.Add(ViewBag.Sve.ToString());//e9
-                jsonModel.Numeracoes.Add(ViewBag.Visitas.ToString());//e10
-                jsonModel.Numeracoes.Add(ViewBag.Entrevistas.ToString());//e11
-                jsonModel.Numeracoes.Add(ViewBag.VisitasImpr.ToString());//e12
-                jsonModel.Numeracoes.Add(ViewBag.Ausentes.ToString());//e13
-                jsonModel.Numeracoes.Add(ViewBag.VisitaAgendada.ToString());//e14
+                jsonModel.Numeracoes.Add(ViewBag.Potencial.ToString());//e0                                                                                      
+                jsonModel.Numeracoes.Add(ViewBag.Visitados.ToString()); //e1
+                jsonModel.Numeracoes.Add(ViewBag.NaoVisitados.ToString());//e2
+                jsonModel.Numeracoes.Add(evList.Count().ToString()); //e3
+
+                jsonModel.Numeracoes.Add(ViewBag.Contratados.ToString());//e4
+                jsonModel.Numeracoes.Add(ViewBag.NaoContratados.ToString());//e5
+
+                jsonModel.Numeracoes.Add(ViewBag.D2.ToString());//e6
+                jsonModel.Numeracoes.Add(ViewBag.Svg.ToString());//e7
+                jsonModel.Numeracoes.Add(ViewBag.Sve.ToString());//e8
+                jsonModel.Numeracoes.Add(ViewBag.Visitas.ToString());//e9
+                jsonModel.Numeracoes.Add(ViewBag.Entrevistas.ToString());//e10
+                jsonModel.Numeracoes.Add(ViewBag.VisitasImpr.ToString());//e11
+                jsonModel.Numeracoes.Add(ViewBag.Ausentes.ToString());//e12
+                jsonModel.Numeracoes.Add(ViewBag.VisitaAgendada.ToString());//e13
 
                 jsonModel.Porcentagens.Add(ViewBag.VisitadosPercent.ToString()); //ep0
                 jsonModel.Porcentagens.Add(ViewBag.NaoVisitadosPercent.ToString()); //ep1
@@ -365,10 +366,10 @@ namespace NovatecEnergyWeb.Controllers
                 var pagina = 0;
                 if (PaginaClicada != 0)
                 {
-                    pagina = (PaginaClicada - 1) * 200;
+                    pagina = (PaginaClicada - 1) * 45;
                 }
-                jsonModel.EV = evList.Skip(pagina).Take(200);
-                jsonModel.QuantasPaginasExistem = (evList.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(evList.Count()), 200)) : 0;
+                jsonModel.EV = evList.Skip(pagina).Take(45);
+                jsonModel.QuantasPaginasExistem = (evList.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(evList.Count()), 45)) : 0;
 
                 return Json(jsonModel);
  
