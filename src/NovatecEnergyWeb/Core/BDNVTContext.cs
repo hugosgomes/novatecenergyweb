@@ -2,12 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using NovatecEnergyWeb.Models.MetasViewModels;
+using NovatecEnergyWeb.Core;
+using NovatecEnergyWeb.Models;
 using NovatecEnergyWeb.Models.StoredProcedures;
 
-namespace NovatecEnergyWeb.Models
+namespace NovatecEnergyWeb.Core
 {
     public partial class BDNVTContext : DbContext
     {
+        public virtual DbSet<LoteEstatistica> LoteEstatistica { get; set; }
         public virtual DbSet<_11_LoteAtivoEnderecosExportacao> _11_LoteAtivoEnderecosExportacao { get; set; }
         public virtual DbSet<_11_LoteAtivoEnderecos> _11_LoteAtivoEndereco { get; set; }
         public virtual DbSet<ClientesAreas> ClientesAreas { get; set; }

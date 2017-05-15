@@ -1,0 +1,47 @@
+﻿@using NovatecEnergyWeb.Models.StoredProcedures;
+@model IEnumerable<LoteEstatistica>
+@{
+    Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
+    ViewData["Title"] = "Estatísticas de Lote";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4 col-lg-3">
+            <nav class="navbar navbar-default navbar-fixed-side">
+                <h4 id="titulo" class="text-center">Estatística</h4>
+             </nav>
+       </div>
+
+
+        <div class="col-sm-8 col-lg-2">
+
+            <table class="table table-bordered table-hover tabelaModal">
+                <thead>
+                    <tr>
+                        <th class="text-left">LOTE</th>
+                        <th class="text-left">Z</th>
+                        <th class="text-left">D</th>
+                        <th class="text-left">AR</th>
+                    </tr>
+                </thead>
+                <tbody class="tableBodySelectLote" >
+                    @foreach (var item in ViewBag.LoteSelect)
+                    {
+                        <tr class="mouse-hand">
+                            <td>@item[1]</td>
+                            <td>@item[2]</td>
+                            <td>@item[3]</td>
+                            <td>@item[4]</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm-8 col-lg-7">
+
+
+        </div>
+
+    </div>

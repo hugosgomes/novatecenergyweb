@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Models.Exportacao;
 using NovatecEnergyWeb.Models.Repository;
+using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb.Controllers
 {

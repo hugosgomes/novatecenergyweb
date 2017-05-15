@@ -7,7 +7,7 @@ using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Models;
 using NovatecEnergyWeb.Models.MetasViewModels;
 using Microsoft.EntityFrameworkCore;
-
+using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb.Controllers
 {

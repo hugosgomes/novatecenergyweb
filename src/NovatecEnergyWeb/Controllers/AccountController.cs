@@ -7,6 +7,7 @@ using NovatecEnergyWeb.Models;
 using NovatecEnergyWeb.Models.AccountViewModels;
 using Microsoft.AspNetCore.Http;
 using NovatecEnergyWeb.Filters.ActionFilters;
+using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb.Controllers
 {

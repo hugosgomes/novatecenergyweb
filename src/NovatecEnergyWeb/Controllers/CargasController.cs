@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Dynamic;
 using Microsoft.AspNetCore.Http;
 using NovatecEnergyWeb.Models.MetasViewModels;
+using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb.Controllers
 {

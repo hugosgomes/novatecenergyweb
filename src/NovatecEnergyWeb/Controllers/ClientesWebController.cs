@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
 using NovatecEnergyWeb.Filters.ActionFilters;
+using NovatecEnergyWeb.Core;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

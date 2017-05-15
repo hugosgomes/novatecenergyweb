@@ -7,6 +7,7 @@ using NovatecEnergyWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models.ProducaoViewModels;
 using NovatecEnergyWeb.Filters.ActionFilters;
+using NovatecEnergyWeb.Core;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,7 +16,6 @@ namespace NovatecEnergyWeb.Controllers
     public class ProducaoController : Controller
     {
         private BDNVTContext _context;
-
         public ProducaoController(BDNVTContext context)
         {
             _context = context;

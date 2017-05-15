@@ -12,6 +12,7 @@ using System.Dynamic;
 using NovatecEnergyWeb.Models.Exportacao;
 using Microsoft.AspNetCore.Hosting;
 using NovatecEnergyWeb.Filters.ActionFilters;
+using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb.Controllers
 {

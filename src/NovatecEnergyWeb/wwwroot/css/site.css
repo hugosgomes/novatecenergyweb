@@ -139,3 +139,12 @@ tr.espacoAbaixo > td
     background-position: 0 0;
     
 }
+
+.tableBodySelectLote{
+    font-size: 10px;
+    
+}
+
+.mouse-hand{
+cursor:pointer;
+}

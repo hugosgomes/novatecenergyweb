@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models.CondominioVisitaViewModels;
+using NovatecEnergyWeb.Core;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

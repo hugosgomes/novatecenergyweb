@@ -56,6 +56,7 @@ namespace NovatecEnergyWeb
             services.AddScoped<ICondominioLoteAtivo, CondominioLoteAtivoRepository>();
             services.AddScoped<IMotivoRejeicao, MotivoRejeicaoRepository>();
             services.AddScoped<IExcelExportaLotePorCliente, EnderecoVisitasDataExporter>();
+            services.AddScoped<ILoteEstatisticaRepository, LoteEstatisticaRepository>();
 
             services.AddMvc();
 
