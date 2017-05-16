@@ -109,6 +109,35 @@ namespace NovatecEnergyWeb.Models.Repository
             return Lotes;
         }
 
+        public List<List<dynamic>> GetLoteJoinZonaDelegacaoArea(List<int> areas)
+        {
+            var lotes = (from l in _context._11Lotes
+                         join a in _context._00Areas on l.Area equals a.Id
+                         join d in _context._00Delegacao on (int)a.Delegacao equals d.Id
+                         join z in _context._00Zona on d.Zona equals z.Id
+                         where areas.Contains(l.Area)
+                         select new
+                         {
+                             IdLote = l.Id,
+                             Lote = l.LoteNum,
+                             Z = z.Zona,
+                             D = d.D,
+                             Ar = a.Area
 
+                         }).ToList();
+
+            var Lotes = new List<List<dynamic>>();
+            foreach (var item in lotes)
+            {
+                var d = new List<dynamic>();
+                d.Add(item.IdLote);
+                d.Add(item.Lote);
+                d.Add(item.Z);
+                d.Add(item.D);
+                d.Add(item.Ar);
+                Lotes.Add(d);
+            }
+            return Lotes;
+        }
     }
 }

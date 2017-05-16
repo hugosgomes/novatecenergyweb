@@ -10,5 +10,6 @@ namespace NovatecEnergyWeb.Models.Repository
         List<List<dynamic>> GetLotes(List<int> areas, int area);
         List<List<dynamic>> GetLotesJoinItems();
         List<List<dynamic>> GetLoteJoinZonaDelegacaoArea();
+        List<List<dynamic>> GetLoteJoinZonaDelegacaoArea(List<int> areas);
     }
 }

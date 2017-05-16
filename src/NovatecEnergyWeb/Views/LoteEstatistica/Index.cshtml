@@ -1,4 +1,6 @@
 ﻿@using NovatecEnergyWeb.Models.StoredProcedures;
+@using Microsoft.AspNetCore.Http;
+@using NovatecEnergyWeb.Core;
 @model IEnumerable<LoteEstatistica>
 @{
     Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
@@ -10,14 +12,35 @@
         <div class="col-sm-4 col-lg-3">
             <nav class="navbar navbar-default navbar-fixed-side">
                 <h4 id="titulo" class="text-center">Estatística</h4>
-             </nav>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                        </tr>
+                    </thead>
+                    <tbody class="fontTableBodyNavBar">
+
+                        <tr>
+                            <td style="padding-right:0px; "><b>Teste</b></td>
+                            <td id="e0" class="col-xs-2 text-right">TEste2 </td>
+                            <td >Teste23</td>
+                            <td >Teste23ww</td>
+                            <td >Tedddste23</td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </nav>
        </div>
 
 
         <div class="col-sm-8 col-lg-2">
-
-            <table class="table table-bordered table-hover tabelaModal">
-                <thead>
+            <table id="tableLote" class="table table-bordered table-hover tabelaModal">
+                <thead class="tabelaModal">
                     <tr>
                         <th class="text-left">LOTE</th>
                         <th class="text-left">Z</th>
@@ -25,7 +48,7 @@
                         <th class="text-left">AR</th>
                     </tr>
                 </thead>
-                <tbody class="tableBodySelectLote" >
+                <tbody id="corpoLotes" class="tableBodySelectLote" >
                     @foreach (var item in ViewBag.LoteSelect)
                     {
                         <tr class="mouse-hand">
@@ -39,9 +62,43 @@
             </table>
         </div>
 
-        <div class="col-sm-8 col-lg-7">
 
+        <div class="col-sm-8 col-lg-7">
+            <table id="tableLote" class="table table-bordered table-hover tabelaModal">
+                <thead>
+                    <tr>
+                        <th class="text-left">STATUS</th>
+                        <th class="text-left">Z</th>
+                        <th class="text-left">D</th>
+                        <th class="text-left">AR</th>
+                    </tr>
+                </thead>
+                <tbody class="tableBodySelectLote">
+                    @foreach (var item in ViewBag.LoteSelect)
+                    {
+                        <tr class="mouse-hand">
+                            <td>@item[1]</td>
+                            <td>@item[2]</td>
+                            <td>@item[3]</td>
+                            <td>@item[4]</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
         </div>
 
     </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript" src="~/js/loteEstatistica.js"></script>
+<script type="text/javascript">
+
+    function exibeLotesCliente() {
+        if ('@Context.Session.GetString("UserTipo")' == 'cli') {
+            $.getJSON("@Url.Action("LotesDoCliente", "LoteEstatistica")", atualizaLotes);
+        }
+    }
+</script>
+}
