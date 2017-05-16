@@ -148,3 +148,16 @@ tr.espacoAbaixo > td
 .mouse-hand{
 cursor:pointer;
 }
+.fontTableBodyEstatistica{
+    font-size: 12px;
+    font-family:Calibri;
+}
+
+.corpoTabela2{
+    font-size: 11px;
+    font-family: Calibri;
+}
+tbody.corpoTabela2 > tr > td {
+    padding-bottom: 1px;
+    padding-top: 1px;
+}

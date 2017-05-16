@@ -34,7 +34,6 @@ namespace NovatecEnergyWeb.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.LoteSelect = _loteRepository.GetLoteJoinZonaDelegacaoArea();
             return View();
         }
 
