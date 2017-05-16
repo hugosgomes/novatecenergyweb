@@ -14,7 +14,7 @@ namespace NovatecEnergyWeb.Models.Repository
             _context = context;
         }
 
-        public List<_00Areas> GetAreas(List<int> delegacoes, int delegacao)
+        public List<_00Areas> GetAreasByDelegacao(List<int> delegacoes, int delegacao)
         {
             if (delegacao != 0)
             {

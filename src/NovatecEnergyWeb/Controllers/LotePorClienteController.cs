@@ -63,7 +63,7 @@ namespace NovatecEnergyWeb.Controllers
                 listint.Add(item.Id);
             }
             //area
-            var areasL = _areaRepository.GetAreas(listint, 0);
+            var areasL = _areaRepository.GetAreasByDelegacao(listint, 0);
             var listAreaInt = _areaRepository.GetAreasIds(areasL);
 
             dynamic retorno = new ExpandoObject();
@@ -78,7 +78,7 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult DelegacaoCascade(int delegacao)
         {
             //áreas
-            var areasList = _areaRepository.GetAreas(new List<int>(), delegacao);
+            var areasList = _areaRepository.GetAreasByDelegacao(new List<int>(), delegacao);
             var listAreaInt = _areaRepository.GetAreasIds(areasList);
 
             dynamic retorno = new ExpandoObject();

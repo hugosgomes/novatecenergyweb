@@ -85,11 +85,12 @@ namespace NovatecEnergyWeb.Models.Repository
                          join a in _context._00Areas on l.Area equals a.Id
                          join d in _context._00Delegacao on (int)a.Delegacao equals d.Id
                          join z in _context._00Zona on d.Zona equals z.Id
+                         where l.Status == 136
                          select new
                          {
                              IdLote = l.Id,
                              Lote = l.LoteNum,
-                             Z = z.Zona,
+                             Z = z.Z,
                              D = d.D,
                              Ar = a.Area
 
@@ -120,7 +121,7 @@ namespace NovatecEnergyWeb.Models.Repository
                          {
                              IdLote = l.Id,
                              Lote = l.LoteNum,
-                             Z = z.Zona,
+                             Z = z.Z,
                              D = d.D,
                              Ar = a.Area
 

@@ -9,7 +9,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-4 col-lg-3">
+        <div class="col-sm-4 col-lg-2">
             <nav class="navbar navbar-default navbar-fixed-side">
                 <h4 id="titulo" class="text-center">Estatística</h4>
 
@@ -40,7 +40,7 @@
 
         <div class="col-sm-8 col-lg-2">
             <table id="tableLote" class="table table-bordered table-hover tabelaModal">
-                <thead class="tabelaModal">
+                <thead>
                     <tr>
                         <th class="text-left">LOTE</th>
                         <th class="text-left">Z</th>
@@ -48,43 +48,39 @@
                         <th class="text-left">AR</th>
                     </tr>
                 </thead>
-                <tbody id="corpoLotes" class="tableBodySelectLote" >
-                    @foreach (var item in ViewBag.LoteSelect)
-                    {
-                        <tr class="mouse-hand">
-                            <td>@item[1]</td>
-                            <td>@item[2]</td>
-                            <td>@item[3]</td>
-                            <td>@item[4]</td>
-                        </tr>
-                    }
+                <tbody id="corpoLotes" class="corpoTabela" >
+                   
                 </tbody>
             </table>
         </div>
 
 
-        <div class="col-sm-8 col-lg-7">
-            <table id="tableLote" class="table table-bordered table-hover tabelaModal">
+        <div class="col-sm-8 col-lg-2">
+            <table id="tableLote"class="table table-bordered table-hover tabelaModal">
                 <thead>
                     <tr>
-                        <th class="text-left">STATUS</th>
-                        <th class="text-left">Z</th>
-                        <th class="text-left">D</th>
-                        <th class="text-left">AR</th>
+                        <th class="text-center">STATUS</th>
+                        <th class="text-left">NUM</th>
+                        <th class="text-left">S/POT</th>
+                        <th class="text-left">S/VIS</th>
+                        <th class="text-left">S/ENT</th>
                     </tr>
                 </thead>
-                <tbody class="tableBodySelectLote">
-                    @foreach (var item in ViewBag.LoteSelect)
-                    {
+                <tbody class="corpoTabela">                
                         <tr class="mouse-hand">
-                            <td>@item[1]</td>
-                            <td>@item[2]</td>
-                            <td>@item[3]</td>
-                            <td>@item[4]</td>
+                            <td>CONTRATADO</td>
+                            <td>NÃO TESTE</td>
+                            <td>NÃO TESTE</td>
+                            <td>NÃO TESTE</td>
                         </tr>
-                    }
                 </tbody>
             </table>
+
+        </div>
+
+
+        <div class="col-sm-8 col-lg-6">
+            
 
         </div>
 
@@ -95,11 +91,8 @@
     <script type="text/javascript" src="~/js/loteEstatistica.js"></script>
 <script type="text/javascript">
 
-    function exibeLotesCliente() {
-        if ('@Context.Session.GetString("UserTipo")' == 'cli') {
-            $.getJSON("@Url.Action("LotesDoCliente", "LoteEstatistica")", function(){alert('callback')});
-            
-        }
+    function exibeLotes() {
+        $.getJSON("@Url.Action("BuscaLotes", "LoteEstatistica")", preencheTableLotes);
     }
 </script>
 }
