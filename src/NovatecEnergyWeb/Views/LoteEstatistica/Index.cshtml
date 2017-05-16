@@ -97,7 +97,8 @@
 
     function exibeLotesCliente() {
         if ('@Context.Session.GetString("UserTipo")' == 'cli') {
-            $.getJSON("@Url.Action("LotesDoCliente", "LoteEstatistica")", atualizaLotes);
+            $.getJSON("@Url.Action("LotesDoCliente", "LoteEstatistica")", function(){alert('callback')});
+            
         }
     }
 </script>
