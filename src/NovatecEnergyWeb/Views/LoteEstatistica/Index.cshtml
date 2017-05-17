@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-sm-4 col-lg-3">
             <nav class="navbar navbar-default navbar-fixed-side">
-
+<!-------------------------------------------------------------------------------------------------------------------------->
                 <table class="table">
                     <thead>
                         <tr>
@@ -114,6 +114,9 @@
                 </table>
 
                 <br />
+
+
+<!-------------------------------------------------------------------------------------------------------------------------->
                 <table class="table" >
                     <thead>
                         <tr>
@@ -150,7 +153,7 @@
             </nav>
        </div>
 
-
+<!---FIM NAV----------------------------------------------------------------------------------------------------------------------->
         <div class="col-sm-8 col-lg-2">
             <table id="tableLote" class="table table-bordered table-hover tabelaModal">
                 <thead>
@@ -169,9 +172,9 @@
 
 
         <div class="col-sm-8 col-lg-2">
-            <table id="tableLote"class="table table-bordered table-hover tabelaModal">
+            <table id="tableLote"class="table table-bordered tabelaModal">
                 <thead>
-                    <tr>
+                    <tr >
                         <th class="text-center">STATUS</th>
                         <th class="text-left">NUM</th>
                         <th class="text-left">S/POT</th>
@@ -179,18 +182,10 @@
                         <th class="text-left">S/ENT</th>
                     </tr>
                 </thead>
-                <tbody class="corpoTabela">                
-                        <tr class="mouse-hand">
-                            <td>CONTRATADO</td>
-                            <td>NÃO TESTE</td>
-                            <td>NÃO TESTE</td>
-                            <td>NÃO TESTE</td>
-                        </tr>
+                <tbody id="corpoStatus" class="corpoTabela">                
+
                 </tbody>
             </table>
-
-
-
         </div>
 
 
@@ -208,6 +203,12 @@
 
     function exibeLotes() {
         $.getJSON("@Url.Action("BuscaLotes", "LoteEstatistica")", preencheTableLotes);
+    }
+
+    function getEstatisticaByLote(lote) {
+        var data = {};
+        data.idLote = lote;
+        $.post("@Url.Action("BuscaEstatistica", "LoteEstatistica")", data, preencheTableStatus);
     }
 </script>
 }

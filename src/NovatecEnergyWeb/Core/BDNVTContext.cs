@@ -224,6 +224,7 @@ namespace NovatecEnergyWeb.Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<LoteEstatistica>().HasKey(l => l.Id);
             modelBuilder.Entity<_11_LoteAtivoEnderecosExportacao>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_LoteAtivoEnderecos>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_LoteAtivoB>().HasKey(c => c.Id);
