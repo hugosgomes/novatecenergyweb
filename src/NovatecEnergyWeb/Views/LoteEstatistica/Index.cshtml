@@ -12,7 +12,7 @@
         <div class="col-sm-4 col-lg-3">
             <nav class="navbar navbar-default navbar-fixed-side">
 <!-------------------------------------------------------------------------------------------------------------------------->
-                <table class="table">
+                <table id="tableEstatistica" class="table">
                     <thead>
                         <tr>
                             <th></th>
@@ -22,43 +22,41 @@
                             <th>S/Ent</th>
                         </tr>
                     </thead>
-                    <tbody class="corpoTabela2">
+                    <tbody id="corpoEstatistica" class="corpoTabela2">
                         <tr>
                             <td class="col-xs-9 col-lg-8" style="padding-right:0px; padding-bottom:0px; padding-top:0px; "><b>Potencial</b></td>
-                            <td class="noPaddingTopBot col-xs-3 col-lg-4">1333</td>
+                            <td id ="potNum" class="noPaddingTopBot col-xs-3 col-lg-4">0</td>
                         </tr>
                         <tr>
                             <td class="col-xs-9" style="padding-right:0px; "><b>Visitados</b></td>
-                            <td class="col-xs-2">0</td>
-                            <td class="col-xs-1">0</td>
+                            <td id ="visNum" class="col-xs-2">0</td>
+                            <td id ="visSpot"class="col-xs-1">0</td>
 
                         </tr>
                         <tr>
                             <td class="col-xs-9" style="padding-right:0px; "><b>Entrevistados</b></td>
-                            <td class="col-xs-1">0</td>
-                            <td class="col-xs-1">0</td>
-                            <td class="col-xs-1">0</td>
+                            <td id="entNum" class="col-xs-1">0</td>
+                            <td id="entSpot" class="col-xs-1">0</td>
+                            <td id="entVis" class="col-xs-1">0</td>
                             <td class="col-xs-1"></td>
                         </tr>
                         <tr>
                             <td class="col-xs-9" style="padding-right:0px; "><b>Contratados</b></td>
-                            <td class="col-xs-1">150</td>
-                            <td class="col-xs-1">150</td>
-                            <td class="col-xs-1">150</td>
-                            <td class="col-xs-1">150</td>
+                            <td id="conNum" class="col-xs-1">0</td>
+                            <td id="conPot" class="col-xs-1">0</td>
+                            <td id="conVis" class="col-xs-1">0</td>
+                            <td id="conEnt" class="col-xs-1">0</td>
                         </tr>
 
 
                         <tr>
                             <td class="col-xs-9" style="padding-right:0px;"><b>Não Visitados</b></td>
-                            <td   class="col-xs-1">150</td>
-                            <td class="col-xs-1">150</td>
-                            <td class="col-xs-1">150</td>
-                            
+                            <td id="naoVisiNum"  class="col-xs-1">150</td>
+                            <td id="naoVisiPot" class="col-xs-1">150</td>                            
                         </tr>
                         <tr>
                             <td class="col-xs-11" style="padding-right:0px;"><b>Não Entrevistados</b></td>
-                            <td>0</td>
+                            <td id="naoEntNum" >0</td>
                             <td>0</td>
                             <td>0</td>
                         </tr>
@@ -172,7 +170,7 @@
 
 
         <div class="col-sm-8 col-lg-2">
-            <table id="tableLote"class="table table-bordered tabelaModal">
+            <table id="tableLote"class="table table-bordered table-striped tabelaModal">
                 <thead>
                     <tr >
                         <th class="text-center">STATUS</th>
@@ -208,7 +206,7 @@
     function getEstatisticaByLote(lote) {
         var data = {};
         data.idLote = lote;
-        $.post("@Url.Action("BuscaEstatistica", "LoteEstatistica")", data, preencheTableStatus);
+        $.post("@Url.Action("BuscaEstatistica", "LoteEstatistica")", data, atualizaTabelas);
     }
 </script>
 }

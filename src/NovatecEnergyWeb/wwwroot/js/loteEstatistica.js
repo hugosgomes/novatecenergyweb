@@ -46,6 +46,11 @@ function adicionaEventoClickRow() {
     }
 }
 
+function atualizaTabelas(estatistica) {
+    preencheTableStatus(estatistica);
+    preencheTableEstatistica(estatistica)
+}
+
 function preencheTableStatus(estatistica) {
     $("corpoStatus tr").remove();
 
@@ -73,5 +78,29 @@ function preencheTableStatus(estatistica) {
         r[++j] = '</tr>';
     }
     $('#corpoStatus').html(r.join(''));
+}
+
+function preencheTableEstatistica(estatistica) {
+    $("corpoEstatistica tr").remove();
+
+    if (estatistica.length > 0) {
+        $('#potNum').html(estatistica[0].pot);
+        $('#visNum').html(estatistica[0].vis);
+        $('#visSpot').html(Math.ceil((estatistica[0].vis / estatistica[0].pot) * 100).toString() + '%');
+        $('#entNum').html(estatistica[0].ent);
+        $('#entSpot').html(Math.ceil((estatistica[0].ent / estatistica[0].pot) * 100).toString() + '%');
+        $('#entVis').html(Math.ceil((estatistica[0].ent / estatistica[0].vis) * 100).toString() + '%');
+        $('#conNum').html(estatistica[0].con);
+        $('#conPot').html(Math.ceil((estatistica[0].con / estatistica[0].pot) * 100).toString() + '%');
+        $('#conVis').html(Math.ceil((estatistica[0].con / estatistica[0].vis) * 100).toString() + '%');
+        $('#conEnt').html(Math.ceil((estatistica[0].con / estatistica[0].ent) * 100).toString() + '%');
+
+        $('#naoVisiNum').html(estatistica[0].pot - estatistica[0].vis);
+        $('#naoVisiPot').html(Math.ceil(((estatistica[0].pot - estatistica[0].vis) / estatistica[0].pot) * 100).toString() + '%');
+        $('#')
+
+    }
+
+    
 }
 
