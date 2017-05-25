@@ -402,24 +402,6 @@ namespace NovatecEnergyWeb.Controllers
                 HttpContext.Session.SetString("Numero2", (data.Numero2 == null) ? "" : data.Numero2);
             }
 
-            // Removido os botões de Lote Ativos; Sem Lotes, Todos e Não, não há necessidade da lógica abaixo
-           /* string valorSP = "";
-
-            switch (Botao)
-            {
-                case "ativos":
-                    valorSP = "[dbo].[LotesPorCliente_Ativos]";
-                    break;
-                case "todos":
-                    valorSP = "[dbo].[LotesPorCliente_Todos]";
-                    break;
-                case "semLoteTodos":
-                    valorSP = "[dbo].[11_LoteNao]";
-                    break;
-                case "semLoteNao":
-                    valorSP = ""; //lembrar de implementar
-                    break;
-            }*/
 
             HttpContext.Session.SetString("SP_Lote", "[dbo].[LotesPorCliente_Todos]");
         }

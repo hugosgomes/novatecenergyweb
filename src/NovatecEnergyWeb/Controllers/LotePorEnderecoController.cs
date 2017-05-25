@@ -16,15 +16,23 @@ using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb.Controllers
 {
-    public class AdesaoEnderecosController : Controller
+    public class LotePorEnderecoController : Controller
     {
         private BDNVTContext _context;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AdesaoEnderecosController(BDNVTContext context, IHostingEnvironment he)
+        public LotePorEnderecoController(BDNVTContext context, IHostingEnvironment he)
         {
             _context = context;
             _hostingEnvironment = he;
+        }
+
+        [AutenticacaoFilter]
+        public IActionResult Index()
+        {
+            BindSelects();
+            return View("Index", new List<LotePorEndereco>());
+
         }
 
         public List<List<dynamic>> GetLotes(List<int> areas,int area)
@@ -163,16 +171,15 @@ namespace NovatecEnergyWeb.Controllers
         {
             var lotes = (from l in _context._11Lotes
                         join ti in _context._00TabelasItems on l.Status equals ti.Id
-                     //   join ti2 in _context._00TabelasItems on l.Procedencia equals ti2.Id
                         select new
                         {
                             Id = l.Id,
                             LoteNum = l.LoteNum,
                             Ge = l.Ge,
                             DataLote = l.DataLote,
-                         //   Tipo = ti2.Item,
                             Status = ti.Item
                         }).ToList();
+
             ViewBag.Lotes = new List<List<dynamic>>();
             foreach (var item in lotes)
             {
@@ -181,7 +188,6 @@ namespace NovatecEnergyWeb.Controllers
                 l.Add(item.LoteNum);
                 l.Add(item.Ge);
                 l.Add(item.DataLote);
-               // l.Add(item.Tipo);
                 l.Add(item.Status);
                 ViewBag.Lotes.Add(l);
             }
@@ -218,13 +224,7 @@ namespace NovatecEnergyWeb.Controllers
             }
         }
 
-        [AutenticacaoFilter]
-        public IActionResult VisitasEnderecos()
-        {
-            BindSelects();
-            return View("VisitasEnderecos", new List<_11_LoteAtivoEnderecos>());
-
-        }
+       
 
         private FormFiltersVisitaEnderecosViewModels GetFiltrosSessao()
         {
@@ -249,22 +249,10 @@ namespace NovatecEnergyWeb.Controllers
                 HttpContext.Session.SetString("Endereco", (data.Endereco == null) ? "" : data.Endereco);
             }
 
-          /*  string valorSP = "";
-
-            switch (Botao)
-            {
-                case "ativos":
-                    valorSP = "[dbo].[11_LoteAtivoEnderecos]";
-                    break;
-                case "todos":
-                    valorSP = "[dbo].[11_LoteTodosEnderecos]"; 
-                    break;
-            } */
-
-            HttpContext.Session.SetString("SP_Enderecos", "[dbo].[11_LoteAtivoEnderecos]");
+            HttpContext.Session.SetString("SP_Enderecos", "[dbo].[LotePorEndereco_Ativos]");
         }
 
-        public List<_11_LoteAtivoEnderecos>GetEnderecosAtivos([FromForm]FormFiltersVisitaEnderecosViewModels filtros)
+        public List<LotePorEndereco>GetEnderecosAtivos([FromForm]FormFiltersVisitaEnderecosViewModels filtros)
         {
             string storedProcedure = HttpContext.Session.GetString("SP_Enderecos");
             int? id = HttpContext.Session.GetInt32("UserId");
@@ -273,7 +261,7 @@ namespace NovatecEnergyWeb.Controllers
             string tipo = HttpContext.Session.GetString("UserTipo");
             int? area = HttpContext.Session.GetInt32("Área");
 
-            IQueryable<_11_LoteAtivoEnderecos> e;
+            IQueryable<LotePorEndereco> e;
 
             if( filtros == null)
             {

@@ -1,7 +1,7 @@
 ﻿@using NovatecEnergyWeb.Models.StoredProcedures;
 @using Microsoft.AspNetCore.Http;
 @using NovatecEnergyWeb.Core;
-@model IEnumerable<_11_LoteAtivoEnderecos>
+@model IEnumerable<LotePorEndereco>
 @{
     Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
     ViewData["Title"] = "Status de Clientes Com Tratamento Comercial";
@@ -367,225 +367,34 @@
     </div>
 </div>
 @section Scripts{
+<script type="text/javascript" src="~/js/lotePorEndereco.js"></script>
 <script type="text/javascript">
-    $("#lotes").prop("selectedIndex", -1);
-    $("#zonas").prop("selectedIndex", -1);
-    $("#delegacoes").prop("selectedIndex", -1);
-    $("#areas").prop("selectedIndex", -1);
-
-
-    window.onload = function () {
-        postToController();
-        selecionaInfoCliente();
-    };
-
-    function getFormDataAsJson() {
-        var botaoClicado = clicado();
-
-        return {
-            IdLote: $('#lotes').val(),
-            ZId: $('#zonas').val(),
-            DId: $('#delegacoes').val(),
-            AId: $('#areas').val(),
-            Endereco: $('#Endereco').val().toString().trim(),
-
-            Botao: botaoClicado
-        }
-    }
-
     function postToController() {
         var data = getFormDataAsJson();
-        $.post("@Url.Action("GetListLoteAtivoView", "AdesaoEnderecos")", data, atualizaView);
-    }
-
-    function clicado() {
-        var id = '';
-        if ($('#todos').data('clicked')) {
-            $('#todos').data('clicked', false);
-            id = 'todos';
-            $('#todosli').addClass('disabled');
-            $('#ativosli').removeClass('disabled');
-
-        } else if ($('#ativos').data('clicked')) {
-            $('#ativos').data('clicked', false);
-            id = 'ativos';
-            $('#todosli').removeClass('disabled')
-            $('#ativosli').addClass('disabled');
-        } else if (id == '') {
-            if ($("#todosli").hasClass('disabled')) {
-                id = 'todos';
-            } else if ($("#ativosli").hasClass('disabled')) {
-                id = 'ativos';
-            }
-        }
-
-        return id;
-    }
-
-    function atualizaView(retorno) {
-        tabelaEstatisticas(retorno);
-        montaPaginacao(retorno);
-        tabelaLoteAtivos(retorno);
-    };
-
-    function tabelaEstatisticas(retorno) {
-        for (var i = 0; i < retorno.Numeracoes.length; i++) {
-            $('#e' + i).html(retorno.Numeracoes[i]);
-        }
-
-        for (var j = 0; j < retorno.Porcentagens.length; j++) {
-            $('#ep' + j).html(retorno.Porcentagens[j] + '%');
-        }
-    };
-
-    function tabelaLoteAtivos(retorno) {
-        $('#corpoTabelaAtivos tr').remove();
-
-        var tr;
-        var r = new Array();
-        var j = -1;
-
-        for (var i = 0; i < retorno.EV.length; i++) {
-
-            r[++j] = "<tr>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].z;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].d;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].ar;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].endereco;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].potencial;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].visitados;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].contratados;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].d2;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].svg;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].sve;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].visitas;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].entrevistas;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].visitasImpr;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].visitasAgendadas;
-            r[++j] = "</td>";
-            r[++j] = "<td>";
-            r[++j] = retorno.EV[i].ausencias;
-            r[++j] = "</td>";
-          
-            
-            r[++j] = "</tr>";
-        }
-
-        $('#corpoTabelaAtivos').html(r.join(''));
+        $.post("@Url.Action("GetListLoteAtivoView", "LotePorEndereco")", data, atualizaView);
     }
 
     function postZona() {
         var p = {};
         p.zona = $("#zonas").val();
-        $.post("@Url.Action("ZonaCascade", "AdesaoEnderecos")", p, atualizaDropZona);
+        $.post("@Url.Action("ZonaCascade", "LotePorEndereco")", p, atualizaDropZona);
 
-    }
-
-    function atualizaDropZona(retorno) {
-        preencheDelegacao(retorno);
-        preencheArea(retorno);
-        preencheLotes(retorno);
-        postToController();
-    }
-
-    function preencheZona(retorno) {
-        $('#zonas').empty();
-
-        $.each(retorno.Zonas, function () {
-            $("#zonas").append($("<option />").val(this.id).text(this.zona));
-        });
-
-        $("#zonas").prop("selectedIndex", -1);
-    }
-
-    function preencheDelegacao(retorno) {
-        $("#delegacoes").empty();
-
-        $.each(retorno.Delegacao, function () {
-            $("#delegacoes").append($("<option />").val(this.id).text(this.delegacao));
-        });
-
-        $("#delegacoes").prop("selectedIndex", -1);
-    }
-
-    function preencheArea(retorno) {
-        if (retorno.Areas.length > 0) {
-            $("#areas").empty();
-
-            $.each(retorno.Areas, function () {
-                $("#areas").append($("<option />").val(this.id).text(this.area));
-            });
-
-            $("#areas").prop("selectedIndex", -1);
-        }
-    }
-
-    function preencheLotes(retorno) {
-        //  if (retorno.Lotes.length > 0) {
-        $("#lotes").empty();
-
-        $.each(retorno.Lotes, function () {
-            var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
-
-            $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
-                  + this[2] + p.text()
-                  + this[3] + p.text()
-                  + this[4] + p.text() ));
-        });
-
-        $("#lotes").prop("selectedIndex", -1);
-        //   }
     }
 
     function postDelegacao() {
         var p = {};
         p.delegacao = $("#delegacoes").val();
-        $.post("@Url.Action("DelegacaoCascade", "AdesaoEnderecos")", p, atualizaDropsDelegacao);
+        $.post("@Url.Action("DelegacaoCascade", "LotePorEndereco")", p, atualizaDropsDelegacao);
     }
 
-    function atualizaDropsDelegacao(retorno) {
-        preencheArea(retorno);
-        preencheLotes(retorno);
-        postToController();
-    }
 
     function postArea() {
         var p = {};
         p.lote = $("#areas").val();
-        $.post("@Url.Action("AreaCascade", "AdesaoEnderecos")", p, atualizaDropArea);
+        $.post("@Url.Action("AreaCascade", "LotePorEndereco")", p, atualizaDropArea);
     }
 
-    function atualizaDropArea(retorno) {
-        preencheLotes(retorno);
-        postToController();
-    }
+  
 
     function limpaFiltro() {
         $('#zonas').val("");
@@ -607,7 +416,7 @@
         }
 
         if ((parametro.Botao == 'todos') || (parametro.Botao == 'ativos')) {
-            $.post("@Url.Action("LimpaFiltros", "AdesaoEnderecos")", parametro, bindSelects);
+            $.post("@Url.Action("LimpaFiltros", "LotePorEndereco")", parametro, bindSelects);
 
         }
 
@@ -617,45 +426,15 @@
         atualizaView(retorno);
         parametro = {};
 
-        $.post("@Url.Action("LimpaSelects", "AdesaoEnderecos")", parametro, atualizaSelects);
+        $.post("@Url.Action("LimpaSelects", "LotePorEndereco")", parametro, atualizaSelects);
     }
 
-    function atualizaSelects(retorno) {
-        preencheZona(retorno);
-        preencheDelegacao(retorno);
-        preencheArea(retorno);
-        preencheLotes(retorno);
-        selecionaInfoCliente();
-    }
-
-    function montaPaginacao(retorno) {
-        //paginação
-        $('#page-selection').unbind(); // limpa os eventos adicionados nessa tag
-
-        $('#page-selection').bootpag({
-            total: retorno.QuantasPaginasExistem,
-            page: 1,
-            maxVisible: 5,
-            firstLastUse: true,
-            first: '←',
-            last: '→',
-            nextClass: 'next',
-            prevClass: 'prev',
-            lastClass: 'last',
-            firstClass: 'first'
-
-        }).on("page", function (event, num) {
-            // some ajax content loading...
-            postPaginacao(num);
-
-        });
-
-    }
-
+   
+ 
     function postPaginacao(num) {
         var data = getFormDataAsJson();
         data.PaginaClicada = num;
-        $.post("@Url.Action("GetListLoteAtivoView", "AdesaoEnderecos")", data, tabelaLoteAtivos);
+        $.post("@Url.Action("GetListLoteAtivoView", "LotePorEndereco")", data, tabelaLoteAtivos);
     }
 
     function entrarNaTelaExportacao() {
@@ -678,21 +457,15 @@
             Mes: $("#mes").val()
         };
 
-        $.post("@Url.Action("SetFiltrosTelaExportacao", "AdesaoEnderecos")", data);
+        $.post("@Url.Action("SetFiltrosTelaExportacao", "LotePorEndereco")", data);
     }
     function ExportaAgenda() {
 
         var url = '@AppSettings.ExcelExportUrl';
-        window.location.href = '' + url + '/AdesaoEnderecos/ExportaAgendaAdesao?';
+        window.location.href = '' + url + '/LotePorEndereco/ExportaAgendaAdesao?';
     }
 
-    //usado na combo de lote para acrescentar o atributo data-toggle pra abrir a telinha de exportação
-    function atribuiDataToggle() {
-        var vatt = $('#botaoExporta').attr('data-toggle');
-        if (vatt == null) {
-            $('#botaoExporta').attr('data-toggle', 'modal');
-        }
-    }
+
 
     //Parte de exibição "travada" das informações do cliente(zona, delegação, área e lote)
     //----------------------------
@@ -722,7 +495,7 @@
 
     function selecionaAreaCliente() {
         var data = {};
-        $.post("@Url.Action("AreasDoCliente", "AdesaoEnderecos")", data, atualizaDropsDelegacao);
+        $.post("@Url.Action("AreasDoCliente", "LotePorEndereco")", data, atualizaDropsDelegacao);
 
     }
 

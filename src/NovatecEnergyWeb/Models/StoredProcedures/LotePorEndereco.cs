@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NovatecEnergyWeb.Models.StoredProcedures
 {
-    public class _11_LoteAtivoEnderecos
+    public class LotePorEndereco
     {
         public int Id { get; set; }
         public string Lote { get; set; }
@@ -13,6 +13,7 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public string D { get; set; }
         public string Ar { get; set; }
         public string Endereco { get; set; }
+        public string EnderecoB { get; set; }
         public int Potencial { get; set; }
         public string Agente { get; set; }
         public int Visitados { get; set; }
@@ -29,6 +30,7 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public int Did { get; set; }
         public int Aid { get; set; }
         public int IdLote { get; set; }
+        public int Entrevistados{ get; set; }
        
     }
 }
