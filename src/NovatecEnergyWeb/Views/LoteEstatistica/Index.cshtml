@@ -7,197 +7,232 @@
     ViewData["Title"] = "Estatísticas de Lote";
 }
 
-<div class="container-fluid">
+
+    <!--- row layout pagina-->
     <div class="row">
-        <div class="col-sm-4 col-lg-3">
-            <nav class="navbar navbar-default navbar-fixed-side">
-<!-------------------------------------------------------------------------------------------------------------------------->
-                <table id="tableEstatistica" class="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Num</th>
-                            <th>S/Pot</th>
-                            <th>S/Vis</th>
-                            <th>S/Ent</th>
-                        </tr>
-                    </thead>
-                    <tbody id="corpoEstatistica" class="corpoTabela2">
-                        <tr>
-                            <td class="col-xs-9 col-lg-8" style="padding-right:0px; padding-bottom:0px; padding-top:0px; "><b>Potencial</b></td>
-                            <td id ="potNum" class="noPaddingTopBot col-xs-3 col-lg-4">0</td>
-                        </tr>
-                        <tr>
-                            <td class="col-xs-9" style="padding-right:0px; "><b>Visitados</b></td>
-                            <td id ="visNum" class="col-xs-2">0</td>
-                            <td id ="visSpot"class="col-xs-1">0</td>
 
-                        </tr>
-                        <tr>
-                            <td class="col-xs-9" style="padding-right:0px; "><b>Entrevistados</b></td>
-                            <td id="entNum" class="col-xs-1">0</td>
-                            <td id="entSpot" class="col-xs-1">0</td>
-                            <td id="entVis" class="col-xs-1">0</td>
-                            <td class="col-xs-1"></td>
-                        </tr>
-                        <tr>
-                            <td class="col-xs-9" style="padding-right:0px; "><b>Contratados</b></td>
-                            <td id="conNum" class="col-xs-1">0</td>
-                            <td id="conPot" class="col-xs-1">0</td>
-                            <td id="conVis" class="col-xs-1">0</td>
-                            <td id="conEnt" class="col-xs-1">0</td>
-                        </tr>
+        <!--- Lado Conteudo-->
+        <div class="col-sm-4">
 
 
-                        <tr>
-                            <td class="col-xs-9" style="padding-right:0px;"><b>Não Visitados</b></td>
-                            <td id="naoVisiNum"  class="col-xs-1">150</td>
-                            <td id="naoVisiPot" class="col-xs-1">150</td>                            
-                        </tr>
-                        <tr>
-                            <td class="col-xs-11" style="padding-right:0px;"><b>Não Entrevistados</b></td>
-                            <td id="naoEntNum" >0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right:0px; "><b>Visitados Não Entrevistados</b></td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
+            <div class="row">
+
+                <!--- coluna 1-->
+                <div class="col-sm-8 ">
+
+                    <!--- tabela 1 up-->
+                    <table id="tableEstatistica" class="table ">
+                        <thead>
+                            <tr style="background-color:#363636; color:#fff">
+                                <th></th>
+                                <th >Num</th>
+                                <th>S/Pot</th>
+                                <th>S/Vis</th>
+                                <th>S/Ent</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoEstatistica" class="corpoTabela2">
+                            <tr>
+                                <td class="col-xs-9 col-lg-8" style="padding-right:0px; padding-bottom:0px; padding-top:0px; "><b>Potencial</b></td>
+                                <td id="potNum" class="noPaddingTopBot col-xs-3 col-lg-4">0</td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-9" style="padding-right:0px; "><b>Visitados</b></td>
+                                <td id="visNum" class="col-xs-2">0</td>
+                                <td id="visSpot" class="col-xs-1">0</td>
+                                <td> </td>
+                                <td> </td>
+
+                            </tr>
+                            <tr>
+                                <td class="col-xs-9" style="padding-right:0px; "><b>Entrevistados</b></td>
+                                <td id="entNum" class="col-xs-1">0</td>
+                                <td id="entSpot" class="col-xs-1">0</td>
+                                <td id="entVis" class="col-xs-1">0</td>
+                                <td class="col-xs-1"></td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-9" style="padding-right:0px; "><b>Contratados</b></td>
+                                <td id="conNum" class="col-xs-1">0</td>
+                                <td id="conPot" class="col-xs-1">0</td>
+                                <td id="conVis" class="col-xs-1">0</td>
+                                <td id="conEnt" class="col-xs-1">0</td>
+                            </tr>
 
 
-                        <tr>
-                            <td style="padding-right:0px; "><b>Não Contratados</b></td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right:0px; "><b>Visitados Não Contratados</b></td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right:0px; "><b>Entrevistados Não Contratados</b></td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
+                            <tr>
+                                <td class="col-xs-9" style="padding-right:0px;"><b>Não Visitados</b></td>
+                                <td id="naoVisiNum" class="col-xs-1">150</td>
+                                <td id="naoVisiPot" class="col-xs-1">150</td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-11" style="padding-right:0px;"><b>Não Entrevistados</b></td>
+                                <td id="naoEntNum">0</td>
+                                <td id="naoEntSpot">0</td>
+                                <td> </td>
+                                <td> </td>
 
-                        <tr>
-                            <td style="padding-right:0px; "><b>D2 Contratados</b></td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right:0px; "><b>SVG Contratados</b></td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right:0px; "><b>SVE Contratados</b></td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
+                            </tr>
+                            <tr>
+                                <td style="padding-right:0px; "><b>Visitados Não Entrevistados</b></td>
+                                <td id="visNaoEntNum">0</td>
+                                <td id="visNaoEntSpot">0</td>
+                                <td id="visNaoEntSvis">0</td>
+                                <td> </td>
+
+                            </tr>
 
 
+                            <tr>
+                                <td style="padding-right:0px; "><b>Não Contratados</b></td>
+                                <td id="naoContNum">0</td>
+                                <td id="naoContSpot">0</td>
+                                <td> </td>
+                                <td> </td>
 
-                    </tbody>
-                </table>
+                            </tr>
+                            <tr>
+                                <td style="padding-right:0px; "><b>Visitados Não Contratados</b></td>
+                                <td id="visNaoContNum">0</td>
+                                <td id="visNaoContSpot">0</td>
+                                <td id="visNaoContSvis">0</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-right:0px; "><b>Entrevistados Não Contratados</b></td>
+                                <td id="entNaoContNum">0</td>
+                                <td id="entNaoContSpot">0</td>
+                                <td id="entNaoContSvis">0</td>
+                            </tr>
 
-                <br />
+                            <tr>
+                                <td style="padding-right:0px; "><b>D2 Contratados</b></td>
+                                <td id="dContNum">0</td>
+                                <td id="dContSpot">0</td>
+                                <td id="dContSvis">0</td>
+                                <td id="dContSent">0</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-right:0px; "><b>SVG Contratados</b></td>
+                                <td id="svgContNum">0</td>
+                                <td id="svgContSpot">0</td>
+                                <td id="svgContSvis">0</td>
+                                <td id="svgContSent">0</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-right:0px; "><b>SVE Contratados</b></td>
+                                <td id="sveContNum">0</td>
+                                <td id="sveContSpot">0</td>
+                                <td id="sveContSvis">0</td>
+                                <td id="sveContSent">0</td>
+                            </tr>
 
 
-<!-------------------------------------------------------------------------------------------------------------------------->
-                <table class="table" >
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Num</th>
-                            <th>S/Vis</th>
-                            <th>S/Ent</th>
-                            <th>S/Pot</th>
-                        </tr>
-                    </thead>
-                    <tbody class="corpoTabela2">
-                        <tr>
-                            <td  class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Visitas Realizadas</b></td>
-                            <td >0</td>
-                        </tr>
-                        <tr>
-                            <td  class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Entrevistas Realizadas</b></td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Visitas Improdutivas</b></td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
+
+                        </tbody>
                     </table>
 
-            </nav>
-       </div>
-
-<!---FIM NAV----------------------------------------------------------------------------------------------------------------------->
-        <div class="col-sm-8 col-lg-2">
-            <table id="tableLote" class="table table-bordered table-hover tabelaModal">
-                <thead>
-                    <tr>
-                        <th class="text-left">LOTE</th>
-                        <th class="text-left">Z</th>
-                        <th class="text-left">D</th>
-                        <th class="text-left">AR</th>
-                    </tr>
-                </thead>
-                <tbody id="corpoLotes" class="corpoTabela" >
-                   
-                </tbody>
-            </table>
-        </div>
+                    <br />
 
 
-        <div class="col-sm-8 col-lg-2">
-            <table id="tableLote"class="table table-bordered table-striped tabelaModal">
-                <thead>
-                    <tr >
-                        <th class="text-center">STATUS</th>
-                        <th class="text-left">NUM</th>
-                        <th class="text-left">S/POT</th>
-                        <th class="text-left">S/VIS</th>
-                        <th class="text-left">S/ENT</th>
-                    </tr>
-                </thead>
-                <tbody id="corpoStatus" class="corpoTabela">                
+                    <!---tabela 1 down--->
+                    <table class="table">
+                        <thead>
+                            <tr style="background-color:#363636; color:#fff">
+                                <th></th>
+                                <th>Num</th>
+                                <th>S/Vis</th>
+                                <th>S/Ent</th>
 
-                </tbody>
-            </table>
-        </div>
+                            </tr>
+                        </thead>
+                        <tbody class="corpoTabela2">
+                            <tr>
+                                <td class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Visitas Realizadas</b></td>
+                                <td id="visRealiNum">0</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Entrevistas Realizadas</b></td>
+                                <td id="entRealiNum">0</td>
+                                <td id="entRealiSvis">0</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Visitas Improdutivas</b></td>
+                                <td id="visImproNum">0</td>
+                                <td id="visImproSvis">0</td>
+                                <td></td>
+
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
 
-        <div class="col-sm-8 col-lg-6">
+                </div>
+
+                <!---coluna 2--->
+                <div class="col-sm-3">
+                    <table id="tableLote" class="table table-bordered table-hover tabelaModal">
+                        <thead>
+                            <tr style="background-color:#363636; color:#fff">
+                                <th class="text-left">LOTE</th>
+                                <th class="text-left">Z</th>
+                                <th class="text-left">D</th>
+                                <th class="text-left">AR</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoLotes" class="corpoTabela"></tbody>
+                    </table>
+                </div>
+
+               
+
+            </div> <!---fim row lado conteudo--->
+        </div> <!--fim lado conteudo-->
+
+        <!--lado graficos-->
+        <div class="col-sm-8">
+
+        <div class="row">
+
+            <!---coluna 1--->
+            <div class="col-sm-6 ">
+                <table id="tableLote" class="table table-responsive table-bordered table-striped tabelaModal">
+                    <thead>
+                        <tr style="background-color:#363636; color:#fff">
+                            <th style="width: 10px;" class=" text-center">STATUS</th>
+                            <th class=" text-left">NUM</th>
+                            <th class=" text-left">S/POT</th>
+                            <th class=" text-left">S/VIS</th>
+                            <th class=" text-left">S/ENT</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoStatus" class="corpoTabela"></tbody>
+                </table>
+            </div>
+
+            <!---coluna 2--->
+            <div class="col-sm-6 ">
+               
+                <h1> graficos </h1>
             
+            </div>
 
-        </div>
+            </div>
 
-    </div>
-</div>
+        </div> <!---fim row lado graficos--->
 
-@section Scripts{
-    <script type="text/javascript" src="~/js/loteEstatistica.js"></script>
-<script type="text/javascript">
+     
+        </div> <!--fim da row layout tela-->        
+        
+
+        @section Scripts{
+            <script type="text/javascript" src="~/js/loteEstatistica.js"></script>
+            <script type="text/javascript">
 
     function exibeLotes() {
         $.getJSON("@Url.Action("BuscaLotes", "LoteEstatistica")", preencheTableLotes);
@@ -208,5 +243,5 @@
         data.idLote = lote;
         $.post("@Url.Action("BuscaEstatistica", "LoteEstatistica")", data, atualizaTabelas);
     }
-</script>
-}
+            </script>
+        }

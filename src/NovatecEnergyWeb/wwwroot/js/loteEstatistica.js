@@ -84,22 +84,82 @@ function preencheTableEstatistica(estatistica) {
     $("corpoEstatistica tr").remove();
 
     if (estatistica.length > 0) {
+
+        // potencial
         $('#potNum').html(estatistica[0].pot);
+
+        // visitados
         $('#visNum').html(estatistica[0].vis);
         $('#visSpot').html(Math.ceil((estatistica[0].vis / estatistica[0].pot) * 100).toString() + '%');
+
+        //entrevistados
         $('#entNum').html(estatistica[0].ent);
         $('#entSpot').html(Math.ceil((estatistica[0].ent / estatistica[0].pot) * 100).toString() + '%');
         $('#entVis').html(Math.ceil((estatistica[0].ent / estatistica[0].vis) * 100).toString() + '%');
+
+        //contratados
         $('#conNum').html(estatistica[0].con);
         $('#conPot').html(Math.ceil((estatistica[0].con / estatistica[0].pot) * 100).toString() + '%');
         $('#conVis').html(Math.ceil((estatistica[0].con / estatistica[0].vis) * 100).toString() + '%');
         $('#conEnt').html(Math.ceil((estatistica[0].con / estatistica[0].ent) * 100).toString() + '%');
 
+        //nao visitados
         $('#naoVisiNum').html(estatistica[0].pot - estatistica[0].vis);
         $('#naoVisiPot').html(Math.ceil(((estatistica[0].pot - estatistica[0].vis) / estatistica[0].pot) * 100).toString() + '%');
         $('#')
 
-    }
+        //nao entrevistado
+        $('#naoEntNum').html(estatistica[0].pot - estatistica[0].ent);
+        $('#naoEntSpot').html(Math.ceil(((estatistica[0].pot - estatistica[0].ent) / estatistica[0].pot) * 100).toString() + '%');
+
+        //visitados nao entrevistados
+        $('#visNaoEntNum').html(estatistica[0].pot - estatistica[0].ent); 
+        $('#visNaoEntSpot').html(Math.ceil(((estatistica[0].vis - estatistica[0].ent) / estatistica[0].pot) * 100).toString() + '%');
+        $('#visNaoEntSvis').html(Math.ceil(((estatistica[0].vis - estatistica[0].ent) / estatistica[0].vis) * 100).toString() + '%');
+
+        // nao contratados
+        $('#naoContNum').html(estatistica[0].pot - estatistica[0].con); 
+        $('#naoContSpot').html(Math.ceil(((estatistica[0].pot - estatistica[0].con) / estatistica[0].pot) * 100).toString() + '%');
+
+        //visitados nao contratados
+        $('#visNaoContNum').html(estatistica[0].vis - estatistica[0].con);
+        $('#visNaoContSpot').html(Math.ceil(((estatistica[0].vis - estatistica[0].con) / estatistica[0].pot) * 100).toString() + '%');
+        $('#visNaoContSvis').html(Math.ceil(((estatistica[0].vis - estatistica[0].con) / estatistica[0].vis) * 100).toString() + '%');
+
+        //entrevistados nao contratados
+        $('#entNaoContNum').html(estatistica[0].ent - estatistica[0].con);
+        $('#entNaoContSpot').html(Math.ceil(((estatistica[0].ent - estatistica[0].con) / estatistica[0].pot) * 100).toString() + '%');
+        $('#entNaoContSvis').html(Math.ceil(((estatistica[0].ent - estatistica[0].con) / estatistica[0].vis) * 100).toString() + '%');
+        
+        //d2  contratados
+        $('#dContNum').html(estatistica[0].d2);
+        $('#dContSpot').html(Math.ceil((estatistica[0].d2 / estatistica[0].pot)  * 100).toString() + '%');
+        $('#dContSvis').html(Math.ceil((estatistica[0].d2 / estatistica[0].vis) * 100).toString() + '%');
+        $('#dContSent').html(Math.ceil((estatistica[0].d2 / estatistica[0].ent) * 100).toString() + '%');
+
+        //svg  contratados
+        $('#svgContNum').html(estatistica[0].svg);
+        $('#svgContSpot').html(Math.ceil((estatistica[0].svg / estatistica[0].pot) * 100).toString() + '%');
+        $('#svgContSvis').html(Math.ceil((estatistica[0].svg / estatistica[0].vis) * 100).toString() + '%');
+        $('#svgContSent').html(Math.ceil((estatistica[0].svg / estatistica[0].ent) * 100).toString() + '%');
+
+        //sve  contratados
+        $('#sveContNum').html(estatistica[0].sve);
+        $('#sveContSpot').html(Math.ceil((estatistica[0].sve / estatistica[0].pot) * 100).toString() + '%');
+        $('#sveContSvis').html(Math.ceil((estatistica[0].sve / estatistica[0].vis) * 100).toString() + '%');
+        $('#sveContSent').html(Math.ceil((estatistica[0].sve / estatistica[0].ent) * 100).toString() + '%');
+
+        //visitas realizadas
+        $('#visRealiNum').html(estatistica[0].visx);
+
+        //entrevistas realizadas
+        $('#entRealiNum').html(estatistica[0].entx);
+        $('#entRealiSvis').html(Math.ceil((estatistica[0].entx / estatistica[0].visx) * 100).toString() + '%');
+
+        //visitas improdutivas
+        $('#visImproNum').html(estatistica[0].visx - estatistica[0].entx );
+        $('#visImproSvis').html(Math.ceil(((estatistica[0].visx - estatistica[0].entx) / estatistica[0].visx) * 100).toString() + '%');
+    } 
 
     
 }
