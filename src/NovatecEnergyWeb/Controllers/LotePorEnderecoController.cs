@@ -414,7 +414,7 @@ namespace NovatecEnergyWeb.Controllers
             var filtrosTelaExportacao = GetFiltrosAgenda();
 
             var dataExporta = _context._11_LoteAtivoEnderecosExportacao
-                                .FromSql("exec [dbo].[11_LoteAtivoEnderecosExportacao] {0},{1},{2}", idLoteFiltro, filtrosTelaExportacao.Ano,
+                                .FromSql("exec [dbo].[LotePorEndereco_ExportaAgendaAdesao] {0},{1},{2}", idLoteFiltro, filtrosTelaExportacao.Ano,
                                 filtrosTelaExportacao.Mes).ToList();
 
             var lote = (from l in _context._11Lotes

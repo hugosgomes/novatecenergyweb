@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace NovatecEnergyWeb.Models.StoredProcedures
 {
-    public class _11_LoteAtivoEnderecosExportacao
+    public class LotePorEnderecoExportaAgendaAdesao
     {
         public Int64 Id { get; set; }
         public string Endereco { get; set; }
+        public string EnderecoB { get; set; }
         public DateTime Datah { get; set; }
         public int Entrevistas { get; set; }
         public int EntrevistasD2 { get; set; }

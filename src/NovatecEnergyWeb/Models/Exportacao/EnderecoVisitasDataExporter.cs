@@ -237,7 +237,7 @@ namespace NovatecEnergyWeb.Models.Exportacao
             return fileBytes;
         }
 
-        public byte[] ExportaAgendaAdesao(List<LotePorEndereco> data, List<_11_LoteAtivoEnderecosExportacao> data2, IEnumerable<dynamic> lote, FormFiltersAgendaVisitaEnderecosViewModel filtros)
+        public byte[] ExportaAgendaAdesao(List<LotePorEndereco> data, List<LotePorEnderecoExportaAgendaAdesao> data2, IEnumerable<dynamic> lote, FormFiltersAgendaVisitaEnderecosViewModel filtros)
         {
             var l = lote.ToList();
             var enumMeses = (FormFiltersAgendaVisitaEnderecosViewModel.meses) Convert.ToInt32(filtros.Mes);
