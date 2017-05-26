@@ -8,24 +8,43 @@
 }
 
 
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+
     <!--- row layout pagina-->
     <div class="row">
 
         <!--- Lado Conteudo-->
-        <div class="col-sm-4">
+        <div class="col-md-6">
 
 
             <div class="row">
 
-                <!--- coluna 1-->
-                <div class="col-sm-8 ">
+                <!---coluna 1--->
+                <div class="col-md-3">
+                    <table id="tableLote" class="table table-bordered table-hover tabelaModal">
+                        <thead>
+                            <tr style="background-color:#363636; color:#fff">
+                                <th class="text-left">LOTE</th>
+                                <th class="text-left">Z</th>
+                                <th class="text-left">D</th>
+                                <th class="text-left">AR</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoLotes" class="corpoTabela"></tbody>
+                    </table>
+                </div>
 
-                    <!--- tabela 1 up-->
+
+                <!--- coluna 2-->
+                <div class="col-md-8 ">
+  
+                    <!--- tabela 1-->
                     <table id="tableEstatistica" class="table ">
                         <thead>
                             <tr style="background-color:#363636; color:#fff">
                                 <th></th>
-                                <th >Num</th>
+                                <th>Num</th>
                                 <th>S/Pot</th>
                                 <th>S/Vis</th>
                                 <th>S/Ent</th>
@@ -136,7 +155,7 @@
                     <br />
 
 
-                    <!---tabela 1 down--->
+                    <!---tabela 2--->
                     <table class="table">
                         <thead>
                             <tr style="background-color:#363636; color:#fff">
@@ -171,68 +190,60 @@
                         </tbody>
                     </table>
 
-
-                </div>
-
-                <!---coluna 2--->
-                <div class="col-sm-3">
-                    <table id="tableLote" class="table table-bordered table-hover tabelaModal">
+                    <!--- tabela 3 -->
+                    <table id="tableLote" class="table table-responsive table-bordered table-striped tabelaModal">
                         <thead>
                             <tr style="background-color:#363636; color:#fff">
-                                <th class="text-left">LOTE</th>
-                                <th class="text-left">Z</th>
-                                <th class="text-left">D</th>
-                                <th class="text-left">AR</th>
+                                <th style="width: 10px;" class=" text-center">STATUS</th>
+                                <th class=" text-left">NUM</th>
+                                <th class=" text-left">S/POT</th>
+                                <th class=" text-left">S/VIS</th>
+                                <th class=" text-left">S/ENT</th>
                             </tr>
                         </thead>
-                        <tbody id="corpoLotes" class="corpoTabela"></tbody>
+                        <tbody id="corpoStatus" class="corpoTabela"></tbody>
                     </table>
+
+
                 </div>
 
-               
-
+                
             </div> <!---fim row lado conteudo--->
         </div> <!--fim lado conteudo-->
-
+        
+    
+    
         <!--lado graficos-->
-        <div class="col-sm-8">
+        <div class="col-md-6">
 
-        <div class="row">
+            <div class="row">
 
-            <!---coluna 1--->
-            <div class="col-sm-6 ">
-                <table id="tableLote" class="table table-responsive table-bordered table-striped tabelaModal">
-                    <thead>
-                        <tr style="background-color:#363636; color:#fff">
-                            <th style="width: 10px;" class=" text-center">STATUS</th>
-                            <th class=" text-left">NUM</th>
-                            <th class=" text-left">S/POT</th>
-                            <th class=" text-left">S/VIS</th>
-                            <th class=" text-left">S/ENT</th>
-                        </tr>
-                    </thead>
-                    <tbody id="corpoStatus" class="corpoTabela"></tbody>
-                </table>
-            </div>
-
-            <!---coluna 2--->
-            <div class="col-sm-6 ">
                
-                <h1> graficos </h1>
-            
-            </div>
+
+                <!---coluna 2--->
+                <div class="col-md-11  ">
+
+                    <div id="colunas"></div>
+                    <div id="chart_div"></div>
+                    <div id="barras"> </div>
+                    <div id="linhas"></div>
+                    
+                    
+
+                </div>
 
             </div>
 
         </div> <!---fim row lado graficos--->
 
-     
-        </div> <!--fim da row layout tela-->        
-        
 
-        @section Scripts{
-            <script type="text/javascript" src="~/js/loteEstatistica.js"></script>
-            <script type="text/javascript">
+    </div> <!--fim da row layout tela-->
+
+
+    @section Scripts{
+        <script type="text/javascript" src="~/js/loteEstatistica.js"></script>
+        <script type="text/javascript" src="~/js/loteEstatisticaGraficos.js"></script>
+        <script type="text/javascript">
 
     function exibeLotes() {
         $.getJSON("@Url.Action("BuscaLotes", "LoteEstatistica")", preencheTableLotes);
@@ -243,5 +254,6 @@
         data.idLote = lote;
         $.post("@Url.Action("BuscaEstatistica", "LoteEstatistica")", data, atualizaTabelas);
     }
-            </script>
-        }
+        </script>
+    }
+

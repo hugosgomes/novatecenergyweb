@@ -1,5 +1,8 @@
 ﻿window.onload = function () {
     exibeLotes();
+
+    graficos();
+  
 };
 
 
@@ -47,6 +50,7 @@ function adicionaEventoClickRow() {
 }
 
 function atualizaTabelas(estatistica) {
+
     preencheTableStatus(estatistica);
     preencheTableEstatistica(estatistica)
 }
@@ -87,7 +91,7 @@ function preencheTableEstatistica(estatistica) {
 
         // potencial
         $('#potNum').html(estatistica[0].pot);
-
+        
         // visitados
         $('#visNum').html(estatistica[0].vis);
         $('#visSpot').html(Math.ceil((estatistica[0].vis / estatistica[0].pot) * 100).toString() + '%');
