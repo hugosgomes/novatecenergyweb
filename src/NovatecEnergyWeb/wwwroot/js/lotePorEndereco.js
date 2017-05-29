@@ -22,6 +22,7 @@ function getFormDataAsJson() {
     }
 }
 
+//não usada mais
 function clicado() {
     var id = '';
     if ($('#todos').data('clicked')) {

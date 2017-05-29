@@ -405,20 +405,8 @@
         $('#botaoExporta').removeAttr('data-toggle');
 
         var parametro = {};
-        parametro.Botao = clicado();
-        parametro.LimpaFiltro = true;
-
-
-        if ($("#todosli").hasClass('disabled')) {
-            id = 'todos';
-        } else if ($("#ativosli").hasClass('disabled')) {
-            id = 'ativos';
-        }
-
-        if ((parametro.Botao == 'todos') || (parametro.Botao == 'ativos')) {
-            $.post("@Url.Action("LimpaFiltros", "LotePorEndereco")", parametro, bindSelects);
-
-        }
+        
+        $.post("@Url.Action("LimpaFiltros", "LotePorEndereco")", parametro, bindSelects);
 
     }
 
