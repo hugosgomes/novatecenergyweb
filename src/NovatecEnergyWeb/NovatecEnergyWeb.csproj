@@ -12,6 +12,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot/excel\~%24formatoNovatec.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\excel\formatoNovatec.xlsx" />
     <Content Include="wwwroot\js\lotePorEndereco.js" />
   </ItemGroup>
 
