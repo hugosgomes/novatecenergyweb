@@ -447,6 +447,8 @@ namespace NovatecEnergyWeb.Controllers
             var lote = (from l in _context._11Lotes
                         where l.Id == Convert.ToInt32(filtros.IdLote)
                         join ti in _context._00TabelasItems on l.Status equals ti.Id
+                        join ar in _context._00Areas on l.Area equals ar.Id
+                        join dl in _context._00Delegacao on ar.Delegacao equals dl.Id
                         select new
                         {
                             Id = l.Id,
@@ -456,7 +458,8 @@ namespace NovatecEnergyWeb.Controllers
                             Item = ti.Item,
                             Potencial = l.Potencial,
                             DataEntrega = l.DataEntrega,
-                            Meta = l.Meta
+                            Meta = l.Meta,
+                            Zona = dl.Zona
                         });
 
             byte[] fileBytes = _exportaExcelRepository.ExportaPadraoGasNatural(data, lote);

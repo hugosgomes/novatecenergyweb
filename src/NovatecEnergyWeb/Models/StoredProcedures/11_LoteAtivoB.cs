@@ -10,8 +10,6 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
     {
         public Int64 Id { get; set; }
         public string Lote { get; set; }
-
-        public int? Casa { get; set; }
         public string Ar { get; set; }
         public string Localidade { get; set; }
         public string Bairro { get; set; }
@@ -38,20 +36,8 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         [DisplayFormat(ConvertEmptyStringToNull = false, NullDisplayText = "")]
         public string Parentesco { get; set; }
 
-        public int? CasaStatus { get; set; }
-
         [DisplayFormat(ConvertEmptyStringToNull = false, NullDisplayText = "")]
         public string CasaStatus2 { get; set; }
-
-        public int? Zid { get; set; }
-
-        public int? Did { get; set; }
-
-        public int? Aid { get; set; }
-
-        public int? CondId { get; set; }
-
-        public int? PtId { get; set; }
 
         public int? IdLote { get; set; }
     }

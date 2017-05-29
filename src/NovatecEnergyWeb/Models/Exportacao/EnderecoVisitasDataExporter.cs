@@ -158,7 +158,7 @@ namespace NovatecEnergyWeb.Models.Exportacao
             
             FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Relatório_Lote_" + l[0].LoteNum + ".xlsm";
 
-            var zonaid = data.FirstOrDefault().Zid;
+            var zonaid = l[0].Zona;
             if (zonaid == 2)
                 File.Copy(Path.Combine(WebRootFolder, @"formatoGasNaturalFluminense.xlsm"), Path.Combine(WebRootFolder, FileName));
             else
