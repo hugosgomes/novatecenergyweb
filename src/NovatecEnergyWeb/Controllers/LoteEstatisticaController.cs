@@ -85,5 +85,20 @@ namespace NovatecEnergyWeb.Controllers
             }
             return Json(lotesTableSelect);
         }
+
+        public IActionResult getZonas() {
+
+            var zonas = _context._00Zona.ToList();
+
+            return Json(zonas); 
+        }
+
+        public IActionResult getDelegacao()
+        {
+
+            var delegacao = _context._00Delegacao.ToList();
+
+            return Json(delegacao);
+        }
     }
 }
