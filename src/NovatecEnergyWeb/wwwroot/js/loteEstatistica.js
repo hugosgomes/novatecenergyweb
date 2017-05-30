@@ -52,7 +52,8 @@ function adicionaEventoClickRow() {
 function atualizaTabelas(estatistica) {
 
     preencheTableStatus(estatistica);
-    preencheTableEstatistica(estatistica)
+    preencheTableEstatistica(estatistica);
+    getZona(estatistica);
 }
 
 function preencheTableStatus(estatistica) {
@@ -168,3 +169,91 @@ function preencheTableEstatistica(estatistica) {
     
 }
 
+$(document).ready(function () {
+
+    getZona();
+    getDelegacao();
+
+});
+
+
+//****************************************
+//  pegar zonas para filtro
+//***************************************
+(function ($) {
+
+    getZona = function () {
+
+        // Ajax 
+        $.get("/LoteEstatistica/getZonas/",
+
+          
+            function (zonas) {
+
+               /* for (i = 0; i < zonas.length; i++){
+
+                    alert(zonas[i].id);
+                    
+                }*/
+
+                // listando todos os objetos no select zona
+                for (i = 0; i < zonas.length; i++) {
+
+                    var cols = "";
+
+                    cols += '<option value="' + zonas[i].id + '">' + zonas[i].zona + '</option>';
+
+                    $("#zonas").append(cols);
+
+                }
+
+            }
+
+        ); 'json' // fim do metodo ajax post
+
+
+    }
+
+    })(jQuery);
+
+
+
+//****************************************
+//  pegar delegacoes para filtro
+//***************************************
+(function ($) {
+
+   
+
+    getDelegacao = function () {
+
+        // Ajax 
+        $.get("/LoteEstatistica/getDelegacao/",
+
+
+            function (delegacao) {
+
+               /* for (i = 0; i < delegacao.length; i++){
+                    alert(delegacao[i].delegacao);                    
+                 }*/
+
+
+                // listando todos os objetos no select zona
+                for (i = 0; i < delegacao.length; i++) {
+
+                    var cols = "";
+
+                    cols += '<option value="' + delegacao[i].id + '">' + delegacao[i].delegacao + '</option>';
+
+                    $("#delegacao").append(cols);
+
+                }
+
+            }
+
+        ); 'json' // fim do metodo ajax post
+
+
+    }
+
+})(jQuery);
