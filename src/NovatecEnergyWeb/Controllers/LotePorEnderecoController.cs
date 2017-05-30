@@ -238,7 +238,7 @@ namespace NovatecEnergyWeb.Controllers
             return ffvm;
         }
 
-        private void SetFiltrosSessao(FormFiltersVisitaEnderecosViewModels data, string Botao)
+        private void SetFiltrosSessao(FormFiltersVisitaEnderecosViewModels data)
         {
             if (data != null)
             {
@@ -278,9 +278,9 @@ namespace NovatecEnergyWeb.Controllers
             return e.ToList();
         }
 
-        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersVisitaEnderecosViewModels filtros, bool eIndex, string Botao, int PaginaClicada)
+        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersVisitaEnderecosViewModels filtros, bool eIndex, int PaginaClicada)
         {
-            SetFiltrosSessao(filtros, Botao);
+            SetFiltrosSessao(filtros);
 
             //lista vinda da SP
             var evList = GetEnderecosAtivos(filtros);
@@ -365,9 +365,9 @@ namespace NovatecEnergyWeb.Controllers
             }
         }
 
-        public IActionResult LimpaFiltros(string Botao)
+        public IActionResult LimpaFiltros()
         {
-            return GetListLoteAtivoView(null, false, Botao, 0);
+            return GetListLoteAtivoView(null, false,  0);
         }
 
         public IActionResult LimpaSelects()

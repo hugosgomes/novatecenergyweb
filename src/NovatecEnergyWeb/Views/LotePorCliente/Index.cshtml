@@ -484,8 +484,6 @@
         $.post("@Url.Action("LimpaSelects","LotePorCliente")", parametro, atualizaSelects);
     }
 
-
-
     function ExportaPadraoNovatec() {
         var data = getFormDataAsJson();
         //   $.get('/LotePorCliente/ExportaExcel', data, DownloadExcel); //loteAtivo=' + JSON.stringify(data)
@@ -549,10 +547,6 @@
         p.area = $("#areas").val();
         $.post("@Url.Action("StatusCliCascade", "LotePorCliente")", p, atualizaDropsStatus);
     }
-
-
-
-    ///--------
 
     function selecionaInfoCliente() {
         var zs = '';
