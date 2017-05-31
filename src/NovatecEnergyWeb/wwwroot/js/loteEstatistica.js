@@ -293,3 +293,25 @@ function preencheSelects() {
     getArea(); 
 }
 
+//
+//pega o valor selecionado no dropdownlist
+//
+function getFiltros() {
+    return {
+        ZId: $('#zonas').val(),
+        DId: $('#delegacao').val(),
+        AId: $('#area').val()
+    }
+}
+//
+//filtro de lotes por zona, delegação ou área
+//
+function filtraLotes() {
+    var url = $('#urlBuscaLote').val();
+    var filtros = getFiltros();
+
+    $.post(url,
+        filtros, preencheTableLotes);
+
+}
+

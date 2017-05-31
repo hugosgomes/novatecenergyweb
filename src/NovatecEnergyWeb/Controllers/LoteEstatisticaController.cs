@@ -8,6 +8,7 @@ using NovatecEnergyWeb.Models.Repository;
 using System.Dynamic;
 using Microsoft.AspNetCore.Http;
 using NovatecEnergyWeb.Models;
+using NovatecEnergyWeb.Models.AdesaoViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -43,6 +44,7 @@ namespace NovatecEnergyWeb.Controllers
             return Json(_loteEstatisticaRepository.GetLoteEstatisticaByLote(idLote));
         }
 
+       [HttpGet]
         public IActionResult BuscaLotes()
         {
             int? id = HttpContext.Session.GetInt32("UserId");
@@ -52,8 +54,6 @@ namespace NovatecEnergyWeb.Controllers
             string tipo = HttpContext.Session.GetString("UserTipo");
 
             dynamic lotesTableSelect = new ExpandoObject();
-            
-
             
             if(tipo == "func")
             {
@@ -87,6 +87,39 @@ namespace NovatecEnergyWeb.Controllers
                 }
             }
             return Json(lotesTableSelect);
+        }
+
+        [HttpPost]
+        public IActionResult BuscaLotes([FromForm]LoteEstatisticaViewModel filtros)
+        {
+            var zona = filtros.ZId;
+            var delegacao = filtros.DId;
+            var area = filtros.AId;
+            dynamic lotesTableSelect = new ExpandoObject();
+
+            if (area != null)
+            {
+                var areasId = new List<int>();
+                areasId.Add(Convert.ToInt32(area));
+                lotesTableSelect = _loteRepository.GetLoteJoinZonaDelegacaoArea(areasId);
+            }
+            else
+            {
+                if(delegacao != null)
+                {
+                    var areas = _areaRepository.GetAreasByDelegacao(new List<int>(), Convert.ToInt32(delegacao));
+                    lotesTableSelect = _loteRepository.GetLoteJoinZonaDelegacaoArea(_areaRepository.GetAreasIds(areas));
+                }
+                else
+                {
+                    var delegacoes = _delegacaoRepository.GetDelegacaoIdsByZona(Convert.ToInt32(zona));
+                    var areas = _areaRepository.GetAreasByDelegacao(delegacoes, 0);
+                    lotesTableSelect = _loteRepository.GetLoteJoinZonaDelegacaoArea(_areaRepository.GetAreasIds(areas));
+                }
+
+            }
+            return Json(lotesTableSelect);
+
         }
 
         public IActionResult getZonas()
