@@ -6,7 +6,8 @@
     Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
     ViewData["Title"] = "Estatísticas de Lote";
 }
-@Html.Hidden("urlGetZona",Url.Action("getZonas", "LoteEstatistica")))
+
+@Html.Hidden("urlGetZona",Url.Action("getZonas", "LoteEstatistica"))
 @Html.Hidden("urlGetDelegacao", Url.Action("getDelegacao", "LoteEstatistica"))
 @Html.Hidden("urlGetArea", Url.Action("getArea", "LoteEstatistica"))
 

@@ -1,9 +1,6 @@
 ﻿window.onload = function () {
     exibeLotes();
-
-    getZona();
-    getDelegacao();
-    getArea(); 
+    preencheSelects();
     graficos();
   
 };
@@ -188,7 +185,7 @@ function preencheTableEstatistica(estatistica) {
     getZona = function () {
 
         // url está em /LoteEstatistica/Index.cshtml
-        var url = $("#urlGetArea").val();
+        var url = $("#urlGetZona").val();
 
         // Ajax 
        
@@ -202,7 +199,13 @@ function preencheTableEstatistica(estatistica) {
                    $("#zonas").append(cols);
                 }
 
-                $("#zonas").prop("selectedIndex", -1); // limpa a seleção após carregar             
+                    
+                 if (document.getElementById("zonas").length == 1) {
+                     $("#zonas").prop("selectedIndex", 0);
+                 } else {
+                     $("#zonas").prop("selectedIndex", -1); // limpa a seleção após carregar
+                 }
+              
             }
 
         ); 'json' // fim do metodo ajax post
@@ -222,8 +225,8 @@ function preencheTableEstatistica(estatistica) {
    
 
     getDelegacao = function () {
-        // url está em /LoteEstatistica/Index.cshtml
-        var url = $("#urlGetDelegacao").val();
+        
+        var url = $("#urlGetDelegacao").val(); // urlGetDelegacao está em /LoteEstatistica/Index.cshtml
 
         // Ajax 
      //   $.get(url+"/LoteEstatistica/getDelegacao/",
@@ -231,10 +234,9 @@ function preencheTableEstatistica(estatistica) {
 
             function (delegacao) {
                
-                
                 // listando todos os objetos no select zona
                 for (i = 0; i < delegacao.length; i++) {
-
+                    
                     var cols = "";
 
                     cols += '<option value="' + delegacao[i].id + '">' + delegacao[i].delegacao + '</option>';
@@ -242,8 +244,12 @@ function preencheTableEstatistica(estatistica) {
                     $("#delegacao").append(cols);
 
                 }
-                $("#delegacao").prop("selectedIndex", -1); // limpa a seleção após carregar
-
+                if (document.getElementById("delegacao").length == 1) {
+                    $("#delegacao").prop("selectedIndex", 0);
+                } else {
+                    $("#delegacao").prop("selectedIndex", -1); // limpa a seleção após carregar
+                }
+               
             }
 
         ); 'json' // fim do metodo ajax post
@@ -254,7 +260,7 @@ function preencheTableEstatistica(estatistica) {
 })(jQuery);
 
 function getArea() {
-    var url = $("#urlGetArea").val();
+    var url = $("#urlGetArea").val(); // urlGetArea está em /LoteEstatistica/Index.cshtml
     //"/LoteEstatistica/getArea/"
 
     $.getJSON(url,
@@ -262,13 +268,25 @@ function getArea() {
         function (area) {
             for (i = 0; i < area.length; i++) {
                 var cols = "";
-
+                
                 cols += '<option value="' + area[i].id + '">' + area[i].area + '</option>';
                 $("#area").append(cols);
             }
-            $("#area").prop("selectedIndex", -1); // limpa a seleção após carregar
+
+            if (document.getElementById("area").length == 1) {
+                $("#area").prop("selectedIndex", 0);
+            } else {         
+                $("#area").prop("selectedIndex", -1); // limpa a seleção após carregar
+            }
+            
 
         }); 
 
+}
+
+function preencheSelects() {
+    getZona();
+    getDelegacao();
+    getArea(); 
 }
 
