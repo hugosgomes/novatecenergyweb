@@ -202,6 +202,7 @@ function preencheTableEstatistica(estatistica) {
                     
                  if (document.getElementById("zonas").length == 1) {
                      $("#zonas").prop("selectedIndex", 0);
+                     $("#zonas").attr('disabled', 'disabled');
                  } else {
                      $("#zonas").prop("selectedIndex", -1); // limpa a seleção após carregar
                  }
@@ -246,6 +247,7 @@ function preencheTableEstatistica(estatistica) {
                 }
                 if (document.getElementById("delegacao").length == 1) {
                     $("#delegacao").prop("selectedIndex", 0);
+                    $("#delegacao").attr('disabled', 'disabled'); // desativa o seletor
                 } else {
                     $("#delegacao").prop("selectedIndex", -1); // limpa a seleção após carregar
                 }
@@ -275,6 +277,7 @@ function getArea() {
 
             if (document.getElementById("area").length == 1) {
                 $("#area").prop("selectedIndex", 0);
+                $("#area").attr('disabled', 'disabled'); // desativa o seletor
             } else {         
                 $("#area").prop("selectedIndex", -1); // limpa a seleção após carregar
             }
