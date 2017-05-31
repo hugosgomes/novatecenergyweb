@@ -1,6 +1,9 @@
 ﻿window.onload = function () {
     exibeLotes();
 
+    getZona();
+    getDelegacao();
+    getArea(); 
     graficos();
   
 };
@@ -53,7 +56,7 @@ function atualizaTabelas(estatistica) {
 
     preencheTableStatus(estatistica);
     preencheTableEstatistica(estatistica);
-    getZona(estatistica);
+    
 }
 
 function preencheTableStatus(estatistica) {
@@ -169,12 +172,12 @@ function preencheTableEstatistica(estatistica) {
     
 }
 
-$(document).ready(function () {
+/*$(document).ready(function () {
 
     getZona();
     getDelegacao();
 
-});
+}); */
 
 
 //****************************************
@@ -184,34 +187,27 @@ $(document).ready(function () {
 
     getZona = function () {
 
+        // url está em /LoteEstatistica/Index.cshtml
+        var url = $("#urlGetArea").val();
+
         // Ajax 
-        $.get("/LoteEstatistica/getZonas/",
-
-          
+       
+        $.get(url,
+            
             function (zonas) {
-
-               /* for (i = 0; i < zonas.length; i++){
-
-                    alert(zonas[i].id);
-                    
-                }*/
-
                 // listando todos os objetos no select zona
-                for (i = 0; i < zonas.length; i++) {
-
-                    var cols = "";
-
-                    cols += '<option value="' + zonas[i].id + '">' + zonas[i].zona + '</option>';
-
-                    $("#zonas").append(cols);
-
+                 for (i = 0; i < zonas.length; i++) {
+                    var cols = "";                 
+                    cols = '<option value="' + zonas[i].id + '">' + zonas[i].zona + '</option>';
+                   $("#zonas").append(cols);
                 }
 
+                $("#zonas").prop("selectedIndex", -1); // limpa a seleção após carregar             
             }
 
         ); 'json' // fim do metodo ajax post
 
-
+ 
     }
 
     })(jQuery);
@@ -226,18 +222,16 @@ $(document).ready(function () {
    
 
     getDelegacao = function () {
+        // url está em /LoteEstatistica/Index.cshtml
+        var url = $("#urlGetDelegacao").val();
 
         // Ajax 
-        $.get("/LoteEstatistica/getDelegacao/",
-
+     //   $.get(url+"/LoteEstatistica/getDelegacao/",
+        $.get(url,
 
             function (delegacao) {
-
-               /* for (i = 0; i < delegacao.length; i++){
-                    alert(delegacao[i].delegacao);                    
-                 }*/
-
-
+               
+                
                 // listando todos os objetos no select zona
                 for (i = 0; i < delegacao.length; i++) {
 
@@ -248,6 +242,7 @@ $(document).ready(function () {
                     $("#delegacao").append(cols);
 
                 }
+                $("#delegacao").prop("selectedIndex", -1); // limpa a seleção após carregar
 
             }
 
@@ -257,3 +252,23 @@ $(document).ready(function () {
     }
 
 })(jQuery);
+
+function getArea() {
+    var url = $("#urlGetArea").val();
+    //"/LoteEstatistica/getArea/"
+
+    $.getJSON(url,
+
+        function (area) {
+            for (i = 0; i < area.length; i++) {
+                var cols = "";
+
+                cols += '<option value="' + area[i].id + '">' + area[i].area + '</option>';
+                $("#area").append(cols);
+            }
+            $("#area").prop("selectedIndex", -1); // limpa a seleção após carregar
+
+        }); 
+
+}
+

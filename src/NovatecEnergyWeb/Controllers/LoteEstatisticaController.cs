@@ -7,6 +7,7 @@ using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Models.Repository;
 using System.Dynamic;
 using Microsoft.AspNetCore.Http;
+using NovatecEnergyWeb.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -52,12 +53,14 @@ namespace NovatecEnergyWeb.Controllers
 
             dynamic lotesTableSelect = new ExpandoObject();
             
+
+            
             if(tipo == "func")
             {
                 lotesTableSelect = _loteRepository.GetLoteJoinZonaDelegacaoArea();
             }
             else
-            {
+            { // regras para limitar a exibição de lotes de acordo com a Zona, Delegação e Área do cliente
                 if (qtdArea !=null && qtdArea > 0)
                 {
                     var areasCliente = _areaRepository.GetAreasByClienteId((int)id);
@@ -86,19 +89,83 @@ namespace NovatecEnergyWeb.Controllers
             return Json(lotesTableSelect);
         }
 
-        public IActionResult getZonas() {
+        public IActionResult getZonas()
+        {
+            var id = HttpContext.Session.GetInt32("UserId");
+            var zonaCliente = HttpContext.Session.GetInt32("Zona");
 
-            var zonas = _context._00Zona.ToList();
+            var zonas = new List<_00Zona>();
 
-            return Json(zonas); 
+            if (zonaCliente != null)
+            {
+                zonas = _context._00Zona.Where(z => z.Id == zonaCliente).ToList();
+            }
+            else
+            {
+                zonas = _context._00Zona.Where(z => z.Id !=3).ToList();
+            }
+
+            return Json(zonas);
         }
 
         public IActionResult getDelegacao()
         {
+            var zona = HttpContext.Session.GetInt32("Zona");
+            var delegacaoId = HttpContext.Session.GetInt32("Delegação");
 
-            var delegacao = _context._00Delegacao.ToList();
-
+            var delegacao = new List<_00Delegação>();
+            if (zona != null)
+            {
+                if (delegacaoId != null)
+                    delegacao = _context._00Delegacao.Where(d => d.Id == Convert.ToInt32(delegacaoId)).ToList();
+                else
+                    delegacao = _context._00Delegacao.Where(d => d.Zona == Convert.ToInt32(zona)).ToList();
+            }
+            else
+            {
+                delegacao = _context._00Delegacao.ToList();
+            }
+                
             return Json(delegacao);
+        }
+
+        public IActionResult getArea()
+        {
+            var zona = HttpContext.Session.GetInt32("Zona");
+            var delegacaoId = HttpContext.Session.GetInt32("Delegação");
+            var id = HttpContext.Session.GetInt32("UserId");
+            var tipo = HttpContext.Session.GetString("UserTipo");
+            var qtdArea = HttpContext.Session.GetInt32("QuantidadeArea");
+            var area = new List<_00Areas>();
+
+
+            if (tipo == "cli")
+            {
+                if (qtdArea != null && qtdArea > 0)
+                {
+                    area = _areaRepository.GetAreasByClienteId((int)id);
+                }
+                else
+                {
+                    if (delegacaoId != null)
+                    {
+                        area = _areaRepository.GetAreasByDelegacao(new List<int>(), (int)delegacaoId);
+                    }
+                    else
+                    {
+                        if (zona != null)
+                        {
+                            var delegacoes = _delegacaoRepository.GetDelegacaoIdsByZona((int)zona);
+                            area = _areaRepository.GetAreasByDelegacao(delegacoes, 0);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                area = _context._00Areas.ToList();
+            }
+            return Json(area);
         }
     }
 }

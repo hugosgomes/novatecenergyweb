@@ -6,7 +6,9 @@
     Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
     ViewData["Title"] = "Estatísticas de Lote";
 }
-
+@Html.Hidden("urlGetZona",Url.Action("getZonas", "LoteEstatistica")))
+@Html.Hidden("urlGetDelegacao", Url.Action("getDelegacao", "LoteEstatistica"))
+@Html.Hidden("urlGetArea", Url.Action("getArea", "LoteEstatistica"))
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
@@ -33,7 +35,7 @@
                        
                         <select id="zonas" onchange=""  class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
                          
-                            <option value=""></option>
+                           <!--  <option value=""></option> -->
                             
                         
                         </select>
@@ -47,13 +49,10 @@
                         <label class="control-label labelsFormNav">Delegação</label>
 
                         <div class="controls">
-
                             <select id="delegacao" onchange="" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
 
-                                <option value=""></option>
 
                             </select>
-
                         </div>
 
                     </div>
@@ -66,7 +65,7 @@
 
                             <select id="area" onchange="" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;">
 
-                                <option value=""></option>
+         
 
                             </select>
 
