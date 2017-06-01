@@ -36,7 +36,7 @@ namespace NovatecEnergyWeb
             optionsBuilder.UseSqlServer(Configuration.GetConnectionString("Production"));
             AppSettings.contexto = new BDNVTContext(optionsBuilder.Options);
 
-            AppSettings.ExcelExportUrl = Configuration.GetValue<string>("ExcelExportUrl:Dev");
+            AppSettings.ExcelExportUrl = Configuration.GetValue<string>("ExcelExportUrl:Production");
 
         }
 

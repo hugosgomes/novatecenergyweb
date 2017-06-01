@@ -267,7 +267,7 @@ namespace NovatecEnergyWeb.Controllers
                      filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
                      filtros.Logradouro, filtros.Numero1, filtros.Numero2); */
 
-            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] {0}",  filtros.IdLote);
+            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[LotePorCliente_ExportacaoGasNatural] {0}",  filtros.IdLote);
 
 
             return lb.ToList();
