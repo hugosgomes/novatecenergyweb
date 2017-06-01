@@ -315,3 +315,69 @@ function filtraLotes() {
 
 }
 
+//
+//função de onchange do dropdown de zona
+//
+function postZona() {
+    $('#delegacao').empty();
+    $('#area').empty();
+
+    var url = $("#urlZonaCascade").val();
+    var data = {};
+    data.zona = $('#zonas').val();
+
+    $.post(url, data, preencheDelegacaoArea);
+}
+
+
+//
+// função callback que roda após o onchange do dropdown de zona, preenche os drops de delegacao e area
+//
+function preencheDelegacaoArea(retorno) {
+    $('#delegacao').empty();
+    $('#area').empty();
+
+    $.each(retorno.delegacao, function () {
+        $("#delegacao").append($("<option />").val(this.id).text(this.delegacao));
+    });
+    $.each(retorno.area, function () {
+        $("#area").append($("<option />").val(this.id).text(this.area));
+    });
+    
+    $("#area").prop("selectedIndex", -1); // limpa a seleção após carregar
+    $("#delegacao").prop("selectedIndex", -1); // limpa a seleção após carregar
+
+}
+
+
+function postDelegacao() {
+    $('#area').empty();
+
+
+    var url = $("#urlDelegacaoCascade").val();
+    var data = {};
+    data.delegacao = $('#delegacao').val();
+
+    $.post(url, data, preencheArea);
+}
+
+
+function preencheArea(retorno) {
+    $('#area').empty();
+
+    $.each(retorno.area, function () {
+        $("#area").append($("<option />").val(this.id).text(this.area));
+    });
+
+
+    $("#area").prop("selectedIndex", -1); // limpa a seleção após carregar
+
+}
+
+
+
+
+
+
+
+
