@@ -7,72 +7,119 @@
     google.load("visualization", "1", { packages: ["corechart"] });
 
    
-    function graficos() {
+function graficos(estatistica) {
 
-        /*---------grafico barras--------------*/
-        //variavel com armazenamos os dados, um array de array's
-        //no qual a primeira posição são os nomes das colunas
-        var data = google.visualization.arrayToDataTable([
-            ['Potencial', 'valor'],
-            ['Contratados', 21],
-            ['Não contratados', 25],
+    /*---------grafico colunas--------------*/
+    //montando o array com os dados
 
+    var dados = new Array(
 
-        ]);
-        //opções para exibição do gráfico
-        var options = {
-            title: 'Potencial',//titulo do gráfico
-            is3D: false, // false para 2d e true para 3d o padrão é false
+        ["Status", "Potenciais"]
+       
 
-        };
-        //cria novo objeto PeiChart que recebe
-        //como parâmetro uma div onde o gráfico será desenhado
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        //desenha passando os dados e as opções
-        chart.draw(data, options);
+    );
 
+    for (var i = 0; i < estatistica.length; i++) {
 
-        /*---------grafico barras--------------*/
-        //montando o array com os dados
-        var data = google.visualization.arrayToDataTable([
-            ['Ano', 'Vendas', 'Despesas'],
-            ['2004', 1000, 400],
-            ['2005', 1170, 460],
-            ['2006', 660, 1120],
-            ['2007', 1030,  540]
-        ]);
+        var v1 = estatistica[i].umt;
+        var v2 = Math.floor(estatistica[i].mtpot * 100);
 
-        /*-----------------------gráfico barras---------------------------------------*/
-        //opçoes para o gráfico barras
-        var options = {
-            title: 'Performance',
-            vAxis: {title: 'Anos', titleTextStyle: {color: 'red' } }//legenda vertical
-        };
-        //instanciando e desenhando o gráfico barras
-        var barras = new google.visualization.BarChart(document.getElementById('barras'));
-        barras.draw(data, options);
-
+        dados.push([v1,v2]);
+      
         
-         /*-----------------------gráfico linhas---------------------------------------*/
-        //opções para o gráfico linhas
-        var options1 = {
-            title: 'Performance',
-            hAxis: {title: 'Anos', titleTextStyle: {color: 'red' } }//legenda na horizontal
-        };
-        //instanciando e desenhando o gráfico linhas
-        var linhas = new google.visualization.LineChart(document.getElementById('linhas'));
-        linhas.draw(data, options1);
+    }
+
+   /* for (var i = 0; i < dados.length; i++) {
+
+        alert(dados[i]);
+    }*/
 
 
-        /*-----------------------gráfico colunas---------------------------------------*/
-        //opções para o gráfico linhas
+        var data = google.visualization.arrayToDataTable(dados);
+    
+        //opções para o gráfico colunas
         var options1 = {
-            title: 'Colunas',
-            hAxis: { title: 'Anos', titleTextStyle: { color: 'red' } }//legenda na horizontal
+            title: 'Resultados sobre as unidades visitadas', 'height': 300,
+            //hAxis: { title: 'Resultados sobre as unidades visitadas', titleTextStyle: { color: 'red' } }//legenda na horizontal
         };
+
         //instanciando e desenhando o gráfico
         var coluna = new google.visualization.ColumnChart(document.getElementById('colunas'));
         coluna.draw(data, options1);
+
+        
+        /*---------grafico pizza visitadas--------------*/
+
+        //montando o array com os dados
+        var dados2 = new Array(
+
+            ["Status", "Potenciais"]
+
+
+        );
+
+        for (var i = 0; i < estatistica.length; i++) {
+
+            var v1 = estatistica[i].umt;
+            var v2 = Math.floor(estatistica[i].mtvis * 100);
+
+            dados2.push([v1, v2]);
+
+
+        }
+
+        var data2 = google.visualization.arrayToDataTable(dados2);
+
+        //opções para exibição do gráfico
+        var options = {
+            title: 'Resultados sobre as unidades visitadas',//titulo do gráfico
+            is3D: false, // false para 2d e true para 3d o padrão é false
+
+        };
+
+
+        //instanciando e desenhando o gráfico
+        var chart = new google.visualization.PieChart(document.getElementById('visitadas'));
+        chart.draw(data2, options);
+
+
+
+
+        /*---------grafico pizza entrevistados--------------*/
+
+        //montando o array com os dados
+        var dados3 = new Array(
+
+            ["Status", "Potenciais"]
+
+
+        );
+
+        for (var i = 0; i < estatistica.length; i++) {
+
+            var v1 = estatistica[i].umt;
+            var v2 = Math.floor(estatistica[i].mtent * 100);
+
+            dados3.push([v1, v2]);
+
+
+        }
+
+        var data3 = google.visualization.arrayToDataTable(dados3);
+
+        //opções para exibição do gráfico
+        var options = {
+            title: 'Resultados sobre as unidades visitadas',//titulo do gráfico
+            is3D: false, // false para 2d e true para 3d o padrão é false
+
+        };
+
+
+        //instanciando e desenhando o gráfico
+        var chart = new google.visualization.PieChart(document.getElementById('entrevistados'));
+        chart.draw(data3, options);
+
+
 
     }
 

@@ -53,6 +53,7 @@ function atualizaTabelas(estatistica) {
 
     preencheTableStatus(estatistica);
     preencheTableEstatistica(estatistica);
+    graficos(estatistica);
     
 }
 
