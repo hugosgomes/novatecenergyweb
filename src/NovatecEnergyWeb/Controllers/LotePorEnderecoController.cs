@@ -355,10 +355,10 @@ namespace NovatecEnergyWeb.Controllers
                 var pagina = 0;
                 if (PaginaClicada != 0)
                 {
-                    pagina = (PaginaClicada - 1) * 45;
+                    pagina = (PaginaClicada - 1) * 20;
                 }
-                jsonModel.EV = evList.Skip(pagina).Take(45);
-                jsonModel.QuantasPaginasExistem = (evList.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(evList.Count()), 45)) : 0;
+                jsonModel.EV = evList.Skip(pagina).Take(20);
+                jsonModel.QuantasPaginasExistem = (evList.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(evList.Count()), 20)) : 0;
 
                 return Json(jsonModel);
  

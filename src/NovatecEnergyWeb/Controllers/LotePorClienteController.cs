@@ -267,7 +267,7 @@ namespace NovatecEnergyWeb.Controllers
                      filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
                      filtros.Logradouro, filtros.Numero1, filtros.Numero2); */
 
-            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[LotePorCliente_ExportacaoGasNatural] {0}",  filtros.IdLote);
+            lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[LotesPorCliente_ExportacaoGasNatural] {0}",  filtros.IdLote);
 
 
             return lb.ToList();
@@ -349,10 +349,10 @@ namespace NovatecEnergyWeb.Controllers
                 var pagina = 0;
                 if (PaginaClicada != 0)
                 {
-                     pagina = (PaginaClicada - 1) * 45;
+                     pagina = (PaginaClicada - 1) * 20;
                 }
-                jsonModel.EV = evList.Skip(pagina).Take(45);
-                jsonModel.QuantasPaginasExistem = (evList.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(evList.Count()),45)) : 0;
+                jsonModel.EV = evList.Skip(pagina).Take(20);
+                jsonModel.QuantasPaginasExistem = (evList.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(evList.Count()),20)) : 0;
 
                 return Json(jsonModel);
             }
