@@ -39,7 +39,7 @@ function graficos(estatistica) {
     
         //opções para o gráfico colunas
         var options1 = {
-            title: 'Resultados sobre as unidades visitadas', 'height': 300,
+            title: 'Resultados sobre as unidades potenciais', 'height': 300,
             //hAxis: { title: 'Resultados sobre as unidades visitadas', titleTextStyle: { color: 'red' } }//legenda na horizontal
         };
 
@@ -109,7 +109,7 @@ function graficos(estatistica) {
 
         //opções para exibição do gráfico
         var options = {
-            title: 'Resultados sobre as unidades visitadas',//titulo do gráfico
+            title: 'Resultados sobre as unidades entrevistadas',//titulo do gráfico
             is3D: false, // false para 2d e true para 3d o padrão é false
 
         };
