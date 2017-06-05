@@ -257,7 +257,7 @@ function tabelaEstatisticas(retorno) {
 }
 
 function atualizaSelects(retorno) {
-
+   
     preencheLotes(retorno);
     $('#motivosRejeicao').empty();
     $('#zonas').empty();
@@ -359,8 +359,9 @@ function preencheArea(retorno) {
 
 function preencheLotes(retorno) {
     $("#lotes").empty();
-
-    $.each(retorno.Lote, function () {
+    
+    $.each(retorno.Lotes, function () {
+    
         var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
 
         $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
