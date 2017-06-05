@@ -237,7 +237,15 @@ function tabelaLoteAtivos(retorno) {
         }
 
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].dtult;
+        var data = retorno.EV[i].dtult; // data sem formatação: yyyy-MM-dd HH  "2017-06-05T17:35:59.177
+        var formatada = '';
+        if (data != '' && data != null) {
+            formatada = data.split('-')[2].split('T')[0] + '/' +
+                data.split('-')[1] + '/' + data.split('-')[0] + ' '
+                + data.split('-')[2].split('T')[1];
+        }
+
+        r[++j] = formatada;
         r[++j] = "</td>";
         r[++j] = "</tr>";
     }
