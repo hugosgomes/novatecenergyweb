@@ -69,7 +69,7 @@ namespace NovatecEnergyWeb.Controllers
             dynamic retorno = new ExpandoObject();
             retorno.Delegacao = delegacao;
             retorno.Area = areasL;
-            retorno.Lote = _loteRepository.GetLotes(listAreaInt, 0);
+            retorno.Lotes = _loteRepository.GetLotes(listAreaInt, 0);
             retorno.Condominio = _condominioRepository.GetCondominios(listAreaInt,0,0);
 
             return Json(retorno);
@@ -83,7 +83,7 @@ namespace NovatecEnergyWeb.Controllers
 
             dynamic retorno = new ExpandoObject();
             retorno.Area = areasList;
-            retorno.Lote = _loteRepository.GetLotes(listAreaInt, 0);
+            retorno.Lotes = _loteRepository.GetLotes(listAreaInt, 0);
             retorno.Condominio = _condominioRepository.GetCondominios(listAreaInt, 0, 0); 
 
             return Json(retorno);
@@ -92,7 +92,7 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult AreaCascade(int area)
         {
             dynamic retorno = new ExpandoObject();
-            retorno.Lote = _loteRepository.GetLotes(new List<int>(), area);
+            retorno.Lotes = _loteRepository.GetLotes(new List<int>(), area);
             retorno.Condominio = _condominioRepository.GetCondominios(null, area, 0); 
             return Json(retorno);
         }
@@ -130,12 +130,12 @@ namespace NovatecEnergyWeb.Controllers
             if (id != null)
             {
                 retorno.Area = _areaRepository.GetAreasByClienteId((int)id);
-                retorno.Lote = _loteRepository.GetLotes(_areaRepository.GetAreasIds(retorno.Area),0);
+                retorno.Lotes = _loteRepository.GetLotes(_areaRepository.GetAreasIds(retorno.Area),0);
                 retorno.Condominio = _condominioRepository.GetCondominios(_areaRepository.GetAreasIds(retorno.Area), 0, 0);
             }else
             {
                 retorno.Area = null;
-                retorno.Lote = null;
+                retorno.Lotes = null;
                 retorno.Condominio = null;
             }
             return Json(retorno);
