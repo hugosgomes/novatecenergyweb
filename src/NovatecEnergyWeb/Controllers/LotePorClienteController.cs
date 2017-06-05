@@ -180,6 +180,7 @@ namespace NovatecEnergyWeb.Controllers
                 ViewBag.Area.Add(a);
             }
 
+            // dropdown status condominio : GASIFICANDO, COMERCIALIZANDO...
             var statusCondominio = _context._00TabelasItems
                 .Where(c => (c.Tabela == 237) && (c.Campo == "STATUS") && (c.Id != 25))
                 .OrderBy(c => c.Ordem)
