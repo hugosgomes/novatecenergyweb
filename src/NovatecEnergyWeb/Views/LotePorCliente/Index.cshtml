@@ -13,6 +13,12 @@
             <nav class="navbar navbar-default navbar-fixed-side">
                 <h4 id="titulo" class="text-center">Clientes de Lotes Ativos</h4>
 
+                <!-- 
+                  -------------------------------------------------------------------------------------------------------------------  
+                    Estatísticas
+                  ------------------------------------------------------------------------------------------------------------------- 
+                    -->
+
                 <table>
                     <tbody class="fontTableBodyNavBar">
                         <tr >
@@ -90,6 +96,11 @@
                     </tbody>
                 </table>
 
+                        <!--
+              -------------------------------------------------------------------------------------------------------------------
+               fim das Estatísticas
+              -------------------------------------------------------------------------------------------------------------------
+                -->
 
 
                   <!-- 
@@ -113,17 +124,16 @@
                 </div>
                        -->
 
+
+
+                            <!--
+                  -------------------------------------------------------------------------------------------------------------------
+                    Filtros laterais
+                  -------------------------------------------------------------------------------------------------------------------
+                    -->
+
                
                 <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
-                   <!-- <div class="control-group">
-                        <label class="control-label labelsFormNav">Cliente</label>
-                        <div class="controls">
-                            <select id="clientesCeg" onchange="postCascadeCliente(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
-                                <option value="12">CEG</option>
-                                <option value="13">CEG RIO</option>
-                            </select>
-                        </div>
-                    </div> -->
                     
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Zona</label>
@@ -254,9 +264,10 @@
                         <label class="control-label labelsFormNav">Status Casa</label>
                         <div class="controls">
                             <select id="CasaStatus" name="CasaStatus" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
-                                <option value="1">NÃO CONTRATADO</option>
-                                <option value="2">VISITA AGENDADA</option>
-                                <option value="3">CONTRATADO</option>
+                                <option value="145">SEM TRATAR</option>
+                                <option value="146">SEM CONTRATAR</option>
+                                <option value="147">VISITA AGENDADA</option>
+                                <option value="148">CONTRATADO</option>
                             </select>
                         </div>
                     </div>
@@ -381,8 +392,23 @@
 
                 </form>
 
+                        <!--
+              -------------------------------------------------------------------------------------------------------------------
+                fim dos Filtros Laterais
+              -------------------------------------------------------------------------------------------------------------------
+                -->
+
+
             </nav>
         </div>
+
+
+              <!--
+              -------------------------------------------------------------------------------------------------------------------
+                Listagem
+              -------------------------------------------------------------------------------------------------------------------
+                -->
+
         <div class="col-md-9 col-lg-10   ">
             <div id="page-selection"></div>
             <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
@@ -414,6 +440,13 @@
 
             </table>
         </div>
+
+        <!--
+          -------------------------------------------------------------------------------------------------------------------
+            fim da Listagem
+          -------------------------------------------------------------------------------------------------------------------
+            -->
+
     </div>
 </div>
 @section Scripts{

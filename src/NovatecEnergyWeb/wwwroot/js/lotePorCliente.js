@@ -237,7 +237,15 @@ function tabelaLoteAtivos(retorno) {
         }
 
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].dtult;
+        var data = retorno.EV[i].dtult; // data sem formatação: yyyy-MM-dd HH  "2017-06-05T17:35:59.177
+        var formatada = '';
+        if (data != '' && data != null) {
+            formatada = data.split('-')[2].split('T')[0] + '/' +
+                data.split('-')[1] + '/' + data.split('-')[0] + ' '
+                + data.split('-')[2].split('T')[1];
+        }
+
+        r[++j] = formatada;
         r[++j] = "</td>";
         r[++j] = "</tr>";
     }
@@ -257,7 +265,7 @@ function tabelaEstatisticas(retorno) {
 }
 
 function atualizaSelects(retorno) {
-
+   
     preencheLotes(retorno);
     $('#motivosRejeicao').empty();
     $('#zonas').empty();
@@ -359,8 +367,9 @@ function preencheArea(retorno) {
 
 function preencheLotes(retorno) {
     $("#lotes").empty();
-
-    $.each(retorno.Lote, function () {
+    
+    $.each(retorno.Lotes, function () {
+    
         var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
 
         $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
