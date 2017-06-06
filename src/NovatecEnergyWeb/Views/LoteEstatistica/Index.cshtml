@@ -21,7 +21,7 @@
     <div class="row">
 
         <!--- Lado Conteudo-->
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-4 "  >
 
 
             <div class="row">
@@ -29,7 +29,7 @@
 
 
                 <!---coluna 1--->
-                <div class="col-md-3" >
+                <div class="col-md-3 col-lg-3 " >
                   
                     <div class="control-group">
                         
@@ -80,10 +80,10 @@
                     <div class="control-group">
                         <div class="row">
                             <div class="col-md-6">
-                                <a href="#" class="btn btn-block btn-primary input-sm"><i class="fa fa-filter fa-sm"></i>&nbsp;Filtro</a>
+                                <a href="#" class="btn btn-block btn-primary input-sm" title="Filtrar"><i class="fa fa-filter fa-sm"></i>&nbsp;</a>
                             </div>
                             <div class="col-md-6">
-                                <a href="#" class="btn btn-block btn-success input-sm"><i class="fa fa-file-excel-o fa-sm"></i>&nbsp;Exportar</a>
+                                <a href="#" class="btn btn-block btn-success input-sm" title="Exportar"><i class="fa fa-file-excel-o fa-sm"></i>&nbsp;</a>
                             </div>
                             </div>
                         <br>
@@ -109,10 +109,10 @@
 
 
                 <!--- coluna 2-->
-                <div class="col-md-8 ">
+                <div class="col-md-9 col-lg-9 "  >
   
                     <!--- tabela 1-->
-                    <table id="tableEstatistica" class="table ">
+                    <table id="tableEstatistica" class="table " >
                         <thead>
                             <tr style="background-color:#363636; color:#fff">
                                 <th></th>
@@ -227,8 +227,8 @@
                     <br />
 
 
-                    <!---tabela 2--->
-                    <table class="table">
+                    <!---tabela 2
+                    <table class="table" >
                         <thead>
                             <tr style="background-color:#363636; color:#fff">
                                 <th></th>
@@ -261,6 +261,8 @@
                             </tr>
                         </tbody>
                     </table>
+                        --->
+
 
                     <!--- tabela 3 -->
                     <table id="tableLote" class="table table-responsive table-bordered table-striped tabelaModal">
@@ -286,30 +288,17 @@
     
     
         <!--lado graficos-->
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-8 ">   
 
-            <div class="row">
-
-               
-
-                <!---coluna 2--->
-                <div class="col-md-11  ">
-
-                    <div id="colunas"></div>
+                    <div  id="colunas" ></div>
                     <br>
                     <div id="visitadas"></div>
                     <br>
-                    <div id="entrevistados"> </div>
-                   
-                    
-                    
+                    <div id="entrevistados"></div>
+                    <br>
+                    <div id="barras"></div>   
 
-                </div>
-
-            </div>
-
-        </div> <!---fim row lado graficos--->
-
+         </div>
 
     </div> <!--fim da row layout tela-->
 

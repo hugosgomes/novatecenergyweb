@@ -22,7 +22,8 @@ function graficos(estatistica) {
     for (var i = 0; i < estatistica.length; i++) {
 
         var v1 = estatistica[i].umt;
-        var v2 = Math.floor(estatistica[i].mtpot * 100);
+      //var v2 = Math.floor(estatistica[i].mtpot * 100);
+        var v2 = estatistica[i].mtpot;
 
         dados.push([v1,v2]);
       
@@ -39,12 +40,18 @@ function graficos(estatistica) {
     
         //opções para o gráfico colunas
         var options1 = {
-            title: 'Resultados sobre as unidades potenciais', 'height': 300,
-            //hAxis: { title: 'Resultados sobre as unidades visitadas', titleTextStyle: { color: 'red' } }//legenda na horizontal
+            title: 'Resultados sobre as unidades potenciais', 'height': 315,          
+            hAxis: { textStyle: { fontSize: 10 },  },        
+            vAxis: {format: 'percent'  }//legenda na vertical
+        
+            
         };
 
         //instanciando e desenhando o gráfico
         var coluna = new google.visualization.ColumnChart(document.getElementById('colunas'));
+        var formatter = new google.visualization.NumberFormat({ pattern: '#%' });
+        formatter.format(data, 1);
+
         coluna.draw(data, options1);
 
         
@@ -72,8 +79,10 @@ function graficos(estatistica) {
 
         //opções para exibição do gráfico
         var options = {
-            title: 'Resultados sobre as unidades visitadas',//titulo do gráfico
+            title: 'Resultados sobre as unidades visitadas', 'height': 260,//titulo do gráfico
             is3D: false, // false para 2d e true para 3d o padrão é false
+            fontSize: 10,
+            titleTextStyle: {fontSize:13}
 
         };
 
@@ -109,9 +118,11 @@ function graficos(estatistica) {
 
         //opções para exibição do gráfico
         var options = {
-            title: 'Resultados sobre as unidades entrevistadas',//titulo do gráfico
+            title: 'Resultados sobre as unidades entrevistadas', 'height': 260,//titulo do gráfico
             is3D: false, // false para 2d e true para 3d o padrão é false
-
+            pieHole: 0.3,
+            fontSize: 10,
+            titleTextStyle: { fontSize: 13 }
         };
 
 
@@ -121,5 +132,6 @@ function graficos(estatistica) {
 
 
 
-    }
+
+}
 
