@@ -2,6 +2,7 @@
     exibeLotes();
     preencheSelects();
     graficos();
+   
   
 };
 
@@ -14,6 +15,9 @@ function preencheTableLotes(lotesTableSelect) {
     var j = -1;
 
     for (var i = 0; i < lotesTableSelect.length; i++) {
+
+       // alert(lotesTableSelect[i][0]); id
+       // alert(lotesTableSelect[i][1]); lote
 
         r[++j] = '<tr id="lote_'+ lotesTableSelect[i][0].toString()+ '" class="mouse-hand">';
         r[++j] = '<td>';
@@ -32,17 +36,32 @@ function preencheTableLotes(lotesTableSelect) {
     }
     $('#corpoLotes').html(r.join(''));
 
-    adicionaEventoClickRow();
+    adicionaEventoClickRow(lotesTableSelect);
     
 }
 
-function adicionaEventoClickRow() {
+function adicionaEventoClickRow(lotesTableSelect) {
+
+   
+
     var table = document.getElementById("tableLote");
     var rows = table.rows; 
     for (var i = 0; i < rows.length; i++) {
         rows[i].onclick = (function () {
             return function () {
                 var idLote = this.id.toString().split('_')[1];
+
+                for (var i = 0; i < lotesTableSelect.length; i++){
+
+
+                    // encontra o nome do lote 
+                    if (lotesTableSelect[i][0] == idLote) {
+
+                        $("#infLote").empty(); //limpa
+                        $("#infLote").append( lotesTableSelect[i][1] );
+                    }
+                }
+
                 getEstatisticaByLote(idLote);
             }
         })(i);
@@ -88,6 +107,9 @@ function preencheTableStatus(estatistica) {
 
 function preencheTableEstatistica(estatistica) {
     $("corpoEstatistica tr").remove();
+
+    
+    
 
     if (estatistica.length > 0) {
 
@@ -376,6 +398,8 @@ function preencheArea(retorno) {
 }
 
 
+
+ 
 
 
 

@@ -15,308 +15,318 @@
 @Html.Hidden("urlDelegacaoCascade",Url.Action("DelegacaoCascade", "FiltroCascataService"))
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-    <!--- row layout pagina-->
-    <div class="row">
+<div class="row">
+  
+    <div id="load" class="col-md-offset-5 col-md-3 col-md-offset-4">
 
         <!--- Lado Conteudo-->
-        <div class="col-md-6 col-lg-4 "  >
-
-
-            <div class="row">
-
-
-
-                <!---coluna 1--->
-                <div class="col-md-3 col-lg-3 " >
-                  
-                    <div class="control-group">
-                        
-                        <label class="control-label labelsFormNav">Zona</label>
-                        
-                        <div class="controls">
-                       
-                        <select id="zonas" onchange="postZona(); filtraLotes();"  class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
-                         
-                           <!--  <option value=""></option> -->
-                            
-                        
-                        </select>
-   
-                        </div>
-                  
-                    </div>
-
-                    <div class="control-group">
-
-                        <label class="control-label labelsFormNav">Delegação</label>
-
-                        <div class="controls">
-                            <select id="delegacao" onchange="postDelegacao(); filtraLotes();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
-
-
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div class="control-group">
-
-                        <label class="control-label labelsFormNav">Área</label>
-
-                        <div class="controls">
-
-                            <select id="area" onchange="filtraLotes();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;">
-
+        <img  id="centro" src="~/images/load.gif" alt="Carregando..." title="Carregando..." >
          
+    </div>
 
-                            </select>
+</div>
+
+
+
+        <!--- row layout pagina-->
+        <div class="row">
+
+            <!--- Lado Conteudo-->
+            <div class="col-md-6 col-lg-4 ">
+
+
+                <div class="row">
+
+
+
+                    <!---coluna 1--->
+                    <div class="col-md-3 col-lg-3 ">
+
+                        <div class="control-group">
+
+                            <label class="control-label labelsFormNav">Zona</label>
+
+                            <div class="controls">
+
+                                <select id="zonas" onchange="postZona(); filtraLotes();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+
+                                    <!--  <option value=""></option> -->
+
+
+                                </select>
+
+                            </div>
 
                         </div>
-                        <br>
+
+                        <div class="control-group">
+
+                            <label class="control-label labelsFormNav">Delegação</label>
+
+                            <div class="controls">
+                                <select id="delegacao" onchange="postDelegacao(); filtraLotes();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            </div>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label class="control-label labelsFormNav">Área</label>
+
+                            <div class="controls">
+
+                                <select id="area" onchange="filtraLotes();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
+
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="#" class="btn btn-block btn-primary input-sm" title="Filtrar"><i class="fa fa-filter fa-sm"></i>&nbsp;</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="#" class="btn btn-block btn-success input-sm" title="Exportar"><i class="fa fa-file-excel-o fa-sm"></i>&nbsp;</a>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+
+
+
+
+
+
+                        <table id="tableLote" class="table table-bordered table-hover tabelaModal">
+                            <thead>
+                                <tr style="background-color:#363636; color:#fff">
+                                    <th class="text-left">LOTE</th>
+                                    <th class="text-left">Z</th>
+                                    <th class="text-left">D</th>
+                                    <th class="text-left">AR</th>
+                                </tr>
+                            </thead>
+                            <tbody id="corpoLotes" class="corpoTabela"></tbody>
+                        </table>
                     </div>
 
-                    <div class="control-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <a href="#" class="btn btn-block btn-primary input-sm" title="Filtrar"><i class="fa fa-filter fa-sm"></i>&nbsp;</a>
-                            </div>
-                            <div class="col-md-6">
-                                <a href="#" class="btn btn-block btn-success input-sm" title="Exportar"><i class="fa fa-file-excel-o fa-sm"></i>&nbsp;</a>
-                            </div>
-                            </div>
-                        <br>
+
+                    <!--- coluna 2-->
+                    <div class="col-md-9 col-lg-9 ">
+
+                        <!--- informa o lote selecionado-->
+                        <div  class="stiloLote">
+                               <h3 style="font-weight:500; background-color:#363636; color:white">Lote:<span id="infLote" style="color:#0271c2"></span></h3>
+                        </div>
+
+
+                        <!--- tabela 1-->
+                        <table id="tableEstatistica" class="table">
+                            <thead>
+                                <tr style="background-color:#363636; color:#fff">
+                                    <th></th>
+                                    <th>Num</th>
+                                    <th>S/Pot</th>
+                                    <th>S/Vis</th>
+                                    <th>S/Ent</th>
+                                </tr>
+                            </thead>
+                            <tbody id="corpoEstatistica" class="corpoTabela2">
+                                <tr>
+                                    <td class="col-xs-9 col-lg-8" style="padding-right:0px; padding-bottom:0px; padding-top:0px; "><b>Potencial</b></td>
+                                    <td id="potNum" class="noPaddingTopBot col-xs-3 col-lg-4">0</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-9" style="padding-right:0px; "><b>Visitados</b></td>
+                                    <td id="visNum" class="col-xs-2">0</td>
+                                    <td id="visSpot" class="col-xs-1">0</td>
+                                    <td> </td>
+                                    <td> </td>
+
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-9" style="padding-right:0px; "><b>Entrevistados</b></td>
+                                    <td id="entNum" class="col-xs-1">0</td>
+                                    <td id="entSpot" class="col-xs-1">0</td>
+                                    <td id="entVis" class="col-xs-1">0</td>
+                                    <td class="col-xs-1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-9" style="padding-right:0px; "><b>Contratados</b></td>
+                                    <td id="conNum" class="col-xs-1">0</td>
+                                    <td id="conPot" class="col-xs-1">0</td>
+                                    <td id="conVis" class="col-xs-1">0</td>
+                                    <td id="conEnt" class="col-xs-1">0</td>
+                                </tr>
+
+
+                                <tr>
+                                    <td class="col-xs-9" style="padding-right:0px;"><b>Não Visitados</b></td>
+                                    <td id="naoVisiNum" class="col-xs-1">0</td>
+                                    <td id="naoVisiPot" class="col-xs-1">0</td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-11" style="padding-right:0px;"><b>Não Entrevistados</b></td>
+                                    <td id="naoEntNum">0</td>
+                                    <td id="naoEntSpot">0</td>
+                                    <td> </td>
+                                    <td> </td>
+
+                                </tr>
+                                <tr>
+                                    <td style="padding-right:0px; "><b>Visitados Não Entrevistados</b></td>
+                                    <td id="visNaoEntNum">0</td>
+                                    <td id="visNaoEntSpot">0</td>
+                                    <td id="visNaoEntSvis">0</td>
+                                    <td> </td>
+
+                                </tr>
+
+
+                                <tr>
+                                    <td style="padding-right:0px; "><b>Não Contratados</b></td>
+                                    <td id="naoContNum">0</td>
+                                    <td id="naoContSpot">0</td>
+                                    <td> </td>
+                                    <td> </td>
+
+                                </tr>
+                                <tr>
+                                    <td style="padding-right:0px; "><b>Visitados Não Contratados</b></td>
+                                    <td id="visNaoContNum">0</td>
+                                    <td id="visNaoContSpot">0</td>
+                                    <td id="visNaoContSvis">0</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-right:0px; "><b>Entrevistados Não Contratados</b></td>
+                                    <td id="entNaoContNum">0</td>
+                                    <td id="entNaoContSpot">0</td>
+                                    <td id="entNaoContSvis">0</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding-right:0px; "><b>D2 Contratados</b></td>
+                                    <td id="dContNum">0</td>
+                                    <td id="dContSpot">0</td>
+                                    <td id="dContSvis">0</td>
+                                    <td id="dContSent">0</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-right:0px; "><b>SVG Contratados</b></td>
+                                    <td id="svgContNum">0</td>
+                                    <td id="svgContSpot">0</td>
+                                    <td id="svgContSvis">0</td>
+                                    <td id="svgContSent">0</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-right:0px; "><b>SVE Contratados</b></td>
+                                    <td id="sveContNum">0</td>
+                                    <td id="sveContSpot">0</td>
+                                    <td id="sveContSvis">0</td>
+                                    <td id="sveContSent">0</td>
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>
+
+                        <br />
+
+
+                        <!---tabela 2
+                        <table class="table" >
+                            <thead>
+                                <tr style="background-color:#363636; color:#fff">
+                                    <th></th>
+                                    <th>Num</th>
+                                    <th>S/Vis</th>
+                                    <th>S/Ent</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="corpoTabela2">
+                                <tr>
+                                    <td class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Visitas Realizadas</b></td>
+                                    <td id="visRealiNum">0</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Entrevistas Realizadas</b></td>
+                                    <td id="entRealiNum">0</td>
+                                    <td id="entRealiSvis">0</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Visitas Improdutivas</b></td>
+                                    <td id="visImproNum">0</td>
+                                    <td id="visImproSvis">0</td>
+                                    <td></td>
+
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                            --->
+                        <!--- tabela 3 -->
+                        <table id="tableLote" class="table table-responsive table-bordered table-striped tabelaModal">
+                            <thead>
+                                <tr style="background-color:#363636; color:#fff">
+                                    <th style="width: 10px;" class=" text-center">STATUS</th>
+                                    <th class=" text-left">NUM</th>
+                                    <th class=" text-left">S/POT</th>
+                                    <th class=" text-left">S/VIS</th>
+                                    <th class=" text-left">S/ENT</th>
+                                </tr>
+                            </thead>
+                            <tbody id="corpoStatus" class="corpoTabela"></tbody>
+                        </table>
+
+
                     </div>
 
-                   
 
-                    
-                    
-                    
-                    <table id="tableLote" class="table table-bordered table-hover tabelaModal">
-                        <thead>
-                            <tr style="background-color:#363636; color:#fff">
-                                <th class="text-left">LOTE</th>
-                                <th class="text-left">Z</th>
-                                <th class="text-left">D</th>
-                                <th class="text-left">AR</th>
-                            </tr>
-                        </thead>
-                        <tbody id="corpoLotes" class="corpoTabela"></tbody>
-                    </table>
-                </div>
+                </div> <!---fim row lado conteudo--->
+            </div> <!--fim lado conteudo-->
+            <!--lado graficos-->
+            <div class="col-md-6 col-lg-8 ">
 
+                <div id="colunas"></div>
+                <br>
+                <div id="visitadas"></div>
+                <br>
+                <div id="entrevistados"></div>
+                <br>
+                <div id="barras"></div>
 
-                <!--- coluna 2-->
-                <div class="col-md-9 col-lg-9 "  >
-  
-                    <!--- tabela 1-->
-                    <table id="tableEstatistica" class="table " >
-                        <thead>
-                            <tr style="background-color:#363636; color:#fff">
-                                <th></th>
-                                <th>Num</th>
-                                <th>S/Pot</th>
-                                <th>S/Vis</th>
-                                <th>S/Ent</th>
-                            </tr>
-                        </thead>
-                        <tbody id="corpoEstatistica" class="corpoTabela2">
-                            <tr>
-                                <td class="col-xs-9 col-lg-8" style="padding-right:0px; padding-bottom:0px; padding-top:0px; "><b>Potencial</b></td>
-                                <td id="potNum" class="noPaddingTopBot col-xs-3 col-lg-4">0</td>
-                            </tr>
-                            <tr>
-                                <td class="col-xs-9" style="padding-right:0px; "><b>Visitados</b></td>
-                                <td id="visNum" class="col-xs-2">0</td>
-                                <td id="visSpot" class="col-xs-1">0</td>
-                                <td> </td>
-                                <td> </td>
+            </div>
 
-                            </tr>
-                            <tr>
-                                <td class="col-xs-9" style="padding-right:0px; "><b>Entrevistados</b></td>
-                                <td id="entNum" class="col-xs-1">0</td>
-                                <td id="entSpot" class="col-xs-1">0</td>
-                                <td id="entVis" class="col-xs-1">0</td>
-                                <td class="col-xs-1"></td>
-                            </tr>
-                            <tr>
-                                <td class="col-xs-9" style="padding-right:0px; "><b>Contratados</b></td>
-                                <td id="conNum" class="col-xs-1">0</td>
-                                <td id="conPot" class="col-xs-1">0</td>
-                                <td id="conVis" class="col-xs-1">0</td>
-                                <td id="conEnt" class="col-xs-1">0</td>
-                            </tr>
+        </div> <!--fim da row layout tela-->
 
 
-                            <tr>
-                                <td class="col-xs-9" style="padding-right:0px;"><b>Não Visitados</b></td>
-                                <td id="naoVisiNum" class="col-xs-1">0</td>
-                                <td id="naoVisiPot" class="col-xs-1">0</td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
-                            <tr>
-                                <td class="col-xs-11" style="padding-right:0px;"><b>Não Entrevistados</b></td>
-                                <td id="naoEntNum">0</td>
-                                <td id="naoEntSpot">0</td>
-                                <td> </td>
-                                <td> </td>
-
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px; "><b>Visitados Não Entrevistados</b></td>
-                                <td id="visNaoEntNum">0</td>
-                                <td id="visNaoEntSpot">0</td>
-                                <td id="visNaoEntSvis">0</td>
-                                <td> </td>
-
-                            </tr>
-
-
-                            <tr>
-                                <td style="padding-right:0px; "><b>Não Contratados</b></td>
-                                <td id="naoContNum">0</td>
-                                <td id="naoContSpot">0</td>
-                                <td> </td>
-                                <td> </td>
-
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px; "><b>Visitados Não Contratados</b></td>
-                                <td id="visNaoContNum">0</td>
-                                <td id="visNaoContSpot">0</td>
-                                <td id="visNaoContSvis">0</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px; "><b>Entrevistados Não Contratados</b></td>
-                                <td id="entNaoContNum">0</td>
-                                <td id="entNaoContSpot">0</td>
-                                <td id="entNaoContSvis">0</td>
-                            </tr>
-
-                            <tr>
-                                <td style="padding-right:0px; "><b>D2 Contratados</b></td>
-                                <td id="dContNum">0</td>
-                                <td id="dContSpot">0</td>
-                                <td id="dContSvis">0</td>
-                                <td id="dContSent">0</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px; "><b>SVG Contratados</b></td>
-                                <td id="svgContNum">0</td>
-                                <td id="svgContSpot">0</td>
-                                <td id="svgContSvis">0</td>
-                                <td id="svgContSent">0</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px; "><b>SVE Contratados</b></td>
-                                <td id="sveContNum">0</td>
-                                <td id="sveContSpot">0</td>
-                                <td id="sveContSvis">0</td>
-                                <td id="sveContSent">0</td>
-                            </tr>
-
-
-
-                        </tbody>
-                    </table>
-
-                    <br />
-
-
-                    <!---tabela 2
-                    <table class="table" >
-                        <thead>
-                            <tr style="background-color:#363636; color:#fff">
-                                <th></th>
-                                <th>Num</th>
-                                <th>S/Vis</th>
-                                <th>S/Ent</th>
-
-                            </tr>
-                        </thead>
-                        <tbody class="corpoTabela2">
-                            <tr>
-                                <td class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Visitas Realizadas</b></td>
-                                <td id="visRealiNum">0</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Entrevistas Realizadas</b></td>
-                                <td id="entRealiNum">0</td>
-                                <td id="entRealiSvis">0</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="col-xs-9 col-lg-8" style="padding-right:0px; "><b>Visitas Improdutivas</b></td>
-                                <td id="visImproNum">0</td>
-                                <td id="visImproSvis">0</td>
-                                <td></td>
-
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                        --->
-
-
-                    <!--- tabela 3 -->
-                    <table id="tableLote" class="table table-responsive table-bordered table-striped tabelaModal">
-                        <thead>
-                            <tr style="background-color:#363636; color:#fff">
-                                <th style="width: 10px;" class=" text-center">STATUS</th>
-                                <th class=" text-left">NUM</th>
-                                <th class=" text-left">S/POT</th>
-                                <th class=" text-left">S/VIS</th>
-                                <th class=" text-left">S/ENT</th>
-                            </tr>
-                        </thead>
-                        <tbody id="corpoStatus" class="corpoTabela"></tbody>
-                    </table>
-
-
-                </div>
-
-                
-            </div> <!---fim row lado conteudo--->
-        </div> <!--fim lado conteudo-->
-        
-    
-    
-        <!--lado graficos-->
-        <div class="col-md-6 col-lg-8 ">   
-
-                    <div  id="colunas" ></div>
-                    <br>
-                    <div id="visitadas"></div>
-                    <br>
-                    <div id="entrevistados"></div>
-                    <br>
-                    <div id="barras"></div>   
-
-         </div>
-
-    </div> <!--fim da row layout tela-->
-
-
-    @section Scripts{
-        <script type="text/javascript" src="~/js/loteEstatistica.js"></script>
-        <script type="text/javascript" src="~/js/loteEstatisticaGraficos.js"></script>
-        <script type="text/javascript">
+        @section Scripts{
+            <script type="text/javascript" src="~/js/loteEstatistica.js"></script>
+            <script type="text/javascript" src="~/js/loteEstatisticaGraficos.js"></script>
+            <script type="text/javascript">
 
     function exibeLotes() {
         $.getJSON("@Url.Action("BuscaLotes", "LoteEstatistica")", preencheTableLotes);
     }
 
     function getEstatisticaByLote(lote) {
+        $("#load").fadeIn(); // chama animacao de carregando
         var data = {};
         data.idLote = lote;
         $.post("@Url.Action("BuscaEstatistica", "LoteEstatistica")", data, atualizaTabelas);
+        $("#load").fadeOut() // apaga animacao carregando
     }
-        </script>
-    }
+            </script>
+        }
 
