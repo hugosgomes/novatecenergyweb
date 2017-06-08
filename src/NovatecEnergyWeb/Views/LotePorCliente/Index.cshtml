@@ -9,6 +9,18 @@
 
 <div class="container-fluid">
     <div class="row">
+
+        <div id="load" class="col-md-offset-5 col-md-3 col-md-offset-4">
+
+            <!--- Lado Conteudo-->
+            <img id="centro" src="~/images/load.gif" alt="Carregando..." title="Carregando...">
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
         <div class=" col-md-3 col-lg-2  ">
             <nav class="navbar navbar-default navbar-fixed-side">
                 <h4 id="titulo" class="text-center">Clientes de Lotes Ativos</h4>
@@ -454,25 +466,34 @@
 <script type="text/javascript">
    
     function postPaginacao(num) {
+        $("#load").fadeIn(); // chama animacao de carregando
+
         var data = getFormDataAsJson();
         data.PaginaClicada = num;
-           $.post("@Url.Action("GetListLoteAtivoView", "LotePorCliente")", data, tabelaLoteAtivos);
+        $.post("@Url.Action("GetListLoteAtivoView", "LotePorCliente")", data, tabelaLoteAtivos);
+
+        $("#load").fadeOut(); // apaga animacao carregando
     }
 
  
     function postToController() {
+        $("#load").fadeIn(); // chama animacao de carregando
         var data = getFormDataAsJson();
         //, 'application/json; charset=utf-8'
         $.post("@Url.Action("GetListLoteAtivoView", "LotePorCliente")", data, atualizaView);
+        $("#load").fadeOut(); // apaga animacao carregando
     }
 
     function postToControllerSemLote() {
             var data = getFormDataAsJson();
-            $.post( "@Url.Action("GetListLoteNaoView","LotePorCliente")", data, atualizaViewNao);
+            $.post("@Url.Action("GetListLoteNaoView","LotePorCliente")", data, atualizaViewNao);
         }
 
    
-   function limpaFiltro() {
+    function limpaFiltro() {
+
+        $("#load").fadeIn(); // chama animacao de carregando
+
         $('#lotes').val("");
         $('#CasaStatus').val("");
         $('#motivosRejeicao').val("");
@@ -507,6 +528,8 @@
 
         $.post("@Url.Action("LimpaFiltros", "LotePorCliente")", parametro, bindSelects);
 
+        $("#load").fadeOut(); // apaga animacao carregando
+
     }
 
     function bindSelects(retorno) {
@@ -518,6 +541,8 @@
     }
 
     function ExportaPadraoNovatec() {
+        $("#load").fadeIn(); // chama animacao de carregando
+
         var data = getFormDataAsJson();
         //   $.get('/LotePorCliente/ExportaExcel', data, DownloadExcel); //loteAtivo=' + JSON.stringify(data)
         //  window.location = '/LotePorCliente/ExportaExcel?loteAtivo=' + JSON.stringify(data);
@@ -525,9 +550,13 @@
         var urlconfig = '@AppSettings.ExcelExportUrl';
         window.location.href = '' + urlconfig + '/LotePorCliente/ExportaExcel?loteAtivo=' + JSON.stringify(data);
         //'/Adesao/ExportaExcel?loteAtivo=' + JSON.stringify(data);
+
+        $("#load").fadeOut(); // apaga animacao carregando
+
     }
 
     function ExportaPadraoGas() {
+        
         var data = getFormDataAsJson();
         //   $.get('/LotePorCliente/ExportaExcel', data, DownloadExcel); //loteAtivo=' + JSON.stringify(data)
         //  window.location = '/LotePorCliente/ExportaExcel?loteAtivo=' + JSON.stringify(data);
@@ -535,10 +564,13 @@
         var url = '@AppSettings.ExcelExportUrl';
 
         if (lc != null) {
+            $("#load").fadeIn(); // chama animacao de carregando
             window.location.href = '' + url + '/LotePorCliente/ExportaPadraoGasNatural?loteAtivo=' + JSON.stringify(data);
+            $("#load").fadeOut(); // apaga animacao de carregando
         } else {
             alert('Selecione um lote');
         }
+        
     }
 
 
