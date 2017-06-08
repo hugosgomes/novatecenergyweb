@@ -284,6 +284,24 @@ function preencheTableEstatistica(estatistica) {
 
 })(jQuery);
 
+
+
+//****************************************
+//  pegar delegacoes para filtro
+//***************************************
+(function ($) {
+
+
+
+    cleanFiltro = function () {
+
+        //alert("ok limpar");
+        location.reload();
+
+    }
+
+})(jQuery);
+
 function getArea() {
     var url = $("#urlGetArea").val(); // urlGetArea está em /LoteEstatistica/Index.cshtml
     //"/LoteEstatistica/getArea/"
