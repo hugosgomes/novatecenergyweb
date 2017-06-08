@@ -10,6 +10,17 @@
 
 <div class="container">
 
+    <div class="row">
+
+        <div id="load" class="col-md-offset-5 col-md-3 col-md-offset-4">
+
+            <!--- Lado Conteudo-->
+            <img id="centro" src="~/images/load.gif" alt="Carregando..." title="Carregando...">
+
+        </div>
+
+    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog  modal-sm">
@@ -370,8 +381,12 @@
 <script type="text/javascript" src="~/js/lotePorEndereco.js"></script>
 <script type="text/javascript">
     function postToController() {
+        $("#load").fadeIn(); // chama animacao de carregando
+
         var data = getFormDataAsJson();
         $.post("@Url.Action("GetListLoteAtivoView", "LotePorEndereco")", data, atualizaView);
+
+        $("#load").fadeOut(); // apaga animacao de carregando
     }
 
     function postZona() {
@@ -397,6 +412,8 @@
   
 
     function limpaFiltro() {
+        $("#load").fadeIn(); // chama animacao de carregando
+
         $('#zonas').val("");
         $('#delegacoes').val("");
         $('#areas').val("");
@@ -407,6 +424,8 @@
         var parametro = {};
         
         $.post("@Url.Action("LimpaFiltros", "LotePorEndereco")", parametro, bindSelects);
+
+        $("#load").fadeOut(); // apaga animacao de carregando
 
     }
 
@@ -420,9 +439,13 @@
    
  
     function postPaginacao(num) {
+        $("#load").fadeIn(); // chama animacao de carregando
+
         var data = getFormDataAsJson();
         data.PaginaClicada = num;
         $.post("@Url.Action("GetListLoteAtivoView", "LotePorEndereco")", data, tabelaLoteAtivos);
+
+        $("#load").fadeOut(); // apaga animacao de carregando
     }
 
     function entrarNaTelaExportacao() {
@@ -448,9 +471,10 @@
         $.post("@Url.Action("SetFiltrosTelaExportacao", "LotePorEndereco")", data);
     }
     function ExportaAgenda() {
-
+        
         var url = '@AppSettings.ExcelExportUrl';
         window.location.href = '' + url + '/LotePorEndereco/ExportaAgendaAdesao?';
+        
     }
 
 
