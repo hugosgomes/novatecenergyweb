@@ -9,6 +9,7 @@ using System.Dynamic;
 using Microsoft.AspNetCore.Http;
 using NovatecEnergyWeb.Models;
 using NovatecEnergyWeb.Models.AdesaoViewModels;
+using NovatecEnergyWeb.Filters.ActionFilters;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,6 +35,7 @@ namespace NovatecEnergyWeb.Controllers
         }
 
         [HttpGet]
+        [AutenticacaoFilter]
         public IActionResult Index()
         {
             return View();
