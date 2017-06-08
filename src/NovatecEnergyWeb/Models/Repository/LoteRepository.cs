@@ -53,6 +53,7 @@ namespace NovatecEnergyWeb.Models.Repository
         {
             var lotes = (from l in _context._11Lotes
                          join ti in _context._00TabelasItems on l.Status equals ti.Id
+                         where l.Status == 136
                          select new
                          {
                              Id = l.Id,
@@ -116,7 +117,7 @@ namespace NovatecEnergyWeb.Models.Repository
                          join a in _context._00Areas on l.Area equals a.Id
                          join d in _context._00Delegacao on (int)a.Delegacao equals d.Id
                          join z in _context._00Zona on d.Zona equals z.Id
-                         where areas.Contains(l.Area)
+                         where areas.Contains(l.Area) && l.Status == 136
                          select new
                          {
                              IdLote = l.Id,

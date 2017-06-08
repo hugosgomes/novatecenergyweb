@@ -13,6 +13,7 @@ using NovatecEnergyWeb.Models.Exportacao;
 using Microsoft.AspNetCore.Hosting;
 using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Core;
+using NovatecEnergyWeb.Models.Repository;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -20,11 +21,14 @@ namespace NovatecEnergyWeb.Controllers
     {
         private BDNVTContext _context;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private ILoteRepository _loteRepository;
 
-        public LotePorEnderecoController(BDNVTContext context, IHostingEnvironment he)
+        public LotePorEnderecoController(BDNVTContext context, IHostingEnvironment he, 
+            ILoteRepository loteRepository)
         {
             _context = context;
             _hostingEnvironment = he;
+            _loteRepository = loteRepository;
         }
 
         [AutenticacaoFilter]
@@ -169,29 +173,9 @@ namespace NovatecEnergyWeb.Controllers
 
         public void BindSelects()
         {
-            var lotes = (from l in _context._11Lotes
-                        join ti in _context._00TabelasItems on l.Status equals ti.Id
-                        select new
-                        {
-                            Id = l.Id,
-                            LoteNum = l.LoteNum,
-                            Ge = l.Ge,
-                            DataLote = l.DataLote,
-                            Status = ti.Item
-                        }).ToList();
-
             ViewBag.Lotes = new List<List<dynamic>>();
-            foreach (var item in lotes)
-            {
-                var l = new List<dynamic>();
-                l.Add(item.Id);
-                l.Add(item.LoteNum);
-                l.Add(item.Ge);
-                l.Add(item.DataLote);
-                l.Add(item.Status);
-                ViewBag.Lotes.Add(l);
-            }
-
+            ViewBag.Lotes = _loteRepository.GetLotesJoinItems();
+            
             var zonas = _context._00Zona.Where(c => c.Id < 3).ToList();
             ViewBag.Zonas = new List<_00Zona>();
             foreach (var item in zonas)
