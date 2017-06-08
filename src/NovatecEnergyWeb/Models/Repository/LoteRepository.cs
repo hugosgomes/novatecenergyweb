@@ -23,7 +23,7 @@ namespace NovatecEnergyWeb.Models.Repository
             }
 
             var lotes = (from l in _context._11Lotes
-                         where areas.Contains(l.Area)
+                         where areas.Contains(l.Area) && l.Status == 136
                          join ti in _context._00TabelasItems on l.Status equals ti.Id
                          select new
                          {

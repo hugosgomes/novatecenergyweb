@@ -38,45 +38,7 @@ namespace NovatecEnergyWeb.Controllers
             return View("Index", new List<LotePorEndereco>());
 
         }
-
-        public List<List<dynamic>> GetLotes(List<int> areas,int area)
-        {
-            if (area != 0)
-            {
-                areas.Add(area);
-            }
-
-            var lotes = (from l in _context._11Lotes
-                         where areas.Contains(l.Area)
-                         join ti in _context._00TabelasItems on l.Status equals ti.Id
-                         //join ti2 in _context._00TabelasItems on l.Procedencia equals ti2.Id
-                         select new
-                         {
-                             Id = l.Id,
-                             LoteNum = l.LoteNum,
-                             Ge = l.Ge,
-                             DataLote = l.DataLote,
-                           //  Tipo = ti2.Item,
-                             Status = ti.Item
-                         }).ToList();
-            
-
-            var Lotes = new List<List<dynamic>>();
-            foreach (var item in lotes)
-            {
-                var d = new List<dynamic>();
-                d.Add(item.Id);
-                d.Add(item.LoteNum);
-                d.Add(item.Ge);
-                d.Add(item.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"));
-              //  d.Add(item.Tipo);
-                d.Add(item.Status);
-                Lotes.Add(d);
-            }
-
-            return Lotes;
-        }
-
+        
         public IActionResult ZonaCascade(int zona)
         {
             //delegacao
@@ -103,7 +65,7 @@ namespace NovatecEnergyWeb.Controllers
             dynamic retorno = new ExpandoObject();
             retorno.Delegacao = delegacao;
             retorno.Areas = areasL;
-            retorno.Lotes = GetLotes(listAreaInt,0);
+            retorno.Lotes = _loteRepository.GetLotes(listAreaInt,0);
 
             return Json(retorno);
         }
@@ -120,7 +82,7 @@ namespace NovatecEnergyWeb.Controllers
 
             dynamic retorno = new ExpandoObject();
             retorno.Areas = AreasL;
-            retorno.Lotes = GetLotes(listAreaInt,0);
+            retorno.Lotes = _loteRepository.GetLotes(listAreaInt,0);
 
             return Json(retorno);
         }
@@ -129,7 +91,7 @@ namespace NovatecEnergyWeb.Controllers
         {
             var listInt = new List<int>();
             dynamic retorno = new ExpandoObject();
-            retorno.Lotes = GetLotes(listInt, lote);
+            retorno.Lotes = _loteRepository.GetLotes(listInt, lote);
 
             return Json(retorno);
         }
@@ -161,7 +123,7 @@ namespace NovatecEnergyWeb.Controllers
                 }
 
                 retorno.Areas = areas;
-                retorno.Lotes = GetLotes(listAreaInt, 0);
+                retorno.Lotes = _loteRepository.GetLotes(listAreaInt, 0);
                 return Json(retorno);
             }else
             {
