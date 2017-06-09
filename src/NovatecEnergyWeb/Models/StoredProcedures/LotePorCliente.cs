@@ -59,6 +59,7 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public int? ClId { get; set; }
         public int? CondStatus { get; set; }
         public int? IdCasaStatus{ get; set; }
+        public int? Tratado { get; set; }
 
     }
 }

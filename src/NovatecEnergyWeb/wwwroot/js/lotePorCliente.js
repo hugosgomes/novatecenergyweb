@@ -140,19 +140,18 @@ function montaHeadLocal() {
     tr.append('<th class="text-center">D</th>');
     tr.append('<th class="text-center">AR</th>');
     tr.append('<th class="text-center">PT</th>');
-    tr.append('<th class="text-center">Condomínio</th>');
-
-    tr.append('<th class="text-center">Localidade</th>');
-    tr.append('<th class="text-center">Bairro</th>');
-    tr.append('<th class="text-center">Via</th>');
-    tr.append('<th class="text-center">Logradouro</th>');
-    tr.append('<th class="text-center">Num</th>');
-    tr.append('<th class="text-center">Comp</th>');
-    tr.append('<th class="text-center">Bloco</th>');
-    tr.append('<th class="text-center">Apt</th>');
-    tr.append('<th class="text-center">ULTMOTIVO</th>');
-    tr.append('<th class="text-center">AGULT</th>');
-    tr.append('<th class="text-center">DTULT</th>');
+    tr.append('<th class="text-center">CONDOMÍNIO</th>');
+    tr.append('<th class="text-center">LOCALIDADE</th>');
+    tr.append('<th class="text-center">BAIRRO</th>');
+    tr.append('<th class="text-center">VIA</th>');
+    tr.append('<th class="text-center">LOGRADOURO</th>');
+    tr.append('<th class="text-center">NUM</th>');
+    tr.append('<th class="text-center">COMP</th>');
+    tr.append('<th class="text-center">BLOCO</th>');
+    tr.append('<th class="text-center">APT</th>');
+    tr.append('<th class="text-center">ÚLTIMO MOTIVO (ULT)</th>');
+    tr.append('<th class="text-center">AGENTE ULT</th>');
+    tr.append('<th class="text-center">DT ULT</th>');
 
     $('#headTabelaLote').append(tr);
 };

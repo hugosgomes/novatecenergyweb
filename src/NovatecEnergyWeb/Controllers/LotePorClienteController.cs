@@ -212,14 +212,8 @@ namespace NovatecEnergyWeb.Controllers
 
 
         }
-
-        public IActionResult EnderecosVisitasAtivosTodos()
-        {
-            BindSelects();
-            return GetListLoteAtivoView(null, true, "todos",0);
-        }
      
-        public List<LotePorCliente> GetListLoteAtivo([FromForm]FormFiltersVisitaClienteViewModels filtros)
+        public List<LotePorCliente> GetLotePorCliente([FromForm]FormFiltersVisitaClienteViewModels filtros)
         {
             string storedProcedure = HttpContext.Session.GetString("SP_Lote");
             int? id = HttpContext.Session.GetInt32("UserId");
@@ -257,29 +251,18 @@ namespace NovatecEnergyWeb.Controllers
             int? zona = HttpContext.Session.GetInt32("Zona");
 
             IQueryable<_11_LoteAtivoB> lb;
-            // lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB]");
-
-            /* lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[11_LoteAtivoB] {0},{1},{2},{3},{4},{5}," +
-                      "{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
-                     filtros.IdLote, filtros.CasaStatus, filtros.IdultMotivo, filtros.Dtult,
-                     filtros.ClId, ((zona != null) ? zona.ToString() : (filtros.ZId != null) ? filtros.ZId.ToString() : null),
-                     ((delegacao != null) ? delegacao.ToString() : (filtros.DId != null) ? filtros.DId.ToString() : null),
-                     ((area != null) ? area.ToString() : (filtros.AId != null) ? filtros.AId : null), filtros.StatusId,
-                     filtros.CondId, filtros.CondNome, filtros.Localidade, filtros.Bairro,
-                     filtros.Logradouro, filtros.Numero1, filtros.Numero2); */
-
             lb = _context._11_LoteAtivoB.FromSql("exec [dbo].[LotesPorCliente_ExportacaoGasNatural] {0}",  filtros.IdLote);
 
 
             return lb.ToList();
         }
 
-        public IActionResult GetListLoteAtivoView([FromForm]FormFiltersVisitaClienteViewModels filtros,  bool eIndex,string Botao, int PaginaClicada)
+        public IActionResult GetLotePorClienteEstatistica([FromForm]FormFiltersVisitaClienteViewModels filtros,  bool eIndex,string Botao, int PaginaClicada)
         {
             setFiltrosSessao(filtros, Botao); // salva os filtros na sessão
 
             //executa a SP e tras os valores filtrados
-            var evList = GetListLoteAtivo(filtros);
+            var evList = GetLotePorCliente(filtros);
 
             ViewBag.Visitados = evList.Sum(c => c.Visitado);
             ViewBag.VisitadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Visitados), Convert.ToDecimal(evList.Count())) * 100):0;
@@ -361,7 +344,7 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult LimpaFiltros(string Botao)
         {
-            return GetListLoteAtivoView(null, false, Botao,0);
+            return GetLotePorClienteEstatistica(null, false, Botao,0);
         }
 
         public IActionResult LimpaSelects(bool LimpaFiltro)
@@ -432,7 +415,7 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult ExportaExcel()
         {
-            var ev = GetListLoteAtivo(GetFiltrosSessao());
+            var ev = GetLotePorCliente(GetFiltrosSessao());
             
             byte[] fileBytes = _exportaExcelRepository.ExportaPadraoNovatec(ev);
 
