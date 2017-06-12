@@ -20,6 +20,7 @@
   <ItemGroup>
     <Content Include="wwwroot\excel\formatoNovatec.xlsx" />
     <Content Include="wwwroot\js\lotePorEndereco.js" />
+    <Content Include="wwwroot\js\visita.js" />
   </ItemGroup>
 
   <ItemGroup>
