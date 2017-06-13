@@ -7,12 +7,13 @@
     ViewData["Title"] = "Estatísticas de Lote";
 }
 
-@Html.Hidden("urlGetZona",Url.Action("getZonas", "FiltroLateralService"))
-@Html.Hidden("urlGetDelegacao", Url.Action("getDelegacao", "FiltroLateralService"))
-@Html.Hidden("urlGetArea", Url.Action("getArea", "FiltroLateralService"))
+@Html.Hidden("urlGetZona",Url.Action("GetZonas", "FiltroLateralService"))
+@Html.Hidden("urlGetDelegacao", Url.Action("GetDelegacao", "FiltroLateralService"))
+@Html.Hidden("urlGetArea", Url.Action("GetArea", "FiltroLateralService"))
 @Html.Hidden("urlBuscaLote",Url.Action("BuscaLotes", "LoteEstatistica"))
 @Html.Hidden("urlZonaCascade",Url.Action("ZonaCascade", "FiltroCascataService"))
 @Html.Hidden("urlDelegacaoCascade",Url.Action("DelegacaoCascade", "FiltroCascataService"))
+
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

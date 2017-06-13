@@ -79,7 +79,7 @@ namespace NovatecEnergyWeb.Services
             return Json(retorno);
         }
 
-        public IActionResult getZonas()
+        public IActionResult GetZonas()
         {
             var id = HttpContext.Session.GetInt32("UserId");
             var zonaCliente = HttpContext.Session.GetInt32("Zona");
@@ -98,7 +98,7 @@ namespace NovatecEnergyWeb.Services
             return Json(zonas);
         }
 
-        public IActionResult getDelegacao()
+        public IActionResult GetDelegacao()
         {
             var zona = HttpContext.Session.GetInt32("Zona");
             var delegacaoId = HttpContext.Session.GetInt32("Delegação");
@@ -119,7 +119,7 @@ namespace NovatecEnergyWeb.Services
             return Json(delegacao);
         }
 
-        public IActionResult getArea()
+        public IActionResult GetArea()
         {
             var zona = HttpContext.Session.GetInt32("Zona");
             var delegacaoId = HttpContext.Session.GetInt32("Delegação");
@@ -156,6 +156,131 @@ namespace NovatecEnergyWeb.Services
                 area = _context._00Areas.ToList();
             }
             return Json(area);
+        }
+
+        [HttpGet]
+        public IActionResult GetLotes()
+        {
+            int? id = HttpContext.Session.GetInt32("UserId");
+            int? zona = HttpContext.Session.GetInt32("Zona");
+            int? delegacao = HttpContext.Session.GetInt32("Delegação");
+            int? qtdArea = HttpContext.Session.GetInt32("QuantidadeArea");
+            string tipo = HttpContext.Session.GetString("UserTipo");
+
+            dynamic lotes = new ExpandoObject();
+
+            if (tipo == "func")
+            {
+                lotes = _loteRepository.GetLotesJoinItems();
+            }
+            else
+            { // regras para limitar a exibição de lotes de acordo com a Zona, Delegação e Área do cliente
+                if (qtdArea != null && qtdArea > 0)
+                {
+                    var areasCliente = _areaRepository.GetAreasByClienteId((int)id);
+                    lotes = _loteRepository.GetLoteJoinZonaDelegacaoArea(_areaRepository.GetAreasIds(areasCliente));
+                }
+                else
+                {
+                    if (delegacao != null)
+                    {
+                        var areas = _areaRepository.GetAreasByDelegacao(new List<int>(), (int)delegacao);
+                        lotes = _loteRepository.GetLotes(_areaRepository.GetAreasIds(areas),0);
+                    }
+                    else
+                    {
+                        if (zona != null)
+                        {
+                            var delegacoes = _delegacaoRepository.GetDelegacaoIdsByZona((int)zona);
+                            var areas = _areaRepository.GetAreasByDelegacao(delegacoes, 0);
+                            lotes = _loteRepository.GetLotes(_areaRepository.GetAreasIds(areas),0);
+                        }
+                        else
+                        {
+                            lotes = _loteRepository.GetLotesJoinItems();
+                        }
+                    }
+                }
+            }
+            return Json(lotes);
+        }
+
+        public IActionResult GetCampoVenda()
+        {
+            var venda = _context._00TabelasItems.Where(v => v.Tabela == 290 && v.Campo == "VENDA").ToList();
+            return Json(venda);
+        }
+
+        public IActionResult GetD1D2()
+        {
+            var d1d2 = _context._00TabelasItems.Where(d => d.Tabela == 290 && d.Campo == "TIPO").ToList();
+            return Json(d1d2);
+        }
+
+        public IActionResult GetTipoVisita()
+        {
+            var tipovisita = _context._00TabelasItems.Where(d => d.Tabela == 290 && d.Campo == "STATUS").ToList();
+            return Json(tipovisita);
+        }
+
+        public IActionResult GetRejeicao()
+        {
+            var rejeicao = _context._11MotivosRej.Select(m => new
+            {
+                Id = m.Id,
+                Motivo = m.Motivo
+            }).ToList();
+
+            return Json(rejeicao);
+        }
+
+        public IActionResult GetAgenteComercial()
+        {
+            var agcomercial = _context.Funcionários.Where(f => f.Setor == 4 && f.DataDeDemissão == null)
+                .OrderBy(f => f.NomeCompleto).Select(f => new
+                {
+                    Id = f.Id,
+                    NomeCompleto = f.NomeCompleto
+                }).ToList();
+
+            return Json(agcomercial);
+        }
+
+        public IActionResult GetStatusCond()
+        {
+            var statuscond = _context._00TabelasItems.Where(ti => ti.Tabela == 237 && ti.Campo == "STATUS")
+                .OrderBy(ti => ti.Ordem).ToList().Select(ti => new
+                {
+                    Id = ti.Id,
+                    Item = ti.Item
+                });
+
+            return Json(statuscond);
+        }
+
+        public IActionResult GetCondominio()
+        {
+            var condominio = (from c in _context._11Condominios
+                              join ti in _context._00TabelasItems on c.Status equals ti.Id
+                              join lo in _context._00Logradouro on c.Logradouro equals lo.Id
+                              join b in _context._00Bairro on lo.Bairro equals b.Id
+                              join a in _context._00Areas on b.Area equals a.Id
+                              join d in _context._00Delegacao on a.Delegacao equals d.Id
+                              join z in _context._00Zona on d.Zona equals z.Id
+                              where ti.Campo == "STATUS" && ti.Tabela == 237
+                              orderby z.Z, d.D, c.Nome
+                              select new
+                              {
+                                  Id = c.Id,
+                                  Nome = c.Nome,
+                                  Num = c.Num,
+                                  Complemento = c.Complemento,
+                                  Item = ti.Item,
+                                  Z =z.Z,
+                                  D = d.D
+                              }
+                             ).ToList();
+            return Json(condominio);
         }
     }
 }

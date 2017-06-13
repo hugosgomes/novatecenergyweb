@@ -3,15 +3,22 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
-    ViewData["Title"] = "Status de Clientes Com Tratamento Comercial";
+    ViewData["Title"] = "Visitas Comerciais";
 }
 
-@Html.Hidden("urlGetZona", Url.Action("getZonas", "FiltroLateralService"))
-@Html.Hidden("urlGetDelegacao", Url.Action("getDelegacao", "FiltroLateralService"))
-@Html.Hidden("urlGetArea", Url.Action("getArea", "FiltroLateralService"))
+@Html.Hidden("urlGetZona", Url.Action("GetZonas", "FiltroLateralService"))
+@Html.Hidden("urlGetDelegacao", Url.Action("GetDelegacao", "FiltroLateralService"))
+@Html.Hidden("urlGetArea", Url.Action("GetArea", "FiltroLateralService"))
 @Html.Hidden("urlZonaCascade", Url.Action("ZonaCascade", "FiltroLateralService"))
 @Html.Hidden("urlDelegacaoCascade", Url.Action("DelegacaoCascade", "FiltroLateralService"))
-
+@Html.Hidden("urlGetLotes", Url.Action("GetLotes", "FiltroLateralService"))
+@Html.Hidden("urlCampoVenda", Url.Action("GetCampoVenda", "FiltroLateralService"))
+@Html.Hidden("urlD1d2", Url.Action("GetD1D2", "FiltroLateralService"))
+@Html.Hidden("urlTipoVisita", Url.Action("GetTipoVisita", "FiltroLateralService"))
+@Html.Hidden("urlRejeicao", Url.Action("GetRejeicao", "FiltroLateralService"))
+@Html.Hidden("urlAgComercial", Url.Action("GetAgenteComercial", "FiltroLateralService"))
+@Html.Hidden("urlStatusCond", Url.Action("GetStatusCond", "FiltroLateralService"))
+@Html.Hidden("urlCondominio", Url.Action("GetCondominio", "FiltroLateralService"))
 
 <div class="container-fluid">
     <!-- Loader-->
@@ -144,21 +151,21 @@
                     </div>
                     <!--fim de ag comercial -->
 
-                    <!--ag comercial -->
+                    <!--status cond -->
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Status Cond.</label>
                         <div class="controls">
-                            <select id="statuscond" onchange="postStatusCond(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="statuscond" onchange="" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
                         </div>
                     </div>
-                    <!--fim ag comercial -->
+                    <!--fim status cond -->
 
 
                     <!--condominio -->
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Condomínio</label>
                         <div class="controls">
-                            <select id="condominio" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="condominio" onchange="" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
                         </div>
                     </div>
                     <!--fim de condominio -->
@@ -314,3 +321,6 @@
         </div>
 
     </div>
+@section Scripts{
+    <script type="text/javascript" src="~/js/visita.js"></script>
+}

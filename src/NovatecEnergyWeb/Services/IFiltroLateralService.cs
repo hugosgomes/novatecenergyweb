@@ -11,5 +11,10 @@ namespace NovatecEnergyWeb.Services
         IActionResult ZonaCascade(int zona);
         IActionResult DelegacaoCascade(int delegacao);
         IActionResult AreaCascade(int lote);
+        IActionResult GetZonas();
+        IActionResult GetDelegacao();
+        IActionResult GetArea();
+        IActionResult GetLotes();
+        IActionResult GetRejeicao();
     }
 }
