@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NovatecEnergyWeb.Core
+namespace NovatecEnergyWeb.Services
 {
-    public interface IFiltroService
+    public interface IFiltroLateralService
     {
         IActionResult ZonaCascade(int zona);
         IActionResult DelegacaoCascade(int delegacao);

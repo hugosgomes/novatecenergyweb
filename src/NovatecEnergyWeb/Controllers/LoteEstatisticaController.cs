@@ -118,89 +118,9 @@ namespace NovatecEnergyWeb.Controllers
                     var areas = _areaRepository.GetAreasByDelegacao(delegacoes, 0);
                     lotesTableSelect = _loteRepository.GetLoteJoinZonaDelegacaoArea(_areaRepository.GetAreasIds(areas));
                 }
-
             }
             return Json(lotesTableSelect);
 
-        }
-
-        public IActionResult getZonas()
-        {
-            var id = HttpContext.Session.GetInt32("UserId");
-            var zonaCliente = HttpContext.Session.GetInt32("Zona");
-
-            var zonas = new List<_00Zona>();
-
-            if (zonaCliente != null)
-            {
-                zonas = _context._00Zona.Where(z => z.Id == zonaCliente).ToList();
-            }
-            else
-            {
-                zonas = _context._00Zona.Where(z => z.Id !=3).ToList();
-            }
-
-            return Json(zonas);
-        }
-
-        public IActionResult getDelegacao()
-        {
-            var zona = HttpContext.Session.GetInt32("Zona");
-            var delegacaoId = HttpContext.Session.GetInt32("Delegação");
-
-            var delegacao = new List<_00Delegação>();
-            if (zona != null)
-            {
-                if (delegacaoId != null)
-                    delegacao = _context._00Delegacao.Where(d => d.Id == Convert.ToInt32(delegacaoId)).ToList();
-                else
-                    delegacao = _context._00Delegacao.Where(d => d.Zona == Convert.ToInt32(zona)).ToList();
-            }
-            else
-            {
-                delegacao = _context._00Delegacao.ToList();
-            }
-                
-            return Json(delegacao);
-        }
-
-        public IActionResult getArea()
-        {
-            var zona = HttpContext.Session.GetInt32("Zona");
-            var delegacaoId = HttpContext.Session.GetInt32("Delegação");
-            var id = HttpContext.Session.GetInt32("UserId");
-            var tipo = HttpContext.Session.GetString("UserTipo");
-            var qtdArea = HttpContext.Session.GetInt32("QuantidadeArea");
-            var area = new List<_00Areas>();
-
-
-            if (tipo == "cli")
-            {
-                if (qtdArea != null && qtdArea > 0)
-                {
-                    area = _areaRepository.GetAreasByClienteId((int)id);
-                }
-                else
-                {
-                    if (delegacaoId != null)
-                    {
-                        area = _areaRepository.GetAreasByDelegacao(new List<int>(), (int)delegacaoId);
-                    }
-                    else
-                    {
-                        if (zona != null)
-                        {
-                            var delegacoes = _delegacaoRepository.GetDelegacaoIdsByZona((int)zona);
-                            area = _areaRepository.GetAreasByDelegacao(delegacoes, 0);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                area = _context._00Areas.ToList();
-            }
-            return Json(area);
-        }
+        } 
     }
 }

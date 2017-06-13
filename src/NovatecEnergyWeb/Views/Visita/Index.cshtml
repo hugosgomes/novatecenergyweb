@@ -1,0 +1,316 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using NovatecEnergyWeb.Core;
+
+@{
+    Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
+    ViewData["Title"] = "Status de Clientes Com Tratamento Comercial";
+}
+
+@Html.Hidden("urlGetZona", Url.Action("getZonas", "FiltroLateralService"))
+@Html.Hidden("urlGetDelegacao", Url.Action("getDelegacao", "FiltroLateralService"))
+@Html.Hidden("urlGetArea", Url.Action("getArea", "FiltroLateralService"))
+@Html.Hidden("urlZonaCascade", Url.Action("ZonaCascade", "FiltroLateralService"))
+@Html.Hidden("urlDelegacaoCascade", Url.Action("DelegacaoCascade", "FiltroLateralService"))
+
+
+<div class="container-fluid">
+    <!-- Loader-->
+    <div class="row">
+
+        <div id="load" class="col-md-offset-5 col-md-3 col-md-offset-4">
+
+    
+            <img id="centro" src="~/images/load.gif" alt="Carregando..." title="Carregando...">
+
+        </div>
+    </div>
+
+
+    <div class="row">
+
+
+        <div class=" col-md-3 col-lg-2  ">
+            <nav class="navbar navbar-default navbar-fixed-side">
+                <h4 id="titulo" class="text-center">Visitas Comerciais</h4>
+
+                       
+                <!--
+   -----------------------------------------------------------------------------------------------------------------------------------
+                  Filtros laterais
+   -----------------------------------------------------------------------------------------------------------------------------------
+                  -->
+
+
+                <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
+                    <!--zona -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Zona</label>
+                        <div class="controls">
+
+
+                            <select id="zonas" onchange="postZona(); filtraLotes();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <!--fim de zona -->
+
+
+                    <!--delegação -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Delegação</label>
+                        <div class="controls">
+                            <select id="delegacao" onchange="postDelegacao(); filtraLotes();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                        </div>
+                    </div>
+            
+                    <!-- fim de delegação -->
+
+
+                    <!--area -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Área</label>
+                        <div class="controls">
+                            <select id="area" onchange="filtraLotes();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
+                        </div>
+                    </div>
+
+                    <!--fim de area -->
+
+
+                    <!--lote -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Lote</label>
+                        <div class="controls">
+                            <select id="lotes" name="LoteError" onchange="postLote(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--fim de lote-->
+
+                    <!--venda d1/d2 -->
+                    <div class="control-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label labelsFormNav">Venda</label>
+
+                                <select id="venda" onchange="" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;"></select>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label class="control-label labelsFormNav">D1/D2</label>
+
+                                <select id="d1d2" onchange="" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;"></select>
+                        
+                            </div>                            
+                        </div>
+                    </div>
+
+                    <!--fim de venda d1/d2 -->
+
+
+
+                    <!--tipo visita -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Tipo Visita</label>
+                        <div class="controls">
+                            <select id="tipovisita" onchange="" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;"></select>
+                        </div>
+                    </div>
+                    <!--fim tipo visita -->
+
+                    <!--rejeição -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Rejeição</label>
+                        <div class="controls">
+                            <select id="rejeicao" onchange="" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:242px;">
+                              
+                            </select>
+                        </div>
+                    </div>
+                    <!--fim de rejeição -->
+
+
+                    <!--ag comercial -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Ag Comercial</label>
+                        <div class="controls">
+                            <select id="agcomercial" onchange="" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:242px;"></select>
+                        </div>
+                    </div>
+                    <!--fim de ag comercial -->
+
+                    <!--ag comercial -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Status Cond.</label>
+                        <div class="controls">
+                            <select id="statuscond" onchange="postStatusCond(); postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                        </div>
+                    </div>
+                    <!--fim ag comercial -->
+
+
+                    <!--condominio -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Condomínio</label>
+                        <div class="controls">
+                            <select id="condominio" onchange="postToController();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                        </div>
+                    </div>
+                    <!--fim de condominio -->
+
+                    <!--dia de visita -->
+                    <div class="control-group">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <label class="control-label labelsFormNav">Dia da Visita</label>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                <input id="diavisita1" class="alturaFormNavInput form-control fontTableBodyNavBar"  type="text">
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                
+                                <input id="diavisita2" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--fim dia de visita -->
+
+                    <!--condomínio input -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Condomínio</label>
+                        <div class="controls">
+                            <input id="condominioinput" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim de condomínio input -->
+
+                    <!--ag comercial input -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Ag. Comercial</label>
+                        <div class="controls">
+                            <input id="agcomercialinput" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim ag comercial input -->
+
+                    <!--localidade input -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Localidade</label>
+                        <div class="controls">
+                            <input id="localidadeinput" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+
+                    <!--fim de localidade input -->
+
+                    <!--bairro input -->
+                    <div class="control-group">
+                        <label class="control-label  labelsFormNav">Bairro</label>
+                        <div class="controls">
+                            <input id="bairro" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim de bairro input -->
+
+                    <!--logradouro input -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Logradouro</label>
+                        <div class="controls">
+                            <input id="Logradouro" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim de logradouro input -->
+
+                    <!--número input -->
+                    <div class="col-xs-6" style="padding-left:0px;">
+                        <label class="labelsFormNav">Número Entre</label>
+                        <input id="Numero1" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:60px" type="text" />
+                    </div>
+                    <div class="col-xs-offset-3"></div>
+                    <div class="col-xs-4">
+                        <label class="labelsFormNav">E</label>
+                        <input id="Numero2" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:60px" type="text" />
+                    </div>
+                    <!--fim de número input -->
+
+                    <br />
+                    <br />
+                    <br />
+
+                    <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
+                    <div class="col-xs-8"><a href="#" onclick="postToController();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
+
+
+
+                    <br />
+                    <label class="fontTableBodyNavBar">Exportar Pijama Formato Novatec</label>
+                    <a href="#" onclick="ExportaPadraoNovatec();">
+                        <img src="~/images/ms_excel.png" style="margin-left:19px;" width="30" height="30" />
+                    </a>
+
+                    
+                    <br />
+
+                </form>
+
+                <!--
+                -------------------------------------------------------------------------------------------------------------------
+                  fim dos Filtros Laterais
+                -------------------------------------------------------------------------------------------------------------------
+                  -->
+
+
+            </nav>
+        </div>
+
+
+        <!--
+        -------------------------------------------------------------------------------------------------------------------
+          Listagem
+        -------------------------------------------------------------------------------------------------------------------
+          -->
+
+        <div class="col-md-9 col-lg-10   ">
+            <div id="page-selection"></div>
+            <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
+                <thead id="headTabelaLote">
+                    <tr>
+                        <!-- <th class="text-center">Casa</th>  retirados 11/05/2017 à pedido do Javier
+                         <th class="text-center">Lote</th> -->
+                        <th class="text-center">Z</th>
+                        <th class="text-center">D</th>
+                        <th class="text-center">AR</th>
+                        <th class="text-center">PT</th>
+                        <th class="text-center">CONDOMÍNIO</th>
+                        <th class="text-center">LOCALIDADE</th>
+                        <th class="text-center">BAIRRO</th>
+                        <th class="text-center">VIA</th>
+                        <th class="text-center">LOGRADOURO</th>
+                        <th class="text-center">NUM</th>
+                        <th class="text-center">COMP</th>
+                        <th class="text-center">BLOCO</th>
+                        <th class="text-center">APT</th>
+                        <th class="text-center">ÚLTIMO MOTIVO (ULT)</th>
+                        <th class="text-center">AGENTE ULT</th>
+                        <th class="text-center">DT ULT</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoTabelaAtivos" class="corpoTabela"></tbody>
+
+            </table>
+        </div>
+
+        <!--
+          -------------------------------------------------------------------------------------------------------------------
+            fim da Listagem
+          -------------------------------------------------------------------------------------------------------------------
+            -->
+        </div>
+
+    </div>
