@@ -264,6 +264,22 @@ namespace NovatecEnergyWeb.Controllers
             //executa a SP e tras os valores filtrados
             var evList = GetLotePorCliente(filtros);
 
+            var Tratados = evList.Sum(c => c.Tratado);// tratados recebe 1 nao tratados recebe 0
+            var TratadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(Tratados), Convert.ToDecimal(evList.Count())) * 100) : 0;
+            var NaoTratados = evList.Count() - Tratados;
+            var NaoTratadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(NaoTratados), Convert.ToDecimal(evList.Count())) * 100) : 0;
+
+            var teste = evList.Count(c => c.Tratado == 1);
+
+            var c0Visita = evList.Count(c => c.Tratado == 0 && c.Visitas == 0);
+            var c0VisitaPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(c0Visita), Convert.ToDecimal(NaoTratados)) * 100) : 0;
+
+            var c1Visita = evList.Count(c => c.Tratado == 0 && c.Visitas == 1);
+            var c1VisitaPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(c1Visita), Convert.ToDecimal(NaoTratados)) * 100) : 0;
+
+            var c2Visita = evList.Count(c => c.Tratado == 0 && c.Visitas == 2);
+            var c2VisitaPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(c2Visita), Convert.ToDecimal(NaoTratados)) * 100) : 0;
+
             var Visitados = evList.Sum(c => c.Visitado);
             var VisitadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(Visitados), Convert.ToDecimal(evList.Count())) * 100):0;
             var NaoVisitados = evList.Count() - Visitados;
@@ -304,7 +320,7 @@ namespace NovatecEnergyWeb.Controllers
                 jsonModel.Numeracoes = new List<dynamic>();
                 jsonModel.Porcentagens = new List<dynamic>();
 
-                jsonModel.Numeracoes.Add(evList.Count()); //e0
+                jsonModel.Numeracoes.Add(evList.Count()); //e0          
                 jsonModel.Numeracoes.Add(Visitados); //e1
                 jsonModel.Numeracoes.Add(NaoVisitados);//e2
                 jsonModel.Numeracoes.Add(Contratados);//e3
@@ -317,6 +333,11 @@ namespace NovatecEnergyWeb.Controllers
                 jsonModel.Numeracoes.Add(VisitasImprodutivas);//e10
                 jsonModel.Numeracoes.Add(Ausentes);//e11
                 jsonModel.Numeracoes.Add(NovaVisitaAgendada);//e12
+                jsonModel.Numeracoes.Add(Tratados); //e13
+                jsonModel.Numeracoes.Add(NaoTratados); //e14
+                jsonModel.Numeracoes.Add(c0Visita); //e15
+                jsonModel.Numeracoes.Add(c1Visita); //e16
+                jsonModel.Numeracoes.Add(c2Visita); //e17
 
                 jsonModel.Porcentagens.Add(VisitadosPercent); //ep0
                 jsonModel.Porcentagens.Add(NaoVisitadosPercent); //ep1
@@ -328,6 +349,11 @@ namespace NovatecEnergyWeb.Controllers
                 jsonModel.Porcentagens.Add(VisitasComRespostaPercent);//ep7
                 jsonModel.Porcentagens.Add(VisitasImprodutivasPercent);//ep8
                 jsonModel.Porcentagens.Add(AusentesPercent);//ep9
+                jsonModel.Porcentagens.Add(TratadosPercent);//ep10
+                jsonModel.Porcentagens.Add(NaoTratadosPercent);//ep11
+                jsonModel.Porcentagens.Add(c0VisitaPercent);//ep12
+                jsonModel.Porcentagens.Add(c1VisitaPercent);//ep13
+                jsonModel.Porcentagens.Add(c2VisitaPercent);//ep14
 
                 // jsonModel.EV = evList;
                 var pagina = 0;

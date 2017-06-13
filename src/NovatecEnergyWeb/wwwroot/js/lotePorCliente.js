@@ -99,10 +99,13 @@ function clicado() {
     return id;
 }
 
+// funcao com retorno de lotes por cliente
 function atualizaView(retorno) {
+
     tabelaEstatisticas(retorno)
     montaPaginacao(retorno);
     tabelaLoteAtivos(retorno);
+
 };
 
 function montaPaginacao(retorno) {
