@@ -84,6 +84,7 @@ function preencheTableStatus(estatistica) {
     var j = -1;
 
     for (var i = 0; i < estatistica.length; i++) {
+
         r[++j] = '<tr>';
         r[++j] = '<td>';
         r[++j] = estatistica[i].umt;
@@ -101,7 +102,9 @@ function preencheTableStatus(estatistica) {
         r[++j] = Math.floor(estatistica[i].mtent * 100).toString() + '%';
         r[++j] = '</td>';
         r[++j] = '</tr>';
+
     }
+
     $('#corpoStatus').html(r.join(''));
 }
 

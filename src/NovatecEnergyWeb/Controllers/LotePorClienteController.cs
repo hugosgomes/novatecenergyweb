@@ -75,6 +75,8 @@ namespace NovatecEnergyWeb.Controllers
             return Json(retorno);
         }
 
+
+
         public IActionResult DelegacaoCascade(int delegacao)
         {
             //áreas

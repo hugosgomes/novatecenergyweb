@@ -33,10 +33,10 @@ namespace NovatecEnergyWeb
             Configuration = builder.Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
-            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("TESTEPL"));
             AppSettings.contexto = new BDNVTContext(optionsBuilder.Options);
 
-            AppSettings.ExcelExportUrl = Configuration.GetValue<string>("ExcelExportUrl:Production");
+            AppSettings.ExcelExportUrl = Configuration.GetValue<string>("ExcelExportUrl:Dev");
 
         }
 
@@ -47,7 +47,7 @@ namespace NovatecEnergyWeb
         {
             
             services.AddDbContext<BDNVTContext>(options => 
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("TESTEPL")));
 
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
@@ -58,6 +58,8 @@ namespace NovatecEnergyWeb
             services.AddScoped<IExcelExportaLotePorCliente, EnderecoVisitasDataExporter>();
             services.AddScoped<ILoteEstatisticaRepository, LoteEstatisticaRepository>();
             services.AddScoped<IDelegacaoRepository, DelegacaoRepository>();
+            services.AddScoped<IVisitasRepository, VisitasRepository>();
+            services.AddScoped<IExcelExportVisitas, VisitasDataExporter>();
 
             services.AddMvc();
 
