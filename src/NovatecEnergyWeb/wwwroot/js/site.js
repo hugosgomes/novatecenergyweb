@@ -101,3 +101,28 @@ function getArea() {
 
 }
 
+function getLotes() {
+    var url = $("#urlGetLotes").val();
+
+    $.getJSON(url,
+
+        function (lotes) {
+            $("#lotes").empty();
+
+            $.each(lotes, function () {
+                var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+                $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
+                    + this[2] + p.text()
+                    + this[3] + p.text()
+                    + this[4] + p.text()));
+            });
+
+            $("#lotes").prop("selectedIndex", -1);
+
+        });
+}
+
+
+
+
