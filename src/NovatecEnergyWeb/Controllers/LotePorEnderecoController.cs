@@ -231,7 +231,7 @@ namespace NovatecEnergyWeb.Controllers
             //lista vinda da SP
             var evList = GetEnderecosAtivos(filtros);
 
-            ViewBag.Potencial = evList.Sum(c => c.Potencial);
+            ViewBag.Potencial = evList.Sum(c => c.Potencial);          
             ViewBag.Visitados = evList.Sum(c => c.Visitados);
             ViewBag.VisitadosPercent = (ViewBag.Potencial != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(ViewBag.Visitados), Convert.ToDecimal(ViewBag.Potencial)) * 100) : 0;
             ViewBag.NaoVisitados = ViewBag.Potencial - ViewBag.Visitados;
