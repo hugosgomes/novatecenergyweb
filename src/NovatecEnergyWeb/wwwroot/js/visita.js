@@ -1,4 +1,4 @@
-﻿
+
 $('#diavisita1').datepicker({
     format: "dd/mm/yyyy",
     todayBtn: "linked",
@@ -20,18 +20,7 @@ window.onload = function () {
 
 
 
-function visitasPreenche(visitas){
-
-/*
-    alert("visitas l");
-    alert(visitas.length);
-    alert(visitas[0].condominio);
-    alert(visitas[0].apt);
-
-   */
-
-
-
+function visitasPreenche(visitas) {
 
     // preenche a tabela
     var tr;
@@ -40,7 +29,7 @@ function visitasPreenche(visitas){
 
     for (var i = 0; i < visitas.length; i++) {
 
-        
+
 
         r[++j] = '<tr>';
 
@@ -77,7 +66,7 @@ function visitasPreenche(visitas){
         r[++j] = visitas[i].apt;
         r[++j] = '</td>';
 
-       
+
         //formatando data
         r[++j] = "<td>";
 
@@ -139,7 +128,7 @@ function visitasPreenche(visitas){
         r[++j] = visitas[i].logradouro;
         r[++j] = '</td>';
 
- 
+
 
         r[++j] = '</tr>';
 
@@ -154,25 +143,25 @@ function limpaFiltro() {
 
     location.reload();
 
-   $('#condominioinput').val("");
-   $('#agcomercialinput').val("");
-   $('#localidadeinput').val("");
-   $('#bairro').val("");
-   $('#logradouroinput').val("");
-   $('#diavisita1').val("");
-   $('#diavisita2').val("");
-   $('#Numero1').val("");
-   $('#Numero2').val("");
+    $('#condominioinput').val("");
+    $('#agcomercialinput').val("");
+    $('#localidadeinput').val("");
+    $('#bairro').val("");
+    $('#logradouroinput').val("");
+    $('#diavisita1').val("");
+    $('#diavisita2').val("");
+    $('#Numero1').val("");
+    $('#Numero2').val("");
 
 }
 
 function montaPaginacao(retorno) {
-  
+
     //paginação
-   $('#page-selection').unbind(); // limpa os eventos adicionados nessa tag
+    $('#page-selection').unbind(); // limpa os eventos adicionados nessa tag
 
     $('#page-selection').bootpag({
-       
+
         //total: retorno.QuantasPaginasExistem,
         total: 200,
         page: 1,
@@ -187,7 +176,7 @@ function montaPaginacao(retorno) {
 
     }).on("page", function (event, num) {
         // some ajax content loading...
-        
+
         exibeVisitas(num);
 
     });
@@ -234,7 +223,7 @@ function listaZona(retorno) {
 function listaDelegacao(retorno) {
 
     // listando todos os objetos produto que contem no array
-    for (i = 0; i < retorno.length ; i++) {
+    for (i = 0; i < retorno.length; i++) {
 
         var cols = "";
 
@@ -273,7 +262,7 @@ function listaLote(retorno) {
 
         var cols = "";
 
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].loteNum +"&nbsp"+ retorno[i].ge + '</option>';
+        cols += '<option value="' + retorno[i].id + '">' + retorno[i].loteNum + "&nbsp" + retorno[i].ge + '</option>';
 
         $("#lotes").append(cols);
 
@@ -436,7 +425,7 @@ function atualizaDropsZona(retorno) {
     preencheLotes(retorno);
     preencheCondominio(retorno);
 
-   // postToController();
+    // postToController();
 }
 
 function atualizaDropsDelegacao(retorno) {
@@ -515,5 +504,6 @@ function preencheCondominio(retorno) {
 
     $("#condominio").prop("selectedIndex", -1);
 }
+
 
 

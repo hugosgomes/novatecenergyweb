@@ -33,10 +33,10 @@ namespace NovatecEnergyWeb
             Configuration = builder.Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
-            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("Production"));
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("TESTEPL"));
             AppSettings.contexto = new BDNVTContext(optionsBuilder.Options);
 
-            AppSettings.ExcelExportUrl = Configuration.GetValue<string>("ExcelExportUrl:Production");
+            AppSettings.ExcelExportUrl = Configuration.GetValue<string>("ExcelExportUrl:Dev");
 
         }
 
@@ -45,9 +45,9 @@ namespace NovatecEnergyWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddDbContext<BDNVTContext>(options => 
-            options.UseSqlServer(Configuration.GetConnectionString("Production")));
+
+            services.AddDbContext<BDNVTContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("TESTEPL")));
 
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
@@ -63,7 +63,7 @@ namespace NovatecEnergyWeb
 
             services.AddMvc();
 
-           
+
 
             services.AddMemoryCache();
             services.AddSession(options => {
@@ -96,7 +96,7 @@ namespace NovatecEnergyWeb
 
             app.UseStaticFiles();
 
-            
+
 
             app.UseMvc(routes =>
             {

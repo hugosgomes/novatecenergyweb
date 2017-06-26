@@ -271,16 +271,15 @@ namespace NovatecEnergyWeb.Controllers
             var NaoTratados = evList.Count() - Tratados;
             var NaoTratadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(NaoTratados), Convert.ToDecimal(evList.Count())) * 100) : 0;
 
-            var teste = evList.Count(c => c.Tratado == 1);
 
             var c0Visita = evList.Count(c => c.Tratado == 0 && c.Visitas == 0);
-            var c0VisitaPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(c0Visita), Convert.ToDecimal(NaoTratados)) * 100) : 0;
+            var c0VisitaPercent = (NaoTratados != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(c0Visita), Convert.ToDecimal(NaoTratados)) * 100) : 0;
 
             var c1Visita = evList.Count(c => c.Tratado == 0 && c.Visitas == 1);
-            var c1VisitaPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(c1Visita), Convert.ToDecimal(NaoTratados)) * 100) : 0;
+            var c1VisitaPercent = (NaoTratados != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(c1Visita), Convert.ToDecimal(NaoTratados)) * 100) : 0;
 
             var c2Visita = evList.Count(c => c.Tratado == 0 && c.Visitas == 2);
-            var c2VisitaPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(c2Visita), Convert.ToDecimal(NaoTratados)) * 100) : 0;
+            var c2VisitaPercent = (NaoTratados != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(c2Visita), Convert.ToDecimal(NaoTratados)) * 100) : 0;
 
             var Visitados = evList.Sum(c => c.Visitado);
             var VisitadosPercent = (evList.Count() != 0) ? Convert.ToInt32(decimal.Divide(Convert.ToDecimal(Visitados), Convert.ToDecimal(evList.Count())) * 100):0;

@@ -43,7 +43,7 @@ namespace NovatecEnergyWeb.Controllers
         }
 
         [HttpGet]
-        
+        [AutenticacaoFilter]
         public IActionResult Index()
         {
             return View();
