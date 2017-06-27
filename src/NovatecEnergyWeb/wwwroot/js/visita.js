@@ -203,54 +203,69 @@ function getReload() {
 }
 
 /////////////////////////////////////////////////////////////////
-function listaZona(retorno) {
+function listaZona(zonas) {
 
     // listando todos os objetos produto que contem no array
-    for (i = 0; i < retorno.length - 1; i++) {
+    for (i = 0; i < zonas.length ; i++) {
 
         var cols = "";
-
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].zona + '</option>';
+        
+        cols += '<option value="' + zonas[i].id + '">' + zonas[i].zona + '</option>';
 
         $("#zonas").append(cols);
 
     }
 
-    $("#zonas").prop("selectedIndex", -1);
+    if (document.getElementById("zonas").length == 1) {
+        $("#zonas").prop("selectedIndex", 0);
+        $("#zonas").attr('disabled', 'disabled');
+    } else {
+        $("#zonas").prop("selectedIndex", -1); // limpa a seleção após carregar
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////
-function listaDelegacao(retorno) {
+function listaDelegacao(delegacao) {
 
     // listando todos os objetos produto que contem no array
-    for (i = 0; i < retorno.length; i++) {
+    for (i = 0; i < delegacao.length; i++) {
 
         var cols = "";
 
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].delegacao + '</option>';
+        cols += '<option value="' + delegacao[i].id + '">' + delegacao[i].delegacao + '</option>';
 
         $("#delegacao").append(cols);
 
     }
 
-    $("#delegacao").prop("selectedIndex", -1);
+    if (document.getElementById("delegacao").length == 1) {
+        $("#delegacao").prop("selectedIndex", 0);
+        $("#delegacao").attr('disabled', 'disabled'); // desativa o seletor
+    } else {
+        $("#delegacao").prop("selectedIndex", -1); // limpa a seleção após carregar
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////
-function listaArea(retorno) {
+function listaArea(area) {
 
     // listando todos os objetos produto que contem no array
-    for (i = 0; i < retorno.length; i++) {
+    for (i = 0; i < area.length; i++) {
 
         var cols = "";
 
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].area + '</option>';
+        cols += '<option value="' + area[i].id + '">' + area[i].area + '</option>';
 
         $("#area").append(cols);
 
     }
 
-    $("#area").prop("selectedIndex", -1);
+    if (document.getElementById("area").length == 1) {
+        $("#area").prop("selectedIndex", 0);
+        $("#area").attr('disabled', 'disabled'); // desativa o seletor
+    } else {
+        $("#area").prop("selectedIndex", -1); // limpa a seleção após carregar
+    }
 }
 
 

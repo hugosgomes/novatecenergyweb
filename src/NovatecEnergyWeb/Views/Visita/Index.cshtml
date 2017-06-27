@@ -378,19 +378,9 @@
         }
 
 
-        function getZona() {
-
-            $.getJSON("@Url.Action("BuscaZona", "Visita")", listaZona);
-        }
-
-        function getDelegacao() {
-
-              $.getJSON("@Url.Action("BuscaDelegacao", "Visita")", listaDelegacao);
-        }
-
          function getArea() {
 
-             $.getJSON("@Url.Action("BuscaArea", "Visita")", listaArea);
+             $.getJSON("@Url.Action("GetArea", "FiltroLateralService")", listaArea);
           }
 
          function getLote() {

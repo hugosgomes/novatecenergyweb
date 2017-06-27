@@ -175,26 +175,7 @@ namespace NovatecEnergyWeb.Controllers
 
         }
         
-   
-
-        [HttpGet]
-        public IActionResult BuscaZona()
-        {
-
-            var zona = _context._00Zona.ToList();
-
-            return Json(zona);
-        }
-
-        [HttpGet]
-        public IActionResult BuscaDelegacao()
-        {
-
-            var delegacao = _context._00Delegacao.ToList();
-
-            return Json(delegacao);
-        }
-
+ 
         [HttpGet]
         public IActionResult BuscaArea()
         {
