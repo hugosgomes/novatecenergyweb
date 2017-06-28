@@ -41,7 +41,7 @@
         <div class=" col-md-3 col-lg-2  ">
             <nav class="navbar navbar-default navbar-fixed-side">
                 <h4 id="titulo" class="text-center">Visitas Comerciais</h4>
-
+                <h3 id="contagemVisitas" class="text-center">0</h3>
                        
                 <!--
    -----------------------------------------------------------------------------------------------------------------------------------
@@ -317,14 +317,11 @@
                         <th class="text-center">BAIRRO</th>
                         <th class="text-center">VIA</th>
                         <th class="text-center">LOGRADOURO</th>
-                        
-
-                        
-                       
-                      
                     </tr>
                 </thead>
-                <tbody id="corpoTabelaAtivos" class="corpoTabela"></tbody>
+                <tbody id="corpoTabelaAtivos" class="corpoTabela">
+
+                </tbody>
 
             </table>
         </div>
@@ -423,7 +420,7 @@
             $.getJSON("@Url.Action("BuscaStatus", "Visita")", listaStatus);
         }
 
-
+        
         ////////////////////////////
         //  FILTROS
         //////////////////////////////
@@ -468,10 +465,7 @@
 
 
         function ExportaPadraoNovatec() {
-
-       
-
-        $("#load").fadeIn(); // chama animacao de carregando
+            $("#load").fadeIn(); // chama animacao de carregando
 
         var p = {};
 

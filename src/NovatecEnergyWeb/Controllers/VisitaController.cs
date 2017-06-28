@@ -160,31 +160,25 @@ namespace NovatecEnergyWeb.Controllers
                     visitas = visitas.Where(w => w.DataHora >= dt && w.DataHora <= dt2
      
                     );
-
-
             }
 
 
-            // paginacao
-            var vis2 = visitas.Skip(pagina)
-                          .Take(itensPagina);
+           
 
-            return Json(vis2);
+            var retorno = new
+            {
+                // paginacao
+                visitas = visitas.Skip(pagina).Take(itensPagina),
+                contagem = visitas.Count() // contagem
+                       
+            };
+
+            return Json(retorno);
 
             
 
         }
-        
- 
-        [HttpGet]
-        public IActionResult BuscaArea()
-        {
-
-            var area = _context._00Areas.ToList();
-
-            return Json(area);
-        }
-
+       
         [HttpGet]
         public IActionResult BuscaLote()
         {

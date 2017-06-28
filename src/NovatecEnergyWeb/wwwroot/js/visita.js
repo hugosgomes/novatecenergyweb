@@ -20,7 +20,10 @@ window.onload = function () {
 
 
 
-function visitasPreenche(visitas) {
+function visitasPreenche(retorno) {
+    var visitas = retorno.visitas;
+    //preenche contagem
+    $('#contagemVisitas').html(retorno.contagem);
 
     // preenche a tabela
     var tr;
@@ -81,9 +84,6 @@ function visitasPreenche(visitas) {
         r[++j] = formatada; // data tratada
         r[++j] = "</td>";
 
-
-
-
         r[++j] = '<td>';
         r[++j] = visitas[i].venda;
         r[++j] = '</td>';
@@ -136,7 +136,7 @@ function visitasPreenche(visitas) {
 
     $('#corpoTabelaAtivos').html(r.join(''));
 
-
+   
 
 }
 function limpaFiltro() {
