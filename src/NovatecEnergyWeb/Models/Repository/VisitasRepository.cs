@@ -26,11 +26,6 @@ namespace NovatecEnergyWeb.Models.Repository
             return visitas;
         }
 
-
-
-
-
-
         public IEnumerable<Visitas> GetVisitasFiltro( int zonas, int delegacao, int area, int condominio)
         {
             var visitas = _context.Visitas.FromSql(" exec [dbo].[CondVisitas] ").ToList();

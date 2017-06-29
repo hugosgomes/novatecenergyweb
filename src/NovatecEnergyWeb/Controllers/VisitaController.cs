@@ -53,7 +53,7 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult BuscaVisitas(int num, int zonas, int delegacao, int area,int condominio, 
             int venda, int d1d2, int tipovisita, int rejeicao, int statuscond, String condominioinput,
             String agcomercialinput, String localidadeinput, String bairro, String logradouroinput, 
-            String diavisita1, String diavisita2, int Numero1, int Numero2)
+            String diavisita1, String diavisita2, int Numero1, int Numero2, int lote)
         {
             
             // definicoes da paginacao
@@ -71,8 +71,14 @@ namespace NovatecEnergyWeb.Controllers
             // retorna a consulta filtrada pelos parametros
             var visitas = _VisitasRepository.GetVisitasFiltro( zonas, delegacao, area, condominio);
 
-          
+
+
             // filtra as seguintes colunas
+            if (lote != 0)
+            {
+                visitas = visitas.Where(v => v.IdLote == lote);
+            }
+
             if (venda != 0) {
 
                visitas = visitas.Where( c =>c.Vendaid == venda);
@@ -163,8 +169,6 @@ namespace NovatecEnergyWeb.Controllers
             }
 
 
-           
-
             var retorno = new
             {
                 // paginacao
@@ -174,9 +178,6 @@ namespace NovatecEnergyWeb.Controllers
             };
 
             return Json(retorno);
-
-            
-
         }
        
         [HttpGet]

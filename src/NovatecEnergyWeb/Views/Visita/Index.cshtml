@@ -92,7 +92,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Lote</label>
                         <div class="controls">
-                            <select id="lotes" name="LoteError" onchange="postLote();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
+                            <select id="lotes" name="LoteError" onchange="postLote(); exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
 
                             </select>
                         </div>
@@ -368,6 +368,8 @@
             p.Numero1 = $('#Numero1').val();
             p.Numero2 = $('#Numero2').val();
 
+            p.lote = $('#lotes').val();
+
 
             $("#load").fadeIn(); // chama animacao de carregando
             $.post("@Url.Action("BuscaVisitas", "Visita")", p, visitasPreenche);
@@ -382,7 +384,7 @@
 
          function getLote() {
 
-             $.getJSON("@Url.Action("BuscaLote", "Visita")", listaLote);
+             $.getJSON("@Url.Action("GetLotes", "FiltroLateralService")", listaLote);
          }
 
          function getD() {

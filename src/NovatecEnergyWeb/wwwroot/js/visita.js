@@ -271,17 +271,18 @@ function listaArea(area) {
 
 ///////////////////////////////////////////////////////////////////////////
 function listaLote(retorno) {
+    
+    var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+    $("#lotes").empty();
 
-    // listando todos os objetos produto que contem no array
-    for (i = 0; i < retorno.length; i++) {
+    $.each(retorno, function () {        
 
-        var cols = "";
-
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].loteNum + "&nbsp" + retorno[i].ge + '</option>';
-
-        $("#lotes").append(cols);
-
-    }
+        $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
+            + this[2] + p.text()
+            + this[3] + p.text()
+            + this[4]));
+    });
+    
 
     $("#lotes").prop("selectedIndex", -1);
 }

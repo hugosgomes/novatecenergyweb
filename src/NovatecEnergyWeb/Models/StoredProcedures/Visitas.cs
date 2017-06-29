@@ -46,5 +46,6 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public int Negativaid { get; set; }
         public int Dxid { get; set; }
         public int Statusid { get; set; }
+        public int IdLote { get; set; }
     }
 }

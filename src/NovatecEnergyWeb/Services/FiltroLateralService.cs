@@ -178,7 +178,7 @@ namespace NovatecEnergyWeb.Services
                 if (qtdArea != null && qtdArea > 0)
                 {
                     var areasCliente = _areaRepository.GetAreasByClienteId((int)id);
-                    lotes = _loteRepository.GetLoteJoinZonaDelegacaoArea(_areaRepository.GetAreasIds(areasCliente));
+                    lotes = _loteRepository.GetLotes(_areaRepository.GetAreasIds(areasCliente), 0);
                 }
                 else
                 {
