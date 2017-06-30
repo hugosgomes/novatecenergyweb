@@ -31,6 +31,10 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public int Aid { get; set; }
         public int IdLote { get; set; }
         public int Entrevistados{ get; set; }
-       
+        public int Tratados { get; set; }
+        public int Visitas0 { get; set; }
+        public int Visitas1 { get; set; }
+        public int Visitas2 { get; set; }
+        
     }
 }
