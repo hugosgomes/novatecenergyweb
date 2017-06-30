@@ -11,8 +11,8 @@
 @Html.Hidden("urlGetDelegacao", Url.Action("GetDelegacao", "FiltroLateralService"))
 @Html.Hidden("urlGetArea", Url.Action("GetArea", "FiltroLateralService"))
 @Html.Hidden("urlBuscaLote",Url.Action("BuscaLotes", "LoteEstatistica"))
-@Html.Hidden("urlZonaCascade",Url.Action("ZonaCascade", "FiltroCascataService"))
-@Html.Hidden("urlDelegacaoCascade",Url.Action("DelegacaoCascade", "FiltroCascataService"))
+@Html.Hidden("urlZonaCascade",Url.Action("ZonaCascade", "FiltroLateralService"))
+@Html.Hidden("urlDelegacaoCascade",Url.Action("DelegacaoCascade", "FiltroLateralService"))
 
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -143,6 +143,44 @@
                                     <td class="col-xs-9 col-lg-8" style="padding-right:0px; padding-bottom:0px; padding-top:0px; "><b>Potencial</b></td>
                                     <td id="potNum" class="noPaddingTopBot col-xs-3 col-lg-4">0</td>
                                 </tr>
+
+                                <tr>
+                                    <td class="col-xs-9" style="padding-right:0px; "><b>Endereços Tratados</b></td>
+                                    <td id="tratNum" class="col-xs-2">0</td>
+                                    <td id="tratSpot" class="col-xs-1">0</td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-9" style="padding-right:0px; "><b>Endereços Não Tratados</b></td>
+                                    <td id="naoTratNum" class="col-xs-2">0</td>
+                                    <td id="naoTratSpot" class="col-xs-1">0</td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr> 
+                                <tr>
+                                    <td class="col-xs-9" style="padding-right:0px; "><b>&nbsp &nbsp &nbsp Endereços C/0 Visita</b></td>
+                                    <td id="c0Num" class="col-xs-2">0</td>
+                                    <td id="c0Spot" class="col-xs-1">0</td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-9" style="padding-right:0px; "><b>&nbsp &nbsp &nbsp Endereços C/1 Visita</b></td>
+                                    <td id="c1Num" class="col-xs-2">0</td>
+                                    <td id="c1Spot" class="col-xs-1">0</td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-9" style="padding-right:0px; "><b>&nbsp &nbsp &nbsp Endereços C/2 Visitas</b></td>
+                                    <td id="c2Num" class="col-xs-2">0</td>
+                                    <td id="c2Spot" class="col-xs-1">0</td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+
+
                                 <tr>
                                     <td class="col-xs-9" style="padding-right:0px; "><b>Visitados</b></td>
                                     <td id="visNum" class="col-xs-2">0</td>

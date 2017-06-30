@@ -119,6 +119,23 @@ function preencheTableEstatistica(estatistica) {
         // potencial
         $('#potNum').html(estatistica[0].pot);
         
+        //tratados
+        $('#tratNum').html(estatistica[0].trat);
+        $('#tratSpot').html(Math.ceil((estatistica[0].trat / estatistica[0].pot) * 100).toString() + '%');
+
+        $('#naoTratNum').html(estatistica[0].pot - estatistica[0].trat);
+        $('#naoTratSpot').html(Math.ceil(((estatistica[0].pot - estatistica[0].trat) / estatistica[0].pot) * 100).toString() + '%');
+
+        $('#c0Num').html(estatistica[0].visitas0);
+        var naotratados = (estatistica[0].pot - estatistica[0].trat);
+        $('#c0Spot').html((naotratados) ? Math.ceil((estatistica[0].visitas0 / (estatistica[0].pot - estatistica[0].trat)) * 100).toString() + '%' :"0" + '%');
+
+        $('#c1Num').html(estatistica[0].visitas1);
+        $('#c1Spot').html((naotratados) ? Math.ceil((estatistica[0].visitas1 / (estatistica[0].pot - estatistica[0].trat)) * 100).toString() + '%' : "0" + '%');
+
+        $('#c2Num').html(estatistica[0].visitas2);
+        $('#c2Spot').html((naotratados) ? Math.ceil((estatistica[0].visitas2 / (estatistica[0].pot - estatistica[0].trat)) * 100).toString() + '%' : "0" + '%');
+
         // visitados
         $('#visNum').html(estatistica[0].vis);
         $('#visSpot').html(Math.ceil((estatistica[0].vis / estatistica[0].pot) * 100).toString() + '%');
@@ -137,7 +154,7 @@ function preencheTableEstatistica(estatistica) {
         //nao visitados
         $('#naoVisiNum').html(estatistica[0].pot - estatistica[0].vis);
         $('#naoVisiPot').html(Math.ceil(((estatistica[0].pot - estatistica[0].vis) / estatistica[0].pot) * 100).toString() + '%');
-        $('#')
+        //$('#')
 
         //nao entrevistado
         $('#naoEntNum').html(estatistica[0].pot - estatistica[0].ent);

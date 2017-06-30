@@ -26,5 +26,9 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public int Did { get; set; }
         public int Aid { get; set; }
         public int Umgr { get; set; }
+        public int Trat { get; set; }
+        public int Visitas0 { get; set; }
+        public int Visitas1 { get; set; }
+        public int Visitas2 { get; set; }
     }
 }
