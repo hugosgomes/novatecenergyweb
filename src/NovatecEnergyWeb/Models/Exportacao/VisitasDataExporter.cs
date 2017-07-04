@@ -25,7 +25,7 @@ namespace NovatecEnergyWeb.Models.Exportacao
         public byte[] ExportaPadraoNovatec(List<Visitas> data)
         {
             FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Visitas.xlsx";
-            File.Copy(Path.Combine(WebRootFolder, @"formatoNovatecVisitas.xlsx"), Path.Combine(WebRootFolder, FileName));
+            File.Copy(Path.Combine(WebRootFolder, @"formatoNovatecVisitasEndereco.xlsx"), Path.Combine(WebRootFolder, FileName));
 
             FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
 
