@@ -41,7 +41,7 @@
         <div class=" col-md-3 col-lg-2  ">
             <nav class="navbar navbar-default navbar-fixed-side">
                 <h4 id="titulo" class="text-center">Visitas Comerciais</h4>
-
+                <h3 id="contagemVisitas" class="text-center">0</h3>
                        
                 <!--
    -----------------------------------------------------------------------------------------------------------------------------------
@@ -92,7 +92,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Lote</label>
                         <div class="controls">
-                            <select id="lotes" name="LoteError" onchange="postLote();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
+                            <select id="lotes" name="LoteError" onchange="postLote(); exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;">
 
                             </select>
                         </div>
@@ -317,14 +317,11 @@
                         <th class="text-center">BAIRRO</th>
                         <th class="text-center">VIA</th>
                         <th class="text-center">LOGRADOURO</th>
-                        
-
-                        
-                       
-                      
                     </tr>
                 </thead>
-                <tbody id="corpoTabelaAtivos" class="corpoTabela"></tbody>
+                <tbody id="corpoTabelaAtivos" class="corpoTabela">
+
+                </tbody>
 
             </table>
         </div>
@@ -371,6 +368,8 @@
             p.Numero1 = $('#Numero1').val();
             p.Numero2 = $('#Numero2').val();
 
+            p.lote = $('#lotes').val();
+
 
             $("#load").fadeIn(); // chama animacao de carregando
             $.post("@Url.Action("BuscaVisitas", "Visita")", p, visitasPreenche);
@@ -378,24 +377,14 @@
         }
 
 
-        function getZona() {
-
-            $.getJSON("@Url.Action("BuscaZona", "Visita")", listaZona);
-        }
-
-        function getDelegacao() {
-
-              $.getJSON("@Url.Action("BuscaDelegacao", "Visita")", listaDelegacao);
-        }
-
          function getArea() {
 
-             $.getJSON("@Url.Action("BuscaArea", "Visita")", listaArea);
+             $.getJSON("@Url.Action("GetArea", "FiltroLateralService")", listaArea);
           }
 
          function getLote() {
 
-             $.getJSON("@Url.Action("BuscaLote", "Visita")", listaLote);
+             $.getJSON("@Url.Action("GetLotes", "FiltroLateralService")", listaLote);
          }
 
          function getD() {
@@ -433,7 +422,7 @@
             $.getJSON("@Url.Action("BuscaStatus", "Visita")", listaStatus);
         }
 
-
+        
         ////////////////////////////
         //  FILTROS
         //////////////////////////////
@@ -478,10 +467,7 @@
 
 
         function ExportaPadraoNovatec() {
-
-       
-
-        $("#load").fadeIn(); // chama animacao de carregando
+            $("#load").fadeIn(); // chama animacao de carregando
 
         var p = {};
 

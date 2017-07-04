@@ -53,7 +53,7 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult BuscaVisitas(int num, int zonas, int delegacao, int area,int condominio, 
             int venda, int d1d2, int tipovisita, int rejeicao, int statuscond, String condominioinput,
             String agcomercialinput, String localidadeinput, String bairro, String logradouroinput, 
-            String diavisita1, String diavisita2, int Numero1, int Numero2)
+            String diavisita1, String diavisita2, int Numero1, int Numero2, int lote)
         {
             
             // definicoes da paginacao
@@ -71,8 +71,14 @@ namespace NovatecEnergyWeb.Controllers
             // retorna a consulta filtrada pelos parametros
             var visitas = _VisitasRepository.GetVisitasFiltro( zonas, delegacao, area, condominio);
 
-          
+
+
             // filtra as seguintes colunas
+            if (lote != 0)
+            {
+                visitas = visitas.Where(v => v.IdLote == lote);
+            }
+
             if (venda != 0) {
 
                visitas = visitas.Where( c =>c.Vendaid == venda);
@@ -160,50 +166,20 @@ namespace NovatecEnergyWeb.Controllers
                     visitas = visitas.Where(w => w.DataHora >= dt && w.DataHora <= dt2
      
                     );
-
-
             }
 
 
-            // paginacao
-            var vis2 = visitas.Skip(pagina)
-                          .Take(itensPagina);
+            var retorno = new
+            {
+                // paginacao
+                visitas = visitas.Skip(pagina).Take(itensPagina),
+                contagem = visitas.Count() // contagem
+                       
+            };
 
-            return Json(vis2);
-
-            
-
+            return Json(retorno);
         }
-        
-   
-
-        [HttpGet]
-        public IActionResult BuscaZona()
-        {
-
-            var zona = _context._00Zona.ToList();
-
-            return Json(zona);
-        }
-
-        [HttpGet]
-        public IActionResult BuscaDelegacao()
-        {
-
-            var delegacao = _context._00Delegacao.ToList();
-
-            return Json(delegacao);
-        }
-
-        [HttpGet]
-        public IActionResult BuscaArea()
-        {
-
-            var area = _context._00Areas.ToList();
-
-            return Json(area);
-        }
-
+       
         [HttpGet]
         public IActionResult BuscaLote()
         {
