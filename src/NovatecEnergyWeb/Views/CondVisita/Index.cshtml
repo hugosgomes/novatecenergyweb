@@ -1,0 +1,547 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using NovatecEnergyWeb.Core;
+@using NovatecEnergyWeb.Models.StoredProcedures;
+
+@{
+    Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
+    ViewData["Title"] = "Visitas Comerciais";
+}
+
+@Html.Hidden("urlGetZona", Url.Action("GetZonas", "FiltroLateralService"))
+@Html.Hidden("urlGetDelegacao", Url.Action("GetDelegacao", "FiltroLateralService"))
+@Html.Hidden("urlGetArea", Url.Action("GetArea", "FiltroLateralService"))
+@Html.Hidden("urlZonaCascade", Url.Action("ZonaCascade", "FiltroLateralService"))
+@Html.Hidden("urlDelegacaoCascade", Url.Action("DelegacaoCascade", "FiltroLateralService"))
+@Html.Hidden("urlGetLotes", Url.Action("GetLotes", "FiltroLateralService"))
+@Html.Hidden("urlCampoVenda", Url.Action("GetCampoVenda", "FiltroLateralService"))
+@Html.Hidden("urlD1d2", Url.Action("GetD1D2", "FiltroLateralService"))
+@Html.Hidden("urlTipoVisita", Url.Action("GetTipoVisita", "FiltroLateralService"))
+@Html.Hidden("urlRejeicao", Url.Action("GetRejeicao", "FiltroLateralService"))
+@Html.Hidden("urlAgComercial", Url.Action("GetAgenteComercial", "FiltroLateralService"))
+@Html.Hidden("urlStatusCond", Url.Action("GetStatusCond", "FiltroLateralService"))
+@Html.Hidden("urlCondominio", Url.Action("GetCondominio", "FiltroLateralService"))
+
+<div class="container-fluid">
+    <!-- Loader-->
+    <div class="row">
+
+        <div id="load" class="col-md-offset-5 col-md-3 col-md-offset-4">
+
+    
+            <img id="centro" src="~/images/load.gif" alt="Carregando..." title="Carregando...">
+
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        
+    
+        <div class=" col-md-3 col-lg-2  ">
+            <nav class="navbar navbar-default navbar-fixed-side">
+                <h4 id="titulo" class="text-center">Visitas Comerciais</h4>
+                <h3 id="contagemVisitas" class="text-center">0</h3>
+                       
+                <!--
+   -----------------------------------------------------------------------------------------------------------------------------------
+                  Filtros laterais
+   -----------------------------------------------------------------------------------------------------------------------------------
+                  -->
+
+
+                <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
+                    <!--zona -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Zona</label>
+                        <div class="controls">
+
+
+                            <select id="zonas" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <!--fim de zona -->
+
+
+                    <!--delegação -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Delegação</label>
+                        <div class="controls">
+                            <select id="delegacao" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                        </div>
+                    </div>
+            
+                    <!-- fim de delegação -->
+
+
+                    <!--area -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Área</label>
+                        <div class="controls">
+                            <select id="area" onchange="exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
+                        </div>
+                    </div>
+
+                    <!--fim de area -->
+
+
+                    <!--lote -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Lote</label>
+                        <div class="controls">
+                            <select id="lotes" name="LoteError" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;" >
+
+                            </select>
+                        </div>
+                    </div>  
+
+                    <!--fim de lote-->
+
+                    <!--visitado -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Visitado</label>
+                        <div class="controls">
+                            <select id="visitado" name="visitado" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;"></select>
+                        </div>
+                    </div>
+
+                    <!--fim de visitado-->
+
+                    <!--interesse -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Interesse</label>
+                        <div class="controls">
+                            <select id="interesse" name="interesse" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;"></select>
+                        </div>
+                    </div>
+
+                    <!--fim de interesse-->
+
+                    <!--pco -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">PCO</label>
+                        <div class="controls">
+                            <select id="pco" name="pco" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;"></select>
+                        </div>
+                    </div>
+
+                    <!--fim de pco-->
+
+                    <!--tSocial -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Tarifa Social</label>
+                        <div class="controls">
+                            <select id="tSocial" name="tSocial" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;"></select>
+                        </div>
+                    </div>
+
+                    <!--tipoVisita -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Tipo Visita</label>
+                        <div class="controls">
+                            <select id="tipoVisita" name="tipoVisita" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;" ></select>
+                        </div>
+                    </div>
+                    <!--fim de tipoVisita-->
+
+                   
+                    <!--rejeição -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Rejeição</label>
+                        <div class="controls">
+                            <select id="rejeicao" onchange="exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:242px;">
+                              
+                            </select>
+                        </div>
+                    </div>
+                    <!--fim de rejeição -->
+
+
+                    <!--ag comercial -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Ag Comercial</label>
+                        <div class="controls">
+                            <select id="agcomercial" onchange="exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:242px;"></select>
+                        </div>
+                    </div>
+                    <!--fim de ag comercial -->
+
+
+                    <!--condominio -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Condomínio</label>
+                        <div class="controls">
+
+                            <select id="condominio" onchange="exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+
+
+                        </div>
+                    </div>
+                    <!--fim de condominio -->
+
+                    <!--dia de visita -->
+                    <div class="control-group">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <label class="control-label labelsFormNav">Dia da Visita</label>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                <input id="diavisita1" class="alturaFormNavInput form-control fontTableBodyNavBar"  type="text">
+                            </div>
+                              <div class="col-md-6 col-xs-6">
+                                
+                                <input id="diavisita2" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--fim dia de visita -->
+
+                    <!--condomínio input -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Condomínio</label>
+                        <div class="controls">
+                            <input id="condominioinput" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim de condomínio input -->
+
+                    <!--ag comercial input -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Ag. Comercial</label>
+                        <div class="controls">
+                            <input id="agcomercialinput" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim ag comercial input -->
+
+                    <!--localidade input -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Localidade</label>
+                        <div class="controls">
+                            <input id="localidadeinput" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+
+                    <!--fim de localidade input -->
+
+                    <!--bairro input -->
+                    <div class="control-group">
+                        <label class="control-label  labelsFormNav">Bairro</label>
+                        <div class="controls">
+                            <input id="bairro" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim de bairro input -->
+
+                    <!--logradouro input -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Logradouro</label>
+                        <div class="controls">
+                            <input id="logradouroinput" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim de logradouro input -->
+
+                    <!--número input -->
+                    <div class="col-xs-6" style="padding-left:0px;">
+                        <label class="labelsFormNav">Número Entre</label>
+                        <input id="Numero1" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:60px" type="text" />
+                    </div>
+                    <div class="col-xs-offset-3"></div>
+                    <div class="col-xs-4">
+                        <label class="labelsFormNav">E</label>
+                        <input id="Numero2" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:60px" type="text" />
+                    </div>
+                    <!--fim de número input -->
+
+                    <br />
+                    <br />
+                    <br />
+
+                    <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
+                    <div class="col-xs-8"><a href="#" onclick="exibeVisitas(1);"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
+
+
+
+                    <br />
+                    <label class="fontTableBodyNavBar">Exportar Pijama Formato Novatec</label>
+                    <a href="#" onclick="ExportaPadraoNovatec();">
+                        <img src="~/images/ms_excel.png" style="margin-left:19px;" width="30" height="30" />
+                    </a>
+
+                    
+                    <br />
+
+                </form>
+
+                <!--
+                -------------------------------------------------------------------------------------------------------------------
+                  fim dos Filtros Laterais
+                -------------------------------------------------------------------------------------------------------------------
+                  -->
+
+
+            </nav>
+        </div>
+
+
+        <!--
+        -------------------------------------------------------------------------------------------------------------------
+          Listagem
+        -------------------------------------------------------------------------------------------------------------------
+          -->
+
+        <div class="col-md-9 col-lg-10   ">
+            <div id="page-selection"></div>
+            <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
+                <thead id="headTabelaLote">
+                    <tr>
+                        <!-- <th class="text-center">Casa</th>  retirados 11/05/2017 à pedido do Javier
+                        <th class="text-center">Lote</th> -->
+                        <th class="text-center">Z</th>
+                        <th class="text-center">D</th>
+                        <th class="text-center">AR</th>
+                        <th class="text-center">CONDOMÍNIO</th>
+                        <th class="text-center">COMP</th>
+                        <th class="text-center">NUM</th>       
+                        <th class="text-center">DATAHORA</th>
+                        <th class="text-center">AG VIS</th>
+                        <th class="text-center">NEGATIVA</th>
+                        <th class="text-center">PT</th>
+                        <th class="text-center">STATUSCOND </th>
+                        <th class="text-center">TIPOCOND</th>
+                        <th class="text-center">LOCALIDADE</th>
+                        <th class="text-center">BAIRRO</th>
+                        <th class="text-center">VIA</th>
+                        <th class="text-center">LOGRADOURO</th>
+                       
+                    </tr>
+                </thead>
+                <tbody id="corpoTabelaAtivos" class="corpoTabela">
+
+                </tbody>
+
+            </table>
+        </div>
+
+        <!--
+          -------------------------------------------------------------------------------------------------------------------
+            fim da Listagem
+          -------------------------------------------------------------------------------------------------------------------
+            -->
+        </div>
+
+    </div>
+
+    
+
+@section Scripts{
+
+<script type="text/javascript" src="~/js/CondVisita.js"></script>
+    <script type="text/javascript">
+
+
+
+
+           // preenche os filtros
+        function getLote() {
+
+            $.getJSON("@Url.Action("GetLotes", "FiltroLateralService")", listaLote);
+        }
+
+         function getZona() {
+
+             $.getJSON("@Url.Action("GetZonas", "FiltroLateralService")", listaZona);
+        }
+
+         function getDelegacao() {
+
+             $.getJSON("@Url.Action("GetDelegacao", "FiltroLateralService")", listaDelegacao);
+         }
+
+         function getArea() {
+
+             $.getJSON("@Url.Action("GetArea", "FiltroLateralService")", listaArea);
+        }
+
+         function getVisitado() {
+
+             $.getJSON("@Url.Action("GetVisitado", "FiltroLateralService")", listaVisitado);
+         }
+
+          function getInteresse() {
+
+             $.getJSON("@Url.Action("GetInteresse", "FiltroLateralService")", listaInteresse);
+         }
+
+
+          function getPco () {
+
+             $.getJSON("@Url.Action("GetPco", "FiltroLateralService")", listaPco);
+          }
+
+        function getTarifa () {
+
+             $.getJSON("@Url.Action("GetTarifa", "FiltroLateralService")", listaTsocial);
+          }
+
+         function getTipoVisita () {
+
+             $.getJSON("@Url.Action("GetTipoVisita", "FiltroLateralService")", listaTvisita);
+        }
+
+
+         function getRejeicao () {
+
+             $.getJSON("@Url.Action("GetRejeicao", "FiltroLateralService")", listaRejeicao);
+         }
+
+          function getAgComercial () {
+
+             $.getJSON("@Url.Action("GetAgenteComercial", "FiltroLateralService")", listaAgComercial);
+          }
+
+          function getCondominio () {
+
+             $.getJSON("@Url.Action("GetCondominio", "FiltroLateralService")", listaCondominio);
+          }
+
+
+
+        function exibeVisitas(num) {
+
+            var p = {};
+
+            p.num = num;
+
+            p.zonas = $('#zonas').val();
+            p.delegacao = $('#delegacao').val();
+            p.area = $('#area').val();
+            p.lotes = $('#lotes').val();
+            p.visitado = $('#visitado').val();
+            p.interesse = $('#interesse').val();
+            p.pco = $('#pco').val();
+            p.tSocial = $('#tSocial').val();
+            p.tipoVisita = $('#tipoVisita').val();
+            p.rejeicao = $('#rejeicao').val();
+            p.agcomercial = $('#agcomercial').val();
+            p.condominio = $('#condominio').val();
+
+            p.diavisita1 = $('#diavisita1').val();
+            p.diavisita2 = $('#diavisita2').val();
+            p.condominioinput = $('#condominioinput').val().toString().toUpperCase().trim();
+            p.agcomercialinput = $('#agcomercialinput').val().toString().toUpperCase().trim();
+            p.localidadeinput = $('#localidadeinput').val().toString().toUpperCase().trim();
+            p.bairro = $('#bairro').val().toString().toUpperCase().trim();
+            p.logradouroinput = $('#logradouroinput').val().toString().toUpperCase().trim();
+
+            p.Numero1 = $('#Numero1').val();
+            p.Numero2 = $('#Numero2').val();
+
+
+
+
+            $("#load").fadeIn(); // chama animacao de carregando
+            $.post("@Url.Action("BuscaVisitas", "CondVisita")", p, visitasPreenche);
+            $("#load").fadeOut(); // apaga animacao carregando
+        }
+
+
+
+        function exibeVisitas2(num) {
+
+            var p = {};
+
+            p.num = num;
+
+            p.zonas = $('#zonas').val();
+            p.delegacao = $('#delegacao').val();
+            p.area = $('#area').val();
+            p.lotes = $('#lotes').val();
+            p.visitado = $('#visitado').val();
+            p.interesse = $('#interesse').val();
+            p.pco = $('#pco').val();
+            p.tSocial = $('#tSocial').val();
+            p.tipoVisita = $('#tipoVisita').val();
+            p.rejeicao = $('#rejeicao').val();
+            p.agcomercial = $('#agcomercial').val();
+            p.condominio = $('#condominio').val();
+
+            p.diavisita1 = $('#diavisita1').val();
+            p.diavisita2 = $('#diavisita2').val();
+            p.condominioinput = $('#condominioinput').val().toString().toUpperCase().trim();
+            p.agcomercialinput = $('#agcomercialinput').val().toString().toUpperCase().trim();
+            p.localidadeinput = $('#localidadeinput').val().toString().toUpperCase().trim();
+            p.bairro = $('#bairro').val().toString().toUpperCase().trim();
+            p.logradouroinput = $('#logradouroinput').val().toString().toUpperCase().trim();
+
+            p.Numero1 = $('#Numero1').val();
+            p.Numero2 = $('#Numero2').val();
+
+
+
+
+            $("#load").fadeIn(); // chama animacao de carregando
+            $.post("@Url.Action("BuscaVisitas", "CondVisita")", p, visitasPreenche2);
+            $("#load").fadeOut(); // apaga animacao carregando
+        }
+
+
+
+        function ExportaPadraoNovatec() {
+
+
+
+        $("#load").fadeIn(); // chama animacao de carregando
+
+        var p = {};
+        p.zonas = $('#zonas').val();
+        p.delegacao = $('#delegacao').val();
+        p.area = $('#area').val();
+        p.lotes = $('#lotes').val();
+        p.visitado = $('#visitado').val();
+        p.interesse = $('#interesse').val();
+        p.pco = $('#pco').val();
+        p.tSocial = $('#tSocial').val();
+        p.tipoVisita = $('#tipoVisita').val();
+        p.rejeicao = $('#rejeicao').val();
+        p.agcomercial = $('#agcomercial').val();
+        p.condominio = $('#condominio').val();
+
+        p.diavisita1 = $('#diavisita1').val();
+        p.diavisita2 = $('#diavisita2').val();
+        p.condominioinput = $('#condominioinput').val().toString().toUpperCase().trim();
+        p.agcomercialinput = $('#agcomercialinput').val().toString().toUpperCase().trim();
+        p.localidadeinput = $('#localidadeinput').val().toString().toUpperCase().trim();
+        p.bairro = $('#bairro').val().toString().toUpperCase().trim();
+        p.logradouroinput = $('#logradouroinput').val().toString().toUpperCase().trim();
+
+        p.Numero1 = $('#Numero1').val();
+        p.Numero2 = $('#Numero2').val();
+
+       
+
+        var urlconfig = '@AppSettings.ExcelExportUrl';
+        window.location.href = '' + urlconfig + '/CondVisita/ExportaExcel?zonas=' + p.zonas + '&delegacao=' +
+            p.delegacao + '&area=' + p.area + '&lotes=' + p.lotes + '&visitado=' + p.visitado + '&interesse=' + p.interesse
+            + '&pco=' + p.pco + '&tSocial=' + p.tSocial + '&tipoVisita=' + p.tipoVisita + '&rejeicao=' + p.rejeicao
+            + '&agcomercial=' + p.agcomercial + '&condominio=' + p.condominio + '&diavisita1=' + p.diavisita1
+            + '&diavisita2=' + p.diavisita2 + '&condominioinput=' + p.condominioinput + '&agcomercialinput=' + p.agcomercialinput
+            + '&localidadeinput=' + p.localidadeinput + '&bairro=' + p.bairro + '&logradouroinput=' + p.logradouroinput + '&Numero1=' + p.Numero1 + '&Numero2=' + p.Numero2 ;
+
+
+       $("#load").fadeOut(); // apaga animacao carregando
+
+    }
+
+
+
+    </script>
+}
+
+
+

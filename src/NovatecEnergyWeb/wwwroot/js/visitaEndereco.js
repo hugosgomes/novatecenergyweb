@@ -3,17 +3,113 @@
 
 window.onload = function () {
 
+   
     getLote();
     getZona();
     getDelegacao();
     getArea();
 
-    exibeVisitasEndereco(1);
-   
-   
+
 };
 
 
+
+
+
+///////////////////////////////////////////////////////////////////////////
+function listaLote(retorno) {
+
+    // listando todos os objetos produto que contem no array
+    for (i = 0; i < retorno.length; i++) {
+
+        var cols = "";
+
+        cols += '<option value="' + retorno[i][0] + '">' + retorno[i][1] + "&nbsp" + retorno[i][2] + '</option>';
+
+        $("#lotes").append(cols);
+
+    }
+
+    if (document.getElementById("lotes").length == 1) {
+        $("#lotes").prop("selectedIndex", 0);
+        $("#lotes").attr('disabled', 'disabled'); // desativa o seletor
+    } else {
+        $("#lotes").prop("selectedIndex", -1); // limpa a seleção após carregar
+    }
+
+}
+
+
+/////////////////////////////////////////////////////////////////
+function listaZona(retorno) {
+
+    // listando todos os objetos produto que contem no array
+    for (i = 0; i < retorno.length; i++) {
+
+        var cols = "";
+
+        cols += '<option value="' + retorno[i].id + '">' + retorno[i].zona + '</option>';
+
+        $("#zonas").append(cols);
+
+    }
+
+    if (document.getElementById("zonas").length == 1) {
+        $("#zonas").prop("selectedIndex", 0);
+        $("#zonas").attr('disabled', 'disabled'); // desativa o seletor
+    } else {
+        $("#zonas").prop("selectedIndex", -1); // limpa a seleção após carregar
+    }
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+function listaDelegacao(retorno) {
+
+    // listando todos os objetos produto que contem no array
+    for (i = 0; i < retorno.length; i++) {
+
+        var cols = "";
+
+        cols += '<option value="' + retorno[i].id + '">' + retorno[i].delegacao + '</option>';
+
+        $("#delegacao").append(cols);
+
+    }
+
+    if (document.getElementById("delegacao").length == 1) {
+        $("#delegacao").prop("selectedIndex", 0);
+        $("#delegacao").attr('disabled', 'disabled'); // desativa o seletor
+    } else {
+        $("#delegacao").prop("selectedIndex", -1); // limpa a seleção após carregar
+    }
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////
+function listaArea(retorno) {
+
+    // listando todos os objetos produto que contem no array
+    for (i = 0; i < retorno.length; i++) {
+
+        var cols = "";
+
+        cols += '<option value="' + retorno[i].id + '">' + retorno[i].area + '</option>';
+
+        $("#area").append(cols);
+
+    }
+
+    if (document.getElementById("area").length == 1) {
+        $("#area").prop("selectedIndex", 0);
+        $("#area").attr('disabled', 'disabled'); // desativa o seletor
+    } else {
+        $("#area").prop("selectedIndex", -1); // limpa a seleção após carregar
+    }
+
+    exibeVisitasEndereco(1);
+}
 
 
 function visitasPreenche(visitas) {
@@ -242,97 +338,8 @@ function montaPaginacao(retorno) {
 
 
 
-///////////////////////////////////////////////////////////////////////////
-function listaLote(retorno) {
-
-    // listando todos os objetos produto que contem no array
-    for (i = 0; i < retorno.length; i++) {
-
-        var cols = "";
-
-        cols += '<option value="' + retorno[i][0] + '">' + retorno[i][1] + "&nbsp" + retorno[i][2] + '</option>';
-
-        $("#lotes").append(cols);
-
-    }
-
-    if (document.getElementById("lotes").length == 1) {
-        $("#lotes").prop("selectedIndex", 0);
-        $("#lotes").attr('disabled', 'disabled'); // desativa o seletor
-    } else {
-        $("#lotes").prop("selectedIndex", -1); // limpa a seleção após carregar
-    }
-
-}
 
 
-/////////////////////////////////////////////////////////////////
-function listaZona(retorno) {
-
-    // listando todos os objetos produto que contem no array
-    for (i = 0; i < retorno.length ; i++) {
-
-        var cols = "";
-
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].zona + '</option>';
-
-        $("#zonas").append(cols);
-
-    }
-
-    if (document.getElementById("zonas").length == 1) {
-        $("#zonas").prop("selectedIndex", 0);
-        $("#zonas").attr('disabled', 'disabled'); // desativa o seletor
-    } else {
-        $("#zonas").prop("selectedIndex", -1); // limpa a seleção após carregar
-    }
-}
-
-
-///////////////////////////////////////////////////////////////////////////
-function listaDelegacao(retorno) {
-
-    // listando todos os objetos produto que contem no array
-    for (i = 0; i < retorno.length; i++) {
-
-        var cols = "";
-
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].delegacao + '</option>';
-
-        $("#delegacao").append(cols);
-
-    }
-
-    if (document.getElementById("delegacao").length == 1) {
-        $("#delegacao").prop("selectedIndex", 0);
-        $("#delegacao").attr('disabled', 'disabled'); // desativa o seletor
-    } else {
-        $("#delegacao").prop("selectedIndex", -1); // limpa a seleção após carregar
-    }
-}
-
-
-///////////////////////////////////////////////////////////////////////////
-function listaArea(retorno) {
-
-    // listando todos os objetos produto que contem no array
-    for (i = 0; i < retorno.length; i++) {
-
-        var cols = "";
-
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].area + '</option>';
-
-        $("#area").append(cols);
-
-    }
-
-    if (document.getElementById("area").length == 1) {
-        $("#area").prop("selectedIndex", 0);
-        $("#area").attr('disabled', 'disabled'); // desativa o seletor
-    } else {
-        $("#area").prop("selectedIndex", -1); // limpa a seleção após carregar
-    }
-}
 
 function limpaFiltro() {
 

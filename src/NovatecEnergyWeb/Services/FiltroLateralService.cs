@@ -282,5 +282,29 @@ namespace NovatecEnergyWeb.Services
                              ).ToList();
             return Json(condominio);
         }
+
+        public IActionResult GetVisitado()
+        {
+            var visitado = _context._00TabelasItems.Where(v => v.Tabela == 340 && v.Campo == "Visitado").ToList();
+            return Json(visitado);
+        }
+
+        public IActionResult GetInteresse()
+        {
+            var interesse = _context._00TabelasItems.Where(v => v.Tabela == 340 && v.Campo == "Interesse").ToList();
+            return Json(interesse);
+        }
+
+        public IActionResult GetPco()
+        {
+            var pco = _context._00TabelasItems.Where(v => v.Tabela == 340 && v.Campo == "PCO").ToList();
+            return Json(pco);
+        }
+
+        public IActionResult GetTarifa()
+        {
+            var tsocial = _context._00TabelasItems.Where(v => v.Tabela == 237 && v.Campo == "TARIFASOCIAL").ToList();
+            return Json(tsocial);
+        }
     }
 }

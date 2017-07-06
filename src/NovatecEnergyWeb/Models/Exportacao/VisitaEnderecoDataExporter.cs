@@ -80,6 +80,86 @@ namespace NovatecEnergyWeb.Models.Exportacao
 
 
 
+        public byte[] ExportaPadraoNovatecCondVisita(List<CondVisita> data)
+        {
+            FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Visitas.xlsx";
+            File.Copy(Path.Combine(WebRootFolder, @"formatoNovatecVisitasCondominio.xlsx"), Path.Combine(WebRootFolder, FileName));
+
+            FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
+
+            using (ExcelPackage package = new ExcelPackage(file))
+            {
+                // ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("qExcel");
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
+
+
+                
+                //List<Visitas> visitas = data.ToList();
+
+
+                for (int i = 0; i < data.Count(); i++)
+                {
+
+                    worksheet.Cells["A" + (i + 2).ToString()].Value = data[i].Z;
+                    worksheet.Cells["A" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["B" + (i + 2).ToString()].Value = data[i].D;
+                    worksheet.Cells["B" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["C" + (i + 2).ToString()].Value = data[i].Ar;
+                    worksheet.Cells["C" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["D" + (i + 2).ToString()].Value = data[i].Condominio;
+                    worksheet.Cells["D" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["E" + (i + 2).ToString()].Value = data[i].Complemento;
+                    worksheet.Cells["E" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["F" + (i + 2).ToString()].Value = data[i].Num;
+                    worksheet.Cells["F" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["G" + (i + 2).ToString()].Value = data[i].DataHora;
+                    worksheet.Cells["G" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["H" + (i + 2).ToString()].Value = data[i].AgVisita;
+                    worksheet.Cells["H" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["I" + (i + 2).ToString()].Value = data[i].Negativa;
+                    worksheet.Cells["I" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["J" + (i + 2).ToString()].Value = data[i].Pt;
+                    worksheet.Cells["J" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["L" + (i + 2).ToString()].Value = data[i].StatusCond;
+                    worksheet.Cells["L" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["K" + (i + 2).ToString()].Value = data[i].TipoCond;
+                    worksheet.Cells["K" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["M" + (i + 2).ToString()].Value = data[i].Localidade;
+                    worksheet.Cells["M" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["N" + (i + 2).ToString()].Value = data[i].Bairro;
+                    worksheet.Cells["N" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["O" + (i + 2).ToString()].Value = data[i].Via;
+                    worksheet.Cells["O" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["P" + (i + 2).ToString()].Value = data[i].Logradouro;
+                    worksheet.Cells["P" + (i + 2).ToString()].Style.Font.Size = 8;
+
+
+                }
+                package.Save();
+            }
+
+            byte[] fileBytes = File.ReadAllBytes(Path.Combine(WebRootFolder, FileName));
+
+            if (file.Exists)
+                file.Delete();
+
+            return fileBytes;
+        }
 
 
     }

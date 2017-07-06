@@ -11,6 +11,7 @@ namespace NovatecEnergyWeb.Models.Exportacao
 
         string FileName { get; set; }
         byte[] ExportaPadraoNovatec(List<VisitaEndereco> data);
+        byte[] ExportaPadraoNovatecCondVisita(List<CondVisita> data);
 
     }
 }

@@ -10,7 +10,8 @@ namespace NovatecEnergyWeb.Core
 {
     public partial class BDNVTContext : DbContext
     {
-
+        public virtual DbSet<_12CondVisitas> _12CondVisitas { get; set; }
+        public virtual DbSet<CondVisita> CondVisita { get; set; }    
         public virtual DbSet<VisitaEndereco> VisitaEndereco { get; set; }
         public virtual DbSet<Visitas> Visitas { get; set; }
         public virtual DbSet<LoteEstatistica> LoteEstatistica { get; set; }
@@ -227,6 +228,7 @@ namespace NovatecEnergyWeb.Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CondVisita>().HasKey(c => c.Id);
             modelBuilder.Entity<VisitaEndereco>().HasKey(c => c.Id);
             modelBuilder.Entity<Visitas>().HasKey(c => c.Id);
             modelBuilder.Entity<LoteEstatistica>().HasKey(l => l.Id);
