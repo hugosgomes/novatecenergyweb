@@ -67,7 +67,7 @@ namespace NovatecEnergyWeb.Controllers
             var z = HttpContext.Session.GetInt32("Zona");
             var quantArea = HttpContext.Session.GetInt32("QuantidadeArea");
 
-            if ((int)quantArea == 1)
+            if (quantArea != null && ((int)quantArea == 1))
             {
                 area = (int) HttpContext.Session.GetInt32("Área");
             }
