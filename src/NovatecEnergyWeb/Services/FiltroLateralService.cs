@@ -17,6 +17,7 @@ namespace NovatecEnergyWeb.Services
         private ILoteRepository _loteRepository;
         private IAreaRepository _areaRepository;
         private IDelegacaoRepository _delegacaoRepository;
+        
 
         public FiltroLateralServiceController(BDNVTContext context, ILoteRepository loteRepository,
             IAreaRepository areaRepository, IDelegacaoRepository delegacaoRepository)
@@ -26,12 +27,7 @@ namespace NovatecEnergyWeb.Services
             _areaRepository = areaRepository;
             _delegacaoRepository = delegacaoRepository;
         }
-
-        public IActionResult AreaCascade(int lote)
-        {
-            throw new NotImplementedException();
-        }
-
+        // MÉTODOS POST FILTRO CASCATA
         public IActionResult ZonaCascade(int zona)
         {
             //delegacao
@@ -80,6 +76,13 @@ namespace NovatecEnergyWeb.Services
             return Json(retorno);
         }
 
+        public IActionResult AreaCascade(int area)
+        {
+            dynamic retorno = new ExpandoObject();
+            retorno.lotes = _loteRepository.GetLotes(new List<int>(), area);
+            return Json(retorno);
+        }
+        // FIM MÉTODOS POST FILTRO CASCATA
         public IActionResult GetZonas()
         {
             var id = HttpContext.Session.GetInt32("UserId");

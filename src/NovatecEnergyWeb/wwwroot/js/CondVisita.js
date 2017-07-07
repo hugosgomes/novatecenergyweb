@@ -558,17 +558,6 @@ function limpaFiltro() {
 }
 
 
-
-function atualizaDropsZona(retorno) {
-    preencheDelegacao(retorno);
-    preencheArea(retorno);
-    preencheLotes(retorno);
-}
-function atualizaDropsDelegacao(retorno) {
-    preencheArea(retorno);
-    preencheLotes(retorno);
-}
-
 // funções de onchange
 function postZona() {
 
@@ -587,8 +576,28 @@ function postDelegacao() {
         $.post(url, p, atualizaDropsDelegacao);
 }
 
-
+function postArea() {
+    var url = $("#urlPostArea").val();
+    var p = {};
+    p.area = $('#area').val();
+    $.post(url, p, atualizaDropArea);
+}
 // FIM funções de onchange
+
+function atualizaDropsZona(retorno) {
+    preencheDelegacao(retorno);
+    preencheArea(retorno);
+    preencheLotes(retorno);
+}
+function atualizaDropsDelegacao(retorno) {
+    preencheArea(retorno);
+    preencheLotes(retorno);
+}
+function atualizaDropArea(retorno) {
+    preencheLotes(retorno);
+}
+
+
 function preencheDelegacao(retorno) {
     $("#delegacao").empty();
 
