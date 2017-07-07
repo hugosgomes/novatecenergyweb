@@ -28,10 +28,14 @@
     <Content Include="wwwroot\excel\formatoNovatec.xlsx" />
     <Content Include="wwwroot\js\CondVisita.js" />
     <Content Include="wwwroot\js\lotePorEndereco.js" />
+    <Content Include="wwwroot\js\site.js" />
+    <Content Include="wwwroot\js\site.min.js" />
     <Content Include="wwwroot\js\visitaEndereco.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="wwwroot\js\visita.js" />
+    <Content Include="wwwroot\lib\site.js" />
+    <Content Include="wwwroot\lib\site.min.js" />
   </ItemGroup>
 
   <ItemGroup>

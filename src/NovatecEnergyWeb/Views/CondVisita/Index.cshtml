@@ -10,16 +10,17 @@
 @Html.Hidden("urlGetZona", Url.Action("GetZonas", "FiltroLateralService"))
 @Html.Hidden("urlGetDelegacao", Url.Action("GetDelegacao", "FiltroLateralService"))
 @Html.Hidden("urlGetArea", Url.Action("GetArea", "FiltroLateralService"))
+
 @Html.Hidden("urlZonaCascade", Url.Action("ZonaCascade", "FiltroLateralService"))
 @Html.Hidden("urlDelegacaoCascade", Url.Action("DelegacaoCascade", "FiltroLateralService"))
 @Html.Hidden("urlGetLotes", Url.Action("GetLotes", "FiltroLateralService"))
-@Html.Hidden("urlCampoVenda", Url.Action("GetCampoVenda", "FiltroLateralService"))
-@Html.Hidden("urlD1d2", Url.Action("GetD1D2", "FiltroLateralService"))
 @Html.Hidden("urlTipoVisita", Url.Action("GetTipoVisita", "FiltroLateralService"))
 @Html.Hidden("urlRejeicao", Url.Action("GetRejeicao", "FiltroLateralService"))
 @Html.Hidden("urlAgComercial", Url.Action("GetAgenteComercial", "FiltroLateralService"))
 @Html.Hidden("urlStatusCond", Url.Action("GetStatusCond", "FiltroLateralService"))
 @Html.Hidden("urlCondominio", Url.Action("GetCondominio", "FiltroLateralService"))
+@Html.Hidden("urlPostZona", Url.Action("ZonaCascade", "FiltroLateralService"))
+@Html.Hidden("urlPostDelegacao", Url.Action("DelegacaoCascade", "FiltroLateralService"))
 
 <div class="container-fluid">
     <!-- Loader-->
@@ -57,7 +58,7 @@
                         <div class="controls">
 
 
-                            <select id="zonas" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="zonas" onchange="postZona(); exibeVisitas(1); " class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
 
                                 
                             </select>
@@ -70,7 +71,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Delegação</label>
                         <div class="controls">
-                            <select id="delegacao" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="delegacao" onchange="postDelegacao(); exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
                         </div>
                     </div>
             
@@ -344,30 +345,7 @@
 <script type="text/javascript" src="~/js/CondVisita.js"></script>
     <script type="text/javascript">
 
-
-
-
            // preenche os filtros
-        function getLote() {
-
-            $.getJSON("@Url.Action("GetLotes", "FiltroLateralService")", listaLote);
-        }
-
-         function getZona() {
-
-             $.getJSON("@Url.Action("GetZonas", "FiltroLateralService")", listaZona);
-        }
-
-         function getDelegacao() {
-
-             $.getJSON("@Url.Action("GetDelegacao", "FiltroLateralService")", listaDelegacao);
-         }
-
-         function getArea() {
-
-             $.getJSON("@Url.Action("GetArea", "FiltroLateralService")", listaArea);
-        }
-
          function getVisitado() {
 
              $.getJSON("@Url.Action("GetVisitado", "FiltroLateralService")", listaVisitado);
@@ -413,7 +391,7 @@
 
 
         function exibeVisitas(num) {
-
+    
             var p = {};
 
             p.num = num;

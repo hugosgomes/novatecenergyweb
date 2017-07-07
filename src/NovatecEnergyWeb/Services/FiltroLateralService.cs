@@ -32,22 +32,6 @@ namespace NovatecEnergyWeb.Services
             throw new NotImplementedException();
         }
 
-        public IActionResult DelegacaoCascade(int delegacao)
-        {
-            //area
-            var AreasL = _context._00Areas.Where(c => c.Delegacao == delegacao).ToList();
-            var listAreaInt = new List<int>();
-            foreach (var item in AreasL)
-            {
-                listAreaInt.Add(item.Id);
-            }
-
-            dynamic retorno = new ExpandoObject();
-            retorno.area = AreasL;
-
-            return Json(retorno);
-        }
-
         public IActionResult ZonaCascade(int zona)
         {
             //delegacao
@@ -74,7 +58,24 @@ namespace NovatecEnergyWeb.Services
             dynamic retorno = new ExpandoObject();
             retorno.delegacao = delegacao;
             retorno.area = areasL;
-            
+            retorno.lotes = _loteRepository.GetLotes(listAreaInt, 0);
+
+            return Json(retorno);
+        }
+
+        public IActionResult DelegacaoCascade(int delegacao)
+        {
+            //area
+            var AreasL = _context._00Areas.Where(c => c.Delegacao == delegacao).ToList();
+            var listAreaInt = new List<int>();
+            foreach (var item in AreasL)
+            {
+                listAreaInt.Add(item.Id);
+            }
+
+            dynamic retorno = new ExpandoObject();
+            retorno.area = AreasL;
+            retorno.lotes = _loteRepository.GetLotes(listAreaInt, 0);
 
             return Json(retorno);
         }

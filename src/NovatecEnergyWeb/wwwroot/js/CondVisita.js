@@ -15,7 +15,7 @@ $('#diavisita2').datepicker({
 
 window.onload = function () {
 
-    getLote();
+    getLotes();
     getZona();
     getDelegacao();
     getArea();
@@ -28,11 +28,11 @@ window.onload = function () {
     getAgComercial();
     getCondominio();
 
+    exibeVisitas(1);
+
     
 };
 
-
-///////////////////////////////////////////////////////////////////////////
 function listaLote(retorno) {
 
     // listando todos os objetos produto que contem no array
@@ -55,8 +55,6 @@ function listaLote(retorno) {
 
 }
 
-
-/////////////////////////////////////////////////////////////////
 function listaZona(retorno) {
 
     // listando todos os objetos produto que contem no array
@@ -77,12 +75,10 @@ function listaZona(retorno) {
         $("#zonas").prop("selectedIndex", -1); // limpa a seleção após carregar
     }
 }
-
-
 ///////////////////////////////////////////////////////////////////////////
 function listaDelegacao(retorno) {
 
-    // listando todos os objetos produto que contem no array
+   
     for (i = 0; i < retorno.length; i++) {
 
         var cols = "";
@@ -100,11 +96,6 @@ function listaDelegacao(retorno) {
         $("#delegacao").prop("selectedIndex", -1); // limpa a seleção após carregar
     }
 }
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////////////
 function listaVisitado(retorno) {
 
@@ -128,8 +119,6 @@ function listaVisitado(retorno) {
 
 
 }
-
-
 ///////////////////////////////////////////////////////////////////////////
 function listaInteresse(retorno) {
 
@@ -177,7 +166,6 @@ function listaPco(retorno) {
 
 
 }
-
 
 ///////////////////////////////////////////////////////////////////////////
 function listaTsocial(retorno) {
@@ -304,8 +292,8 @@ function listaCondominio(retorno) {
 
 ///////////////////////////////////////////////////////////////////////////
 function listaArea(retorno) {
+    var area = retorno.area;
 
-    // listando todos os objetos produto que contem no array
     for (i = 0; i < retorno.length; i++) {
 
         var cols = "";
@@ -323,10 +311,8 @@ function listaArea(retorno) {
         $("#area").prop("selectedIndex", -1); // limpa a seleção após carregar
     }
 
-    exibeVisitas(1);
+   // exibeVisitas(1);
 }
-
-
 
 function visitasPreenche(visitas) {
 
@@ -433,8 +419,6 @@ function visitasPreenche(visitas) {
 
 }
 
-
-
 function visitasPreenche2(visitas) {
 
     $('#contagemVisitas').html(visitas.contagem);
@@ -529,8 +513,6 @@ function visitasPreenche2(visitas) {
 
 }
 
-
-
 function montaPaginacao(retorno) {
     
     //paginação
@@ -561,8 +543,6 @@ function montaPaginacao(retorno) {
 
 }
 
-
-
 function limpaFiltro() {
 
     $('#condominioinput').val("");
@@ -575,8 +555,74 @@ function limpaFiltro() {
     $('#Numero2').val("");
 
     location.reload();
+}
 
 
 
+function atualizaDropsZona(retorno) {
+    preencheDelegacao(retorno);
+    preencheArea(retorno);
+    preencheLotes(retorno);
+}
+function atualizaDropsDelegacao(retorno) {
+    preencheArea(retorno);
+    preencheLotes(retorno);
+}
 
+// funções de onchange
+function postZona() {
+
+    var url = $("#urlPostZona").val();
+
+    var p = {};
+    p.zona = $("#zonas").val();
+
+    $.post(url, p, atualizaDropsZona);
+}
+
+function postDelegacao() {
+    var url = $("#urlPostDelegacao").val();
+        var p = {};
+        p.delegacao = $("#delegacao").val();
+        $.post(url, p, atualizaDropsDelegacao);
+}
+
+
+// FIM funções de onchange
+function preencheDelegacao(retorno) {
+    $("#delegacao").empty();
+
+    $.each(retorno.delegacao, function () {
+        $("#delegacao").append($("<option />").val(this.id).text(this.delegacao));
+    });
+
+    $("#delegacao").prop("selectedIndex", -1);
+}
+
+function preencheArea(retorno) {
+    if (retorno.area.length > 0) {
+        $("#area").empty();
+
+        $.each(retorno.area, function () {
+            $("#area").append($("<option />").val(this.id).text(this.area));
+        });
+
+        $("#area").prop("selectedIndex", -1);
+    }
+}
+
+function preencheLotes(retorno) {
+    $("#lotes").empty();
+
+    $.each(retorno.lotes, function () {
+        
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+        $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
+            + this[2] + p.text()
+            + this[3] + p.text()
+            + this[4]));
+    });
+
+    $("#lotes").prop("selectedIndex", -1);
 }
