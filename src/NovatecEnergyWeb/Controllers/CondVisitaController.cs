@@ -62,6 +62,21 @@ namespace NovatecEnergyWeb.Controllers
             int Numero1, int Numero2
          )
         {
+            
+            var d = HttpContext.Session.GetInt32("Delegação");
+            var z = HttpContext.Session.GetInt32("Zona");
+            var quantArea = HttpContext.Session.GetInt32("QuantidadeArea");
+
+            if ((int)quantArea == 1)
+            {
+                area = (int) HttpContext.Session.GetInt32("Área");
+            }
+           
+
+            // se for cliente, vai ter as variáveis de sessão preenchidas
+            zonas = (z != null) ? (int)z : zonas;
+            delegacao = (d != null) ? (int)d : zonas;
+           
 
             // definicoes da paginacao
             var pagina = 0;
@@ -83,20 +98,20 @@ namespace NovatecEnergyWeb.Controllers
             // filtra as seguintes colunas
             if (lotes != 0)
             {
-                visitas = visitas.Where(v => v.IdLote == lotes);
+                visitas = visitas.Where(v => v.IdLote == lotes).ToList();
             }
 
             if (visitado != null)
             {
 
-                visitas = visitas.Where(c => c.Visitado == visitado);
+                visitas = visitas.Where(c => c.Visitado == visitado).ToList();
 
             }
 
             if (interesse != null)
             {
 
-                visitas = visitas.Where(c => c.Interesse == interesse);
+                visitas = visitas.Where(c => c.Interesse == interesse).ToList();
 
             }
 
@@ -105,35 +120,35 @@ namespace NovatecEnergyWeb.Controllers
             if (pco != null)
             {
 
-                visitas = visitas.Where(c => c.Pco == pco);
+                visitas = visitas.Where(c => c.Pco == pco).ToList();
 
             }
 
             if (tSocial != 0)
             {
 
-                visitas = visitas.Where(c => c.TarifaSocial == tSocial);
+                visitas = visitas.Where(c => c.TarifaSocial == tSocial).ToList();
 
             }
 
             if (tipoVisita != 0)
             {
 
-                visitas = visitas.Where(c => c.TipoVisitaId == tipoVisita);
+                visitas = visitas.Where(c => c.TipoVisitaId == tipoVisita).ToList();
 
             }
 
             if (rejeicao != 0)
             {
 
-                visitas = visitas.Where(c => c.NegativaId == rejeicao);
+                visitas = visitas.Where(c => c.NegativaId == rejeicao).ToList();
 
             }
 
             if (agecomercial != 0)
             {
 
-                visitas = visitas.Where(c => c.AgId == agecomercial);
+                visitas = visitas.Where(c => c.AgId == agecomercial).ToList();
 
             }
 
@@ -143,43 +158,39 @@ namespace NovatecEnergyWeb.Controllers
 
             if (condominioinput != null)
             {
-
-                visitas = visitas.Where(c => c.Condominio.Contains(condominioinput));
-
+                visitas = visitas.Where(c => c.Condominio.Contains(condominioinput)).ToList();
             }
 
             if (agcomercialinput != null)
             {
-
-                visitas = visitas.Where(c => c.AgVisita.Contains(agcomercialinput));
-
+                visitas = visitas.Where(c => c.AgVisita.Contains(agcomercialinput)).ToList();
             }
 
             if (localidadeinput != null)
             {
 
-                visitas = visitas.Where(c => c.Localidade.Contains(localidadeinput));
+                visitas = visitas.Where(c => c.Localidade.Contains(localidadeinput)).ToList();
 
             }
 
             if (bairro != null)
             {
 
-                visitas = visitas.Where(c => c.Bairro.Contains(bairro));
+                visitas = visitas.Where(c => c.Bairro.Contains(bairro)).ToList();
 
             }
 
             if (logradouroinput != null)
             {
 
-                visitas = visitas.Where(c => c.Logradouro.Contains(logradouroinput));
+                visitas = visitas.Where(c => c.Logradouro.Contains(logradouroinput)).ToList();
 
             }
 
             if (Numero1 != 0 && Numero2 != 0)
             {
 
-                visitas = visitas.Where(c => c.Num >= Numero1 && c.Num <= Numero2).OrderBy(c => c.Num);
+                visitas = visitas.Where(c => c.Num >= Numero1 && c.Num <= Numero2).OrderBy(c => c.Num).ToList();
 
             }
 
@@ -193,7 +204,7 @@ namespace NovatecEnergyWeb.Controllers
 
                 visitas = visitas.Where(w => w.DataHora >= dt && w.DataHora <= dt2
 
-                );
+                ).ToList();
             }
 
 
@@ -219,8 +230,6 @@ namespace NovatecEnergyWeb.Controllers
         {
 
 
-
-         
             // retorna a consulta filtrada pelos parametros
             var visitas = _condVisitasRepository.GetVisitasFiltro(zonas, delegacao, area, condominio);
 
@@ -229,20 +238,20 @@ namespace NovatecEnergyWeb.Controllers
             // filtra as seguintes colunas
             if (lotes != 0)
             {
-                visitas = visitas.Where(v => v.IdLote == lotes);
+                visitas = visitas.Where(v => v.IdLote == lotes).ToList();
             }
 
             if (visitado != 0)
             {
 
-                visitas = visitas.Where(c => c.Visitado == visitado.ToString());
+                visitas = visitas.Where(c => c.Visitado == visitado.ToString()).ToList();
 
             }
 
             if (interesse != 0)
             {
 
-                visitas = visitas.Where(c => c.Interesse == interesse.ToString());
+                visitas = visitas.Where(c => c.Interesse == interesse.ToString()).ToList();
 
             }
 
@@ -251,35 +260,35 @@ namespace NovatecEnergyWeb.Controllers
             if (pco != 0)
             {
 
-                visitas = visitas.Where(c => c.Pco == pco.ToString());
+                visitas = visitas.Where(c => c.Pco == pco.ToString()).ToList();
 
             }
 
             if (tSocial != 0)
             {
 
-                visitas = visitas.Where(c => c.TarifaSocial == tSocial);
+                visitas = visitas.Where(c => c.TarifaSocial == tSocial).ToList();
 
             }
 
             if (tipoVisita != 0)
             {
 
-                visitas = visitas.Where(c => c.TipoVisitaId == tipoVisita);
+                visitas = visitas.Where(c => c.TipoVisitaId == tipoVisita).ToList();
 
             }
 
             if (rejeicao != 0)
             {
 
-                visitas = visitas.Where(c => c.NegativaId == rejeicao);
+                visitas = visitas.Where(c => c.NegativaId == rejeicao).ToList();
 
             }
 
             if (agecomercial != 0)
             {
 
-                visitas = visitas.Where(c => c.AgId == agecomercial);
+                visitas = visitas.Where(c => c.AgId == agecomercial).ToList();
 
             }
 
@@ -290,42 +299,42 @@ namespace NovatecEnergyWeb.Controllers
             if (condominioinput != null)
             {
 
-                visitas = visitas.Where(c => c.Condominio.Contains(condominioinput));
+                visitas = visitas.Where(c => c.Condominio.Contains(condominioinput)).ToList();
 
             }
 
             if (agcomercialinput != null)
             {
 
-                visitas = visitas.Where(c => c.AgVisita.Contains(agcomercialinput));
+                visitas = visitas.Where(c => c.AgVisita.Contains(agcomercialinput)).ToList();
 
             }
 
             if (localidadeinput != null)
             {
 
-                visitas = visitas.Where(c => c.Localidade.Contains(localidadeinput));
+                visitas = visitas.Where(c => c.Localidade.Contains(localidadeinput)).ToList();
 
             }
 
             if (bairro != null)
             {
 
-                visitas = visitas.Where(c => c.Bairro.Contains(bairro));
+                visitas = visitas.Where(c => c.Bairro.Contains(bairro)).ToList();
 
             }
 
             if (logradouroinput != null)
             {
 
-                visitas = visitas.Where(c => c.Logradouro.Contains(logradouroinput));
+                visitas = visitas.Where(c => c.Logradouro.Contains(logradouroinput)).ToList();
 
             }
 
             if (Numero1 != 0 && Numero2 != 0)
             {
 
-                visitas = visitas.Where(c => c.Num >= Numero1 && c.Num <= Numero2).OrderBy(c => c.Num);
+                visitas = visitas.Where(c => c.Num >= Numero1 && c.Num <= Numero2).OrderBy(c => c.Num).ToList();
 
             }
 
@@ -339,7 +348,7 @@ namespace NovatecEnergyWeb.Controllers
 
                 visitas = visitas.Where(w => w.DataHora >= dt && w.DataHora <= dt2
 
-                );
+                ).ToList();
             }
 
 

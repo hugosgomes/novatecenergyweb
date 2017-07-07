@@ -10,7 +10,7 @@ namespace NovatecEnergyWeb.Models.Repository
     {
 
         List<CondVisita> GetVisitasByLote();
-        IEnumerable<CondVisita> GetVisitasFiltro( int zonas, int delegacao, int area, int condominio);
+        List<CondVisita> GetVisitasFiltro( int zonas, int delegacao, int area, int condominio);
 
     }
 }
