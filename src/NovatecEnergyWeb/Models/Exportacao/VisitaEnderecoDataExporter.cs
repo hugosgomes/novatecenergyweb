@@ -118,7 +118,7 @@ namespace NovatecEnergyWeb.Models.Exportacao
                     worksheet.Cells["F" + (i + 2).ToString()].Value = data[i].Num;
                     worksheet.Cells["F" + (i + 2).ToString()].Style.Font.Size = 8;
 
-                    worksheet.Cells["G" + (i + 2).ToString()].Value = data[i].DataHora;
+                    worksheet.Cells["G" + (i + 2).ToString()].Value = (data[i].DataHora != null)? Convert.ToDateTime(data[i].DataHora).ToString("dd/MM/yy hh:mm"):""; 
                     worksheet.Cells["G" + (i + 2).ToString()].Style.Font.Size = 8;
 
                     worksheet.Cells["H" + (i + 2).ToString()].Value = data[i].AgVisita;

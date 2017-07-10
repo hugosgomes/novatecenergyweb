@@ -228,12 +228,8 @@ namespace NovatecEnergyWeb.Controllers
          )
 
         {
-
-
             // retorna a consulta filtrada pelos parametros
             var visitas = _condVisitasRepository.GetVisitasFiltro(zonas, delegacao, area, condominio);
-
-
 
             // filtra as seguintes colunas
             if (lotes != 0)
