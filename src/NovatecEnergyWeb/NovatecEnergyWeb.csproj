@@ -21,6 +21,7 @@
   <ItemGroup>
     <Content Remove="wwwroot/excel\170529095914_Visitas.xlsx" />
     <Content Remove="wwwroot/excel\170529123725_Visitas.xlsx" />
+    <Content Remove="wwwroot/excel\170710150026_Visitas.xlsx" />
     <Content Remove="wwwroot/excel\~%24formatoNovatec.xlsx" />
   </ItemGroup>
 
