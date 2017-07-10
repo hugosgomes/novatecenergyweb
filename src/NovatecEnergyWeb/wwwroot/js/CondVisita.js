@@ -104,7 +104,7 @@ function listaVisitado(retorno) {
 
         var cols = "";
 
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].id + '</option>';
+        cols += '<option value="' + retorno[i].id + '">' + retorno[i].item + '</option>';
 
         $("#visitado").append(cols);
 
@@ -127,7 +127,7 @@ function listaInteresse(retorno) {
 
         var cols = "";
 
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].id + '</option>';
+        cols += '<option value="' + retorno[i].id + '">' + retorno[i].item + '</option>';
 
         $("#interesse").append(cols);
 
@@ -151,7 +151,7 @@ function listaPco(retorno) {
 
         var cols = "";
 
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].id + '</option>';
+        cols += '<option value="' + retorno[i].id + '">' + retorno[i].item + '</option>';
 
         $("#pco").append(cols);
 
@@ -175,7 +175,7 @@ function listaTsocial(retorno) {
 
         var cols = "";
 
-        cols += '<option value="' + retorno[i].id + '">' + retorno[i].id + '</option>';
+        cols += '<option value="' + retorno[i].id + '">' + retorno[i].item + '</option>';
 
         $("#tSocial").append(cols);
 

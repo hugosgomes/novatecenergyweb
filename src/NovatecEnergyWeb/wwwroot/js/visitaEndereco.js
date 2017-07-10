@@ -1,19 +1,9 @@
-﻿
-
-
-window.onload = function () {
-
-   
+﻿window.onload = function () {
     getLote();
     getZona();
     getDelegacao();
     getArea();
-
-
 };
-
-
-
 
 
 ///////////////////////////////////////////////////////////////////////////

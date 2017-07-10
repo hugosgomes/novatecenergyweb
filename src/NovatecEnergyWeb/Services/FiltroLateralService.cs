@@ -229,7 +229,8 @@ namespace NovatecEnergyWeb.Services
 
         public IActionResult GetRejeicao()
         {
-            var rejeicao = _context._11MotivosRej.Select(m => new
+            var rejeicao = _context._11MotivosRej
+                .Where(r => r.Produto == 3 && r.Motivo != "-" ).OrderBy( r=> r.Ordem).Select(m => new
             {
                 Id = m.Id,
                 Motivo = m.Motivo
@@ -289,7 +290,7 @@ namespace NovatecEnergyWeb.Services
 
         public IActionResult GetVisitado()
         {
-            var visitado = _context._00TabelasItems.Where(v => v.Tabela == 340 && v.Campo == "Visitado").ToList();
+            var visitado = _context._00TabelasItems.Where(v => v.Tabela == 340 && v.Campo == "VISITADO").ToList();
             return Json(visitado);
         }
 

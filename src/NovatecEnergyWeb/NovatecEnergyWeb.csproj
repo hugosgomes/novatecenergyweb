@@ -34,8 +34,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="wwwroot\js\visita.js" />
-    <Content Include="wwwroot\lib\site.js" />
-    <Content Include="wwwroot\lib\site.min.js" />
   </ItemGroup>
 
   <ItemGroup>
