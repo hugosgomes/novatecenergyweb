@@ -75,8 +75,8 @@ namespace NovatecEnergyWeb.Controllers
 
             // se for cliente, vai ter as variáveis de sessão preenchidas
             zonas = (z != null) ? (int)z : zonas;
-            delegacao = (d != null) ? (int)d : zonas;
-           
+            delegacao = (d != null) ? (int)d : delegacao;
+
 
             // definicoes da paginacao
             var pagina = 0;
