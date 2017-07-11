@@ -8,9 +8,11 @@
 
 ///////////////////////////////////////////////////////////////////////////
 function listaLote(retorno) {
+    var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+    $("#lotes").empty();
 
     // listando todos os objetos produto que contem no array
-    for (i = 0; i < retorno.length; i++) {
+ /*   for (i = 0; i < retorno.length; i++) {
 
         var cols = "";
 
@@ -18,7 +20,15 @@ function listaLote(retorno) {
 
         $("#lotes").append(cols);
 
-    }
+    } */
+
+    $.each(retorno, function () {
+
+        $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
+            + this[2] + p.text()
+            + this[3] + p.text()
+            + this[4]));
+    });
 
     if (document.getElementById("lotes").length == 1) {
         $("#lotes").prop("selectedIndex", 0);
@@ -343,4 +353,63 @@ function limpaFiltro() {
 
    $('#endereco').val("");
 
+}
+
+
+function preencheDelegacao(retorno) {
+    $("#delegacao").empty();
+
+    $.each(retorno.delegacao, function () {
+        $("#delegacao").append($("<option />").val(this.id).text(this.delegacao));
+    });
+
+    $("#delegacao").prop("selectedIndex", -1);
+}
+
+
+function preencheArea(retorno) {
+    if (retorno.area.length > 0) {
+        $("#area").empty();
+
+        $.each(retorno.area, function () {
+            $("#area").append($("<option />").val(this.id).text(this.area));
+        });
+
+        $("#area").prop("selectedIndex", -1);
+    }
+}
+
+
+function preencheLotes(retorno) {
+    $("#lotes").empty();
+
+    $.each(retorno.lotes, function () {
+
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+        $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
+            + this[2] + p.text()
+            + this[3] + p.text()
+            + this[4]));
+    });
+
+    $("#lotes").prop("selectedIndex", -1);
+}
+
+function atualizaDropsZona(retorno) {
+    preencheDelegacao(retorno);
+    preencheArea(retorno);
+    preencheLotes(retorno);
+
+    // postToController();
+}
+
+function atualizaDropsArea(retorno) {
+    preencheLotes(retorno);
+}
+
+function atualizaDropsDelegacao(retorno) {
+    preencheArea(retorno);
+    preencheLotes(retorno);
+ 
 }

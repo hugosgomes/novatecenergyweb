@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Models.Exportacao;
 using NovatecEnergyWeb.Models.Repository;
@@ -49,6 +50,21 @@ namespace NovatecEnergyWeb.Controllers
         [HttpPost]
         public IActionResult BuscaVisitasEndereco(int num, int lotes, int zonas, int delegacao, int area,  String endereco )
         {
+
+
+            var d = HttpContext.Session.GetInt32("Delegação");
+            var z = HttpContext.Session.GetInt32("Zona");
+            var quantArea = HttpContext.Session.GetInt32("QuantidadeArea");
+
+            if (quantArea != null && ((int)quantArea == 1))
+            {
+                area = (int)HttpContext.Session.GetInt32("Área");
+            }
+
+
+            // se for cliente, vai ter as variáveis de sessão preenchidas
+            zonas = (z != null) ? (int)z : zonas;
+            delegacao = (d != null) ? (int)d : delegacao;
 
             // definicoes da paginacao
             var pagina = 0;

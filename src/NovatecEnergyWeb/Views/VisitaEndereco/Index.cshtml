@@ -138,22 +138,13 @@
                 <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
                  
 
-                    <!--lote -->
-                    <div class="control-group">
-                        <label class="control-label labelsFormNav">Lote</label>
-                        <div class="controls">
-                            <select id="lotes" name="LoteError" onchange=" exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;"></select>
-                        </div>
-                    </div>
-
-
                     <!--zona -->
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Zona</label>
                         <div class="controls">
 
 
-                            <select id="zonas" onchange=" exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="zonas" onchange="postZona(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
                         </div>
                     </div>
                     <!--fim de zona -->
@@ -162,7 +153,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Delegação</label>
                         <div class="controls">
-                            <select id="delegacao" onchange=" exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="delegacao" onchange="postDelegacao(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
                         </div>
                     </div>
                     <!-- fim de delegação -->
@@ -171,13 +162,21 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Área</label>
                         <div class="controls">
-                            <select id="area" onchange=" exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
+                            <select id="area" onchange="postArea(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
                         </div>
                     </div>
 
                     <!--fim de area -->
                    
-                    
+                    <!--lote -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Lote</label>
+                        <div class="controls">
+                            <select id="lotes" name="LoteError" onchange=" exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:150px;"></select>
+                        </div>
+                    </div>
+
+
                     <!--fim de localidade input -->
                     <!--bairro input -->
                     <div class="control-group">
@@ -188,6 +187,7 @@
                     </div>
                     <!--fim de bairro input -->
                    
+                    
 
                     <br />
                     <br />
@@ -304,7 +304,7 @@
             p.delegacao = $('#delegacao').val();
             p.area = $('#area').val();
 
-     
+
 
             p.endereco = $('#endereco').val().toString().toUpperCase().trim();
 
@@ -360,7 +360,28 @@
        $("#load").fadeOut(); // apaga animacao carregando
 
     }
+        ////////////////////////////
+        //  FILTROS
+        //////////////////////////////
 
+        function postZona() {
+        var p = {};
+        p.zona = $("#zonas").val();
+        $.post("@Url.Action("ZonaCascade", "FiltroLateralService")", p, atualizaDropsZona);
+        }
+
+        function postDelegacao() {
+        var p = {};
+        p.delegacao = $("#delegacao").val();
+        $.post("@Url.Action("DelegacaoCascade", "FiltroLateralService")", p, atualizaDropsDelegacao);
+       }
+
+       function postArea() {
+       var p = {};
+
+       p.area = $("#area").val();
+       $.post("@Url.Action("AreaCascade", "FiltroLateralService")", p, atualizaDropsArea);
+       }
 
     </script>
 }
