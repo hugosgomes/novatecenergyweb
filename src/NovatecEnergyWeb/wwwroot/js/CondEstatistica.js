@@ -5,8 +5,8 @@ window.onload = function () {
     getDelegacao();
     getArea();
     getBuscaLotes();
-
     graficos();
+
 };
 
 
