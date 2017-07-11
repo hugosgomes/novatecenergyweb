@@ -142,7 +142,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Lote</label>
                         <div class="controls">
-                            <select id="lotes" name="LoteError" onchange=" exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;"></select>
+                            <select id="lotes" name="LoteError" onchange="postLote(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;"></select>
                         </div>
                     </div>
 
@@ -153,7 +153,7 @@
                         <div class="controls">
 
 
-                            <select id="zonas" onchange=" exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="zonas" onchange=" postZona(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
                         </div>
                     </div>
                     <!--fim de zona -->
@@ -162,7 +162,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Delegação</label>
                         <div class="controls">
-                            <select id="delegacao" onchange=" exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="delegacao" onchange="postDelegacao(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
                         </div>
                     </div>
                     <!-- fim de delegação -->
@@ -171,7 +171,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Área</label>
                         <div class="controls">
-                            <select id="area" onchange=" exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
+                            <select id="area" onchange="postArea(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
                         </div>
                     </div>
 
@@ -304,12 +304,12 @@
             p.delegacao = $('#delegacao').val();
             p.area = $('#area').val();
 
-     
+
 
             p.endereco = $('#endereco').val().toString().toUpperCase().trim();
 
             $("#load").fadeIn(); // chama animacao de carregando
-            $.post("@Url.Action("BuscaVisitasEndereco", "VisitaEndereco")", p, visitasPreenche);
+            $.post("@Url.Action("BuscaVisitasEndereco", "CondEndereco")", p, visitasPreenche);
             $("#load").fadeOut(); // apaga animacao carregando
         }
 
@@ -328,7 +328,7 @@
             p.endereco = $('#endereco').val().toString().toUpperCase().trim();
 
             $("#load").fadeIn(); // chama animacao de carregando
-            $.post("@Url.Action("BuscaVisitasEndereco", "VisitaEndereco")", p, visitasPreenche2);
+            $.post("@Url.Action("BuscaVisitasEndereco", "CondEndereco")", p, visitasPreenche2);
             $("#load").fadeOut(); // apaga animacao carregando
          }
 
@@ -353,7 +353,7 @@
 
 
         var urlconfig = '@AppSettings.ExcelExportUrl';
-        window.location.href = '' + urlconfig + '/VisitaEndereco/ExportaExcel?zonas=' + p.zonas + '&delegacao=' +
+        window.location.href = '' + urlconfig + '/CondEndereco/ExportaExcel?zonas=' + p.zonas + '&delegacao=' +
             p.delegacao + '&area=' + p.area + '&lotes=' + p.lotes + '&endereco=' + p.endereco;
 
 
@@ -362,7 +362,41 @@
     }
 
 
+
+////////////////////////////
+//  FILTROS
+//////////////////////////////
+
+function postZona() {
+
+    var p = {};
+    p.zona = $("#zonas").val();
+    $.post("@Url.Action("ZonaCascade", "Visita")", p, atualizaDropsZona);
+}
+
+function postDelegacao() {
+
+    var p = {};
+    p.delegacao = $("#delegacao").val();
+    $.post("@Url.Action("DelegacaoCascade", "Visita")", p, atualizaDropsDelegacao);
+}
+
+function postArea() {
+
+    var p = {};
+    p.area = $("#area").val();
+    $.post("@Url.Action("AreaCascade", "Visita")", p, atualizaDropsArea);
+}
+
+function postLote() {
+
+    var p = {};
+    p.lote = $("#lotes").val();
+    $.post("@Url.Action("LoteCascade", "Visita")", p, atualizaDropsLote);
+}
+
+
     </script>
 }
 
-<script type="text/javascript" src="~/js/visitaEndereco.js"></script>
+<script type="text/javascript" src="~/js/condEndereco.js"></script>

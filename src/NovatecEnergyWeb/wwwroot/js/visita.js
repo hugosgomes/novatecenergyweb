@@ -16,11 +16,13 @@ $('#diavisita2').datepicker({
 window.onload = function () {
 
     getReload();
+  
 };
 
 
 
 function visitasPreenche(retorno) {
+
     var visitas = retorno.visitas;
     //preenche contagem
     $('#contagemVisitas').html(retorno.contagem);

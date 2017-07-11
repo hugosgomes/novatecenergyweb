@@ -14,7 +14,7 @@ function listaLote(retorno) {
 
         var cols = "";
 
-        cols += '<option value="' + retorno[i][0] + '">' + retorno[i][1] + "&nbsp" + retorno[i][2] + '</option>';
+        cols += '<option value="' + retorno[i][0] + '">' + retorno[i][1] + "&nbsp" + "&nbsp" + "&nbsp" + retorno[i][2] + "&nbsp" + "&nbsp" + "&nbsp" + retorno[i][3] + "&nbsp" + "&nbsp"  + retorno[i][4] + '</option>';
 
         $("#lotes").append(cols);
 
@@ -344,3 +344,95 @@ function limpaFiltro() {
    $('#endereco').val("");
 
 }
+
+
+/////////////////////////////////////////////////
+//   filtros em cascata
+////////////////////////////////////////////////
+
+function atualizaDropsZona(retorno) {
+    preencheDelegacao(retorno);
+    preencheArea(retorno);
+    preencheLotes(retorno);
+    preencheCondominio(retorno);
+
+    // postToController();
+}
+
+function atualizaDropsDelegacao(retorno) {
+    preencheArea(retorno);
+    preencheLotes(retorno);
+    preencheCondominio(retorno);
+
+    //postToController();
+}
+
+function atualizaDropsArea(retorno) {
+
+    preencheLotes(retorno);
+    preencheCondominio(retorno);
+
+}
+
+function atualizaDropsLote(retorno) {
+    preencheCondominio(retorno);
+}
+
+
+
+
+
+function preencheDelegacao(retorno) {
+    $("#delegacao").empty();
+
+    $.each(retorno.Delegacao, function () {
+        $("#delegacao").append($("<option />").val(this.id).text(this.delegacao));
+    });
+
+    $("#delegacao").prop("selectedIndex", -1);
+}
+
+
+function preencheArea(retorno) {
+    if (retorno.Area.length > 0) {
+        $("#area").empty();
+
+        $.each(retorno.Area, function () {
+            $("#area").append($("<option />").val(this.id).text(this.area));
+        });
+
+        $("#area").prop("selectedIndex", -1);
+    }
+}
+
+
+function preencheLotes(retorno) {
+    $("#lotes").empty();
+
+    $.each(retorno.Lotes, function () {
+
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+        $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
+            + this[2] + p.text()
+            + this[3] + p.text()
+            + this[4]));
+    });
+
+    $("#lotes").prop("selectedIndex", -1);
+}
+
+
+function preencheCondominio(retorno) {
+    $("#condominio").empty();
+
+    $.each(retorno.Condominio, function () {
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+        $("#condominio").append($("<option />").val(this.id)
+            .text(this.nome + p.text() + this.num + p.text() + this.complemento + p.text() +
+            this.item + p.text() + this.z + p.text() + this.d));
+    });
+
+    $("#condominio").prop("selectedIndex", -1);
+}
+

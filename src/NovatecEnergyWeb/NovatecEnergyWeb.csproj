@@ -31,7 +31,7 @@
     <Content Include="wwwroot\js\lotePorEndereco.js" />
     <Content Include="wwwroot\js\site.js" />
     <Content Include="wwwroot\js\site.min.js" />
-    <Content Include="wwwroot\js\visitaEndereco.js">
+    <Content Include="wwwroot\js\condEndereco.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="wwwroot\js\visita.js" />

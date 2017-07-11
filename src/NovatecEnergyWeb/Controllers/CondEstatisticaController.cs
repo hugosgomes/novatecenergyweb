@@ -15,7 +15,7 @@ using NovatecEnergyWeb.Filters.ActionFilters;
 
 namespace NovatecEnergyWeb.Controllers
 {
-    public class CondEstatistica : Controller
+    public class CondEstatisticaController : Controller
     {
 
 
@@ -25,7 +25,7 @@ namespace NovatecEnergyWeb.Controllers
         private IAreaRepository _areaRepository;
         private IDelegacaoRepository _delegacaoRepository;
 
-        public CondEstatistica(BDNVTContext context,
+        public CondEstatisticaController(BDNVTContext context,
             ICondEstatisticaRepository condEstatisticaRepository, ILoteRepository loteRepository,
             IAreaRepository areaRepository, IDelegacaoRepository delegacaoRepository)
         {

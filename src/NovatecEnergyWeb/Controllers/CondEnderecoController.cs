@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace NovatecEnergyWeb.Controllers
 {
-    public class VisitaEnderecoController : Controller
+    public class CondEnderecoController : Controller
     {
         private BDNVTContext _context;
       
@@ -22,7 +22,7 @@ namespace NovatecEnergyWeb.Controllers
         private IMotivoRejeicao _motivoRejeicaoRepository;
         private IExcelExportVisitaEndereco _exportaExecelVisitaEndereco;
 
-        public VisitaEnderecoController(BDNVTContext context,
+        public CondEnderecoController(BDNVTContext context,
            IVisitaEnderecoRepository visitaEnderecoRepository, IMotivoRejeicao motivoRejeicaoRepository, IAreaRepository areaRepository,
            ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository, IExcelExportVisitaEndereco exportaExecelVisitaEndereco
 
