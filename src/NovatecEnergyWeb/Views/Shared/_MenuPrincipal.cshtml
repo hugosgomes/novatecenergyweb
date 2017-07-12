@@ -33,7 +33,16 @@
                         <li><a asp-area="" asp-controller="CondEstatistica" asp-action="Index"><i class="fa fa-bar-chart fa-sm"></i>&nbsp;Estatística</a></li>
                     </ul>
                 </li>
-            
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-industry fa-sm"></i>&nbsp;Pco<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a asp-area="" asp-controller="Pco" asp-action="Index"><i class="fa fa-navicon fa-sm"></i>&nbsp;Pco View</a></li>
+                        
+                    </ul>
+                </li>
+
             <!--    <li><a asp-area="" asp-controller="ClientesWeb" asp-action="Index">Ativação de clientes</a></li>-->
             
 
@@ -67,6 +76,15 @@
                     <li><a asp-area="" asp-controller="CondVisita" asp-action="Index"><i class="fa fa-address-card fa-sm"></i>&nbsp;Visitas</a></li>
                     <li><a asp-area="" asp-controller="CondEndereco" asp-action="Index"><i class="fa fa-road fa-sm"></i>&nbsp;Por Endereço</a></li>
                     <li><a asp-area="" asp-controller="CondEstatistica" asp-action="Index"><i class="fa fa-bar-chart fa-sm"></i>&nbsp;Estatística</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-industry fa-sm"></i>&nbsp;Pco<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+
+                    <li><a asp-area="" asp-controller="Pco" asp-action="Index"><i class="fa fa-navicon fa-sm"></i>&nbsp;Pco View</a></li>
+
                 </ul>
             </li>
         }

@@ -70,7 +70,7 @@ namespace NovatecEnergyWeb.Controllers
             var Lotes = new List<List<dynamic>>();
 
             //.Where(l => l.Status == 136).ToList();
-            var lotes = (from l in _context._11Lotes
+            var lotes = (from l in _context._12Lotes
                          join a in _context._00Areas on l.Area equals a.Id
                          join d in _context._00Delegacao on (int)a.Delegacao equals d.Id
                          join z in _context._00Zona on d.Zona equals z.Id

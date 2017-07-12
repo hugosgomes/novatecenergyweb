@@ -1,0 +1,241 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using NovatecEnergyWeb.Core;
+@using NovatecEnergyWeb.Models.StoredProcedures;
+
+@{
+    Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
+    ViewData["Title"] = "Visitas Comerciais";
+}
+
+
+
+@Html.Hidden("urlGetZona", Url.Action("GetZonas", "FiltroLateralService"))
+@Html.Hidden("urlGetDelegacao", Url.Action("GetDelegacao", "FiltroLateralService"))
+@Html.Hidden("urlGetArea", Url.Action("GetArea", "FiltroLateralService"))
+@Html.Hidden("urlBuscaLote", Url.Action("BuscaLotes", "LoteEstatistica"))
+@Html.Hidden("urlZonaCascade", Url.Action("ZonaCascade", "FiltroLateralService"))
+@Html.Hidden("urlDelegacaoCascade", Url.Action("DelegacaoCascade", "FiltroLateralService"))
+
+
+
+
+<div class="container-fluid">
+    <!-- Loader-->
+    <div class="row">
+
+        <div id="load" class="col-md-offset-5 col-md-3 col-md-offset-4">
+
+
+            <img id="centro" src="~/images/load.gif" alt="Carregando..." title="Carregando...">
+
+        </div>
+    </div>
+
+
+    <div class="row">
+
+
+
+        <div class=" col-md-3 col-lg-2  ">
+            <nav class="navbar navbar-default navbar-fixed-side">
+                <h4 id="titulo" class="text-center">Pontos de Comércio</h4>
+
+
+                <!--
+                -----------------------------------------------------------------------------------------------------------------------------------
+                Filtros laterais
+                -----------------------------------------------------------------------------------------------------------------------------------
+                -->    
+                <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
+                 
+
+                    <!--Status -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Status</label>
+                        <div class="controls">
+                            <select id="status" name="status" onchange="" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;"></select>
+                        </div>
+                    </div>
+
+
+                    <!--zona -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Zona</label>
+                        <div class="controls">
+                            <select id="zonas" onchange="postZona(); " class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                        </div>
+                    </div>
+                    <!--fim de zona -->
+
+                    <!--delegação -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Delegação</label>
+                        <div class="controls">
+                            <select id="delegacao" onchange=" " class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                        </div>
+                    </div>
+                    <!-- fim de delegação -->
+                    
+              
+                    <!--fim de area -->
+
+                   
+                    <!--localidade input -->
+                    <div class="control-group">
+                        <label class="control-label  labelsFormNav">Localidade</label>
+                        <div class="controls">
+                            <input id="localidade" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim de localidade input -->
+
+                
+                    <!--bairro input -->
+                    <div class="control-group">
+                        <label class="control-label  labelsFormNav">Bairro</label>
+                        <div class="controls">
+                            <input id="endereco" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim de bairro input -->
+
+                    <!--logradouro input -->
+                    <div class="control-group">
+                        <label class="control-label  labelsFormNav">Logradouro</label>
+                        <div class="controls">
+                            <input id="logradouro" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim de logradouro input -->
+
+                    <!--pco input -->
+                    <div class="control-group">
+                        <label class="control-label  labelsFormNav">Pco</label>
+                        <div class="controls">
+                            <input id="pco" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim de pco input -->
+                   
+
+                    <br />
+                    <br />
+                    <br />
+
+                    <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
+                    <div class="col-xs-8"><a href="#" onclick="exibeVisitasEndereco(1);"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
+
+
+
+                    <br />
+                    <label class="fontTableBodyNavBar">Exportar Pijama Form Gás Natural</label>
+                    <a href="#" onclick="ExportaPadraoNovatec();">
+                        <img src="~/images/ms_excel.png" style="margin-left:19px;" width="30" height="30" />
+                    </a>
+
+
+                    <br />
+
+                </form>
+
+                <!--
+                -------------------------------------------------------------------------------------------------------------------
+                  fim dos Filtros Laterais
+                -------------------------------------------------------------------------------------------------------------------
+                -->
+
+
+            </nav>
+        </div>
+
+
+        <!--
+        -------------------------------------------------------------------------------------------------------------------
+          Listagem
+        -------------------------------------------------------------------------------------------------------------------
+          -->
+
+        <div class="col-md-9 col-lg-10   ">
+            <div id="page-selection"></div>
+            <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
+                <thead id="headTabelaLote">
+                    <tr>
+                        <!-- <th class="text-center">Casa</th>  retirados 11/05/2017 à pedido do Javier
+                         <th class="text-center">Lote</th> -->
+                        <th class="text-center">ID</th>
+                        <th class="text-center">NUM</th>
+                        <th class="text-center">COMPLEMENTO</th>
+                        <th class="text-center">NOME</th>
+                        <th class="text-center">STATUS_ITEM</th>
+                        <th class="text-center">DISTREDE</th>
+                        <th class="text-center">INTER_ITEM</th>
+                        <th class="text-center">ENERG_ITEM</th>
+                        <th class="text-center">CONTATO</th>
+                        <th class="text-center">TELEFONE</th>
+                        <th class="text-center">CELULAR</th>
+                        <th class="text-center">EMAIL</th>
+                        <th class="text-center">LOCALIDADE</th>
+                        <th class="text-center">BAIRRO</th>
+                        <th class="text-center">LOGRADOURO</th>
+                        <th class="text-center">VIA</th>
+                        <th class="text-center">COMPLOG</th>
+                       
+
+                    </tr>
+                </thead>
+                <tbody id="corpoTabelaAtivos" class="corpoTabela"></tbody>
+
+            </table>
+        </div>
+
+          <!--
+          -------------------------------------------------------------------------------------------------------------------
+            fim da Listagem
+          -------------------------------------------------------------------------------------------------------------------
+          -->
+    </div>
+
+</div>
+
+
+@section Scripts{
+
+   
+    <script type="text/javascript">
+
+
+
+
+         function getZona() {
+
+             $.getJSON("@Url.Action("GetZonas", "FiltroLateralService")", listaZona);
+        }
+
+         function getDelegacao() {
+
+             $.getJSON("@Url.Action("GetDelegacao", "FiltroLateralService")", listaDelegacao);
+         }
+
+
+
+         function getPco() {
+
+             $.getJSON("@Url.Action("GetPco", "Pco")", listaPco);
+        }
+
+////////////////////////////
+//  FILTROS
+//////////////////////////////
+
+function postZona() {
+
+    var p = {};
+    p.zona = $("#zonas").val();
+    $.post("@Url.Action("ZonaCascade", "Visita")", p, atualizaDropsZona);
+}
+
+    </script>
+
+     <script type="text/javascript" src="~/js/pco.js"></script>
+}
+
