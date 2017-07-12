@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using NovatecEnergyWeb.Models.Repository;
 using NovatecEnergyWeb.Domain.Interfaces.Service;
 
-namespace NovatecEnergyWeb.Services
+namespace NovatecEnergyWeb.Domain.Services
 {
     public class FiltroLateralServiceController : Controller, IFiltroLateralService
     {
