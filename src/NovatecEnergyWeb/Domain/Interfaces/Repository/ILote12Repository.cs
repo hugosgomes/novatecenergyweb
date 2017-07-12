@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NovatecEnergyWeb.Models
+namespace NovatecEnergyWeb.Domain.Interfaces.Repository
 {
-    public class _11Lotes : Lote
+    public interface ILote12Repository
     {
-       
+
     }
 }

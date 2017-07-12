@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace NovatecEnergyWeb.Models
 {
-    public class _11Lotes : Lote
+    public class _12Lotes : Lote
     {
-       
     }
 }

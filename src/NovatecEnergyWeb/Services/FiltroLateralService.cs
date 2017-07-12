@@ -8,6 +8,7 @@ using NovatecEnergyWeb.Models;
 using System.Dynamic;
 using Microsoft.AspNetCore.Http;
 using NovatecEnergyWeb.Models.Repository;
+using NovatecEnergyWeb.Domain.Interfaces.Service;
 
 namespace NovatecEnergyWeb.Services
 {

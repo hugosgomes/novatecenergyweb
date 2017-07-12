@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NovatecEnergyWeb.Services
+namespace NovatecEnergyWeb.Domain.Interfaces.Service
 {
     public interface IFiltroLateralService
     {

@@ -10,7 +10,7 @@ namespace NovatecEnergyWeb.Core
 {
     public partial class BDNVTContext : DbContext
     {
-
+        public virtual DbSet<_12Lotes> _12Lotes { get; set; }
         public virtual DbSet<CondEstatistica> CondEstatistica { get; set; }
         public virtual DbSet<_12CondVisitas> _12CondVisitas { get; set; }
         public virtual DbSet<CondVisita> CondVisita { get; set; }    
@@ -5394,6 +5394,24 @@ namespace NovatecEnergyWeb.Core
                 entity.Property(e => e.Tipo).HasColumnName("TIPO");
 
                 entity.Property(e => e.Venda).HasColumnName("VENDA");
+            });
+
+            
+            modelBuilder.Entity<_12Lotes>(entity =>
+            {
+                entity.ToTable("12_Lotes");
+                entity.HasKey(e => e.Id).HasName("PK_12_Lotes");
+                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Ge).HasColumnName("GE").HasMaxLength(255);
+                entity.Property(e => e.LoteNum).HasColumnName("LOTENUM").HasMaxLength(255);
+                entity.Property(e => e.DataLote).HasColumnName("DATALOTE").HasColumnType("smalldatetime");
+                entity.Property(e => e.DataEntrega).HasColumnName("DATAENTREGA").HasColumnType("smalldatetime");
+                entity.Property(e => e.Potencial).HasColumnName("POTENCIAL");
+                entity.Property(e => e.Meta).HasColumnName("META");
+                entity.Property(e => e.UserSystem).HasColumnName("USERSYSTEM");
+                entity.Property(e => e.DataSystem).HasColumnName("DATASYSTEM");
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+                entity.Property(e => e.Area).HasColumnName("AREA");
             });
 
             modelBuilder.Entity<_11Lotes>(entity =>
