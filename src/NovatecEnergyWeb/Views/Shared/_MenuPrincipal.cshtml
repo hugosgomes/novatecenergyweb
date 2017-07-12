@@ -8,13 +8,7 @@
 
         if ((us != null) && (tipo != null && (tipo == "func")))
         {
-            if (grupo == 1)
-            {
-                 <li><a href="#">Financeiro</a></li>
-            }
-
-               
-
+            
                  <li><a asp-area="" asp-controller="Cargas" asp-action="Index"><i class="fa fa-briefcase fa-sm"></i>&nbsp;Cargas</a></li>
                 
                  <!--  <li><a href="#"><i class="fa fa-external-link-square fa-sm"></i>&nbsp;Rede</a></li> -->
@@ -39,10 +33,9 @@
                         <li><a asp-area="" asp-controller="CondEstatistica" asp-action="Index"><i class="fa fa-bar-chart fa-sm"></i>&nbsp;Estatística</a></li>
                     </ul>
                 </li>
-            if (grupo == 1)
-            {
-                <li><a asp-area="" asp-controller="ClientesWeb" asp-action="Index">Ativação de clientes</a></li>
-            }
+            
+            <!--    <li><a asp-area="" asp-controller="ClientesWeb" asp-action="Index">Ativação de clientes</a></li>-->
+            
 
         }
         else if ((us != null) && (tipo != null && (tipo == "cli")))
