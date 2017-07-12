@@ -356,12 +356,8 @@ function limpaFiltro() {
 }
 
 
-<<<<<<< HEAD:src/NovatecEnergyWeb/wwwroot/js/visitaEndereco.js
-function preencheDelegacao(retorno) {
-    $("#delegacao").empty();
 
-    $.each(retorno.delegacao, function () {
-=======
+
 /////////////////////////////////////////////////
 //   filtros em cascata
 ////////////////////////////////////////////////
@@ -395,14 +391,10 @@ function atualizaDropsLote(retorno) {
 }
 
 
-
-
-
 function preencheDelegacao(retorno) {
     $("#delegacao").empty();
 
-    $.each(retorno.Delegacao, function () {
->>>>>>> 0fcd3a062577fab7c56ae8c2378c5f0c222bd112:src/NovatecEnergyWeb/wwwroot/js/condEndereco.js
+    $.each(retorno.delegacao, function () {
         $("#delegacao").append($("<option />").val(this.id).text(this.delegacao));
     });
 
@@ -411,17 +403,10 @@ function preencheDelegacao(retorno) {
 
 
 function preencheArea(retorno) {
-<<<<<<< HEAD:src/NovatecEnergyWeb/wwwroot/js/visitaEndereco.js
     if (retorno.area.length > 0) {
         $("#area").empty();
 
         $.each(retorno.area, function () {
-=======
-    if (retorno.Area.length > 0) {
-        $("#area").empty();
-
-        $.each(retorno.Area, function () {
->>>>>>> 0fcd3a062577fab7c56ae8c2378c5f0c222bd112:src/NovatecEnergyWeb/wwwroot/js/condEndereco.js
             $("#area").append($("<option />").val(this.id).text(this.area));
         });
 
@@ -433,12 +418,7 @@ function preencheArea(retorno) {
 function preencheLotes(retorno) {
     $("#lotes").empty();
 
-<<<<<<< HEAD:src/NovatecEnergyWeb/wwwroot/js/visitaEndereco.js
     $.each(retorno.lotes, function () {
-=======
-    $.each(retorno.Lotes, function () {
->>>>>>> 0fcd3a062577fab7c56ae8c2378c5f0c222bd112:src/NovatecEnergyWeb/wwwroot/js/condEndereco.js
-
         var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
 
         $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
@@ -450,7 +430,7 @@ function preencheLotes(retorno) {
     $("#lotes").prop("selectedIndex", -1);
 }
 
-<<<<<<< HEAD:src/NovatecEnergyWeb/wwwroot/js/visitaEndereco.js
+
 function atualizaDropsZona(retorno) {
     preencheDelegacao(retorno);
     preencheArea(retorno);
@@ -468,12 +448,12 @@ function atualizaDropsDelegacao(retorno) {
     preencheLotes(retorno);
  
 }
-=======
+
 
 function preencheCondominio(retorno) {
     $("#condominio").empty();
 
-    $.each(retorno.Condominio, function () {
+    $.each(retorno.condominio, function () {
         var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
         $("#condominio").append($("<option />").val(this.id)
             .text(this.nome + p.text() + this.num + p.text() + this.complemento + p.text() +
@@ -483,4 +463,3 @@ function preencheCondominio(retorno) {
     $("#condominio").prop("selectedIndex", -1);
 }
 
->>>>>>> 0fcd3a062577fab7c56ae8c2378c5f0c222bd112:src/NovatecEnergyWeb/wwwroot/js/condEndereco.js

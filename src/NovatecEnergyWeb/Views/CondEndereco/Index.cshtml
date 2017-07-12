@@ -266,7 +266,7 @@
 
 @section Scripts{
 
-   
+   <script type="text/javascript" src="~/js/condEndereco.js"></script>
     <script type="text/javascript">
 
 
@@ -384,37 +384,13 @@
        }
 
 
-////////////////////////////
-//  FILTROS
-//////////////////////////////
 
-function postZona() {
-
-    var p = {};
-    p.zona = $("#zonas").val();
-    $.post("@Url.Action("ZonaCascade", "Visita")", p, atualizaDropsZona);
-}
-
-function postDelegacao() {
-
-    var p = {};
-    p.delegacao = $("#delegacao").val();
-    $.post("@Url.Action("DelegacaoCascade", "Visita")", p, atualizaDropsDelegacao);
-}
-
-function postArea() {
-
-    var p = {};
-    p.area = $("#area").val();
-    $.post("@Url.Action("AreaCascade", "Visita")", p, atualizaDropsArea);
-}
-
-function postLote() {
-
-    var p = {};
-    p.lote = $("#lotes").val();
-    $.post("@Url.Action("LoteCascade", "Visita")", p, atualizaDropsLote);
-}
+    /*    function postLote() {
+        
+            var p = {};
+            p.lote = $("#lotes").val();
+            $.post("Url.Action("LoteCascade", "FiltroLateralService")", p, atualizaDropsLote);
+        } */
 
 
     </script>
