@@ -2,7 +2,8 @@
 
     getZona();
     getDelegacao();
-    getPco();
+    getStatus();
+    getPco(1);
 };
 
 
@@ -54,11 +55,194 @@ function listaDelegacao(retorno) {
     }
 }
 
-///////////////////////////////////////////////////////////////////////////
+//////////////////////////////////
+/////////////////////////////////
 function listaPco(retorno) {
 
-    alert("ok");
+
+        montaPaginacao(retorno);
+
+  
+        // preenche a tabela
+        var tr;
+        var r = new Array();
+        var j = -1;
+
+        for (var i = 0; i < retorno.length; i++) {
+
+
+
+            r[++j] = '<tr>';
+
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].id;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].num;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].complemento;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].nome;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].status;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].distrede;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].instInternas;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].energiaAtual;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].contato;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].telefone;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].celular;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].email;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].localidade;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].bairro;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].logradouro;
+            r[++j] = '</td>';
+
+            r[++j] = '<td>';
+            r[++j] = retorno[i].via;
+            r[++j] = '</td>';
+
+
+            r[++j] = '</tr>';
+
+        }
+
+        $('#corpoTabelaAtivos').html(r.join(''));
+
+
 }
+
+
+//////////////////////////////////
+/////////////////////////////////
+function listaPco2(retorno) {
+
+
+
+   
+    // preenche a tabela
+    var tr;
+    var r = new Array();
+    var j = -1;
+
+    for (var i = 0; i < retorno.length; i++) {
+
+
+
+        r[++j] = '<tr>';
+
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].id;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].num;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].complemento;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].nome;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].status;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].distrede;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].instInternas;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].energiaAtual;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].contato;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].telefone;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].celular;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].email;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].localidade;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].bairro;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].logradouro;
+        r[++j] = '</td>';
+
+        r[++j] = '<td>';
+        r[++j] = retorno[i].via;
+        r[++j] = '</td>';
+
+
+        r[++j] = '</tr>';
+
+    }
+
+    $('#corpoTabelaAtivos').html(r.join(''));
+
+
+}
+
 
 
 function montaPaginacao(retorno) {
@@ -83,7 +267,7 @@ function montaPaginacao(retorno) {
     }).on("page", function (event, num) {
         // some ajax content loading...
 
-        exibeVisitasEndereco2(num);
+        listaPco2(num);
 
     });
 
@@ -128,5 +312,27 @@ function preencheDelegacao(retorno) {
 }
 
 
+///////////////////////////////////////////////////////////////////////////
+function listaStatus(retorno) {
 
+    // listando todos os objetos produto que contem no array
+    for (i = 0; i < retorno.length; i++) {
+
+        var cols = "";
+
+        cols += '<option value="' + retorno[i].id + '">' + retorno[i].item + '</option>';
+
+        $("#status").append(cols);
+
+    }
+
+    if (document.getElementById("status").length == 1) {
+        $("#status").prop("selectedIndex", 0);
+        $("#status").attr('disabled', 'disabled'); // desativa o seletor
+    } else {
+        $("#status").prop("selectedIndex", -1); // limpa a seleção após carregar
+    }
+
+  
+}
 

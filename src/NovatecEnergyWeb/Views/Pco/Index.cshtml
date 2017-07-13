@@ -94,7 +94,7 @@
                     <div class="control-group">
                         <label class="control-label  labelsFormNav">Bairro</label>
                         <div class="controls">
-                            <input id="endereco" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                            <input id="bairro" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
                         </div>
                     </div>
                     <!--fim de bairro input -->
@@ -160,8 +160,9 @@
             <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
                 <thead id="headTabelaLote">
                     <tr>
+                       
                         <!-- <th class="text-center">Casa</th>  retirados 11/05/2017 à pedido do Javier
-                         <th class="text-center">Lote</th> -->
+                        <th class="text-center">Lote</th> -->
                         <th class="text-center">ID</th>
                         <th class="text-center">NUM</th>
                         <th class="text-center">COMPLEMENTO</th>
@@ -204,6 +205,12 @@
     <script type="text/javascript">
 
 
+          function getStatus() {
+
+             $.getJSON("@Url.Action("GetStatus", "FiltroLateralService")", listaStatus);
+        }
+
+
 
 
          function getZona() {
@@ -218,9 +225,40 @@
 
 
 
-         function getPco() {
+         function getPco(num) {
 
-             $.getJSON("@Url.Action("GetPco", "Pco")", listaPco);
+             var p = {};
+             p.num = num;
+             p.zona = $("#zonas").val();
+             p.status = $("#status").val();
+             p.delegacao = $("#delegacao").val();
+
+             p.localidade = $("#localidade").val().toString().toUpperCase().trim();;
+             p.bairro = $("#bairro").val().toString().toUpperCase().trim();;
+             p.logradouro = $("#logradouro").val().toString().toUpperCase().trim();;
+             p.pco = $("#pco").val().toString().toUpperCase().trim();;
+
+
+
+             $.getJSON("@Url.Action("GetPco", "Pco")",p, listaPco);
+         }
+
+        function getPco2(num) {
+
+            var p = {};
+            p.num = num;
+             p.zona = $("#zonas").val();
+             p.status = $("#status").val();
+             p.delegacao = $("#delegacao").val();
+
+             p.localidade = $("#localidade").val().toString().toUpperCase().trim();;
+             p.bairro = $("#bairro").val().toString().toUpperCase().trim();;
+             p.logradouro = $("#logradouro").val().toString().toUpperCase().trim();;
+             p.pco = $("#pco").val().toString().toUpperCase().trim();;
+
+
+
+             $.getJSON("@Url.Action("GetPco", "Pco")",p, listaPco2);
         }
 
 ////////////////////////////

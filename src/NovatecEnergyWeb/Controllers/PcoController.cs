@@ -21,18 +21,19 @@ namespace NovatecEnergyWeb.Controllers
         private ILoteRepository _loteRepository;
         private ICondominioLoteAtivo _condominioRepository;
         private IMotivoRejeicao _motivoRejeicaoRepository;
+        private IPcoRepository _pcoRepository;
         private IExcelExportVisitaEndereco _exportaExecelVisitaEndereco;
 
-        public PcoController(BDNVTContext context,
+        public PcoController(BDNVTContext context, IPcoRepository pcoRepository,
             IMotivoRejeicao motivoRejeicaoRepository, IAreaRepository areaRepository,
            ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository, IExcelExportVisitaEndereco exportaExecelVisitaEndereco
 
            )
 
         {
-            _context = context;
-          
-             _motivoRejeicaoRepository = motivoRejeicaoRepository;
+            _pcoRepository = pcoRepository;
+            _context = context;        
+            _motivoRejeicaoRepository = motivoRejeicaoRepository;
             _areaRepository = areaRepository;
             _loteRepository = loteRepository;
             _condominioRepository = condominioRepository;
@@ -46,6 +47,14 @@ namespace NovatecEnergyWeb.Controllers
             return View();
         }
 
+
+        public IActionResult GetPco()
+        {
+
+            var pco = _pcoRepository.GetPco();
+            return Json(pco);
+
+        }
 
 
     }

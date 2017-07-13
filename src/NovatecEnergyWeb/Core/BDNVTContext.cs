@@ -10,6 +10,8 @@ namespace NovatecEnergyWeb.Core
 {
     public partial class BDNVTContext : DbContext
     {
+        public virtual DbSet<Pco> Pco { get; set; }
+        public virtual DbSet<_13Pco> _13Pco { get; set; }
         public virtual DbSet<_12Lotes> _12Lotes { get; set; }
         public virtual DbSet<CondEstatistica> CondEstatistica { get; set; }
         public virtual DbSet<_12CondVisitas> _12CondVisitas { get; set; }
@@ -230,6 +232,8 @@ namespace NovatecEnergyWeb.Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Pco>().HasKey(c => c.Id);
             modelBuilder.Entity<CondEstatistica>().HasKey(c => c.Id);
             modelBuilder.Entity<CondVisita>().HasKey(c => c.Id);
             modelBuilder.Entity<VisitaEndereco>().HasKey(c => c.Id);
@@ -245,6 +249,43 @@ namespace NovatecEnergyWeb.Core
             modelBuilder.Entity<_10_CargasMetas>().HasKey(c => c.Id);
             modelBuilder.Entity<_10_MetasCargas>().HasKey(c => c.Id);
             modelBuilder.Entity<_50_AvancoMes>().HasKey(c => c.Id);
+
+
+
+
+            modelBuilder.Entity<_13Pco>(entity =>
+            {
+                entity.ToTable("13_PCO");
+                entity.HasKey(e => e.Id).HasName("PK_13_PCO");
+                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Logradouro).HasColumnName("LOGRADOURO");
+                entity.Property(e => e.Num).HasColumnName("NUM");
+                entity.Property(e => e.Complemento).HasColumnName("COMPLEMENTO");
+                entity.Property(e => e.Nome).HasColumnName("NOME");
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+                entity.Property(e => e.Latitude).HasColumnName("LATITUDE");
+                entity.Property(e => e.Longitude).HasColumnName("LONGITUDE");
+                entity.Property(e => e.Distrede).HasColumnName("DISTREDE");
+                entity.Property(e => e.InstInternas).HasColumnName("INSTINTERNAS");
+                entity.Property(e => e.EnergiaAtual).HasColumnName("ENERGIAATUAL");
+                entity.Property(e => e.Contato).HasColumnName("CONTATO");
+                entity.Property(e => e.TipoContato).HasColumnName("TIPOCONTATO");
+                entity.Property(e => e.Telefone).HasColumnName("TELEFONE");
+                entity.Property(e => e.Celular).HasColumnName("CELULAR");
+                entity.Property(e => e.Email).HasColumnName("EMAIL");
+                entity.Property(e => e.Obs).HasColumnName("OBS");
+                entity.Property(e => e.DataSistema).HasColumnName("DATASISTEMA");
+                entity.Property(e => e.UserSistema).HasColumnName("USERSISTEMA");
+                entity.Property(e => e.LinkPasta ).HasColumnName("LINKPASTA");
+
+            });
+
+
+
+
+
+
+
 
             modelBuilder.Entity<ClientesAreas>(entity => 
             {

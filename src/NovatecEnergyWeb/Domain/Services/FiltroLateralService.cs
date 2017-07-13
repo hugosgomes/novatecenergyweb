@@ -312,5 +312,11 @@ namespace NovatecEnergyWeb.Domain.Services
             var tsocial = _context._00TabelasItems.Where(v => v.Tabela == 237 && v.Campo == "TARIFASOCIAL").ToList();
             return Json(tsocial);
         }
+
+        public IActionResult GetStatus()
+        {
+            var status = _context._00TabelasItems.Where(v => v.Tabela == 347 && v.Campo == "STATUS").ToList();
+            return Json(status);
+        }
     }
 }
