@@ -53,7 +53,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Status</label>
                         <div class="controls">
-                            <select id="status" name="status" onchange="" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;"></select>
+                            <select id="status" name="status" onchange="getPco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:100px;"></select>
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Zona</label>
                         <div class="controls">
-                            <select id="zonas" onchange="postZona(); " class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="zonas" onchange="postZona(); getPco(1); " class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
                         </div>
                     </div>
                     <!--fim de zona -->
@@ -71,7 +71,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Delegação</label>
                         <div class="controls">
-                            <select id="delegacao" onchange=" " class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="delegacao" onchange=" getPco(1); " class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
                         </div>
                     </div>
                     <!-- fim de delegação -->
@@ -123,7 +123,7 @@
                     <br />
 
                     <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
-                    <div class="col-xs-8"><a href="#" onclick="exibeVisitasEndereco(1);"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
+                    <div class="col-xs-8"><a href="#" onclick="getPco(1);"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
 
 
 
@@ -233,10 +233,10 @@
              p.status = $("#status").val();
              p.delegacao = $("#delegacao").val();
 
-             p.localidade = $("#localidade").val().toString().toUpperCase().trim();;
-             p.bairro = $("#bairro").val().toString().toUpperCase().trim();;
-             p.logradouro = $("#logradouro").val().toString().toUpperCase().trim();;
-             p.pco = $("#pco").val().toString().toUpperCase().trim();;
+             p.localidade = $("#localidade").val().toString().toUpperCase().trim();
+             p.bairro = $("#bairro").val().toString().toUpperCase().trim();
+             p.logradouro = $("#logradouro").val().toString().toUpperCase().trim();
+             p.pcoDes = $("#pco").val().toString().toUpperCase().trim();
 
 
 
@@ -251,11 +251,11 @@
              p.status = $("#status").val();
              p.delegacao = $("#delegacao").val();
 
-             p.localidade = $("#localidade").val().toString().toUpperCase().trim();;
-             p.bairro = $("#bairro").val().toString().toUpperCase().trim();;
-             p.logradouro = $("#logradouro").val().toString().toUpperCase().trim();;
-             p.pco = $("#pco").val().toString().toUpperCase().trim();;
-
+             p.localidade = $("#localidade").val().toString().toUpperCase().trim();
+             p.bairro = $("#bairro").val().toString().toUpperCase().trim();
+             p.logradouro = $("#logradouro").val().toString().toUpperCase().trim();
+             p.pcoDes = $("#pco").val().toString().toUpperCase().trim();
+        
 
 
              $.getJSON("@Url.Action("GetPco", "Pco")",p, listaPco2);

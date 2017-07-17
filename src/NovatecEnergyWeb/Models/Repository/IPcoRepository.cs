@@ -8,6 +8,6 @@ namespace NovatecEnergyWeb.Models.Repository
 {
     public interface IPcoRepository
     {
-        List<Pco> GetPco();
+        IEnumerable<Pco> GetPco();
     }
 }

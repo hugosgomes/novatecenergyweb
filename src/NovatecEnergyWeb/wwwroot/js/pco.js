@@ -68,7 +68,7 @@ function listaPco(retorno) {
         var r = new Array();
         var j = -1;
 
-        for (var i = 0; i < retorno.length; i++) {
+        for (var i = 0; i < retorno.pcoList.length; i++) {
 
 
 
@@ -76,67 +76,67 @@ function listaPco(retorno) {
 
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].id;
+            r[++j] = retorno.pcoList[i].id;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].num;
+            r[++j] = retorno.pcoList[i].num;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].complemento;
+            r[++j] = retorno.pcoList[i].complemento;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].nome;
+            r[++j] = rretorno.pcoList[i].nom;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].status;
+            r[++j] = retorno.pcoList[i].status;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].distrede;
+            r[++j] = retorno.pcoList[i].distrede;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].instInternas;
+            r[++j] = retorno.pcoList[i].instInternas;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].energiaAtual;
+            r[++j] = retorno.pcoList[i].energiaAtual;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].contato;
+            r[++j] = retorno.pcoList[i].contato;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].telefone;
+            r[++j] = retorno.pcoList[i].telefone;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].celular;
+            r[++j] = retorno.pcoList[i].celular;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].email;
+            r[++j] = retorno.pcoList[i].email;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].localidade;
+            r[++j] = retorno.pcoList[i].localidade;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].bairro;
+            r[++j] = retorno.pcoList[i].bairro;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].logradouro;
+            r[++j] = retorno.pcoList[i].logradouro;
             r[++j] = '</td>';
 
             r[++j] = '<td>';
-            r[++j] = retorno[i].via;
+            r[++j] = retorno.pcoList[i].via;
             r[++j] = '</td>';
 
 
@@ -170,67 +170,67 @@ function listaPco2(retorno) {
 
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].id;
+        r[++j] = retorno.pcoList[i].id;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].num;
+        r[++j] = retorno.pcoList[i].num;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].complemento;
+        r[++j] = retorno.pcoList[i].complemento;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].nome;
+        r[++j] = rretorno.pcoList[i].nom;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].status;
+        r[++j] = retorno.pcoList[i].status;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].distrede;
+        r[++j] = retorno.pcoList[i].distrede;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].instInternas;
+        r[++j] = retorno.pcoList[i].instInternas;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].energiaAtual;
+        r[++j] = retorno.pcoList[i].energiaAtual;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].contato;
+        r[++j] = retorno.pcoList[i].contato;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].telefone;
+        r[++j] = retorno.pcoList[i].telefone;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].celular;
+        r[++j] = retorno.pcoList[i].celular;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].email;
+        r[++j] = retorno.pcoList[i].email;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].localidade;
+        r[++j] = retorno.pcoList[i].localidade;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].bairro;
+        r[++j] = retorno.pcoList[i].bairro;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].logradouro;
+        r[++j] = retorno.pcoList[i].logradouro;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = retorno[i].via;
+        r[++j] = retorno.pcoList[i].via;
         r[++j] = '</td>';
 
 
@@ -279,13 +279,15 @@ function limpaFiltro() {
     location.reload();
 
 
-   $('#lotes').val("");
+   $('#status').val("");
    $('#zonas').val("");
    $('#delegacao').val("");
-   $('#area').val("");
 
-   $('#endereco').val("");
 
+   $('#localidade').val("");
+   $('#bairro').val("");
+   $('#logradouro').val("");
+   $('#pco').val("");
 }
 
 

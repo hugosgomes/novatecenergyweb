@@ -26,7 +26,8 @@ namespace NovatecEnergyWeb.Controllers
 
         public PcoController(BDNVTContext context, IPcoRepository pcoRepository,
             IMotivoRejeicao motivoRejeicaoRepository, IAreaRepository areaRepository,
-           ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository, IExcelExportVisitaEndereco exportaExecelVisitaEndereco
+           ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository,
+           IExcelExportVisitaEndereco exportaExecelVisitaEndereco
 
            )
 
@@ -48,11 +49,84 @@ namespace NovatecEnergyWeb.Controllers
         }
 
 
-        public IActionResult GetPco()
+        public IActionResult GetPco(int num, int zona, int status, int delegacao, String localidade,
+            String bairro, String logradouro, String pcoDes)
         {
 
+            var pagina = 0;
+            var PaginaClicada = num;
+            var itensPagina = 20;
+
+            if (PaginaClicada != 0)
+            {
+                pagina = (PaginaClicada - 1) * itensPagina;
+            }
+
             var pco = _pcoRepository.GetPco();
-            return Json(pco);
+
+
+            // filtra as seguintes colunas
+            if (zona != 0)
+            {
+
+                pco = pco.Where(c => c.IdZona == zona);
+            }
+
+            if (delegacao != 0)
+            {
+                 pco = pco.Where(c => c.IdDel == delegacao);
+            }
+
+            if (status != 0)
+            {
+
+                pco = pco.Where(c => c.Statu == status);
+            }
+
+            if (localidade != null)
+            {
+
+                pco = pco.Where(c => c.Localidade.Contains(localidade));
+
+            }
+
+            if (bairro != null)
+            {
+
+                pco = pco.Where(c => c.Bairro.Contains(bairro));
+
+            }
+
+            if (logradouro != null)
+            {
+
+                pco = pco.Where(c => c.LogDesc.Contains(logradouro));
+
+            }
+
+            /*
+            if (pcoDes != null)
+            {
+
+                pco = pco.Where(c => c.Pco.Contains(pcoDes));
+
+            }*/
+
+
+            var totalPaginas = pco.Count() / itensPagina + 1; // retorna numero de paginas nescessario
+
+            var pcos = pco.Skip(pagina)
+                          .Take(itensPagina);
+
+            dynamic jsonModel = new ExpandoObject();
+
+           jsonModel.pcoList = pcos;
+           jsonModel.totalPag = totalPaginas;
+
+
+
+
+            return Json(jsonModel);
 
         }
 

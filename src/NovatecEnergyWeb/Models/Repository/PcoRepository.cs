@@ -17,9 +17,9 @@ namespace NovatecEnergyWeb.Models.Repository
             _context = context;
         }
 
-        public List<Pco> GetPco()
+        public IEnumerable<Pco> GetPco()
         {
-           var pco = _context.Pco.FromSql(" exec [dbo].[Pco] ").ToList();
+          var pco = _context.Pco.FromSql(" exec [dbo].[Pco] ").ToList();
             return pco;
         }
     }
