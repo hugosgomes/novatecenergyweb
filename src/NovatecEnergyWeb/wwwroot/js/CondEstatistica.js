@@ -225,13 +225,13 @@ function preencheTableEstatistica(estatistica) {
         //entrevistados
         $('#entNum').html(estatistica[0].ent);
         $('#entSpot').html(Math.ceil((estatistica[0].ent / estatistica[0].pot) * 100).toString() + '%');
-        $('#entVis').html(Math.ceil((estatistica[0].ent / estatistica[0].vis) * 100).toString() + '%');
+        $('#entVis').html((estatistica[0].vis) ? Math.ceil((estatistica[0].ent / estatistica[0].vis) * 100).toString() + '%' : "0" + '%');
 
         //interessados
         $('#interNum').html(estatistica[0].interesse);
         $('#interPot').html(Math.ceil((estatistica[0].interesse / estatistica[0].pot) * 100).toString() + '%');
-        $('#interVis').html(Math.ceil((estatistica[0].interesse / estatistica[0].vis) * 100).toString() + '%');
-        $('#interEnt').html(Math.ceil((estatistica[0].interesse / estatistica[0].ent) * 100).toString() + '%');
+        $('#interVis').html((estatistica[0].vis) ? Math.ceil((estatistica[0].interesse / estatistica[0].vis) * 100).toString() + '%' : "0" + '%');
+        $('#interEnt').html((estatistica[0].ent) ? Math.ceil((estatistica[0].interesse / estatistica[0].ent) * 100).toString() + '%' : "0" + '%');
 
         //nao visitados
         $('#naoVisiNum').html(estatistica[0].pot - estatistica[0].vis);
@@ -245,7 +245,7 @@ function preencheTableEstatistica(estatistica) {
         //visitados nao entrevistados
         $('#visNaoEntNum').html(estatistica[0].pot - estatistica[0].ent);
         $('#visNaoEntSpot').html(Math.ceil(((estatistica[0].vis - estatistica[0].ent) / estatistica[0].pot) * 100).toString() + '%');
-        $('#visNaoEntSvis').html(Math.ceil(((estatistica[0].vis - estatistica[0].ent) / estatistica[0].vis) * 100).toString() + '%');
+        $('#visNaoEntSvis').html((estatistica[0].vis) ? Math.ceil(((estatistica[0].vis - estatistica[0].ent) / estatistica[0].vis) * 100).toString() + '%' : "0" + '%');
 
         // nao interessados
         $('#naoContNum').html(estatistica[0].pot - estatistica[0].interesse);
@@ -259,7 +259,7 @@ function preencheTableEstatistica(estatistica) {
         //entrevistados nao interessados
         $('#entNaoInterNum').html(estatistica[0].ent - estatistica[0].interesse);
         $('#entNaoInterSpot').html(Math.ceil(((estatistica[0].ent - estatistica[0].interesse) / estatistica[0].pot) * 100).toString() + '%');
-        $('#entNaoInterSvis').html(Math.ceil(((estatistica[0].ent - estatistica[0].interesse) / estatistica[0].vis) * 100).toString() + '%');
+        $('#entNaoInterSvis').html((estatistica[0].vis) ? Math.ceil(((estatistica[0].ent - estatistica[0].interesse) / estatistica[0].vis) * 100).toString() + '%' : "0" + '%');
 
         //visitas realizadas
         $('#visRealiNum').html(estatistica[0].visx);
@@ -270,7 +270,7 @@ function preencheTableEstatistica(estatistica) {
 
         //visitas improdutivas
         $('#visImproNum').html(estatistica[0].visx - estatistica[0].entx);
-        $('#visImproSvis').html(Math.ceil(((estatistica[0].visx - estatistica[0].entx) / estatistica[0].visx) * 100).toString() + '%');
+        $('#visImproSvis').html((estatistica[0].visx) ? Math.ceil(((estatistica[0].visx - estatistica[0].entx) / estatistica[0].visx) * 100).toString() + '%' : "0" + '%');
     }
 
 
