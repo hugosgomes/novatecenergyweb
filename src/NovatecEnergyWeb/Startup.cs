@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Models.Repository;
 using NovatecEnergyWeb.Models.Exportacao;
+using NovatecEnergyWeb.Domain.Interfaces.Repository;
+using NovatecEnergyWeb.Repository;
 
 namespace NovatecEnergyWeb
 {
