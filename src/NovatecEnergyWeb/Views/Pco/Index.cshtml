@@ -240,10 +240,10 @@
              $.getJSON("@Url.Action("GetPco", "Pco")",p, listaPco);
          }
 
-        function getPco2(num) {
+         function getPco2(num) {
 
-            var p = {};
-            p.num = num;
+             var p = {};
+             p.num = num;
              p.zona = $("#zonas").val();
              p.status = $("#status").val();
              p.delegacao = $("#delegacao").val();
@@ -252,10 +252,36 @@
              p.bairro = $("#bairro").val().toString().toUpperCase().trim();
              p.logradouro = $("#logradouro").val().toString().toUpperCase().trim();
              p.pcoDes = $("#pco").val().toString().toUpperCase().trim();
-        
+
 
 
              $.getJSON("@Url.Action("GetPco", "Pco")",p, listaPco2);
+          }
+
+
+        function ExportaPadraoNovatec() {
+
+        
+
+        $("#load").fadeIn(); // chama animacao de carregando
+
+        var p = {};
+      
+        p.zona = $("#zonas").val();
+        p.status = $("#status").val();
+        p.delegacao = $("#delegacao").val();
+
+        p.localidade = $("#localidade").val().toString().toUpperCase().trim();
+        p.bairro = $("#bairro").val().toString().toUpperCase().trim();
+        p.logradouro = $("#logradouro").val().toString().toUpperCase().trim();
+        p.pcoDes = $("#pco").val().toString().toUpperCase().trim();
+
+        var urlconfig = '@AppSettings.ExcelExportUrl';
+        window.location.href = '' + urlconfig + '/Pco/ExportaExcel?zonas=' + p.zonas + '&delegacao=' +
+        p.delegacao + '&status=' + p.status + '&localidade=' + p.localidade + '&bairro=' + p.bairro + '&logradouro=' + p.logradouro + '&pcoDes=' + p.pcoDes;
+
+        $("#load").fadeOut(); // apaga animacao carregando
+
         }
 
 ////////////////////////////

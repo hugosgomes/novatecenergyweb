@@ -131,5 +131,65 @@ namespace NovatecEnergyWeb.Controllers
         }
 
 
+        public IActionResult ExportaExcel(int num, int zona, int status, int delegacao, String localidade,
+            String bairro, String logradouro, String pcoDes)
+        {
+
+       
+            var pco = _pcoRepository.GetPco();
+
+
+            // filtra as seguintes colunas
+            if (zona != 0)
+            {
+
+                pco = pco.Where(c => c.IdZona == zona);
+            }
+
+            if (delegacao != 0)
+            {
+                pco = pco.Where(c => c.IdDel == delegacao);
+            }
+
+            if (status != 0)
+            {
+
+                pco = pco.Where(c => c.Statu == status);
+            }
+
+            if (localidade != null)
+            {
+
+                pco = pco.Where(c => c.Localidade.Contains(localidade));
+
+            }
+
+            if (bairro != null)
+            {
+
+                pco = pco.Where(c => c.Bairro.Contains(bairro));
+
+            }
+
+            if (logradouro != null)
+            {
+
+                pco = pco.Where(c => c.LogDesc.Contains(logradouro));
+
+            }
+
+
+
+
+            // cast IEnumerable em List
+            List<Pco> pcos = pco.ToList();
+
+
+            byte[] fileBytes = _exportaExecelVisitaEndereco.ExportaPadraoNovatecPco(pcos);
+
+            return File(fileBytes, "application/x-msdownload", _exportaExecelVisitaEndereco.FileName);
+
+        }
+
     }
 }

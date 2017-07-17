@@ -161,6 +161,90 @@ namespace NovatecEnergyWeb.Models.Exportacao
             return fileBytes;
         }
 
+        public byte[] ExportaPadraoNovatecPco(List<Pco> data)
+        {
+            FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Pco.xlsx";
+            File.Copy(Path.Combine(WebRootFolder, @"formatoNovatecPco.xlsx"), Path.Combine(WebRootFolder, FileName));
+
+            FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
+
+            using (ExcelPackage package = new ExcelPackage(file))
+            {
+                // ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("qExcel");
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
+
+
+
+                //List<Visitas> visitas = data.ToList();
+
+
+                for (int i = 0; i < data.Count(); i++)
+                {
+
+                    worksheet.Cells["A" + (i + 2).ToString()].Value = data[i].Id;
+                    worksheet.Cells["A" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["B" + (i + 2).ToString()].Value = data[i].Num;
+                    worksheet.Cells["B" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["C" + (i + 2).ToString()].Value = data[i].Complemento;
+                    worksheet.Cells["C" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["D" + (i + 2).ToString()].Value = data[i].Nome;
+                    worksheet.Cells["D" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["E" + (i + 2).ToString()].Value = data[i].Status_Item;
+                    worksheet.Cells["E" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["F" + (i + 2).ToString()].Value = data[i].Distrede;
+                    worksheet.Cells["F" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["G" + (i + 2).ToString()].Value = data[i].Internas_Item;
+                    worksheet.Cells["G" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["H" + (i + 2).ToString()].Value = data[i].Energia_Item;
+                    worksheet.Cells["H" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["I" + (i + 2).ToString()].Value = data[i].Contato;
+                    worksheet.Cells["I" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["J" + (i + 2).ToString()].Value = data[i].Telefone;
+                    worksheet.Cells["J" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["L" + (i + 2).ToString()].Value = data[i].Celular;
+                    worksheet.Cells["L" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["K" + (i + 2).ToString()].Value = data[i].Email;
+                    worksheet.Cells["K" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["M" + (i + 2).ToString()].Value = data[i].Localidade;
+                    worksheet.Cells["M" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["N" + (i + 2).ToString()].Value = data[i].Bairro;
+                    worksheet.Cells["N" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["O" + (i + 2).ToString()].Value = data[i].LogDesc;
+                    worksheet.Cells["O" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                    worksheet.Cells["P" + (i + 2).ToString()].Value = data[i].Via;
+                    worksheet.Cells["P" + (i + 2).ToString()].Style.Font.Size = 8;
+                
+                    worksheet.Cells["Q" + (i + 2).ToString()].Value = data[i].Complog;
+                    worksheet.Cells["Q" + (i + 2).ToString()].Style.Font.Size = 8;
+
+
+                }
+                package.Save();
+            }
+
+            byte[] fileBytes = File.ReadAllBytes(Path.Combine(WebRootFolder, FileName));
+
+            if (file.Exists)
+                file.Delete();
+
+            return fileBytes;
+        }
+
 
     }
 }
