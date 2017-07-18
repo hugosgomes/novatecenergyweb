@@ -15,6 +15,17 @@ namespace NovatecEnergyWeb.Domain.Interfaces.Service
         IActionResult GetDelegacao();
         IActionResult GetArea();
         IActionResult GetLotes();
+        IActionResult GetCampoVenda();
+        IActionResult GetD1D2();
+        IActionResult GetTipoVisita();
         IActionResult GetRejeicao();
+        IActionResult GetAgenteComercial();
+        IActionResult GetStatusCond();
+        IActionResult GetCondominio();
+        IActionResult GetVisitado();
+        IActionResult GetInteresse();
+        IActionResult GetPco();
+        IActionResult GetTarifa();
+        IActionResult GetStatus();
     }
 }
