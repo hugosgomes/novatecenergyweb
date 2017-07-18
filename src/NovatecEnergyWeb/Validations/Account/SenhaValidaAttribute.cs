@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using NovatecEnergyWeb.Models;
-using NovatecEnergyWeb.Models.AccountViewModels;
+using NovatecEnergyWeb.Models.ViewModels.AccountViewModels;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;

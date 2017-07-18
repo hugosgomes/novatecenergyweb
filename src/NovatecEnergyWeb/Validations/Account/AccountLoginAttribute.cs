@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Models;
-using NovatecEnergyWeb.Models.AccountViewModels;
+using NovatecEnergyWeb.Models.ViewModels.AccountViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

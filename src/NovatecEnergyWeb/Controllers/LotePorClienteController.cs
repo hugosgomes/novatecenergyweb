@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
 using NovatecEnergyWeb.Models.StoredProcedures;
 using Microsoft.EntityFrameworkCore;
-using NovatecEnergyWeb.Models.AdesaoViewModels;
+using NovatecEnergyWeb.Models.ViewModels.AdesaoViewModels;
 using System.Dynamic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

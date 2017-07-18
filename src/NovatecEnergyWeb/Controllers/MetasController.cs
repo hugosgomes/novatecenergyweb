@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
 
 using Microsoft.EntityFrameworkCore;
-using NovatecEnergyWeb.Models.MetasViewModels;
+using NovatecEnergyWeb.Models.ViewModels.MetasViewModels;
 using System.Dynamic;
 using NovatecEnergyWeb.Filters.ActionFilters;
 using Microsoft.AspNetCore.Http;

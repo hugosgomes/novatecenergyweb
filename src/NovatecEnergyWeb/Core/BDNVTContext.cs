@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using NovatecEnergyWeb.Models.MetasViewModels;
+using NovatecEnergyWeb.Models.ViewModels.MetasViewModels;
 using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Models;
 using NovatecEnergyWeb.Models.StoredProcedures;

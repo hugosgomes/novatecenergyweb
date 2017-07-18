@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
 using Microsoft.EntityFrameworkCore;
-using NovatecEnergyWeb.Models.ProducaoViewModels;
+using NovatecEnergyWeb.Models.ViewModels.ProducaoViewModels;
 using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Core;
 

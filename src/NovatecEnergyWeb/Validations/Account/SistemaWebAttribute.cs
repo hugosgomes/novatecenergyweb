@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using NovatecEnergyWeb.Models;
 using Microsoft.EntityFrameworkCore;
-using NovatecEnergyWeb.Models.AccountViewModels;
+using NovatecEnergyWeb.Models.ViewModels.AccountViewModels;
 using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb.Validations.Account

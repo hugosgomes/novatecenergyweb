@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NovatecEnergyWeb.Models.AdesaoViewModels
+namespace NovatecEnergyWeb.Models.ViewModels.AdesaoViewModels
 {
     public class FormFiltersAgendaVisitaEnderecosViewModel
     {

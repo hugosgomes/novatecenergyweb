@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NovatecEnergyWeb.Models.AccountViewModels
+namespace NovatecEnergyWeb.Models.ViewModels.AccountViewModels
 {
     public class TrocaSenhaViewModel
     {

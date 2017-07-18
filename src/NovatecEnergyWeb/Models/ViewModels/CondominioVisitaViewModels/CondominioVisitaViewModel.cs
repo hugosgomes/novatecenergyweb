@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NovatecEnergyWeb.Models.CondominioVisitaViewModels
+namespace NovatecEnergyWeb.Models.ViewModels.CondominioVisitaViewModels
 {
     public class CondominioVisitaViewModel
     {

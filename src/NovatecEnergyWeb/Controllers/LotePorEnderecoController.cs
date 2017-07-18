@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Domain.Interfaces.Repository;
+using NovatecEnergyWeb.Models.ViewModels.AdesaoViewModels;
 
 namespace NovatecEnergyWeb.Controllers
 {

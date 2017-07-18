@@ -8,7 +8,7 @@ using NovatecEnergyWeb.Filters.ActionFilters;
 using Microsoft.EntityFrameworkCore;
 using System.Dynamic;
 using Microsoft.AspNetCore.Http;
-using NovatecEnergyWeb.Models.MetasViewModels;
+using NovatecEnergyWeb.Models.ViewModels.MetasViewModels;
 using NovatecEnergyWeb.Core;
 
 namespace NovatecEnergyWeb.Controllers

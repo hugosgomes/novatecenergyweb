@@ -7,6 +7,7 @@ using NovatecEnergyWeb.Models.StoredProcedures;
 using System.IO;
 using OfficeOpenXml;
 using NovatecEnergyWeb.Models.AdesaoViewModels;
+using NovatecEnergyWeb.Models.ViewModels.AdesaoViewModels;
 
 namespace NovatecEnergyWeb.Models.Exportacao
 {

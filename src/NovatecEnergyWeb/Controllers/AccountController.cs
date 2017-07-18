@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Models;
-using NovatecEnergyWeb.Models.AccountViewModels;
 using Microsoft.AspNetCore.Http;
 using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Core;
+using NovatecEnergyWeb.Models.ViewModels.AccountViewModels;
 
 namespace NovatecEnergyWeb.Controllers
 {

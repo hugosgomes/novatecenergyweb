@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using NovatecEnergyWeb.Models.AccountViewModels;
+using NovatecEnergyWeb.Models.ViewModels.AccountViewModels;
 
 namespace NovatecEnergyWeb.Validations.TrocaSenha
 {

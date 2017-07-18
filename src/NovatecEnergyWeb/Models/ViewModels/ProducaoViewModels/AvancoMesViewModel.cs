@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NovatecEnergyWeb.Models.ProducaoViewModels
+namespace NovatecEnergyWeb.Models.ViewModels.ProducaoViewModels
 {
     public class AvancoMesViewModel
     {
