@@ -4,9 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Core;
-using NovatecEnergyWeb.Models.Repository;
-
-
 using System.Dynamic;
 using Microsoft.AspNetCore.Http;
 using NovatecEnergyWeb.Models;
@@ -14,6 +11,7 @@ using NovatecEnergyWeb.Models.AdesaoViewModels;
 using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Models.Exportacao;
 using NovatecEnergyWeb.Models.StoredProcedures;
+using NovatecEnergyWeb.Domain.Interfaces.Repository;
 
 namespace NovatecEnergyWeb.Controllers
 {

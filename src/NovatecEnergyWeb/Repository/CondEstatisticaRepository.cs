@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Models.StoredProcedures;
 using Microsoft.EntityFrameworkCore;
+using NovatecEnergyWeb.Domain.Interfaces.Repository;
 
-namespace NovatecEnergyWeb.Models.Repository
+namespace NovatecEnergyWeb.Repository
 {
     public class CondEstatisticaRepository : ICondEstatisticaRepository
     {

@@ -1,10 +1,12 @@
 ﻿using NovatecEnergyWeb.Core;
+using NovatecEnergyWeb.Domain.Interfaces.Repository;
+using NovatecEnergyWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NovatecEnergyWeb.Models.Repository
+namespace NovatecEnergyWeb.Repository
 {
     public class MotivoRejeicaoRepository : IMotivoRejeicao
     {

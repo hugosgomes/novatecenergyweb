@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Models.Exportacao;
-using NovatecEnergyWeb.Models.Repository;
 using NovatecEnergyWeb.Models.StoredProcedures;
 using System;
 using System.Collections.Generic;

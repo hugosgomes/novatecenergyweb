@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NovatecEnergyWeb.Domain.Interfaces.Repository;
+using NovatecEnergyWeb.Models;
 
-namespace NovatecEnergyWeb.Models.Repository
+namespace NovatecEnergyWeb.Repository
 {
     public class AreaRepository : IAreaRepository
     {

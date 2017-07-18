@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using NovatecEnergyWeb.Models.StoredProcedures;
 using NovatecEnergyWeb.Core;
+using NovatecEnergyWeb.Domain.Interfaces.Repository;
 
-namespace NovatecEnergyWeb.Models.Repository
+namespace NovatecEnergyWeb.Repository
 {
     public class CondominioLoteAtivoRepository : ICondominioLoteAtivo
     {

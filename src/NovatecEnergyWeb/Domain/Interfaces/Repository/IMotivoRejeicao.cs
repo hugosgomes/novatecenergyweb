@@ -1,9 +1,10 @@
-﻿using System;
+﻿using NovatecEnergyWeb.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NovatecEnergyWeb.Models.Repository
+namespace NovatecEnergyWeb.Domain.Interfaces.Repository
 {
     public interface IMotivoRejeicao
     {

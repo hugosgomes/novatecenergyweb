@@ -13,8 +13,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Models.Exportacao;
-using NovatecEnergyWeb.Models.Repository;
 using NovatecEnergyWeb.Core;
+using NovatecEnergyWeb.Domain.Interfaces.Repository;
 
 namespace NovatecEnergyWeb.Controllers
 {

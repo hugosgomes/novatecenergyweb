@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Models.Exportacao;
-using NovatecEnergyWeb.Models.Repository;
 using NovatecEnergyWeb.Models.StoredProcedures;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
+using NovatecEnergyWeb.Domain.Interfaces.Repository;
 
 namespace NovatecEnergyWeb.Controllers
 {

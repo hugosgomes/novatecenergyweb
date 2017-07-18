@@ -13,7 +13,7 @@ using NovatecEnergyWeb.Models.Exportacao;
 using Microsoft.AspNetCore.Hosting;
 using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Core;
-using NovatecEnergyWeb.Models.Repository;
+using NovatecEnergyWeb.Domain.Interfaces.Repository;
 
 namespace NovatecEnergyWeb.Controllers
 {

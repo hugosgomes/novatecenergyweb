@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NovatecEnergyWeb.Core;
-namespace NovatecEnergyWeb.Models.Repository
+using NovatecEnergyWeb.Domain.Interfaces.Repository;
+
+namespace NovatecEnergyWeb.Repository
 {
     public class DelegacaoRepository : IDelegacaoRepository
     {

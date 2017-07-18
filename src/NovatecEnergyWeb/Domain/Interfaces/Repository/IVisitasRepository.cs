@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NovatecEnergyWeb.Models.StoredProcedures;
 
-namespace NovatecEnergyWeb.Models.Repository
+namespace NovatecEnergyWeb.Domain.Interfaces.Repository
 {
     public interface IVisitasRepository
     {
