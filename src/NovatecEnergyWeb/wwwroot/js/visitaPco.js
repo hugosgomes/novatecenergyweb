@@ -3,6 +3,9 @@
     getDelegacao();
     getArea();
     getLotes();
+    getInteresse();
+    getTipoVisita();
+    getRejeicaoPco();
 };
 
 function getFormDataAsJson(){
@@ -25,7 +28,60 @@ function getFormDataAsJson(){
         Bairro: $('#Bairro').val().toString().trim(),
         Logradouro: $('#Logradouro').val().toString().trim(),
         Numero1: $('#Numero1').val(),
-        Numero2: $('#Numero2').val(),
-        Botao: botaoClicado
+        Numero2: $('#Numero2').val()
     }
 }
+
+function getInteresse() {
+    var url = $("#urlGetInteresse").val();
+
+    //$.getJSON(url, listaInteresse);
+    $.getJSON(url,
+        
+        function (retorno) {    
+            $("#interesse").empty();
+          
+            $.each(retorno, function () {    
+                $("#interesse").append($("<option />").val(this.id).text(this.item));
+            });
+         
+            $("#interesse").prop("selectedIndex", -1);
+        }
+    );
+}
+
+function getTipoVisita() {
+    var url  = $("#urlGetTipoVisitaPco").val();
+
+    //$.getJSON( url, listaTvisita);
+    $.getJSON( url, 
+        
+        function(retorno){
+            $("#tipoVisita").empty();
+            
+              $.each(retorno, function () {    
+                  $("#tipoVisita").append($("<option />").val(this.id).text(this.item));
+              });
+           
+              $("#tipoVisita").prop("selectedIndex", -1);
+        }
+    );   
+}
+
+function getRejeicaoPco(){
+    var url = $("#urlGetRejeicaoPco").val();
+
+    $.getJSON(url,
+        
+        function(retorno){
+            $("#rejeicao").empty();
+
+            $.each(retorno, function () {    
+                $("#rejeicao").append($("<option />").val(this.id).text(this.motivo));
+            });
+         
+            $("#rejeicao").prop("selectedIndex", -1);
+        }
+    );
+}
+

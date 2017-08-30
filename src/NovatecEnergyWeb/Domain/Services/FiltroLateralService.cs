@@ -367,6 +367,7 @@ namespace NovatecEnergyWeb.Domain.Services
                         {
                             var delegacoes = _delegacaoRepository.GetDelegacaoByZonaId((int)zona);
                             var areas = _areaRepository.GetAreasByListDelegacao(delegacoes);
+                            //terminar depois
                         }
                         else
                         {
@@ -376,7 +377,55 @@ namespace NovatecEnergyWeb.Domain.Services
                 }
             }
 
-            return Json(lotes);
+            return Json(GetSelectItemsLotesByListLotes(lotes));
+        }
+
+        public IActionResult GetInteressePco()
+        {
+            var interesse = _context._00TabelasItems.Where(v => v.Tabela == 400 && v.Campo == "INTERESSE")
+                .OrderBy(ti => ti.Ordem)
+                .ToList();
+            return Json(interesse);
+        }
+
+        public IActionResult GetTipoVisitaPco()
+        {
+            var tipovisita = _context._00TabelasItems.Where(d => d.Tabela == 400 && d.Campo == "STATUS")
+                .OrderBy(tv => tv.Ordem)
+                .ToList();
+            return Json(tipovisita);
+        }
+
+          public IActionResult GetRejeicaoPco()
+          {
+            var rejeicao = _context._13MotivosRej
+                  .OrderBy( r=> r.Ordem).Select(m => new
+              {
+                  Id = m.Id,
+                  Motivo = m.Motivo
+              }).ToList();
+
+              return Json(rejeicao);
+          }
+          
+
+        // método que retorna para exibição no formato LOTENUM - GE - DATALOTE - DATALOTE - STATUS
+        private List<List<dynamic>> GetSelectItemsLotesByListLotes(List<_13Lotes> Lotes)
+        {
+            var lote = new List<List<dynamic>>();
+            foreach (var item in Lotes)
+            {
+                var d = new List<dynamic>();
+                d.Add(item.Id);
+                d.Add(item.LoteNum);
+                d.Add(item.Ge);
+                d.Add(item.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"));
+                d.Add(item.StatusObj.Item);
+
+                lote.Add(d);
+            }
+
+            return lote;
         }
     }
 }

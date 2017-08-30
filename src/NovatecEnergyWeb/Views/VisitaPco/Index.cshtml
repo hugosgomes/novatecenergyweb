@@ -10,6 +10,9 @@
 @Html.Hidden("urlGetArea", Url.Action("GetArea", "FiltroLateralService"))
 @Html.Hidden("urlGetLotes", Url.Action("GetLotesPco", "FiltroLateralService"))
 
+@Html.Hidden("urlGetInteresse", Url.Action("GetInteressePco", "FiltroLateralService"))
+@Html.Hidden("urlGetTipoVisitaPco", Url.Action("GetTipoVisitaPco", "FiltroLateralService"))
+@Html.Hidden("urlGetRejeicaoPco",Url.Action("GetRejeicaoPco", "FiltroLateralService") )
 
 <div class="container-fluid">
     <!-- Loader-->
@@ -99,15 +102,14 @@
                     </div>
                     <!--fim de interesse-->
 
-                    <!--visitado -->
+                    <!--Tipo visita -->
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Tipo Visita</label>
                         <div class="controls">
                             <select id="tipoVisita" name="tipoVisita" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;"></select>
                         </div>
                     </div>
-
-                    <!--fim de visitado-->
+                    <!--fim de Tipo visita-->
 
                   <!--rejeição -->
                     <div class="control-group">
@@ -297,6 +299,7 @@
      <script type="text/javascript" src="~/js/visitaPco.js"></script>
      <script type="text/javascript">
 
+         //terminar depois
         function postToController(){
             $("#load").fadeIn(); 
             var data = getFormDataAsJson();

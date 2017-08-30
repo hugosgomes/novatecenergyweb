@@ -10,6 +10,7 @@ namespace NovatecEnergyWeb.Core
 {
     public partial class BDNVTContext : DbContext
     {
+        public virtual DbSet<_13MotivosRej> _13MotivosRej { get; set; }
         public virtual DbSet<_13Lotes> _13Lotes { get; set; }
         public virtual DbSet<Pco> Pco { get; set; } // Stored Procedure
         public virtual DbSet<_13Pco> _13Pco { get; set; }
@@ -5733,10 +5734,18 @@ namespace NovatecEnergyWeb.Core
                     .HasConstraintName("FK_11_CondominiosTemas_11_CondominiosResponsavel");
             });
 
+            modelBuilder.Entity<_13MotivosRej>(entity =>
+            {
+                entity.ToTable("13_MotivosRej");
+                entity.Property(e => e.Id).HasColumnName("ID");    
+                entity.Property(e => e.Motivo).HasColumnName("MOTIVO").HasMaxLength(255);
+                entity.Property(e => e.Ordem).HasColumnName("ORDEM");
+                entity.Property(e => e.Grupo).HasColumnName("GRUPO");
+            });
+
             modelBuilder.Entity<_11MotivosRej>(entity =>
             {
                 entity.ToTable("11_MotivosRej");
-
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Motivo)
