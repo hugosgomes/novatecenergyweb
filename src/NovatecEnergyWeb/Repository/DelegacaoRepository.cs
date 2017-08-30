@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Domain.Interfaces.Repository;
+using NovatecEnergyWeb.Models;
 
 namespace NovatecEnergyWeb.Repository
 {
@@ -27,6 +28,14 @@ namespace NovatecEnergyWeb.Repository
             }
             return ids;
 
+        }
+
+        //usado em GetLotesPco - FiltroLateralService
+        public List<_00Delegação> GetDelegacaoByZonaId(int zona)
+        {
+            var delegacoes = _context._00Delegacao.Where(d => d.Zona == zona).ToList();
+
+            return delegacoes;
         }
     }
 }

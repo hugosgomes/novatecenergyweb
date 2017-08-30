@@ -27,5 +27,6 @@ namespace NovatecEnergyWeb.Domain.Interfaces.Service
         IActionResult GetPco();
         IActionResult GetTarifa();
         IActionResult GetStatus();
+        IActionResult GetLotesPco();
     }
 }

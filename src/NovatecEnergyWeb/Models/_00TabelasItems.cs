@@ -10,5 +10,7 @@ namespace NovatecEnergyWeb.Models
         public string Campo { get; set; }
         public int? Ordem { get; set; }
         public string Item { get; set; }
+
+        public virtual List<_13Lotes> _13Lotes { get; set; }
     }
 }

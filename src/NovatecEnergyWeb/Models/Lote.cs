@@ -18,5 +18,8 @@ namespace NovatecEnergyWeb.Models
         public DateTime? DataSystem { get; set; }
         public int Status { get; set; }
         public int Area { get; set; }
+
+        public virtual _00TabelasItems StatusObj { get; set; }
+        public virtual _00Areas AreaObj { get; set; }
     }
 }

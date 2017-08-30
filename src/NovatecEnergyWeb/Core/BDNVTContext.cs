@@ -10,7 +10,8 @@ namespace NovatecEnergyWeb.Core
 {
     public partial class BDNVTContext : DbContext
     {
-        public virtual DbSet<Pco> Pco { get; set; }
+        public virtual DbSet<_13Lotes> _13Lotes { get; set; }
+        public virtual DbSet<Pco> Pco { get; set; } // Stored Procedure
         public virtual DbSet<_13Pco> _13Pco { get; set; }
         public virtual DbSet<_12Lotes> _12Lotes { get; set; }
         public virtual DbSet<CondEstatistica> CondEstatistica { get; set; }
@@ -5437,7 +5438,33 @@ namespace NovatecEnergyWeb.Core
                 entity.Property(e => e.Venda).HasColumnName("VENDA");
             });
 
-            
+            modelBuilder.Entity<_13Lotes>(entity =>
+            {
+                entity.ToTable("13_Lotes");
+                entity.HasKey(e => e.Id).HasName("PK_13_Lotes");
+                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Ge).HasColumnName("GE").HasMaxLength(255);
+                entity.Property(e => e.LoteNum).HasColumnName("LOTENUM").HasMaxLength(255);
+                entity.Property(e => e.DataLote).HasColumnName("DATALOTE").HasColumnType("smalldatetime");
+                entity.Property(e => e.DataEntrega).HasColumnName("DATAENTREGA").HasColumnType("smalldatetime");
+                entity.Property(e => e.Potencial).HasColumnName("POTENCIAL");
+                entity.Property(e => e.Meta).HasColumnName("META");
+                entity.Property(e => e.UserSystem).HasColumnName("USERSYSTEM");
+                entity.Property(e => e.DataSystem).HasColumnName("DATASYSTEM");
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+                entity.Property(e => e.Area).HasColumnName("AREA");
+
+                //mapeamento da chave estrangeira STATUS vinda de 00_TabelaItems
+                entity.HasOne(e => e.StatusObj)
+                .WithMany(ti => ti._13Lotes)
+                .HasForeignKey(e => e.Status);
+
+                //mapeamento da chave estrangeira AREA vinda de 00_Areas
+                entity.HasOne(l => l.AreaObj)
+                .WithMany(a => a._13Lotes)
+                .HasForeignKey(l => l.Area);
+            });
+
             modelBuilder.Entity<_12Lotes>(entity =>
             {
                 entity.ToTable("12_Lotes");

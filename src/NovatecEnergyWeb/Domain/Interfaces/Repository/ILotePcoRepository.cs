@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NovatecEnergyWeb.Domain.Interfaces.Repository
 {
-    public interface IDelegacaoRepository
+    public interface ILotePcoRepository
     {
-        List<int> GetDelegacaoIdsByZona(int zona);
-        List<_00Delegação> GetDelegacaoByZonaId(int zona);
+        List<_13Lotes> GetLotes();
+        List<_13Lotes> GetLotesByListArea(List<_00Areas> areas);
     }
 }

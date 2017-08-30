@@ -18,15 +18,28 @@ namespace NovatecEnergyWeb.Domain.Services
         private ILoteRepository _loteRepository;
         private IAreaRepository _areaRepository;
         private IDelegacaoRepository _delegacaoRepository;
-        
+        private ILotePcoRepository _lotePcoRepository;
+
+        private int? _id; 
+        private int? _zona;
+        private int? _delegacao;
+        private int? _qtdArea;
+        private string _tipo;           
 
         public FiltroLateralServiceController(BDNVTContext context, ILoteRepository loteRepository,
-            IAreaRepository areaRepository, IDelegacaoRepository delegacaoRepository)
+            IAreaRepository areaRepository, IDelegacaoRepository delegacaoRepository, ILotePcoRepository lotePcoRepository)
         {
             _context = context;
             _loteRepository = loteRepository;
             _areaRepository = areaRepository;
             _delegacaoRepository = delegacaoRepository;
+            _lotePcoRepository = lotePcoRepository;
+
+          /*  _id = HttpContext.Session.GetInt32("UserId");
+            _zona = HttpContext.Session.GetInt32("Zona");
+            _delegacao = HttpContext.Session.GetInt32("Delegação");
+            _qtdArea = HttpContext.Session.GetInt32("QuantidadeArea");
+            _tipo = HttpContext.Session.GetString("UserTipo"); */
         }
         // MÉTODOS POST FILTRO CASCATA
         public IActionResult ZonaCascade(int zona)
@@ -317,6 +330,53 @@ namespace NovatecEnergyWeb.Domain.Services
         {
             var status = _context._00TabelasItems.Where(v => v.Tabela == 347 && v.Campo == "STATUS").ToList();
             return Json(status);
+        }
+
+        public IActionResult GetLotesPco()
+        {
+            int? id = HttpContext.Session.GetInt32("UserId");
+            int? zona = HttpContext.Session.GetInt32("Zona");
+            int? delegacao = HttpContext.Session.GetInt32("Delegação");
+            int? qtdArea = HttpContext.Session.GetInt32("QuantidadeArea");
+            string tipo = HttpContext.Session.GetString("UserTipo");
+
+
+            var lotes = new List<_13Lotes>();
+
+            if (tipo == "func")
+            {
+                lotes = _lotePcoRepository.GetLotes();
+            }
+            else
+            {
+                if (qtdArea != null && qtdArea > 0)
+                {
+                    var areas = _areaRepository.GetAreasByClienteId((int)id);
+                    lotes = _lotePcoRepository.GetLotesByListArea(areas);
+                }
+                else
+                {
+                    if (delegacao != null)
+                    {
+                        var areas = _areaRepository.GetAreasByDelegacaoId((int)delegacao);
+                        lotes = _lotePcoRepository.GetLotesByListArea(areas);
+                    }
+                    else
+                    {
+                        if (zona != null)
+                        {
+                            var delegacoes = _delegacaoRepository.GetDelegacaoByZonaId((int)zona);
+                            var areas = _areaRepository.GetAreasByListDelegacao(delegacoes);
+                        }
+                        else
+                        {
+                            lotes = _lotePcoRepository.GetLotes();
+                        }
+                    }
+                }
+            }
+
+            return Json(lotes);
         }
     }
 }

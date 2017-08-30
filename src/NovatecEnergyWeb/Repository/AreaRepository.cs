@@ -16,6 +16,21 @@ namespace NovatecEnergyWeb.Repository
             _context = context;
         }
 
+        public List<_00Areas> GetAreasByListDelegacao(List<_00Delegação> delegacoes)
+        {
+            var delegacoesIds = new List<int>();
+            foreach (var item in delegacoes)
+            {
+                delegacoesIds.Add(item.Id);
+            }
+
+            // continuar olhando método ZonaCascade
+            var areas = _context._00Areas.Where(d => delegacoesIds.Contains(Convert.ToInt32(d.Delegacao))).ToList();
+
+            return areas;
+
+        }
+
         public List<_00Areas> GetAreasByDelegacao(List<int> delegacoes, int delegacao)
         {
             if (delegacao != 0)
@@ -54,6 +69,12 @@ namespace NovatecEnergyWeb.Repository
                              Ge = a.Ge
                          }).ToList();
 
+            return areas;
+        }
+
+        public List<_00Areas> GetAreasByDelegacaoId(int delegacao)
+        {
+            var areas = _context._00Areas.Where(a => a.Delegacao == delegacao).ToList();
             return areas;
         }
     }
