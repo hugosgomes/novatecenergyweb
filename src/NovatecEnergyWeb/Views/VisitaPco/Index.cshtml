@@ -13,6 +13,7 @@
 @Html.Hidden("urlGetInteresse", Url.Action("GetInteressePco", "FiltroLateralService"))
 @Html.Hidden("urlGetTipoVisitaPco", Url.Action("GetTipoVisitaPco", "FiltroLateralService"))
 @Html.Hidden("urlGetRejeicaoPco",Url.Action("GetRejeicaoPco", "FiltroLateralService") )
+@Html.Hidden("urlGetAgenteComercial", Url.Action("GetAgenteComercial", "FiltroLateralService"))
 
 <div class="container-fluid">
     <!-- Loader-->
@@ -130,15 +131,6 @@
                         </div>
                     </div>
                     <!--fim de ag comercial -->
-
-                    <!--tipoVisita -->
-                    <div class="control-group">
-                        <label class="control-label labelsFormNav">Tipo Visita</label>
-                        <div class="controls">
-                            <select id="tipoVisita" name="tipoVisita" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;" ></select>
-                        </div>
-                    </div>
-                    <!--fim de tipoVisita-->
 
                     <!--dia de visita -->
                     <div class="control-group">

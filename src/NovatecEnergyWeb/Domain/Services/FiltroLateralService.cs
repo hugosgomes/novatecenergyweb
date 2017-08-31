@@ -19,13 +19,7 @@ namespace NovatecEnergyWeb.Domain.Services
         private IAreaRepository _areaRepository;
         private IDelegacaoRepository _delegacaoRepository;
         private ILotePcoRepository _lotePcoRepository;
-
-        private int? _id; 
-        private int? _zona;
-        private int? _delegacao;
-        private int? _qtdArea;
-        private string _tipo;           
-
+        
         public FiltroLateralServiceController(BDNVTContext context, ILoteRepository loteRepository,
             IAreaRepository areaRepository, IDelegacaoRepository delegacaoRepository, ILotePcoRepository lotePcoRepository)
         {
@@ -33,13 +27,7 @@ namespace NovatecEnergyWeb.Domain.Services
             _loteRepository = loteRepository;
             _areaRepository = areaRepository;
             _delegacaoRepository = delegacaoRepository;
-            _lotePcoRepository = lotePcoRepository;
-
-          /*  _id = HttpContext.Session.GetInt32("UserId");
-            _zona = HttpContext.Session.GetInt32("Zona");
-            _delegacao = HttpContext.Session.GetInt32("Delegação");
-            _qtdArea = HttpContext.Session.GetInt32("QuantidadeArea");
-            _tipo = HttpContext.Session.GetString("UserTipo"); */
+            _lotePcoRepository = lotePcoRepository;          
         }
         // MÉTODOS POST FILTRO CASCATA
         public IActionResult ZonaCascade(int zona)
@@ -396,8 +384,9 @@ namespace NovatecEnergyWeb.Domain.Services
             return Json(tipovisita);
         }
 
-          public IActionResult GetRejeicaoPco()
-          {
+
+        public IActionResult GetRejeicaoPco()
+        {
             var rejeicao = _context._13MotivosRej
                   .OrderBy( r=> r.Ordem).Select(m => new
               {
@@ -405,9 +394,10 @@ namespace NovatecEnergyWeb.Domain.Services
                   Motivo = m.Motivo
               }).ToList();
 
-              return Json(rejeicao);
-          }
+            return Json(rejeicao);
+        }
           
+        
 
         // método que retorna para exibição no formato LOTENUM - GE - DATALOTE - DATALOTE - STATUS
         private List<List<dynamic>> GetSelectItemsLotesByListLotes(List<_13Lotes> Lotes)

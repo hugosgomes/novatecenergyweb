@@ -6,6 +6,7 @@
     getInteresse();
     getTipoVisita();
     getRejeicaoPco();
+    getAgenteComercial();
 };
 
 function getFormDataAsJson(){
@@ -82,6 +83,24 @@ function getRejeicaoPco(){
          
             $("#rejeicao").prop("selectedIndex", -1);
         }
+    );
+}
+
+function getAgenteComercial(){
+    var url = $("#urlGetAgenteComercial").val();
+
+    $.getJSON(url,
+
+        function(retorno){
+            $("#agcomercial").empty();
+
+            $.each(retorno, function () {    
+                $("#agcomercial").append($("<option />").val(this.id).text(this.nomeCompleto));
+            });
+
+            $("#agcomercial").prop("selectedIndex", -1);
+        }
+
     );
 }
 
