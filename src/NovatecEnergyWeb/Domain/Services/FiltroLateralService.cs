@@ -384,7 +384,6 @@ namespace NovatecEnergyWeb.Domain.Services
             return Json(tipovisita);
         }
 
-
         public IActionResult GetRejeicaoPco()
         {
             var rejeicao = _context._13MotivosRej
@@ -397,8 +396,6 @@ namespace NovatecEnergyWeb.Domain.Services
             return Json(rejeicao);
         }
           
-        
-
         // método que retorna para exibição no formato LOTENUM - GE - DATALOTE - DATALOTE - STATUS
         private List<List<dynamic>> GetSelectItemsLotesByListLotes(List<_13Lotes> Lotes)
         {

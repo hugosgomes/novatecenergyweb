@@ -14,6 +14,8 @@
 @Html.Hidden("urlGetTipoVisitaPco", Url.Action("GetTipoVisitaPco", "FiltroLateralService"))
 @Html.Hidden("urlGetRejeicaoPco",Url.Action("GetRejeicaoPco", "FiltroLateralService") )
 @Html.Hidden("urlGetAgenteComercial", Url.Action("GetAgenteComercial", "FiltroLateralService"))
+@Html.Hidden("urlPostToController", Url.Action("GetVisitaPco", "VisitaPco"))
+@Html.Hidden("urlPostPaginacao", Url.Action("", ""))
 
 <div class="container-fluid">
     <!-- Loader-->
@@ -154,7 +156,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">PCO</label>
                         <div class="controls">
-                            <input id="condominioinput" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                            <input id="pcoinput" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
                         </div>
                     </div>
                     <!--fim de PCO input -->
@@ -255,20 +257,16 @@
                         <th class="text-center">Z</th>
                         <th class="text-center">D</th>
                         <th class="text-center">AR</th>
-                        <th class="text-center">CONDOMÍNIO</th>
+                        <th class="text-center">PCO</th>
                         <th class="text-center">COMP</th>
                         <th class="text-center">NUM</th>       
                         <th class="text-center">DATAHORA</th>
-                        <th class="text-center">AG VIS</th>
+                        <th class="text-center">AG VISITA</th>
                         <th class="text-center">NEGATIVA</th>
-                        <th class="text-center">PT</th>
-                        <th class="text-center">STATUSCOND </th>
-                        <th class="text-center">TIPOCOND</th>
                         <th class="text-center">LOCALIDADE</th>
                         <th class="text-center">BAIRRO</th>
                         <th class="text-center">VIA</th>
-                        <th class="text-center">LOGRADOURO</th>
-                       
+                        <th class="text-center">LOGRADOURO</th>                      
                     </tr>
                 </thead>
                 <tbody id="corpoTabelaAtivos" class="corpoTabela">
@@ -292,11 +290,6 @@
      <script type="text/javascript">
 
          //terminar depois
-        function postToController(){
-            $("#load").fadeIn(); 
-            var data = getFormDataAsJson();
-            $.post("@Url.Action("GetLotePorClienteEstatistica", "LotePorCliente")", data, atualizaView);
-            $("#load").fadeOut(); 
-        }     
+       
      </script>
     }
