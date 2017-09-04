@@ -40,7 +40,7 @@ function getFormDataAsJson(){
         Diavisita1: $('#diavisita1').val(),
         Diavisita2: $('#diavisita2').val(),
         Pco: $('#pcoinput').val().toString().trim(),
-        AgComercialText: $('#agcomercialinput').val().toString().trim(),
+        AgVisita: $('#agcomercialinput').val().toString().trim(),
         Bairro: $('#bairro').val().toString().trim(),
         Localidade: $('#localidadeinput').val().toString().trim(),
         Logradouro: $('#logradouroinput').val().toString().trim(),
@@ -189,40 +189,43 @@ function preencheListagem(retorno) {
 
         r[++j] = "<tr>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].z;
+        r[++j] = retorno.visitasPco[i].z;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].d;
+        r[++j] = retorno.visitasPco[i].d;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].ar;
+        r[++j] = retorno.visitasPco[i].ar;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].pco;
+        r[++j] = retorno.visitasPco[i].pco;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].complemento;
+        r[++j] = retorno.visitasPco[i].complemento;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].num;
+        r[++j] = retorno.visitasPco[i].num;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].dataHora;
+        r[++j] = retorno.visitasPco[i].dataHora;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].agComercial;
+        r[++j] = retorno.visitasPco[i].AgVisita;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].resultado;
+        r[++j] = retorno.visitasPco[i].resultado;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].localidade;
+        r[++j] = retorno.visitasPco[i].localidade;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].bairro;
+        r[++j] = retorno.visitasPco[i].bairro;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.EV[i].logradouro;
+        r[++j] = retorno.visitasPco[i].via;
+        r[++j] = "</td>";
+        r[++j] = "<td>";
+        r[++j] = retorno.visitasPco[i].logradouro;
         r[++j] = "</td>";
 
         r[++j] = "</tr>";

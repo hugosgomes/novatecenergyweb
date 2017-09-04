@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Domain.Interfaces.Repository;
 using NovatecEnergyWeb.Models.StoredProcedures;
+using NovatecEnergyWeb.Models.ViewModels.AdesaoViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,72 +28,87 @@ namespace NovatecEnergyWeb.Controllers
             return View();
         }
 
-        public IActionResult GetVisitaPco([FromForm] VisitaPco visitaPco)
+        [HttpPost]
+        public IActionResult VisitaPco([FromForm] VisitaPcoViewModel visitaViewModel, int PaginaClicada)
         {          
             var visitasPcoLista = _visitaPcoRepository.GetVisitaPco();
         
-            if (visitaPco.IdLote != 0)
+            if (visitaViewModel.IdLote != 0)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.IdLote == visitaPco.IdLote).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.IdLote == visitaViewModel.IdLote).ToList();
             }
 
-            if (visitaPco.Interesse != 0)
+            if (visitaViewModel.Interesse != 0)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.Interesse == visitaPco.Interesse).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.Interesse == visitaViewModel.Interesse).ToList();
             }
 
-            if (visitaPco.NegativaId != 0)
+            if (visitaViewModel.NegativaId != 0)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.NegativaId == visitaPco.NegativaId).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.NegativaId == visitaViewModel.NegativaId).ToList();
             }
 
-            if (visitaPco.AgComercialId != 0)
+            if (visitaViewModel.AgComercialId != 0)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.AgComercialId == visitaPco.AgComercialId).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.AgComercialId == visitaViewModel.AgComercialId).ToList();
             }
 
 
-            if (visitaPco.Diavisita1 != null && visitaPco.Diavisita2 != null)
+            if (visitaViewModel.Diavisita1 != null && visitaViewModel.Diavisita2 != null)
             {
-                DateTime dt = Convert.ToDateTime(visitaPco.Diavisita1);
-                DateTime dt2 = Convert.ToDateTime(visitaPco.Diavisita2);
+                DateTime dt = Convert.ToDateTime(visitaViewModel.Diavisita1);
+                DateTime dt2 = Convert.ToDateTime(visitaViewModel.Diavisita2);
 
                 visitasPcoLista = visitasPcoLista.Where(w => w.DataHora >= dt && w.DataHora <= dt2)
                     .ToList();
             }
 
-            if (visitaPco.Bairro != null)
+            if (visitaViewModel.Bairro != null)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.Bairro.Contains(visitaPco.Bairro)).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.Bairro.Contains(visitaViewModel.Bairro)).ToList();
             }
 
-            if (visitaPco.Localidade != null)
+            if (visitaViewModel.Localidade != null)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.Localidade.Contains(visitaPco.Localidade)).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.Localidade.Contains(visitaViewModel.Localidade)).ToList();
             }
 
-            if (visitaPco.Logradouro != null)
+            if (visitaViewModel.Logradouro != null)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.Logradouro.Contains(visitaPco.Logradouro)).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.Logradouro.Contains(visitaViewModel.Logradouro)).ToList();
             }
 
-            if (visitaPco.AgComercial != null)
+            if (visitaViewModel.AgVisita != null)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.AgComercial.Contains(visitaPco.AgComercial)).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.AgVisita.Contains(visitaViewModel.AgVisita)).ToList();
             }
 
-            if (visitaPco.Pco != null)
+            if (visitaViewModel.Pco != null)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.Pco.Contains(visitaPco.Pco)).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.Pco.Contains(visitaViewModel.Pco)).ToList();
             }
 
 
-            if (visitaPco.Numero1 != 0 && visitaPco.Numero2 != 0)
+            if (visitaViewModel.Numero1 != 0 && visitaViewModel.Numero2 != 0)
             {
-                visitasPcoLista = visitasPcoLista.Where(c => c.Num >= visitaPco.Numero1 && c.Num <= visitaPco.Numero2).OrderBy(c => c.Num).ToList();
+                visitasPcoLista = visitasPcoLista.Where(c => c.Num >= visitaViewModel.Numero1 && c.Num <= visitaViewModel.Numero2).OrderBy(c => c.Num).ToList();
             }
 
-            return Json(visitasPcoLista);
+            //paginação
+            var pagina = 0;
+            var itensPorPagina = 20;
+            if (PaginaClicada != 0)
+            {
+                pagina = (PaginaClicada - 1) * itensPorPagina;
+            }
+
+            var retorno = new
+            {
+                visitasPco = visitasPcoLista.Skip(pagina).Take(itensPorPagina),
+                QuantasPaginasExistem = (visitasPcoLista.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(visitasPcoLista.Count()), itensPorPagina)) : 1
+            };
+
+            return Json(retorno);
         }
 
       /*  public IActionResult GetVisitaPco([FromForm] VisitaPco visitaPco)

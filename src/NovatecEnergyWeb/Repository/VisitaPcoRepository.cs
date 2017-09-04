@@ -21,7 +21,33 @@ namespace NovatecEnergyWeb.Repository
 
         public IEnumerable<VisitaPco> GetVisitaPco()
         {
-            var visitasPco = _context.VisitaPco.FromSql(" exec [dbo].[sp_13_Visitas_Pco] ").ToList();
+            var visitasPco = _context.VisitaPco.FromSql(" exec [dbo].[sp_13_Visitas_Pco] ")
+                .Select(v => new VisitaPco
+                {
+                    Id = v.Id,
+                    Z = v.Z,
+                    D = v.D,
+                    Ar = v.Ar,
+                    Pco = v.Pco,
+                    Complemento = v.Complemento,
+                    NegativaId = v.NegativaId,
+                    Num = v.Num,
+                    DataHora = v.DataHora,
+                    AgVisita = v.AgVisita,
+                    Obs = v.Obs,
+                    Latitude = v.Latitude,
+                    Longitude = v.Longitude,
+                    DataAgendamento = v.DataAgendamento,
+                    StatusPco = v.StatusPco,
+                    Localidade = v.Localidade,
+                    Bairro = v.Bairro,
+                    Via = v.Via,
+                    Logradouro = v.Logradouro,
+                    IdLote = v.IdLote,
+                    Interesse = v.Interesse,
+                    AgComercialId = v.AgComercialId
+
+                }).ToList();
             return visitasPco;
         }
     }
