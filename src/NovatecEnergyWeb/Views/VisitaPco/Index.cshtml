@@ -14,8 +14,12 @@
 @Html.Hidden("urlGetTipoVisitaPco", Url.Action("GetTipoVisitaPco", "FiltroLateralService"))
 @Html.Hidden("urlGetRejeicaoPco",Url.Action("GetRejeicaoPco", "FiltroLateralService") )
 @Html.Hidden("urlGetAgenteComercial", Url.Action("GetAgenteComercial", "FiltroLateralService"))
-@Html.Hidden("urlPostToController", Url.Action("VisitaPco", "VisitaPco"))
-@Html.Hidden("urlPostPaginacao", Url.Action("", ""))
+@Html.Hidden("urlExibeVisitas", Url.Action("VisitaPco", "VisitaPco"))  <!-- antigo postToController-->
+@Html.Hidden("urlPostPaginacao", Url.Action("VisitaPco", "VisitaPco"))
+
+@Html.Hidden("urlZonaCascade", Url.Action("ZonaCascade", "FiltroLateralService"))
+@Html.Hidden("urlDelegacaoCascade", Url.Action("DelegacaoCascade", "FiltroLateralService"))
+@Html.Hidden("urlAreaCascade", Url.Action("AreaCascade", "FiltroLateralService"))
 
 <div class="container-fluid">
     <!-- Loader-->
@@ -53,7 +57,7 @@
                         <div class="controls">
 
 
-                            <select id="zonas" onchange="postZona(); exibeVisitas(1); " class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                            <select id="zonas" onchange="postZona(); exibeVisitas(); " class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
 
                                 
                             </select>
@@ -66,7 +70,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Delegação</label>
                         <div class="controls">
-                            <select id="delegacao" onchange="postDelegacao(); exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="delegacao" onchange="postDelegacao(); exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
                         </div>
                     </div>
             
@@ -77,7 +81,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Área</label>
                         <div class="controls">
-                            <select id="area" onchange="postArea(); exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
+                            <select id="area" onchange="postArea(); exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
                         </div>
                     </div>
 
@@ -88,7 +92,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Lote</label>
                         <div class="controls">
-                            <select id="lotes" name="LoteError" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar"  style="width:150px;">
+                            <select id="lotes" name="LoteError" onchange=" exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar"  style="width:150px;">
 
                             </select>
                         </div>
@@ -100,7 +104,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Interesse</label>
                         <div class="controls">
-                            <select id="interesse" name="interesse" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;"></select>
+                            <select id="interesse" name="interesse" onchange=" exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;"></select>
                         </div>
                     </div>
                     <!--fim de interesse-->
@@ -109,7 +113,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Tipo Visita</label>
                         <div class="controls">
-                            <select id="tipoVisita" name="tipoVisita" onchange=" exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;"></select>
+                            <select id="tipoVisita" name="tipoVisita" onchange=" exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:242px;"></select>
                         </div>
                     </div>
                     <!--fim de Tipo visita-->
@@ -118,7 +122,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Rejeição</label>
                         <div class="controls">
-                            <select id="rejeicao" onchange="exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:242px;">
+                            <select id="rejeicao" onchange="exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:242px;">
                               
                             </select>
                         </div>
@@ -129,7 +133,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Ag Comercial</label>
                         <div class="controls">
-                            <select id="agcomercial" onchange="exibeVisitas(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:242px;"></select>
+                            <select id="agcomercial" onchange="exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:242px;"></select>
                         </div>
                     </div>
                     <!--fim de ag comercial -->
@@ -215,7 +219,7 @@
                     <br />
 
                     <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
-                    <div class="col-xs-8"><a href="#" onclick="exibeVisitas(1);"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
+                    <div class="col-xs-8"><a href="#" onclick="exibeVisitas();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
 
 
 

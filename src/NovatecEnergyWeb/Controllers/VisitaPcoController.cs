@@ -33,6 +33,21 @@ namespace NovatecEnergyWeb.Controllers
         {          
             var visitasPcoLista = _visitaPcoRepository.GetVisitaPco();
         
+            if(visitaViewModel.ZId != 0)
+            {
+                visitasPcoLista = visitasPcoLista.Where(v => v.ZId == visitaViewModel.ZId).ToList();
+            }
+
+            if (visitaViewModel.DId != 0)
+            {
+                visitasPcoLista = visitasPcoLista.Where(v => v.DId == visitaViewModel.DId).ToList();
+            }
+
+            if (visitaViewModel.AId != 0)
+            {
+                visitasPcoLista = visitasPcoLista.Where(v => v.AId == visitaViewModel.AId).ToList();
+            }
+
             if (visitaViewModel.IdLote != 0)
             {
                 visitasPcoLista = visitasPcoLista.Where(v => v.IdLote == visitaViewModel.IdLote).ToList();

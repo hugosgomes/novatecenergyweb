@@ -23,7 +23,7 @@ window.onload = function () {
     getRejeicaoPco();
     getAgenteComercial();
 
-    postToController();
+    exibeVisitas(); // antigo postToController
 
 };
 
@@ -121,8 +121,8 @@ function getAgenteComercial(){
     );
 }
 
-function postToController(){
-var url = $("#urlPostToController").val();
+function exibeVisitas(){
+var url = $("#urlExibeVisitas").val();
 
     $("#load").fadeIn(); 
     var data = getFormDataAsJson();
@@ -146,7 +146,7 @@ function montaPaginacao(retorno) {
     $('#page-selection').unbind(); // limpa os eventos adicionados nessa tag
 
     $('#page-selection').bootpag({
-        total: retorno.QuantasPaginasExistem,
+        total: retorno.quantasPaginasExistem,
         page: 1,
         maxVisible: 5,
         firstLastUse: true,
@@ -233,3 +233,97 @@ function preencheListagem(retorno) {
 
     $('#corpoTabelaAtivos').html(r.join(''));
 }
+
+function limpaFiltro(){
+    location.reload();
+
+    $('#zonas').val("");
+    $('#delegacao').val("");
+    $('#area').val("");
+    $('#lotes').val("");
+    $('#interesse').val("");
+    $('#rejeicao').val("");
+    $('#agcomercial').val("");
+    $('#diavisita1').val("");
+    $('#diavisita2').val("");
+    $('#pcoinput').val("");
+    $('#agcomercialinput').val("");
+    $('#bairro').val("");
+    $('#localidadeinput').val("");
+    $('#logradouroinput').val("");
+    $('#Numero1').val("");
+    $('#Numero2').val("");
+}
+
+
+function postZona(){
+    var p = {};
+    p.zona = $("#zonas").val();
+
+    var url = $("#urlZonaCascade").val();
+
+    $.post(url, p,atualizaDropsZona);
+}
+
+function postDelegacao(){
+    var p = {};
+    p.delegacao = $("#delegacao").val();
+
+    var url =  $("#urlDelegacaoCascade").val();
+
+    $.post(url, p,atualizaDropsDelegacao);
+
+}
+
+function postArea(){
+    var p = {};
+    p.area = $("#area").val();
+
+    var url = $("#urlAreaCascade").val();
+
+    $.post(url, p,atualizaDropsArea );
+
+}
+
+function atualizaDropsZona(retorno) {
+    preencheDelegacao(retorno);
+    preencheArea(retorno);
+    preencheLotes(retorno);
+}
+
+function atualizaDropsDelegacao(retorno){
+    preencheArea(retorno);
+    preencheLotes(retorno);
+}
+
+function atualizaDropsArea(retorno){
+    preencheLotes(retorno);
+}
+
+
+function preencheDelegacao(retorno){
+    $("#delegacao").empty();
+    
+        $.each(retorno.delegacao, function () {
+            $("#delegacao").append($("<option />").val(this.id).text(this.delegacao));
+        });
+    
+    $("#delegacao").prop("selectedIndex", -1);
+}
+
+function preencheArea(retorno){
+    if (retorno.area.length > 0) {
+        $("#area").empty();
+
+        $.each(retorno.area, function () {
+            $("#area").append($("<option />").val(this.id).text(this.area));
+        });
+
+        $("#area").prop("selectedIndex", -1);
+    }
+}
+
+function preencheLotes(retorno){
+
+}
+

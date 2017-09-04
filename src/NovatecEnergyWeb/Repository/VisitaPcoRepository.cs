@@ -45,7 +45,10 @@ namespace NovatecEnergyWeb.Repository
                     Logradouro = v.Logradouro,
                     IdLote = v.IdLote,
                     Interesse = v.Interesse,
-                    AgComercialId = v.AgComercialId
+                    AgComercialId = v.AgComercialId,
+                    ZId = v.ZId,
+                    DId = v.DId,
+                    AId = v.AId
 
                 }).ToList();
             return visitasPco;

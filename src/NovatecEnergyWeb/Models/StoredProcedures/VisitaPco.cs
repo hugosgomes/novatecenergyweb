@@ -30,6 +30,11 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public int IdLote { get; set; }
         public int AgComercialId { get; set; }
 
+        public int ZId { get; set; }
+        public int DId { get; set; }
+        public int AId { get; set; }
+
+
 
     }
 }
