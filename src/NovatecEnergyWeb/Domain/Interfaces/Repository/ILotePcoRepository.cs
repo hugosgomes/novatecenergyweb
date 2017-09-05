@@ -10,5 +10,9 @@ namespace NovatecEnergyWeb.Domain.Interfaces.Repository
     {
         List<_13Lotes> GetLotes();
         List<_13Lotes> GetLotesByListArea(List<_00Areas> areas);
+        List<List<dynamic>> GetLotes(List<int> areas, int area);
+        List<List<dynamic>> GetLotesJoinItems();
+        List<List<dynamic>> GetLoteJoinZonaDelegacaoArea();
+        List<List<dynamic>> GetLoteJoinZonaDelegacaoArea(List<int> areas);
     }
 }
