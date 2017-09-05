@@ -21,6 +21,7 @@ namespace NovatecEnergyWeb.Core
         public virtual DbSet<VisitaEndereco> VisitaEndereco { get; set; }
         public virtual DbSet<Visitas> Visitas { get; set; }
         public virtual DbSet<LoteEstatistica> LoteEstatistica { get; set; }
+        public virtual DbSet<LoteEstatisticaPco> LoteEstatisticaPco { get; set; }
         public virtual DbSet<LotePorEnderecoExportaAgendaAdesao> _11_LoteAtivoEnderecosExportacao { get; set; }
         public virtual DbSet<LotePorEndereco> _11_LoteAtivoEndereco { get; set; }
         public virtual DbSet<ClientesAreas> ClientesAreas { get; set; }
@@ -241,6 +242,7 @@ namespace NovatecEnergyWeb.Core
             modelBuilder.Entity<VisitaEndereco>().HasKey(c => c.Id);
             modelBuilder.Entity<Visitas>().HasKey(c => c.Id);
             modelBuilder.Entity<LoteEstatistica>().HasKey(l => l.Id);
+            modelBuilder.Entity<LoteEstatisticaPco>().HasKey(l => l.Id);
             modelBuilder.Entity<LotePorEnderecoExportaAgendaAdesao>().HasKey(c => c.Id);
             modelBuilder.Entity<LotePorEndereco>().HasKey(c => c.Id);
             modelBuilder.Entity<_11_LoteAtivoB>().HasKey(c => c.Id);
