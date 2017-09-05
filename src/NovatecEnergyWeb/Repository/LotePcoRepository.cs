@@ -38,5 +38,11 @@ namespace NovatecEnergyWeb.Repository
                           select l).ToList();
             return lotes;            
         }
+
+        public List<_13Lotes> GetLotesByAreaId(int area)
+        {
+            var lotes = _context._13Lotes.Where(l => l.Area == area).ToList();
+            return lotes;
+        }
     }
 }

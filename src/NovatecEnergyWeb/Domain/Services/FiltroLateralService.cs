@@ -368,6 +368,7 @@ namespace NovatecEnergyWeb.Domain.Services
             return Json(GetSelectItemsLotesByListLotes(lotes));
         }
 
+        // End-points usados em VisitaPco/Index.cshtml
         public IActionResult GetInteressePco()
         {
             var interesse = _context._00TabelasItems.Where(v => v.Tabela == 400 && v.Campo == "INTERESSE")
@@ -395,7 +396,52 @@ namespace NovatecEnergyWeb.Domain.Services
 
             return Json(rejeicao);
         }
-          
+
+        public IActionResult ZonaCascadePco(int zona)
+        {
+            //delegacao
+            var delegacao = _context._00Delegacao.Where(c => c.Zona == zona)
+                .Select(c => new _00Delegação { Id = c.Id, Delegacao = c.Delegacao, Zona = c.Zona })
+            .ToList();
+
+            var listint = new List<int>();
+            foreach (var item in delegacao)
+            {
+                listint.Add(item.Id);
+            }
+
+            //area
+            var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
+
+            dynamic retorno = new ExpandoObject();
+            retorno.delegacao = delegacao;
+            retorno.area = areasL;
+            retorno.lotes = _lotePcoRepository.GetLotesByListArea(areasL);
+
+            return Json(retorno);
+        }
+
+        public IActionResult DelegacaoCascadePco(int delegacao)
+        {
+            //area
+            var AreasL = _context._00Areas.Where(c => c.Delegacao == delegacao).ToList();
+
+            dynamic retorno = new ExpandoObject();
+            retorno.area = AreasL;
+            retorno.lotes = _lotePcoRepository.GetLotesByListArea(AreasL);
+
+            return Json(retorno);
+        }
+
+        public IActionResult AreaCascadePco(int area)
+        {
+            dynamic retorno = new ExpandoObject();
+
+            retorno.lotes = _lotePcoRepository.GetLotesByAreaId(area);
+            return Json(retorno);
+        }
+        // Fim End-points usados em VisitaPco/Index.cshtml
+
         // método que retorna para exibição no formato LOTENUM - GE - DATALOTE - DATALOTE - STATUS
         private List<List<dynamic>> GetSelectItemsLotesByListLotes(List<_13Lotes> Lotes)
         {

@@ -323,7 +323,20 @@ function preencheArea(retorno){
     }
 }
 
-function preencheLotes(retorno){
 
+function preencheLotes(retorno) {
+    $("#lotes").empty();
+    
+    $.each(retorno.lotes, function () {
+    
+        var p = $('<p>').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+
+        $("#lotes").append($("<option />").val(this[0]).text(this[1] + p.text()
+              + this[2] + p.text()
+              + this[3] + p.text()
+              + this[4]));
+    });
+
+    $("#lotes").prop("selectedIndex", -1);
 }
 
