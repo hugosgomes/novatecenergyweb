@@ -30,5 +30,6 @@ namespace NovatecEnergyWeb.Domain.Interfaces.Service
         IActionResult GetLotesPco();
         IActionResult GetInteressePco();
         IActionResult GetRejeicaoPco();
+        IActionResult ZonaCascadePco(int zona);
     }
 }

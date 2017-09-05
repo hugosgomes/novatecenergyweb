@@ -411,15 +411,47 @@ namespace NovatecEnergyWeb.Domain.Services
             }
 
             //area
-            var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
+            var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao)))
+                .Select(a => new _00Areas {Id = a.Id, Area = a.Area })
+                .ToList(); // foi usado o select para limitar o tamanho do JSON
+                           
+            //lotes 
+            var lotes = _lotePcoRepository.GetLotesByListArea(areasL);
 
             dynamic retorno = new ExpandoObject();
             retorno.delegacao = delegacao;
             retorno.area = areasL;
-            retorno.lotes = _lotePcoRepository.GetLotesByListArea(areasL);
+            retorno.lotes = GetSelectItemsLotesByListLotes(lotes);
 
             return Json(retorno);
         }
+
+        /*   public IActionResult ZonaCascadePco(int zona)
+           {
+               //delegacao
+               var delegacao = _context._00Delegacao.Where(c => c.Zona == zona)
+                   .Select(c => new _00Delegação { Id = c.Id, Delegacao = c.Delegacao, Zona = c.Zona })
+               .ToList();
+
+               var listint = new List<int>();
+               foreach (var item in delegacao)
+               {
+                   listint.Add(item.Id);
+               }
+
+               //area
+             //  _areaRepository.GetAreasByListDelegacao(delegacao);
+               var areasL = _context._00Areas.Where(x => listint.Contains(Convert.ToInt32(x.Delegacao))).ToList();
+
+               var lotes = GetSelectItemsLotesByListLotes(_lotePcoRepository.GetLotesByListArea(areasL));
+
+               dynamic retorno = new ExpandoObject();
+               retorno.delegacao = delegacao;
+               retorno.area = areasL;
+               retorno.lotes = lotes;
+
+               return Json(retorno);
+           } */
 
         public IActionResult DelegacaoCascadePco(int delegacao)
         {
