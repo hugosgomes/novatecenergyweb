@@ -95,7 +95,6 @@ function preencheTableStatus(estatistica) {
 }
 
 function preencheTableEstatistica(estatistica) {
-    console.log(estatistica);
     $("corpoEstatistica tr").remove();
    
     if (estatistica.length > 0) {
