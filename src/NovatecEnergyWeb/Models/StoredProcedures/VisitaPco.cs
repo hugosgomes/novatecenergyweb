@@ -12,6 +12,7 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public string D { get; set; }
         public string Ar { get; set; }
         public string Pco { get; set; }
+        public string PcoB { get; set; } //campo sem acento
         public string Complemento { get; set; }
         public int? NegativaId { get; set; }
         public int Num { get; set; }
@@ -23,12 +24,16 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public DateTime? DataAgendamento { get; set; }
         public string StatusPco { get; set; }
         public string Localidade { get; set; }
+        public string LocalidadeB { get; set; }
         public string Bairro { get; set; }
+        public string BairroB { get; set; }
         public string Via { get; set; }
         public string Logradouro { get; set; }
+        public string LogradouroB { get; set; }
         public int Interesse { get; set; }
         public int IdLote { get; set; }
         public int AgComercialId { get; set; }
+        
 
         public int ZId { get; set; }
         public int DId { get; set; }

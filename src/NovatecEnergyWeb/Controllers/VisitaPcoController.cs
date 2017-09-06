@@ -80,17 +80,17 @@ namespace NovatecEnergyWeb.Controllers
 
             if (visitaViewModel.Bairro != null)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.Bairro.Contains(visitaViewModel.Bairro)).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.BairroB.Contains(visitaViewModel.Bairro.ToUpper())).ToList();
             }
 
             if (visitaViewModel.Localidade != null)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.Localidade.Contains(visitaViewModel.Localidade)).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.LocalidadeB.Contains(visitaViewModel.Localidade.ToUpper())).ToList();
             }
 
             if (visitaViewModel.Logradouro != null)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.Logradouro.Contains(visitaViewModel.Logradouro)).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.LogradouroB.Contains(visitaViewModel.Logradouro.ToUpper())).ToList();
             }
 
             if (visitaViewModel.AgVisita != null)
@@ -100,7 +100,7 @@ namespace NovatecEnergyWeb.Controllers
 
             if (visitaViewModel.Pco != null)
             {
-                visitasPcoLista = visitasPcoLista.Where(v => v.Pco.Contains(visitaViewModel.Pco)).ToList();
+                visitasPcoLista = visitasPcoLista.Where(v => v.PcoB.Contains(visitaViewModel.Pco.ToUpper())).ToList();
             }
 
 
@@ -125,28 +125,5 @@ namespace NovatecEnergyWeb.Controllers
 
             return Json(retorno);
         }
-
-      /*  public IActionResult GetVisitaPco([FromForm] VisitaPco visitaPco)
-        {
-            // definicoes da paginacao
-            var itensPorPagina = 20;
-
-            var pagina = 0;
-            if (paginaClicada != 0)
-            {
-                pagina = (paginaClicada - 1) * itensPorPagina;
-            }
-
-            var visitasPcoLista = _visitaPcoRepository.GetVisitaPco();
-
-            //terminar depois
-            var retorno = new
-            {
-                visitasPco = visitasPcoLista.Skip(pagina).Take(itensPorPagina),
-                QuantasPaginasExistem = (visitasPcoLista.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(visitasPcoLista.Count()), itensPorPagina)) : 1
-            };
-
-            return Json(retorno);
-        }*/
     }
 }
