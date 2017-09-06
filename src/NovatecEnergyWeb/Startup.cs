@@ -69,6 +69,7 @@ namespace NovatecEnergyWeb
             services.AddScoped<IExcelExportVisitaEndereco, VisitaEnderecoDataExporter>();
             services.AddScoped<ILotePcoRepository, LotePcoRepository>();
             services.AddScoped<IVisitaPcoRepository, VisitaPcoRepository>();
+            services.AddScoped<ILoteEstatisticaPcoRepository, LoteEstatisticaPcoRepository>();
 
             services.AddMvc();
 
