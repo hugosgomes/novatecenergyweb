@@ -312,7 +312,7 @@ function preencheDelegacao(retorno){
 }
 
 function preencheArea(retorno){
-    if (retorno.area.length > 0) {
+    
         $("#area").empty();
 
         $.each(retorno.area, function () {
@@ -320,7 +320,7 @@ function preencheArea(retorno){
         });
 
         $("#area").prop("selectedIndex", -1);
-    }
+    
 }
 
 
