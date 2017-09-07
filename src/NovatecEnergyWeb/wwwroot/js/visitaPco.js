@@ -179,6 +179,8 @@ function postPaginacao(num) {
 
 
 function preencheListagem(retorno) {
+    $('#contagemVisitas').html(retorno.contagem);
+
     $('#corpoTabelaAtivos tr').remove();
 
     var tr;
@@ -340,3 +342,16 @@ function preencheLotes(retorno) {
     $("#lotes").prop("selectedIndex", -1);
 }
 
+function ExportaPadraoNovatec(){
+    var url = $("#urlExcelExport").val();
+    var data = getFormDataAsJson();
+
+    $("#load").fadeIn();
+    window.location.href = ''+url+ '/VisitaPco/ExportaExcel?ZId='+ data.ZId+'&DId='+data.DId+'&AId='+data.AId+'&IdLote='+data.IdLote+
+    '&Interesse='+data.Interesse+'&NegativaId='+data.NegativaId+'&AgComercialId='+data.AgComercialId+'&Diavisita1='+data.Diavisita1+
+    '&Diavisita2='+data.Diavisita2+'&Pco='+data.Pco+'&AgVisita='+data.AgVisita+'&Bairro='+data.Bairro+'&Localidade='+data.Localidade+
+    '&Logradouro='+data.Logradouro+'&Numero1='+data.Numero1+'&Numero2='+data.Numero2;
+    
+    $("#load").fadeOut(); 
+
+}

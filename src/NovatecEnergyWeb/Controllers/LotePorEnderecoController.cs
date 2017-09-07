@@ -15,6 +15,7 @@ using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Domain.Interfaces.Repository;
 using NovatecEnergyWeb.Models.ViewModels.AdesaoViewModels;
+using NovatecEnergyWeb.Domain.Services;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -407,7 +408,7 @@ namespace NovatecEnergyWeb.Controllers
                             DataLote = l.DataLote
                         });
 
-            EnderecoVisitasDataExporter exp = new EnderecoVisitasDataExporter(_hostingEnvironment);
+            ExcelExporterLotePorClienteApartamento exp = new ExcelExporterLotePorClienteApartamento(_hostingEnvironment);
             byte[] fileBytes = exp.ExportaAgendaAdesao(dataEnderecosAtivos, dataExporta, lote, filtrosTelaExportacao);
 
             return File(fileBytes, "application/x-msdownload", exp.FileName);

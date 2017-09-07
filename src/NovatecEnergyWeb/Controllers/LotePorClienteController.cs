@@ -15,6 +15,7 @@ using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Models.Exportacao;
 using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Domain.Interfaces.Repository;
+using NovatecEnergyWeb.Domain.Interfaces;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -26,12 +27,12 @@ namespace NovatecEnergyWeb.Controllers
         private ILoteRepository _loteRepository;
         private ICondominioLoteAtivo _condominioRepository;
         private IMotivoRejeicao _motivoRejeicaoRepository;
-        private IExcelExportaLotePorCliente _exportaExcelRepository;
+        private IExcelExporterLotePorClienteApartamento _exportaExcelLotePorCliente;
 
         public LotePorClienteController(BDNVTContext context, IHostingEnvironment he, 
             IAreaRepository areaRepository, ILoteRepository loteRepository, 
             ICondominioLoteAtivo condominioRepository, IMotivoRejeicao motivoRejeicaoRepository,
-            IExcelExportaLotePorCliente exportaExcelRepository)
+            IExcelExporterLotePorClienteApartamento exportaExcelLotePorCliente)
         {
             _context = context;
             _hostingEnvironment = he;
@@ -39,7 +40,7 @@ namespace NovatecEnergyWeb.Controllers
             _loteRepository = loteRepository;
             _condominioRepository = condominioRepository;
             _motivoRejeicaoRepository = motivoRejeicaoRepository;
-            _exportaExcelRepository = exportaExcelRepository;
+            _exportaExcelLotePorCliente = exportaExcelLotePorCliente;
         }
 
         [AutenticacaoFilter]
@@ -102,7 +103,9 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult LoteCascade(int lote)
         {
             //area
-            var loteParam = _context._11Lotes.Where(c => c.Id == lote).FirstOrDefault();
+            var loteParam = _context._11Lotes.Where(c => c.Id == lote)
+                .Select( c => new  { Area = c.Area })
+                .FirstOrDefault();
 
             dynamic retorno = new ExpandoObject();
             retorno.Condominio = _condominioRepository.GetCondominios(null, loteParam.Area, 0);
@@ -444,9 +447,9 @@ namespace NovatecEnergyWeb.Controllers
         {
             var ev = GetLotePorCliente(GetFiltrosSessao());
             
-            byte[] fileBytes = _exportaExcelRepository.ExportaPadraoNovatec(ev);
+            byte[] fileBytes = _exportaExcelLotePorCliente.ExportaPadraoNovatec(ev);
 
-            return File(fileBytes, "application/x-msdownload", _exportaExcelRepository.FileName);
+            return File(fileBytes, "application/x-msdownload", _exportaExcelLotePorCliente.FileName);
         }
 
         public IActionResult ExportaPadraoGasNatural()
@@ -473,9 +476,9 @@ namespace NovatecEnergyWeb.Controllers
                             Zona = dl.Zona
                         });
 
-            byte[] fileBytes = _exportaExcelRepository.ExportaPadraoGasNatural(data, lote);
+            byte[] fileBytes = _exportaExcelLotePorCliente.ExportaPadraoGasNatural(data, lote);
 
-            return File(fileBytes, "application/x-msdownload", _exportaExcelRepository.FileName);
+            return File(fileBytes, "application/x-msdownload", _exportaExcelLotePorCliente.FileName);
 
         }
         

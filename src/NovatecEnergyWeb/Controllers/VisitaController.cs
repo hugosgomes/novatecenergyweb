@@ -23,11 +23,11 @@ namespace NovatecEnergyWeb.Controllers
         private ILoteRepository _loteRepository;
         private ICondominioLoteAtivo _condominioRepository;
         private IMotivoRejeicao _motivoRejeicaoRepository;
-        private IExcelExportVisitas _exportaExecelVisitas;
+        private IExcelExportVisitasApartamento _exportaExecelVisitas;
 
         public VisitaController(BDNVTContext context,
            IVisitasRepository VisitasRepository, IMotivoRejeicao motivoRejeicaoRepository, IAreaRepository areaRepository,
-           ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository, IExcelExportVisitas exportaExecelVisitas)
+           ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository, IExcelExportVisitasApartamento exportaExecelVisitas)
 
         {
             _context = context;

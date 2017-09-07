@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace NovatecEnergyWeb.Models.Exportacao
 {
-    public class VisitaEnderecoDataExporter : IExcelExportVisitaEndereco
+    public class ExcelExportVisitaEnderecoCondominio : IExcelExportVisitaEnderecoCondominio
     {
 
         private readonly IHostingEnvironment _hostingEnvironment;
         public string FileName { get; set; }
         private string WebRootFolder;
 
-        public VisitaEnderecoDataExporter(IHostingEnvironment he)
+        public ExcelExportVisitaEnderecoCondominio(IHostingEnvironment he)
         {
             _hostingEnvironment = he;
             WebRootFolder = _hostingEnvironment.WebRootPath + "\\excel";

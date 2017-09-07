@@ -13,6 +13,8 @@ using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Models.Exportacao;
 using NovatecEnergyWeb.Domain.Interfaces.Repository;
 using NovatecEnergyWeb.Repository;
+using NovatecEnergyWeb.Domain.Interfaces;
+using NovatecEnergyWeb.Domain.Services;
 
 namespace NovatecEnergyWeb
 {
@@ -58,15 +60,15 @@ namespace NovatecEnergyWeb
             services.AddScoped<ILoteRepository, LoteRepository>();
             services.AddScoped<ICondominioLoteAtivo, CondominioLoteAtivoRepository>();
             services.AddScoped<IMotivoRejeicao, MotivoRejeicaoRepository>();
-            services.AddScoped<IExcelExportaLotePorCliente, EnderecoVisitasDataExporter>();
+            services.AddScoped<IExcelExporterLotePorClienteApartamento, ExcelExporterLotePorClienteApartamento>();
             services.AddScoped<ILoteEstatisticaRepository, LoteEstatisticaRepository>();
             services.AddScoped<IDelegacaoRepository, DelegacaoRepository>();
             services.AddScoped<IVisitasRepository, VisitasRepository>();
-            services.AddScoped<IExcelExportVisitas, VisitasDataExporter>();
+            services.AddScoped<IExcelExportVisitasApartamento, ExcelExportVisitasApartamento>();
             services.AddScoped<ICondEstatisticaRepository, CondEstatisticaRepository>();
             services.AddScoped<ICondVisitasRepository, CondVisitasRepository>();
             services.AddScoped<IVisitaEnderecoRepository, VisitaEnderecoRepository>();
-            services.AddScoped<IExcelExportVisitaEndereco, VisitaEnderecoDataExporter>();
+            services.AddScoped<IExcelExportVisitaEnderecoCondominio, ExcelExportVisitaEnderecoCondominio>();
             services.AddScoped<ILotePcoRepository, LotePcoRepository>();
             services.AddScoped<IVisitaPcoRepository, VisitaPcoRepository>();
             services.AddScoped<ILoteEstatisticaPcoRepository, LoteEstatisticaPcoRepository>();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NovatecEnergyWeb.Models.Exportacao
 {
-    public interface IExcelExportVisitaEndereco
+    public interface IExcelExportVisitaEnderecoCondominio
     {
 
         string FileName { get; set; }

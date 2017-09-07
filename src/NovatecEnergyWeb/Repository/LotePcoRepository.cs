@@ -41,7 +41,8 @@ namespace NovatecEnergyWeb.Repository
         
         public List<_13Lotes> GetLotesByAreaId(int area)
         {
-            var lotes = _context._13Lotes.Where(l => l.Area == area).ToList();
+            var lotes = _context._13Lotes.Include(l => l.StatusObj)
+                .Where(l => l.Area == area && (l.Status == 207)).ToList();
             return lotes;
         }
 
@@ -53,7 +54,7 @@ namespace NovatecEnergyWeb.Repository
             }
 
             var lotes = (from l in _context._13Lotes
-                         where areas.Contains(l.Area) && l.Status == 208
+                         where areas.Contains(l.Area) && l.Status == 207
                          join ti in _context._00TabelasItems on l.Status equals ti.Id
                          select new
                          {

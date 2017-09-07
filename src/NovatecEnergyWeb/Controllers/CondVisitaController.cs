@@ -24,12 +24,12 @@ namespace NovatecEnergyWeb.Controllers
         private ILoteRepository _loteRepository;
         private ICondominioLoteAtivo _condominioRepository;
         private IMotivoRejeicao _motivoRejeicaoRepository;
-        private IExcelExportVisitaEndereco _ExcelExportvisitaEndereco;
+        private IExcelExportVisitaEnderecoCondominio _ExcelExportvisitaEndereco;
 
 
         public CondVisitaController(BDNVTContext context,
            ICondVisitasRepository condVisitasRepository, IMotivoRejeicao motivoRejeicaoRepository, IAreaRepository areaRepository,
-           ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository, IExcelExportVisitaEndereco ExcelExportvisitaEndereco
+           ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository, IExcelExportVisitaEnderecoCondominio ExcelExportvisitaEndereco
 
            )
 
@@ -223,7 +223,6 @@ namespace NovatecEnergyWeb.Controllers
             String condominioinput, String agcomercialinput, String localidadeinput, String bairro, String logradouroinput,
             int Numero1, int Numero2
          )
-
         {
             // retorna a consulta filtrada pelos parametros
             var visitas = _condVisitasRepository.GetVisitasFiltro(zonas, delegacao, area, condominio);
@@ -236,99 +235,67 @@ namespace NovatecEnergyWeb.Controllers
 
             if (visitado != 0)
             {
-
                 visitas = visitas.Where(c => c.Visitado == visitado.ToString()).ToList();
-
             }
 
             if (interesse != 0)
             {
-
                 visitas = visitas.Where(c => c.Interesse == interesse.ToString()).ToList();
-
             }
-
-
 
             if (pco != 0)
             {
-
                 visitas = visitas.Where(c => c.Pco == pco.ToString()).ToList();
-
             }
 
             if (tSocial != 0)
             {
-
                 visitas = visitas.Where(c => c.TarifaSocial == tSocial).ToList();
-
             }
 
             if (tipoVisita != 0)
             {
-
                 visitas = visitas.Where(c => c.TipoVisitaId == tipoVisita).ToList();
-
             }
 
             if (rejeicao != 0)
             {
-
                 visitas = visitas.Where(c => c.NegativaId == rejeicao).ToList();
-
             }
 
             if (agecomercial != 0)
             {
-
                 visitas = visitas.Where(c => c.AgId == agecomercial).ToList();
-
             }
-
-
-
-
 
             if (condominioinput != null)
             {
-
                 visitas = visitas.Where(c => c.Condominio.Contains(condominioinput)).ToList();
-
             }
 
             if (agcomercialinput != null)
             {
-
                 visitas = visitas.Where(c => c.AgVisita.Contains(agcomercialinput)).ToList();
-
             }
 
             if (localidadeinput != null)
             {
-
                 visitas = visitas.Where(c => c.Localidade.Contains(localidadeinput)).ToList();
-
             }
 
             if (bairro != null)
             {
-
                 visitas = visitas.Where(c => c.Bairro.Contains(bairro)).ToList();
-
             }
 
             if (logradouroinput != null)
             {
-
                 visitas = visitas.Where(c => c.Logradouro.Contains(logradouroinput)).ToList();
-
             }
 
             if (Numero1 != 0 && Numero2 != 0)
             {
-
                 visitas = visitas.Where(c => c.Num >= Numero1 && c.Num <= Numero2).OrderBy(c => c.Num).ToList();
-
             }
 
 

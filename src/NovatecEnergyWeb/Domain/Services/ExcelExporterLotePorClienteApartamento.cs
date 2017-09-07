@@ -8,21 +8,23 @@ using System.IO;
 using OfficeOpenXml;
 using NovatecEnergyWeb.Models.AdesaoViewModels;
 using NovatecEnergyWeb.Models.ViewModels.AdesaoViewModels;
+using NovatecEnergyWeb.Domain.Interfaces;
 
-namespace NovatecEnergyWeb.Models.Exportacao
+namespace NovatecEnergyWeb.Domain.Services
 {
-    public class EnderecoVisitasDataExporter : IExcelExportaLotePorCliente
+    public class ExcelExporterLotePorClienteApartamento : IExcelExporterLotePorClienteApartamento
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         public string FileName { get; set; }
         private string WebRootFolder;
 
-        public EnderecoVisitasDataExporter(IHostingEnvironment he)
+        public ExcelExporterLotePorClienteApartamento(IHostingEnvironment he)
         {
             _hostingEnvironment = he;
             WebRootFolder = _hostingEnvironment.WebRootPath + "\\excel";
         }
 
+        //utilizado no controller LotePorClienteController.cs
         public byte[] ExportaPadraoNovatec(List<LotePorCliente> data)
         {
             FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Visitas.xlsx";
@@ -153,6 +155,7 @@ namespace NovatecEnergyWeb.Models.Exportacao
             return fileBytes;
         }
 
+        /*              utilizado no controller LotePorClienteController.cs              */
         public byte[] ExportaPadraoGasNatural(List<_11_LoteAtivoB> data, IEnumerable<dynamic> lote)
         {
             var l = lote.ToList();
@@ -210,12 +213,12 @@ namespace NovatecEnergyWeb.Models.Exportacao
             return fileBytes;
         }
 
+        /*              utilizado no controller LotePorEnderecoController.cs              */
         public byte[] ExportaAgendaAdesao(List<LotePorEndereco> data, List<LotePorEnderecoExportaAgendaAdesao> data2, IEnumerable<dynamic> lote, FormFiltersAgendaVisitaEnderecosViewModel filtros)
         {
             var l = lote.ToList();
             var enumMeses = (FormFiltersAgendaVisitaEnderecosViewModel.meses) Convert.ToInt32(filtros.Mes);
 
-            //terminar a lógica do nome depois
             FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Lote " + l[0].LoteNum + "- Agenda " +enumMeses.ToString()+ " De "+ filtros.Ano+ ".xlsx";
 
             File.Copy(Path.Combine(WebRootFolder, @"formatoAgendaAdesao.xlsx"), Path.Combine(WebRootFolder, FileName));
