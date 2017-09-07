@@ -228,6 +228,7 @@ namespace NovatecEnergyWeb.Core
         public virtual DbSet<_60CertificacaoEquipamentosId> _60CertificacaoEquipamentosId { get; set; }
         public virtual DbSet<_60ProdutosGns> _60ProdutosGns { get; set; }
         public virtual DbSet<ClientesWeb> ClientesWeb { get; set; }
+        public virtual DbSet<PcoEndereco> PcoEndereco { get; set; }
         
 
         public BDNVTContext(DbContextOptions<BDNVTContext> options): base(options)
@@ -255,6 +256,7 @@ namespace NovatecEnergyWeb.Core
             modelBuilder.Entity<_10_CargasMetas>().HasKey(c => c.Id);
             modelBuilder.Entity<_10_MetasCargas>().HasKey(c => c.Id);
             modelBuilder.Entity<_50_AvancoMes>().HasKey(c => c.Id);
+            modelBuilder.Entity<PcoEndereco>().HasKey(c => c.Id);
 
 
 

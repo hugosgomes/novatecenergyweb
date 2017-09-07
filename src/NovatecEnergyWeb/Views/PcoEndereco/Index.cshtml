@@ -1,0 +1,365 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using NovatecEnergyWeb.Core;
+@using NovatecEnergyWeb.Models.StoredProcedures;
+
+@{
+    Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
+    ViewData["Title"] = "Visitas Pco por Endereço";
+}
+
+<div class="container-fluid">
+    <!-- Loader-->
+    <div class="row">
+
+        <div id="load" class="col-md-offset-5 col-md-3 col-md-offset-4">
+
+
+            <img id="centro" src="~/images/load.gif" alt="Carregando..." title="Carregando...">
+
+        </div>
+    </div>
+
+
+    <div class="row">
+
+
+
+        <div class=" col-md-3 col-lg-2  ">
+            <nav class="navbar navbar-default navbar-fixed-side">
+                <h4 id="titulo" class="text-center">Endereços de Lotes Ativos</h4>
+
+
+                <!--
+                -------------------------------------------------------------------------------------------------------------------
+                    Estatísticas
+                -------------------------------------------------------------------------------------------------------------------
+                -->
+
+                <table>
+                    <tbody class="fontTableBodyNavBar">
+                        <tr>
+                            <td class="col-xs-9" style="padding-right:0px; "><b>Endereços (Potencial)</b> </td>
+                            <td id="pot" class="col-xs-2 text-right"><b></b></td>
+                            <td class="col-xs-1 text-right"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-sm-8">Endereços Tratados</td>
+                            <td id="trat" class="col-sm-2 text-right"></td>
+                            <td id="tratPerc" class="col-sm-2 text-right"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-sm-8">Endereços Não Tratados</td>
+                            <td id="naoTrat" class="col-sm-2 text-right"></td>
+                            <td id="naoTratPerc" class="col-sm-2 text-right"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-sm-8">&nbsp &nbsp &nbsp Endereços C/0 Visita</td>
+                            <td id="vis0" class="col-sm-2 text-right"></td>
+                            <td id="vis0Perc" class="col-sm-2 text-right"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-sm-8">&nbsp &nbsp &nbsp Endereços C/1 Visita</td>
+                            <td id="vis1" class="col-sm-2 text-right"></td>
+                            <td id="vis1Perc" class="col-sm-2 text-right"></td>
+
+                        </tr>
+
+                        <tr>
+                            <td class="col-sm-8">&nbsp &nbsp &nbsp Endereços C/2 Visita</td>
+                            <td id="vis2" class="col-sm-2 text-right"></td>
+                            <td id="vis2Perc" class="col-sm-2 text-right"></td>
+
+                        </tr>
+
+
+                        <tr>
+                            <td class="col-sm-8">Endereços Visitados</td>
+                            <td id="visitados" class="col-sm-2 text-right"></td>
+                            <td id="visitadosPerc" class="col-sm-2 text-right"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-xs-8" style="padding-right:0px;">Endereços Não Visitados</td>
+                            <td id="naoVisitados" class="col-xs-2 text-right"></td>
+                            <td id="naoVisitadosPerc" class="col-xs-2 text-right"></td>
+                        </tr>
+
+                        <tr class="espacoAbaixo">
+                            <td class="col-xs-8" style="padding-right:0px;">Total de Endereços</td>
+                            <td id="tEnderecos" class="col-xs-2 text-right"></td>
+                            <td id="ep1" class="col-xs-2 text-right"></td>
+                        </tr>
+
+
+
+
+                        <tr>
+                            <td class="col-sm-8"><b>Visitas Realizadas</b></td>
+                            <td id="visitas" class="col-sm-2 text-right"></td>
+                            <td class="col-sm-2 text-right"></td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-8">Entrevistas Realizadas</td>
+                            <td id="entrevistas" class="col-sm-2 text-right"></td>
+                            <td id="entrevistasPerc" class="col-sm-2 text-right"></td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-8">Visitas Improdutivas</td>
+                            <td id="visitasImpr" class="col-sm-2 text-right"></td>
+                            <td id="visitasImprPerc" class="col-sm-2 text-right"></td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-8">Visitas Ausentes</td>
+                            <td id="visitasAus" class="col-sm-2 text-right"></td>
+                            <td id="visitasAusPerc" class="col-sm-2 text-right"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-xs-8" style="padding-right:0px;">Visitas Agendadas</td>
+                            <td id="visitasAg" class="col-sm-2 text-right"></td>
+                            <td class="col-sm-2 text-right"></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+
+                <!--
+                -----------------------------------------------------------------------------------------------------------------------------------
+                Filtros laterais
+                -----------------------------------------------------------------------------------------------------------------------------------
+                -->
+                <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
+
+
+
+                    <!--zona -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Zona</label>
+                        <div class="controls">
+                            <select id="zonas" onchange="postZona(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+
+                        </div>
+                    </div>
+                    <!--fim de zona -->
+                    <!--delegação -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Delegação</label>
+                        <div class="controls">
+                            <select id="delegacao" onchange="postDelegacao(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                        </div>
+                    </div>
+                    <!-- fim de delegação -->
+                    <!--area -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Área</label>
+                        <div class="controls">
+                            <select id="area" onchange="postArea(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
+                        </div>
+                    </div>
+
+                    <!--fim de area -->
+                    <!--lote -->
+                    <div class="control-group">
+                        <label class="control-label labelsFormNav">Lote</label>
+                        <div class="controls">
+                            <select id="lotes" name="LoteError" onchange=" exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:150px;"></select>
+                        </div>
+                    </div>
+
+
+                    <!--fim de localidade input -->
+                    <!--bairro input -->
+                    <div class="control-group">
+                        <label class="control-label  labelsFormNav">Bairro</label>
+                        <div class="controls">
+                            <input id="endereco" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
+                        </div>
+                    </div>
+                    <!--fim de bairro input -->
+
+
+
+                    <br />
+                    <br />
+                    <br />
+
+                    <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
+                    <div class="col-xs-8"><a href="#" onclick="exibeVisitasEndereco(1);"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
+
+
+
+                    <br />
+                    <label class="fontTableBodyNavBar">Exportar Pijama Form Gás Natural</label>
+                    <a href="#" onclick="ExportaPadraoNovatec();">
+                        <img src="~/images/ms_excel.png" style="margin-left:19px;" width="30" height="30" />
+                    </a>
+
+
+                    <br />
+
+                </form>
+
+                <!--
+                -------------------------------------------------------------------------------------------------------------------
+                  fim dos Filtros Laterais
+                -------------------------------------------------------------------------------------------------------------------
+                -->
+
+
+            </nav>
+        </div>
+
+
+        <!--
+        -------------------------------------------------------------------------------------------------------------------
+          Listagem
+        -------------------------------------------------------------------------------------------------------------------
+          -->
+
+        <div class="col-md-9 col-lg-10   ">
+            <div id="page-selection"></div>
+            <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
+                <thead id="headTabelaLote">
+                    <tr>
+                        <!-- <th class="text-center">Casa</th>  retirados 11/05/2017 à pedido do Javier
+                         <th class="text-center">Lote</th> -->
+                        <th class="text-center">LOTE</th>
+                        <th class="text-center">Z</th>
+                        <th class="text-center">D</th>
+                        <th class="text-center">AR</th>
+                        <th class="text-center">ENDERECO</th>
+                        <th class="text-center">POTENCIAL</th>
+                        <th class="text-center">VISITADOS</th>
+                        <th class="text-center">VISITAS</th>
+                        <th class="text-center">ENTREVISTAS</th>
+                        <th class="text-center">VISITAS IMPR</th>
+                        <th class="text-center">VISITAS AGENDA</th>
+                        <th class="text-center">AUSÊNCIAS</th>
+
+
+                    </tr>
+                </thead>
+                <tbody id="corpoTabelaAtivos" class="corpoTabela"></tbody>
+
+            </table>
+        </div>
+
+        <!--
+        -------------------------------------------------------------------------------------------------------------------
+          fim da Listagem
+        -------------------------------------------------------------------------------------------------------------------
+        -->
+    </div>
+
+</div>
+
+
+@section Scripts{
+
+    <script type="text/javascript" src="~/js/pcoEndereco.js"></script>
+    <script type="text/javascript">
+
+
+        // preenche os filtros
+        function getLote() {
+
+            $.getJSON("@Url.Action("GetLotes", "FiltroLateralService")", listaLote);
+        }
+
+        function getZona() {
+
+            $.getJSON("@Url.Action("GetZonas", "FiltroLateralService")", listaZona);
+        }
+
+        function getDelegacao() {
+
+            $.getJSON("@Url.Action("GetDelegacao", "FiltroLateralService")", listaDelegacao);
+        }
+
+        function getArea() {
+
+            $.getJSON("@Url.Action("GetArea", "FiltroLateralService")", listaArea);
+        }
+
+        function exibeVisitasEndereco(num) {
+
+            var p = {};
+
+            p.pageNum = num;
+
+            p.lotes = $('#lotes').val();
+            p.zonas = $('#zonas').val();
+            p.delegacao = $('#delegacao').val();
+            p.area = $('#area').val();
+
+            p.endereco = $('#endereco').val().toString().toUpperCase().trim();
+
+            $("#load").fadeIn(); // chama animacao de carregando
+            $.post("@Url.Action("ListaPcoVisitasEndereco", "PcoEndereco")", p, visitasPreenche);
+            $("#load").fadeOut(); // apaga animacao carregando
+        }
+
+        function exibeVisitasEndereco2(num) {
+            var p = {};
+            p.pageNum = num;
+            p.lotes = $('#lotes').val();
+            p.zonas = $('#zonas').val();
+            p.delegacao = $('#delegacao').val();
+            p.area = $('#area').val();
+            p.endereco = $('#endereco').val().toString().toUpperCase().trim();
+
+            $("#load").fadeIn(); // chama animacao de carregando
+            $.post("@Url.Action("ListaPcoVisitasEndereco", "PcoEndereco")", p, visitasPreenche2);
+            $("#load").fadeOut(); // apaga animacao carregando
+        }
+
+        function ExportaPadraoNovatec() {
+            $("#load").fadeIn(); // chama animacao de carregando
+
+            var p = {};
+
+            p.lotes = $('#lotes').val();
+            p.zonas = $('#zonas').val();
+            p.delegacao = $('#delegacao').val();
+            p.area = $('#area').val();
+            p.endereco = $('#endereco').val().toString().toUpperCase().trim();
+
+            var urlconfig = '@AppSettings.ExcelExportUrl';
+            window.location.href = '' + urlconfig + '/CondEndereco/ExportaExcel?zonas=' + p.zonas + '&delegacao=' +
+                p.delegacao + '&area=' + p.area + '&lotes=' + p.lotes + '&endereco=' + p.endereco;
+
+           $("#load").fadeOut(); // apaga animacao carregando
+        }
+        ////////////////////////////
+        //  FILTROS
+        //////////////////////////////
+
+        function postZona() {
+        var p = {};
+        p.zona = $("#zonas").val();
+        $.post("@Url.Action("ZonaCascade", "FiltroLateralService")", p, atualizaDropsZona);
+        }
+
+        function postDelegacao() {
+            var p = {};
+            p.delegacao = $("#delegacao").val();
+            $.post("@Url.Action("DelegacaoCascade", "FiltroLateralService")", p, atualizaDropsDelegacao);
+        }
+
+        function postArea() {
+            var p = {};
+
+            p.area = $("#area").val();
+            $.post("@Url.Action("AreaCascade", "FiltroLateralService")", p, atualizaDropsArea);
+        }
+    </script>
+}
+
+<script type="text/javascript" src="~/js/pcoEndereco.js"></script>
