@@ -29,10 +29,12 @@ namespace NovatecEnergyWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult VisitaPco([FromRoute] VisitaPcoViewModel visitaViewModel, int PaginaClicada)
+        public IActionResult VisitaPco([FromForm] VisitaPcoViewModel visitaViewModel, int PaginaClicada)
         {          
             var visitasPcoLista = _visitaPcoRepository.GetVisitaPco();
         
+
+            //refatorar todo o código abaixo futuramente...
             if(visitaViewModel.ZId != 0)
             {
                 visitasPcoLista = visitasPcoLista.Where(v => v.ZId == visitaViewModel.ZId).ToList();
@@ -116,7 +118,7 @@ namespace NovatecEnergyWeb.Controllers
                                     string Diavisita1, string Diavisita2, string Pco, string AgVisita, string Bairro,
                                        string Localidade, string Logradouro, int Numero1, int Numero2)
         {
-
+            //refatorar todo o código abaixo futuramente...
 
             byte[] fileBytes = null;// _ExcelExportvisitaEndereco.ExportaPadraoNovatecCondVisita(vs);
 

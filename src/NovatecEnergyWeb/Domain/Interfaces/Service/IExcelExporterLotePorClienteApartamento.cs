@@ -12,5 +12,6 @@ namespace NovatecEnergyWeb.Domain.Interfaces
         string FileName { get; set; }
         byte[] ExportaPadraoNovatec(List<LotePorCliente> data);
         byte[] ExportaPadraoGasNatural(List<_11_LoteAtivoB> data, IEnumerable<dynamic> lote);
+        byte[] ExportaPadraoNovatecVisitaPco(List<VisitaPco> data); // mudar método depois
     }
 }

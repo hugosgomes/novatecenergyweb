@@ -275,5 +275,10 @@ namespace NovatecEnergyWeb.Domain.Services
             return fileBytes;
         }
 
+        //mudar esse método depois
+        public byte[] ExportaPadraoNovatecVisitaPco(List<VisitaPco> data)
+        {
+
+        }
     }
 }
