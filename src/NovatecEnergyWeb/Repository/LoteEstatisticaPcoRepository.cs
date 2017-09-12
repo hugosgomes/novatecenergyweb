@@ -20,7 +20,7 @@ namespace NovatecEnergyWeb.Repository
 
         public List<LoteEstatisticaPco> GetLoteEstatisticaPcoByLote(int idLote)
         {
-            var estatisticas = _context.LoteEstatisticaPco.FromSql(" exec [dbo].[sp_lote_estatistica_pco] {0}", idLote).ToList();
+            var estatisticas = _context.LoteEstatisticaPco.FromSql(" exec [dbo].[sp_13_LoteEstatistica_Pco] {0}", idLote).ToList();
             return estatisticas;
         }
     }
