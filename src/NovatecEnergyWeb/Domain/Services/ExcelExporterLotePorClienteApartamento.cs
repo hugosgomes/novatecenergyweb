@@ -275,10 +275,74 @@ namespace NovatecEnergyWeb.Domain.Services
             return fileBytes;
         }
 
-        //mudar esse método depois
+        /*              utilizado no controller VisitaPcoController.cs                    */
         public byte[] ExportaPadraoNovatecVisitaPco(List<VisitaPco> data)
         {
+            FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Visitas.xlsx";
+            File.Copy(Path.Combine(WebRootFolder, @"formatoNovatecVisitaPco.xlsx"), Path.Combine(WebRootFolder, FileName));
 
+            FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
+
+            using (ExcelPackage package = new ExcelPackage(file))
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
+
+                for (int i = 0; i < data.Count(); i++)
+                {
+                    worksheet.Cells["A" + (i + 2).ToString()].Value = data[i].Z;
+                    worksheet.Cells["A" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["B" + (i + 2).ToString()].Value = data[i].D;
+                    worksheet.Cells["B" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["C" + (i + 2).ToString()].Value = data[i].Ar;
+                    worksheet.Cells["C" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["D" + (i + 2).ToString()].Value = data[i].Pco;
+                    worksheet.Cells["D" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["E" + (i + 2).ToString()].Value = data[i].Complemento;
+                    worksheet.Cells["E" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["F" + (i + 2).ToString()].Value = data[i].Num;
+                    worksheet.Cells["F" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["G" + (i + 2).ToString()].Value = (data[i].DataHora != null) ? Convert.ToDateTime(data[i].DataHora).ToString("dd/MM/yy hh:mm") : "";
+                    worksheet.Cells["G" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["H" + (i + 2).ToString()].Value = data[i].AgVisita;
+                    worksheet.Cells["H" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["I" + (i + 2).ToString()].Value = data[i].Obs;
+                    worksheet.Cells["I" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["J" + (i + 2).ToString()].Value = data[i].Latitude;
+                    worksheet.Cells["J" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["K" + (i + 2).ToString()].Value = data[i].Longitude;
+                    worksheet.Cells["K" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["L" + (i + 2).ToString()].Value = (data[i].DataAgendamento != null) ? Convert.ToDateTime(data[i].DataAgendamento).ToString("dd/MM/yy hh:mm") : "";
+                    worksheet.Cells["L" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["M" + (i + 2).ToString()].Value = data[i].ObsAgendamento;
+                    worksheet.Cells["M" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["N" + (i + 2).ToString()].Value = data[i].StatusPco;
+                    worksheet.Cells["N" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["O" + (i + 2).ToString()].Value = data[i].Localidade;
+                    worksheet.Cells["O" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["P" + (i + 2).ToString()].Value = data[i].Bairro;
+                    worksheet.Cells["P" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["Q" + (i + 2).ToString()].Value = data[i].Via;
+                    worksheet.Cells["Q" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["R" + (i + 2).ToString()].Value = data[i].Logradouro;
+                    worksheet.Cells["R" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["S" + (i + 2).ToString()].Value = data[i].ZId;
+                    worksheet.Cells["S" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["T" + (i + 2).ToString()].Value = data[i].DId;
+                    worksheet.Cells["T" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["U" + (i + 2).ToString()].Value = data[i].AId;
+                    worksheet.Cells["U" + (i + 2).ToString()].Style.Font.Size = 8;
+                    worksheet.Cells["V" + (i + 2).ToString()].Value = data[i].Negativa;
+                    worksheet.Cells["V" + (i + 2).ToString()].Style.Font.Size = 8;
+
+                }
+                package.Save();
+            }
+
+            byte[] fileBytes = File.ReadAllBytes(Path.Combine(WebRootFolder, FileName));
+            if (file.Exists)
+                file.Delete();
+
+            return fileBytes;
         }
     }
 }

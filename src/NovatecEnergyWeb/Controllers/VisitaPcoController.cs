@@ -7,6 +7,7 @@ using NovatecEnergyWeb.Core;
 using NovatecEnergyWeb.Domain.Interfaces.Repository;
 using NovatecEnergyWeb.Models.StoredProcedures;
 using NovatecEnergyWeb.Models.ViewModels.AdesaoViewModels;
+using NovatecEnergyWeb.Domain.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,11 +16,12 @@ namespace NovatecEnergyWeb.Controllers
     public class VisitaPcoController : Controller
     {
         private IVisitaPcoRepository _visitaPcoRepository;
+        private IExcelExporterLotePorClienteApartamento _exporter;
 
-        public VisitaPcoController(
-            IVisitaPcoRepository visitaPcoRepository)
+        public VisitaPcoController(IVisitaPcoRepository visitaPcoRepository, IExcelExporterLotePorClienteApartamento exporter)
         {
             _visitaPcoRepository = visitaPcoRepository;
+            _exporter = exporter;
         }
 
 
@@ -28,73 +30,13 @@ namespace NovatecEnergyWeb.Controllers
             return View();
         }
 
+
         [HttpPost]
         public IActionResult VisitaPco([FromForm] VisitaPcoViewModel visitaViewModel, int PaginaClicada)
         {          
             var visitasPcoLista = _visitaPcoRepository.GetVisitaPco();
-        
 
-            //refatorar todo o código abaixo futuramente...
-            if(visitaViewModel.ZId != 0)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.ZId == visitaViewModel.ZId).ToList();
-            }
-            if (visitaViewModel.DId != 0)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.DId == visitaViewModel.DId).ToList();
-            }
-            if (visitaViewModel.AId != 0)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.AId == visitaViewModel.AId).ToList();
-            }
-            if (visitaViewModel.IdLote != 0)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.IdLote == visitaViewModel.IdLote).ToList();
-            }
-            if (visitaViewModel.Interesse != 0)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.Interesse == visitaViewModel.Interesse).ToList();
-            }
-            if (visitaViewModel.NegativaId != 0)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.NegativaId == visitaViewModel.NegativaId).ToList();
-            }
-            if (visitaViewModel.AgComercialId != 0)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.AgComercialId == visitaViewModel.AgComercialId).ToList();
-            }
-            if (visitaViewModel.Diavisita1 != null && visitaViewModel.Diavisita2 != null)
-            {
-                DateTime dt = Convert.ToDateTime(visitaViewModel.Diavisita1);
-                DateTime dt2 = Convert.ToDateTime(visitaViewModel.Diavisita2);
-
-                visitasPcoLista = visitasPcoLista.Where(w => w.DataHora >= dt && w.DataHora <= dt2)
-                    .ToList();
-            }
-            if (visitaViewModel.Bairro != null)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.BairroB.Contains(visitaViewModel.Bairro.ToUpper())).ToList();
-            }
-            if (visitaViewModel.Localidade != null)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.LocalidadeB.Contains(visitaViewModel.Localidade.ToUpper())).ToList();
-            }
-            if (visitaViewModel.Logradouro != null)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.LogradouroB.Contains(visitaViewModel.Logradouro.ToUpper())).ToList();
-            }
-            if (visitaViewModel.AgVisita != null)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.AgVisita.Contains(visitaViewModel.AgVisita)).ToList();
-            }
-            if (visitaViewModel.Pco != null)
-            {
-                visitasPcoLista = visitasPcoLista.Where(v => v.PcoB.Contains(visitaViewModel.Pco.ToUpper())).ToList();
-            }
-            if (visitaViewModel.Numero1 != 0 && visitaViewModel.Numero2 != 0)
-            {
-                visitasPcoLista = visitasPcoLista.Where(c => c.Num >= visitaViewModel.Numero1 && c.Num <= visitaViewModel.Numero2).OrderBy(c => c.Num).ToList();
-            }
+            visitasPcoLista = _visitaPcoRepository.AplicaFiltro(visitaViewModel, visitasPcoLista);
 
             //paginação
             var pagina = 0;
@@ -114,15 +56,40 @@ namespace NovatecEnergyWeb.Controllers
             return Json(retorno);
         }
 
-        public IActionResult ExportaExcel(int Zid, int AId,int IdLote,int Interesse,int NegativaId, int AgComercialId,
+        
+        public IActionResult ExportaPadraoNovatec(int Zid, int AId,int IdLote,int Interesse,int NegativaId, int AgComercialId,
                                     string Diavisita1, string Diavisita2, string Pco, string AgVisita, string Bairro,
-                                       string Localidade, string Logradouro, int Numero1, int Numero2)
+                                       string Localidade, string Logradouro, int Numero1, int Numero2, int TipoVisitaId)
         {
-            //refatorar todo o código abaixo futuramente...
+            var viewModel = new VisitaPcoViewModel()
+            {
+                ZId = Zid,
+                AId = AId,
+                IdLote = IdLote,
+                Interesse = Interesse,
+                NegativaId = NegativaId,
+                AgComercialId = AgComercialId,
+                Diavisita1 = Diavisita1,
+                Diavisita2 = Diavisita2,
+                Pco = Pco, 
+                AgVisita = AgVisita,
+                Bairro = Bairro,
+                Localidade = Localidade,
+                Logradouro = Logradouro,
+                Numero1 = Numero1, 
+                Numero2 = Numero2,
+                TipoVisitaId = TipoVisitaId
+            };
+            
 
-            byte[] fileBytes = null;// _ExcelExportvisitaEndereco.ExportaPadraoNovatecCondVisita(vs);
+            var visitasPcoLista = _visitaPcoRepository.GetVisitaPco();
 
-            return File(fileBytes, "application/x-msdownload", "");
+            // filtros vindos da View
+            visitasPcoLista = _visitaPcoRepository.AplicaFiltro(viewModel, visitasPcoLista);
+
+            byte[] fileBytes = _exporter.ExportaPadraoNovatecVisitaPco(visitasPcoLista.ToList());
+
+            return File(fileBytes, "application/x-msdownload", _exporter.FileName);
         }
     }
 }

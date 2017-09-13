@@ -24,5 +24,6 @@ namespace NovatecEnergyWeb.Models.ViewModels.AdesaoViewModels
         public string Logradouro { get; set; }
         public string AgVisita { get; set; }
         public string Pco { get; set; }
+        public int TipoVisitaId { get; set; }
     }
 }

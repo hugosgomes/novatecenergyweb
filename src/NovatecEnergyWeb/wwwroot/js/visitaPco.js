@@ -44,6 +44,7 @@ function getFormDataAsJson(){
         Bairro: $('#bairro').val().toString().trim(),
         Localidade: $('#localidadeinput').val().toString().trim(),
         Logradouro: $('#logradouroinput').val().toString().trim(),
+        TipoVisitaId: $("#tipoVisita").val(),
 
         Numero1: $('#Numero1').val(),
         Numero2: $('#Numero2').val()
@@ -347,10 +348,10 @@ function ExportaPadraoNovatec(){
     var data = getFormDataAsJson();
 
     $("#load").fadeIn();
-    window.location.href = ''+url+ '/VisitaPco/ExportaExcel?ZId='+ data.ZId+'&DId='+data.DId+'&AId='+data.AId+'&IdLote='+data.IdLote+
+    window.location.href = ''+url+ '/VisitaPco/ExportaPadraoNovatec?ZId='+ data.ZId+'&DId='+data.DId+'&AId='+data.AId+'&IdLote='+data.IdLote+
     '&Interesse='+data.Interesse+'&NegativaId='+data.NegativaId+'&AgComercialId='+data.AgComercialId+'&Diavisita1='+data.Diavisita1+
     '&Diavisita2='+data.Diavisita2+'&Pco='+data.Pco+'&AgVisita='+data.AgVisita+'&Bairro='+data.Bairro+'&Localidade='+data.Localidade+
-    '&Logradouro='+data.Logradouro+'&Numero1='+data.Numero1+'&Numero2='+data.Numero2;
+    '&Logradouro='+data.Logradouro+'&Numero1='+data.Numero1+'&Numero2='+data.Numero2+'&TipoVisitaId='+data.TipoVisitaId;
     
     $("#load").fadeOut(); 
 

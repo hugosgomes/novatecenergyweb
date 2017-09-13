@@ -33,7 +33,9 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public int Interesse { get; set; }
         public int IdLote { get; set; }
         public int AgComercialId { get; set; }
-        
+        public string Negativa { get; set; }
+        public string ObsAgendamento { get; set; }
+        public int TipoVisitaId { get; set; }// agendado aberto; fechado ...
 
         public int ZId { get; set; }
         public int DId { get; set; }
