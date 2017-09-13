@@ -173,7 +173,8 @@ function postPaginacao(num) {
 
     var data = getFormDataAsJson();
     data.paginaClicada = num;
-    $.post(url, data, tabelaLoteAtivos);
+    //$.post(url, data, tabelaLoteAtivos);
+    $.post(url, data, preencheListagem);
 
     $("#load").fadeOut(); // apaga animacao de carregando
 }

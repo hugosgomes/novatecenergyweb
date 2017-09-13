@@ -8,6 +8,7 @@ using NovatecEnergyWeb.Domain.Interfaces.Repository;
 using NovatecEnergyWeb.Models.StoredProcedures;
 using NovatecEnergyWeb.Models.ViewModels.AdesaoViewModels;
 using NovatecEnergyWeb.Domain.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,6 +36,18 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult VisitaPco([FromForm] VisitaPcoViewModel visitaViewModel, int PaginaClicada)
         {          
             var visitasPcoLista = _visitaPcoRepository.GetVisitaPco();
+
+            var d = HttpContext.Session.GetInt32("Delegação");
+            var z = HttpContext.Session.GetInt32("Zona");
+            var quantArea = HttpContext.Session.GetInt32("QuantidadeArea");
+
+            if (quantArea != null && ((int)quantArea == 1))
+            {
+                visitaViewModel.AId = (int)HttpContext.Session.GetInt32("Área");
+            }
+            // se for cliente, vai ter as variáveis de sessão preenchidas
+            visitaViewModel.ZId = (z != null) ? (int)z : visitaViewModel.ZId;
+            visitaViewModel.DId = (d != null) ? (int)d : visitaViewModel.DId;
 
             visitasPcoLista = _visitaPcoRepository.AplicaFiltro(visitaViewModel, visitasPcoLista);
 
