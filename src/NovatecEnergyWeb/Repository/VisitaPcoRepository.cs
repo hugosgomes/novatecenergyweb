@@ -101,6 +101,8 @@ namespace NovatecEnergyWeb.Repository
             {
                 DateTime dt = Convert.ToDateTime(visitaViewModel.Diavisita1);
                 DateTime dt2 = Convert.ToDateTime(visitaViewModel.Diavisita2);
+                dt2 = dt2.AddHours(23);
+                dt2 = dt2.AddMinutes(59); 
 
                 visitasPcoLista = visitasPcoLista.Where(w => w.DataHora >= dt && w.DataHora <= dt2)
                     .ToList();
