@@ -9,6 +9,7 @@ using NovatecEnergyWeb.Models.StoredProcedures;
 using NovatecEnergyWeb.Models.ViewModels.AdesaoViewModels;
 using NovatecEnergyWeb.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
+using NovatecEnergyWeb.Filters.ActionFilters;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,7 +26,7 @@ namespace NovatecEnergyWeb.Controllers
             _exporter = exporter;
         }
 
-
+        [AutenticacaoFilter]
         public IActionResult Index()
         {
             return View();
