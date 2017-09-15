@@ -26,7 +26,7 @@ namespace NovatecEnergyWeb.Controllers
             return View();
         }
 
-        public IActionResult ListaPcoVisitasEndereco(int pageNum, int lote, int zona, int delegacao, int area, string endereco)
+        public IActionResult ListaPcoVisitasEndereco(int paginaClicada, int lote, int zona, int delegacao, int area, string bairro)
         {
             var d = HttpContext.Session.GetInt32("Delegação");
             var z = HttpContext.Session.GetInt32("Zona");
@@ -41,20 +41,21 @@ namespace NovatecEnergyWeb.Controllers
             zona = (z != null) ? (int)z : zona;
             delegacao = (d != null) ? (int)d : delegacao;
 
+            
+            var visitas = _visitaEnderecoPcoRepository.VisitasPcoEndereco(zona, delegacao, area, lote,bairro);
+
+
             // definicoes da paginacao
             var pagina = 0;
-            var PaginaClicada = pageNum;
             var itensPagina = 3;
 
-            if (PaginaClicada != 0)
+            if (paginaClicada != 0)
             {
-                pagina = (PaginaClicada - 1) * itensPagina;
+                pagina = (paginaClicada - 1) * itensPagina;
             }
 
-            // retorna a consulta filtrada pelos parametros
-            var visitas = _visitaEnderecoPcoRepository.VisitasPcoEndereco(zona, delegacao, area, lote);
-
-
+         
+            //Cálculos
             var Potencial = visitas.Sum(c => c.Potencial);
 
             var Tratados = visitas.Sum(c => c.Tratados);
@@ -93,13 +94,9 @@ namespace NovatecEnergyWeb.Controllers
 
             var VisitasAge = visitas.Sum(c => c.VisitasAgendadas);
 
-            // filtra as seguintes colunas
-            if (endereco != null)
-            {
-                visitas = visitas.Where(c => c.Endereco.Contains(endereco));
-            }
+           
 
-            var totalPaginas = visitas.Count() / itensPagina + 1; // retorna numero de paginas nescessario
+            var totalPaginas = (visitas.Count() != 0) ? Math.Ceiling(decimal.Divide(Convert.ToDecimal(visitas.Count()), itensPagina)) : 1;
 
             var vis2 = visitas.Skip(pagina).Take(itensPagina);
 

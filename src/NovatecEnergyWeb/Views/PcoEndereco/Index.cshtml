@@ -7,6 +7,18 @@
     ViewData["Title"] = "Visitas Pco por Endereço";
 }
 
+@Html.Hidden("urlGetZona", Url.Action("GetZonas", "FiltroLateralService"))
+@Html.Hidden("urlGetDelegacao", Url.Action("GetDelegacao", "FiltroLateralService"))
+@Html.Hidden("urlGetArea", Url.Action("GetArea", "FiltroLateralService"))
+@Html.Hidden("urlGetLotes", Url.Action("GetLotesPco", "FiltroLateralService"))
+@Html.Hidden("urlPostPaginacao", Url.Action("ListaPcoVisitasEndereco", "PcoEndereco"))
+@Html.Hidden("urlExibeVisitas", Url.Action("ListaPcoVisitasEndereco", "PcoEndereco"))
+
+@Html.Hidden("urlZonaCascade", Url.Action("ZonaCascadePco", "FiltroLateralService"))
+@Html.Hidden("urlDelegacaoCascade", Url.Action("DelegacaoCascadePco", "FiltroLateralService"))
+@Html.Hidden("urlAreaCascade", Url.Action("AreaCascadePco", "FiltroLateralService"))
+@Html.Hidden("urlExcelExport", AppSettings.ExcelExportUrl)
+
 <div class="container-fluid">
     <!-- Loader-->
     <div class="row">
@@ -143,7 +155,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Zona</label>
                         <div class="controls">
-                            <select id="zonas" onchange="postZona(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="zonas" onchange="postZona(); exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
 
                         </div>
                     </div>
@@ -152,7 +164,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Delegação</label>
                         <div class="controls">
-                            <select id="delegacao" onchange="postDelegacao(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
+                            <select id="delegacao" onchange="postDelegacao(); exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav"></select>
                         </div>
                     </div>
                     <!-- fim de delegação -->
@@ -160,7 +172,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Área</label>
                         <div class="controls">
-                            <select id="area" onchange="postArea(); exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
+                            <select id="area" onchange="postArea(); exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" style="width:70px;"></select>
                         </div>
                     </div>
 
@@ -169,7 +181,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Lote</label>
                         <div class="controls">
-                            <select id="lotes" name="LoteError" onchange=" exibeVisitasEndereco(1);" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:150px;"></select>
+                            <select id="lotes" name="LoteError" onchange="exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:150px;"></select>
                         </div>
                     </div>
 
@@ -191,7 +203,7 @@
                     <br />
 
                     <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
-                    <div class="col-xs-8"><a href="#" onclick="exibeVisitasEndereco(1);"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
+                    <div class="col-xs-8"><a href="#" onclick="exibeVisitas();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
 
 
 
@@ -267,58 +279,7 @@
     <script type="text/javascript">
 
 
-        // preenche os filtros
-        function getLote() {
-
-            $.getJSON("@Url.Action("GetLotes", "FiltroLateralService")", listaLote);
-        }
-
-        function getZona() {
-
-            $.getJSON("@Url.Action("GetZonas", "FiltroLateralService")", listaZona);
-        }
-
-        function getDelegacao() {
-
-            $.getJSON("@Url.Action("GetDelegacao", "FiltroLateralService")", listaDelegacao);
-        }
-
-        function getArea() {
-
-            $.getJSON("@Url.Action("GetArea", "FiltroLateralService")", listaArea);
-        }
-
-        function exibeVisitasEndereco(num) {
-
-            var p = {};
-
-            p.pageNum = num;
-
-            p.lotes = $('#lotes').val();
-            p.zonas = $('#zonas').val();
-            p.delegacao = $('#delegacao').val();
-            p.area = $('#area').val();
-
-            p.endereco = $('#endereco').val().toString().toUpperCase().trim();
-
-            $("#load").fadeIn(); // chama animacao de carregando
-            $.post("@Url.Action("ListaPcoVisitasEndereco", "PcoEndereco")", p, visitasPreenche);
-            $("#load").fadeOut(); // apaga animacao carregando
-        }
-
-        function exibeVisitasEndereco2(num) {
-            var p = {};
-            p.pageNum = num;
-            p.lotes = $('#lotes').val();
-            p.zonas = $('#zonas').val();
-            p.delegacao = $('#delegacao').val();
-            p.area = $('#area').val();
-            p.endereco = $('#endereco').val().toString().toUpperCase().trim();
-
-            $("#load").fadeIn(); // chama animacao de carregando
-            $.post("@Url.Action("ListaPcoVisitasEndereco", "PcoEndereco")", p, visitasPreenche2);
-            $("#load").fadeOut(); // apaga animacao carregando
-        }
+      
 
         function ExportaPadraoNovatec() {
             $("#load").fadeIn(); // chama animacao de carregando
@@ -336,29 +297,7 @@
                 p.delegacao + '&area=' + p.area + '&lotes=' + p.lotes + '&endereco=' + p.endereco;
 
            $("#load").fadeOut(); // apaga animacao carregando
-        }
-        ////////////////////////////
-        //  FILTROS
-        //////////////////////////////
-
-        function postZona() {
-        var p = {};
-        p.zona = $("#zonas").val();
-        $.post("@Url.Action("ZonaCascade", "FiltroLateralService")", p, atualizaDropsZona);
-        }
-
-        function postDelegacao() {
-            var p = {};
-            p.delegacao = $("#delegacao").val();
-            $.post("@Url.Action("DelegacaoCascade", "FiltroLateralService")", p, atualizaDropsDelegacao);
-        }
-
-        function postArea() {
-            var p = {};
-
-            p.area = $("#area").val();
-            $.post("@Url.Action("AreaCascade", "FiltroLateralService")", p, atualizaDropsArea);
-        }
+        }    
     </script>
 }
 

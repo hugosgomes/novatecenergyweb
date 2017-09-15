@@ -8,6 +8,7 @@ namespace NovatecEnergyWeb.Domain.Interfaces.Repository
 {
     public interface IVisitaEnderecoPcoRepository
     {
-        IEnumerable<PcoEndereco> VisitasPcoEndereco(int zona, int delegacao, int area, int lote);
+        IEnumerable<PcoEndereco> VisitasPcoEndereco(int zona, int delegacao, int area, int lote, string bairro);
+        
     }
 }

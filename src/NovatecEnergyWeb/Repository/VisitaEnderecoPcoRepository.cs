@@ -18,47 +18,36 @@ namespace NovatecEnergyWeb.Repository
             _context = context;
         }
 
-        public IEnumerable<PcoEndereco> VisitasPcoEndereco(int zona, int delegacao, int area, int lote)
+        public IEnumerable<PcoEndereco> VisitasPcoEndereco(int zona, int delegacao, int area, int lote, string bairro)
         {
-            var visitas = _context.PcoEndereco.FromSql(" exec [dbo].[sp_13_visita_endereco]; ");
+            var visitas = _context.PcoEndereco.FromSql(" exec [dbo].[sp_13_Visita_Endereco]; ");
 
-            // lote igual a zero
-            if (lote <= 0)
+
+            // filtra as seguintes colunas
+            if (zona != 0)
             {
-                // area igual a zero
-                if (area <= 0)
-                {
-                    // delegacao igual a zero
-                    if(delegacao <= 0)
-                    {
-                        // zona igual a zero
-                        if(zona <= 0)
-                        {
-                            return visitas;
-                        }
-                        else
-                        {
-                            // filtra zona
-                            return visitas.Where(v => v.Zid == zona);
-                        }
-                    }
-                    else
-                    {
-                        // filtra delegacao
-                        return visitas.Where(v => v.Did == delegacao);
-                    }
-                }
-                else
-                {
-                    // filtra area
-                    return visitas.Where(v => v.Aid == area);
-                }
+                visitas = visitas.Where(v => v.Zid == zona);
             }
-            else
+            if (delegacao != 0)
             {
-                // filtra lote
-                return visitas.Where(v => v.IdLote == lote);
+                visitas = visitas.Where(v => v.Did == delegacao);
             }
+            if (area != 0)
+            {
+                visitas = visitas.Where(v => v.Aid == area);
+            }
+
+            if (lote != 0)
+            {
+                visitas = visitas.Where(v => v.IdLote == lote);
+            }
+
+            if (bairro != null)
+            {
+                visitas = visitas.Where(c => c.Endereco.Contains(bairro));
+            }
+
+            return visitas;
         }
     }
 }
