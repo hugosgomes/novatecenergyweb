@@ -77,6 +77,7 @@ namespace NovatecEnergyWeb
             services.AddScoped<IVisitaPcoRepository, VisitaPcoRepository>();
             services.AddScoped<ILoteEstatisticaPcoRepository, LoteEstatisticaPcoRepository>();
             services.AddScoped<IVisitaEnderecoPcoRepository, VisitaEnderecoPcoRepository>();
+            services.AddScoped<ILoteCondominioRepository, LoteCondominioRepository>();
 
             services.AddMvc();
 

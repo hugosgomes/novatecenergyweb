@@ -17,6 +17,7 @@ namespace NovatecEnergyWeb.Repository
         {
             _context = context;
         }
+
         public List<_13Lotes> GetLotes()
         {
             var lotes = (from l in _context._13Lotes.Include(l => l.StatusObj)

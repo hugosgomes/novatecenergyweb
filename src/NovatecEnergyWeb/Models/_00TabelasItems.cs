@@ -12,5 +12,6 @@ namespace NovatecEnergyWeb.Models
         public string Item { get; set; }
 
         public virtual List<_13Lotes> _13Lotes { get; set; }
+        public virtual List<_12Lotes> _12Lotes { get; set; }
     }
 }

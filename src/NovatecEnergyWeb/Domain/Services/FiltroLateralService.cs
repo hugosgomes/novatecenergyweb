@@ -19,15 +19,18 @@ namespace NovatecEnergyWeb.Domain.Services
         private IAreaRepository _areaRepository;
         private IDelegacaoRepository _delegacaoRepository;
         private ILotePcoRepository _lotePcoRepository;
+        private ILoteCondominioRepository _loteCondominioRepository;
         
         public FiltroLateralServiceController(BDNVTContext context, ILoteRepository loteRepository,
-            IAreaRepository areaRepository, IDelegacaoRepository delegacaoRepository, ILotePcoRepository lotePcoRepository)
+            IAreaRepository areaRepository, IDelegacaoRepository delegacaoRepository,
+            ILoteCondominioRepository loteCondominioRepository, ILotePcoRepository lotePcoRepository)
         {
             _context = context;
             _loteRepository = loteRepository;
             _areaRepository = areaRepository;
             _delegacaoRepository = delegacaoRepository;
-            _lotePcoRepository = lotePcoRepository;          
+            _lotePcoRepository = lotePcoRepository;
+            _loteCondominioRepository = loteCondominioRepository;
         }
         // MÉTODOS POST FILTRO CASCATA
         public IActionResult ZonaCascade(int zona)
@@ -209,6 +212,56 @@ namespace NovatecEnergyWeb.Domain.Services
                 }
             }
             return Json(lotes);
+        }
+
+        [HttpGet]
+        public IActionResult GetLotesCondominio()
+        {
+            int? id = HttpContext.Session.GetInt32("UserId");
+            int? zona = HttpContext.Session.GetInt32("Zona");
+            int? delegacao = HttpContext.Session.GetInt32("Delegação");
+            int? qtdArea = HttpContext.Session.GetInt32("QuantidadeArea");
+            string tipo = HttpContext.Session.GetString("UserTipo");
+
+            var lotes = new List<_12Lotes>();
+
+            if (tipo == "func")
+            {
+                lotes = _loteCondominioRepository.GetLotes();
+            }
+            else
+            {
+                if (qtdArea != null && qtdArea > 0)
+                {
+                    var areas = _areaRepository.GetAreasByClienteId((int)id);
+                    lotes = _loteCondominioRepository.GetLotesByListArea(areas);
+                }
+                else
+                {
+                    if (delegacao != null)
+                    {
+                        var areas = _areaRepository.GetAreasByDelegacaoId((int)delegacao);
+                        lotes = _loteCondominioRepository.GetLotesByListArea(areas);
+                    }
+                    else
+                    {
+                        if (zona != null)
+                        {
+                            var delegacoes = _delegacaoRepository.GetDelegacaoByZonaId((int)zona);
+                            var areas = _areaRepository.GetAreasByListDelegacao(delegacoes);
+                            //terminar depois
+                            lotes = _loteCondominioRepository.GetLotesByListArea(areas);
+                        }
+                        else
+                        {
+                            lotes = _loteCondominioRepository.GetLotes();
+                        }
+                    }
+                }
+            }
+
+            
+            return Json(GetSelectItemsLotesByListLotes(lotes));
         }
 
         public IActionResult GetCampoVenda()
@@ -451,6 +504,24 @@ namespace NovatecEnergyWeb.Domain.Services
 
         // método que retorna para exibição no formato LOTENUM - GE - DATALOTE - DATALOTE - STATUS
         private List<List<dynamic>> GetSelectItemsLotesByListLotes(List<_13Lotes> Lotes)
+        {
+            var lote = new List<List<dynamic>>();
+            foreach (var item in Lotes)
+            {
+                var d = new List<dynamic>();
+                d.Add(item.Id);
+                d.Add(item.LoteNum);
+                d.Add(item.Ge);
+                d.Add(item.DataLote.GetValueOrDefault().ToString("dd/MM/yyyy"));
+                d.Add(item.StatusObj.Item);
+
+                lote.Add(d);
+            }
+
+            return lote;
+        }
+
+        private List<List<dynamic>> GetSelectItemsLotesByListLotes(List<_12Lotes> Lotes)
         {
             var lote = new List<List<dynamic>>();
             foreach (var item in Lotes)
