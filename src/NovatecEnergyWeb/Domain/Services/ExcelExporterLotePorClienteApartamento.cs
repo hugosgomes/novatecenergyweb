@@ -344,5 +344,10 @@ namespace NovatecEnergyWeb.Domain.Services
 
             return fileBytes;
         }
+
+        public byte[] ExportaPadraoGasNaturalEnderecoPco()
+        {
+
+        }
     }
 }

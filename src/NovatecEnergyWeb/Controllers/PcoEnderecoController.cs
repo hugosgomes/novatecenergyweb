@@ -47,7 +47,7 @@ namespace NovatecEnergyWeb.Controllers
 
             // definicoes da paginacao
             var pagina = 0;
-            var itensPagina = 3;
+            var itensPagina = 20;
 
             if (paginaClicada != 0)
             {
@@ -132,5 +132,13 @@ namespace NovatecEnergyWeb.Controllers
 
             return Json(jsonModel);
         }
+
+        public IActionResult ExportaPadraoGasNatural(int lote, int zona, int delegacao, int area, string bairro)
+        {
+            
+            var visitasEndreco = _visitaEnderecoPcoRepository.VisitasPcoEndereco(zona, delegacao, area, lote, bairro);
+        }
+
+
     }
 }

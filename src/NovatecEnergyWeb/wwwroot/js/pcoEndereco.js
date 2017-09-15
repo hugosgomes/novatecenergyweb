@@ -314,3 +314,24 @@ function atualizaDropsDelegacao(retorno) {
     preencheLotes(retorno);
 
 }
+
+
+
+function ExportaPadraoNovatec() {
+    $("#load").fadeIn(); // chama animacao de carregando
+
+    var url = $("#urlExcelExport").val();
+  
+    var p = {};
+
+    p.lotes = $('#lotes').val();
+    p.zonas = $('#zonas').val();
+    p.delegacao = $('#delegacao').val();
+    p.area = $('#area').val();
+    p.bairro = $('#endereco').val().toString().toUpperCase().trim();
+
+    window.location.href = '' + url + '/PcoEndereco/ExportaPadraoGasNatural?zona=' + p.zonas + '&delegacao=' +
+        p.delegacao + '&area=' + p.area + '&=' + p.lotes + '&bairro=' + p.endereco;
+
+   $("#load").fadeOut(); // apaga animacao carregando
+}    

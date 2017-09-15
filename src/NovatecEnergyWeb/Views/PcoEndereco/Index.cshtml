@@ -274,31 +274,8 @@
 
 
 @section Scripts{
-
-    <script type="text/javascript" src="~/js/pcoEndereco.js"></script>
-    <script type="text/javascript">
-
-
-      
-
-        function ExportaPadraoNovatec() {
-            $("#load").fadeIn(); // chama animacao de carregando
-
-            var p = {};
-
-            p.lotes = $('#lotes').val();
-            p.zonas = $('#zonas').val();
-            p.delegacao = $('#delegacao').val();
-            p.area = $('#area').val();
-            p.endereco = $('#endereco').val().toString().toUpperCase().trim();
-
-            var urlconfig = '@AppSettings.ExcelExportUrl';
-            window.location.href = '' + urlconfig + '/CondEndereco/ExportaExcel?zonas=' + p.zonas + '&delegacao=' +
-                p.delegacao + '&area=' + p.area + '&lotes=' + p.lotes + '&endereco=' + p.endereco;
-
-           $("#load").fadeOut(); // apaga animacao carregando
-        }    
-    </script>
-}
-
 <script type="text/javascript" src="~/js/pcoEndereco.js"></script>
+<script type="text/javascript">
+   
+</script>
+}

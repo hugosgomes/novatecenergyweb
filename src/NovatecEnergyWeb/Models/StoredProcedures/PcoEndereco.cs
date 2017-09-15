@@ -15,14 +15,14 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public string Endereco { get; set; }
         public string Agente { get; set; }
         public int Potencial { get; set; }
-        public int Visitas { get; set; }
-        public int VisitasImpr { get; set; }
-        public int VisitasAgendadas { get; set; }
-        public int Entrevistas { get; set; }
-        public int Ausencias { get; set; }
+        public int ? Visitas { get; set; }
+        public int ? VisitasImpr { get; set; }
+        public int ? VisitasAgendadas { get; set; }
+        public int ? Entrevistas { get; set; }
+        public int ? Ausencias { get; set; }
         public int Visitados { get; set; }
         public int Entrevistados { get; set; }
-        public int Tratados { get; set; }
+        public int ? Tratados { get; set; }
         public int Zid { get; set; }
         public int Did { get; set; }
         public int Aid { get; set; }
