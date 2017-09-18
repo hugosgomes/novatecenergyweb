@@ -5514,6 +5514,16 @@ namespace NovatecEnergyWeb.Core
                 entity.Property(e => e.DataSystem).HasColumnName("DATASYSTEM");
                 entity.Property(e => e.Status).HasColumnName("STATUS");
                 entity.Property(e => e.Area).HasColumnName("AREA");
+
+                // mapeamento da chave estrangeira STATUS vinda de 00_TabelaItems
+                entity.HasOne(e => e.StatusObj)
+                .WithMany(ti => ti._11Lotes)
+                .HasForeignKey(e => e.Status);
+
+                //mapeamento da chave estrangeira AREA vinda de 00_Areas
+                entity.HasOne(l => l.AreaObj)
+                .WithMany(a => a._11Lotes)
+                .HasForeignKey(l => l.Area);
             });
 
 

@@ -23,5 +23,6 @@ namespace NovatecEnergyWeb.Models
         public virtual IEnumerable<ClientesAreas> ClientesAreas { get; set; }
         public virtual IEnumerable<_13Lotes> _13Lotes { get; set; }
         public virtual IEnumerable<_12Lotes> _12Lotes { get; set; }
+        public virtual IEnumerable<_11Lotes> _11Lotes { get; set; }
     }
 }
