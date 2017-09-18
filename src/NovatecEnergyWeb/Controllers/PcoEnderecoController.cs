@@ -14,11 +14,14 @@ namespace NovatecEnergyWeb.Controllers
     public class PcoEnderecoController : Controller
     {
         private IVisitaEnderecoPcoRepository _visitaEnderecoPcoRepository;
+        private ILotePcoRepository _lotePcoRepository;
         //private IExcelExportVisitaEndereco _exportaExecelVisitaEndereco;
 
-        public PcoEnderecoController(IVisitaEnderecoPcoRepository visitaEnderecoPcoRepository)
+        public PcoEnderecoController(IVisitaEnderecoPcoRepository visitaEnderecoPcoRepository, 
+            ILotePcoRepository lotePcoRepository)
         {
             _visitaEnderecoPcoRepository = visitaEnderecoPcoRepository;
+            _lotePcoRepository = lotePcoRepository;
         }
 
         public IActionResult Index()
@@ -133,10 +136,13 @@ namespace NovatecEnergyWeb.Controllers
             return Json(jsonModel);
         }
 
-        public IActionResult ExportaPadraoGasNatural(int lote, int zona, int delegacao, int area, string bairro)
+        public IActionResult ExportaAgendaAdesao(int lote, int zona, int delegacao, int area, string bairro)
         {
             
             var visitasEndreco = _visitaEnderecoPcoRepository.VisitasPcoEndereco(zona, delegacao, area, lote, bairro);
+            var loteEscolhido = _lotePcoRepository.GetLotesById(lote).FirstOrDefault();
+
+
         }
 
 

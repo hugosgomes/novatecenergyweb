@@ -31,5 +31,7 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public int Visitas0 { get; set; }
         public int Visitas1 { get; set; }
         public int Visitas2 { get; set; }
+        public string Localidade { get; set; }
+        public string Bairro { get; set; }
     }
 }

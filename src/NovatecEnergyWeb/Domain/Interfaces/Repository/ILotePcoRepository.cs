@@ -8,6 +8,7 @@ namespace NovatecEnergyWeb.Domain.Interfaces.Repository
 {
     public interface ILotePcoRepository
     {
+        List<_13Lotes> GetLotesById(int idlote);
         List<_13Lotes> GetLotes();
         List<_13Lotes> GetLotesByListArea(List<_00Areas> areas);
         List<_13Lotes> GetLotesByAreaId(int area);
