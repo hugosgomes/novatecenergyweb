@@ -141,29 +141,25 @@ namespace NovatecEnergyWeb.Controllers
 
             if (logradouroinput != null)
             {
-
                 visitas = visitas.Where(c => c.Logradouro.Contains(logradouroinput));
-
             }
 
-            if (Numero1 != 0 &&  Numero2 != 0)
+            if (Numero1 != 0 && Numero2 != 0)
             {
-
-                visitas = visitas.Where(c => c.Num >=Numero1 && c.Num <= Numero2).OrderBy(c => c.Num);
-
+                visitas = visitas.Where(c => c.Num >= Numero1 && c.Num <= Numero2).OrderBy(c => c.Num);
             }
 
 
 
             if (diavisita1 != null && diavisita2 != null)
-            {         
-                
-                    DateTime dt = Convert.ToDateTime(diavisita1);
-                    DateTime dt2 = Convert.ToDateTime(diavisita2);
+            {
 
-                    visitas = visitas.Where(w => w.DataHora >= dt && w.DataHora <= dt2
-     
-                    );
+                DateTime dt = Convert.ToDateTime(diavisita1);
+                DateTime dt2 = Convert.ToDateTime(diavisita2);
+
+                visitas = visitas.Where(w => w.DataHora >= dt && w.DataHora <= dt2
+
+                );
             }
 
 

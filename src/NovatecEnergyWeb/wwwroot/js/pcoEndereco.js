@@ -321,7 +321,7 @@ function ExportaPadraoNovatec() {
     $("#load").fadeIn(); // chama animacao de carregando
 
     var url = $("#urlExcelExport").val();
-  
+    
     var p = {};
 
     p.lotes = $('#lotes').val();
@@ -329,9 +329,11 @@ function ExportaPadraoNovatec() {
     p.delegacao = $('#delegacao').val();
     p.area = $('#area').val();
     p.bairro = $('#endereco').val().toString().toUpperCase().trim();
+    p.mes = $("#urlMes").val();
+    p.ano = $("#urlAno").val();
 
-    window.location.href = '' + url + '/PcoEndereco/ExportaPadraoGasNatural?zona=' + p.zonas + '&delegacao=' +
-        p.delegacao + '&area=' + p.area + '&=' + p.lotes + '&bairro=' + p.endereco;
+    window.location.href = '' + url + '/PcoEndereco/ExportaAgendaAdesao?zona=' + p.zonas + '&delegacao=' +
+        p.delegacao + '&area=' + p.area + '&=' + p.lotes + '&bairro=' + p.endereco + '&ano='+ p.ano +'&mes=' +p.mes;
 
    $("#load").fadeOut(); // apaga animacao carregando
 }    

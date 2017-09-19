@@ -25,7 +25,7 @@ namespace NovatecEnergyWeb.Models.Exportacao
         public byte[] ExportaPadraoNovatec(List<Visitas> data)
         {
             FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Visitas.xlsx";
-            File.Copy(Path.Combine(WebRootFolder, @"formatoNovatecVisitasEndereco.xlsx"), Path.Combine(WebRootFolder, FileName));
+            File.Copy(Path.Combine(WebRootFolder, @"formatoNovatecVisitas.xlsx"), Path.Combine(WebRootFolder, FileName));
 
             FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
 
@@ -56,7 +56,7 @@ namespace NovatecEnergyWeb.Models.Exportacao
                     worksheet.Cells["G" + (i + 2).ToString()].Style.Font.Size = 8;
                     worksheet.Cells["H" + (i + 2).ToString()].Value = data[i].Apt;
                     worksheet.Cells["H" + (i + 2).ToString()].Style.Font.Size = 8;
-                    worksheet.Cells["I" + (i + 2).ToString()].Value = data[i].DataHora;
+                    worksheet.Cells["I" + (i + 2).ToString()].Value = (data[i].DataHora != null) ? Convert.ToDateTime(data[i].DataHora).ToString("dd/MM/yy hh:mm") : "";
                     worksheet.Cells["I" + (i + 2).ToString()].Style.Font.Size = 8;
                     worksheet.Cells["J" + (i + 2).ToString()].Value = data[i].Venda;
                     worksheet.Cells["J" + (i + 2).ToString()].Style.Font.Size = 8;

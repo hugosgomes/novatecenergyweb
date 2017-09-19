@@ -136,14 +136,16 @@ namespace NovatecEnergyWeb.Controllers
             return Json(jsonModel);
         }
 
-        public IActionResult ExportaAgendaAdesao(int lote, int zona, int delegacao, int area, string bairro)
+        /*public IActionResult ExportaAgendaAdesao(int lote, int zona, int delegacao, int area, string bairro, string ano, string mes )
         {
             
             var visitasEndreco = _visitaEnderecoPcoRepository.VisitasPcoEndereco(zona, delegacao, area, lote, bairro);
+
+
             var loteEscolhido = _lotePcoRepository.GetLotesById(lote).FirstOrDefault();
 
 
-        }
+        }*/
 
 
     }

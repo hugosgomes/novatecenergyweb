@@ -25,7 +25,7 @@ namespace NovatecEnergyWeb.Controllers
 
         public CondEnderecoController(BDNVTContext context,
            IVisitaEnderecoRepository visitaEnderecoRepository, IMotivoRejeicao motivoRejeicaoRepository, IAreaRepository areaRepository,
-           ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository, IExcelExportVisitaEnderecoCondominio exportaExecelVisitaEndereco
+           ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository, IExcelExportVisitaEnderecoCondominio exportaExcelVisitaEndereco
 
            )
 
@@ -36,7 +36,7 @@ namespace NovatecEnergyWeb.Controllers
             _areaRepository = areaRepository;
             _loteRepository = loteRepository;
             _condominioRepository = condominioRepository;
-            _exportaExecelVisitaEndereco = exportaExecelVisitaEndereco;
+            _exportaExecelVisitaEndereco = exportaExcelVisitaEndereco;
 
         }
 
@@ -187,49 +187,25 @@ namespace NovatecEnergyWeb.Controllers
 
         }
 
-        [HttpGet]
-        public IActionResult BuscaLote()
+
+        public IActionResult ExportaExcel(int lotes, int zonas, int delegacao, int area, String endereco)
         {
-
-            var lote = _context._11Lotes.ToList();
-
-            return Json(lote);
-        }
-
-
-
-        public IActionResult ExportaExcel( int lotes, int zonas, int delegacao, int area, String endereco)
-        {
-
-           
-
             // retorna a consulta filtrada pelos parametros
             var visitas = _visitaEnderecoRepository.VisitasEnderecoFiltro(zonas, delegacao, area, lotes);
 
-            
 
             // filtra as seguintes colunas
             if (endereco != null)
             {
-
                 visitas = visitas.Where(c => c.Endereco.Contains(endereco));
-
             }
 
-
-
-
-            // cast IEnumerable em List
             List<VisitaEndereco> vs = visitas.ToList();
 
 
             byte[] fileBytes = _exportaExecelVisitaEndereco.ExportaPadraoNovatec(vs);
 
             return File(fileBytes, "application/x-msdownload", _exportaExecelVisitaEndereco.FileName);
-
-
-           
-
         }
 
 

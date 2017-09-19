@@ -10,6 +10,7 @@ namespace NovatecEnergyWeb.Core
 {
     public partial class BDNVTContext : DbContext
     {
+        //public virtual DbSet<CondEnderecoExportaAgendaAdesao>
         public virtual DbSet<VisitaPco> VisitaPco { get; set; }
         public virtual DbSet<_13MotivosRej> _13MotivosRej { get; set; }
         public virtual DbSet<_13Lotes> _13Lotes { get; set; }

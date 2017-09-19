@@ -18,6 +18,76 @@
 @Html.Hidden("urlDelegacaoCascade", Url.Action("DelegacaoCascadePco", "FiltroLateralService"))
 @Html.Hidden("urlAreaCascade", Url.Action("AreaCascadePco", "FiltroLateralService"))
 @Html.Hidden("urlExcelExport", AppSettings.ExcelExportUrl)
+@Html.Hidden("urlMes", DateTime.Now.Month)
+@Html.Hidden("urlAno", DateTime.Now.Year)
+
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog  modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Agenda Resultado Comercial</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
+
+                        <h5 id="loteExibicao">Lote </h5>
+
+                        <div class="control-group">
+                            <label class="control-label labelsFormNav">Ano</label>
+                            <div class="controls">
+
+                                <select id="anos" style="width:80px;" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav">
+                                    <option>2016</option>
+                                    <option>2017</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label labelsFormNav">Mês</label>
+                            <div class="controls">
+                                <select id="mes" class="alturaFormNavInput form-control fontTableBodyNavBar selectsNav" >
+                                    <option value="1">JANEIRO</option>
+                                    <option value="2">FEVEREIRO</option>
+                                    <option value="3">MARÇO</option>
+                                    <option value="4">ABRIL</option>
+                                    <option value="5">MAIO</option>
+                                    <option value="6">JUNHO</option>
+                                    <option value="7">JULHO</option>
+                                    <option value="8">AGOSTO</option>
+                                    <option value="9">SETEMBRO</option>
+                                    <option value="10">OUTUBRO</option>
+                                    <option value="11">NOVEMBRO</option>
+                                    <option value="12">DEZEMBRO</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <a href="#" onclick="ExportaAgenda();">
+                                    <img src="~/images/ms_excel.png" width="30" title="Exportar" height="30" />
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
 
 <div class="container-fluid">
     <!-- Loader-->
@@ -276,6 +346,29 @@
 @section Scripts{
 <script type="text/javascript" src="~/js/pcoEndereco.js"></script>
 <script type="text/javascript">
-   
+
+     function entrarNaTelaExportacao() {
+
+        if ($("#lotes").val() != null) {
+            var lt = $("#lotes :selected").text().toString();
+            var ltf = lt.split(" ").join("").substr(0, 5).toString();
+            document.getElementById("loteExibicao").innerHTML = 'Lote ' + ltf;
+        } else {
+            alert('Selecione um lote');
+        }
+        //postFilters();
+    }
+
+   function ExportaAgenda() {
+
+       var data = {
+           ano: $("#anos").val(),
+           mes: $("#mes").val()
+       };
+
+        var url = '@AppSettings.ExcelExportUrl';
+        window.location.href = '' + url + '/PcoEndereco/ExportaAgendaAdesao?';
+
+    }
 </script>
 }

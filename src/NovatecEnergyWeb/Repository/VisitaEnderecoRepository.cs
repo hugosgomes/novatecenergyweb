@@ -22,7 +22,7 @@ namespace NovatecEnergyWeb.Repository
         public IEnumerable<VisitaEndereco> VisitasEnderecoFiltro(int zonas, int delegacao, int area, int lotes)
         {
 
-            List<VisitaEndereco> visitas = _context.VisitaEndereco.FromSql(" exec [dbo].[VisitaEnderecoSH] ").ToList();
+            List<VisitaEndereco> visitas = _context.VisitaEndereco.FromSql(" exec [dbo].[sp_12_Visita_Endereco] ").ToList();
 
 
             // filtro area
