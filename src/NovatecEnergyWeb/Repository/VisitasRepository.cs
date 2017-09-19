@@ -27,10 +27,10 @@ namespace NovatecEnergyWeb.Repository
             return visitas;
         }
 
-        public IEnumerable<Visitas> GetVisitasFiltro( int zonas, int delegacao, int area, int condominio)
+        public IEnumerable<Visitas> GetVisitasFiltro(int zonas, int delegacao, int area, int condominio)
         {
             var visitas = _context.Visitas.FromSql(" exec [dbo].[CondVisitas] ").ToList();
-           
+
 
             // filtro condominio
             if (condominio == 0)
@@ -45,49 +45,32 @@ namespace NovatecEnergyWeb.Repository
                         //filtro zona 
                         if (zonas == 0)
                         {
-
-                            //paginacao retorna n linhas por pagina
-                           /* vis2 = visitas.Skip(pagina)
-                                       .Take(itensPagina);*/
-
                             return (visitas);
                         }
                         else
                         {
                             IEnumerable<Visitas> filtro = visitas.Where(c => c.Zid == zonas);
-                            
-                                //paginacao retorna n linhas por pagina
-                                /* vis2 = filtro.Skip(pagina)
-                                           .Take(itensPagina);*/
 
-                                return (filtro);
-                          
+                            //paginacao retorna n linhas por pagina
+                            /* vis2 = filtro.Skip(pagina)
+                                       .Take(itensPagina);*/
+
+                            return (filtro);
+
 
                         }
 
                     }
                     else
                     {
-
                         IEnumerable<Visitas> filtro = visitas.Where(c => c.Did == delegacao);
-
-                        //paginacao retorna n linhas por pagina
-                        /*vis2 = filtro.Skip(pagina)
-                                   .Take(itensPagina);*/
-
                         return (filtro);
-
-
                     }
                 }
                 else
                 {
 
                     IEnumerable<Visitas> filtro = visitas.Where(c => c.Aid == area);
-
-                    //paginacao retorna n linhas por pagina
-                    /*vis2 = filtro.Skip(pagina)
-                               .Take(itensPagina);*/
 
                     return (filtro);
 
@@ -99,8 +82,8 @@ namespace NovatecEnergyWeb.Repository
                 IEnumerable<Visitas> filtro = visitas.Where(c => c.Condid == condominio);
 
                 //paginacao retorna n linhas por pagina
-                 /*vis2 = filtro.Skip(pagina)
-                           .Take(itensPagina);*/
+                /*vis2 = filtro.Skip(pagina)
+                          .Take(itensPagina);*/
 
                 return (filtro);
 

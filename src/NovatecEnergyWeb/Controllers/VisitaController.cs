@@ -327,7 +327,7 @@ namespace NovatecEnergyWeb.Controllers
         public IActionResult ExportaExcel( int zonas, int delegacao, int area, int condominio,
             int venda, int d1d2, int tipovisita, int rejeicao, int statuscond, String condominioinput,
             String agcomercialinput, String localidadeinput, String bairro, String logradouroinput,
-            String diavisita1, String diavisita2, int Numero1, int Numero2)
+            String diavisita1, String diavisita2, int Numero1, int Numero2, int lote)
         {
 
          
@@ -336,6 +336,8 @@ namespace NovatecEnergyWeb.Controllers
 
 
             // filtra as seguintes colunas
+            if (lote !=0) { visitas = visitas.Where(c => c.IdLote == lote); }
+
             if (venda != 0) { visitas = visitas.Where(c => c.Vendaid == venda);}
 
             if (d1d2 != 0) { visitas = visitas.Where(c => c.Dxid == d1d2); }
