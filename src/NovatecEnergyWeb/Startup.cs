@@ -37,7 +37,7 @@ namespace NovatecEnergyWeb
 
             var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
 
-            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("Production"));
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("TESTETS"));
 
             AppSettings.contexto = new BDNVTContext(optionsBuilder.Options);
 
@@ -53,7 +53,7 @@ namespace NovatecEnergyWeb
 
             services.AddDbContext<BDNVTContext>(options =>
 
-            options.UseSqlServer(Configuration.GetConnectionString("Production")));
+            options.UseSqlServer(Configuration.GetConnectionString("TESTETS")));
 
 
             // Add framework services.

@@ -28,80 +28,42 @@ namespace NovatecEnergyWeb.Repository
             // filtro area
             if (lotes == 0)
             {
-                // filtro area
                 if (area == 0)
                 {
+                    // filtro delegacao 
+                    if (delegacao == 0)
+                    {
+                        //filtro zona 
+                        if (zonas == 0)
+                        {
 
-                // filtro delegacao 
-                if (delegacao == 0)
-                {
+                            return (visitas);
+                        }
+                        else
+                        {
+                            IEnumerable<VisitaEndereco> filtro = visitas.Where(c => c.Zid == zonas);
+                            return (filtro);
+                        }
+                    }
+                    else
+                    {
+                        IEnumerable<VisitaEndereco> filtro = visitas.Where(c => c.Did == delegacao);
+                        return (filtro);
+                    }
 
-                //filtro zona 
-                if (zonas == 0)
-                {
-
-                    //paginacao retorna n linhas por pagina
-                    /* vis2 = visitas.Skip(pagina)
-                                .Take(itensPagina);*/
-
-                    return (visitas);
                 }
                 else
                 {
-
-                    IEnumerable<VisitaEndereco> filtro = visitas.Where(c => c.Zid == zonas);
-
-                    //paginacao retorna n linhas por pagina
-                    /* vis2 = filtro.Skip(pagina)
-                               .Take(itensPagina);*/
-
+                    IEnumerable<VisitaEndereco> filtro = visitas.Where(c => c.Aid == area);
                     return (filtro);
-
-
                 }
-            }
-            else
-            {
-
-                IEnumerable<VisitaEndereco> filtro = visitas.Where(c => c.Did == delegacao);
-
-                //paginacao retorna n linhas por pagina
-                /*vis2 = filtro.Skip(pagina)
-                           .Take(itensPagina);*/
-
-                return (filtro);
-
-
-            }
-
-            }
-            else
-            {
-
-                IEnumerable<VisitaEndereco> filtro = visitas.Where(c => c.Aid == area);
-
-                //paginacao retorna n linhas por pagina
-                /*vis2 = filtro.Skip(pagina)
-                           .Take(itensPagina);*/
-
-                return (filtro);
-
-
-            }
 
             }
             else
             {
 
                 IEnumerable<VisitaEndereco> filtro = visitas.Where(c => c.IdLote == lotes);
-
-                //paginacao retorna n linhas por pagina
-                /*vis2 = filtro.Skip(pagina)
-                           .Take(itensPagina);*/
-
                 return (filtro);
-
-
             }
 
         }

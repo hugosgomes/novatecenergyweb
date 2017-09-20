@@ -251,7 +251,7 @@
                     <div class="control-group">
                         <label class="control-label labelsFormNav">Lote</label>
                         <div class="controls">
-                            <select id="lotes" name="LoteError" onchange="exibeVisitas();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:150px;"></select>
+                            <select id="lotes" name="LoteError" onchange="exibeVisitas(); atribuiDataToggle();" class="alturaFormNavInput form-control fontTableBodyNavBar" style="width:150px;"></select>
                         </div>
                     </div>
 
@@ -279,7 +279,7 @@
 
                     <br />
                     <label class="fontTableBodyNavBar">Exportar Pijama Form Gás Natural</label>
-                    <a href="#" onclick="ExportaPadraoNovatec();">
+                    <a id="botaoExporta" href="#" data-target="#myModal"   onclick="entrarNaTelaExportacao();">
                         <img src="~/images/ms_excel.png" style="margin-left:19px;" width="30" height="30" />
                     </a>
 
@@ -347,28 +347,6 @@
 <script type="text/javascript" src="~/js/pcoEndereco.js"></script>
 <script type="text/javascript">
 
-     function entrarNaTelaExportacao() {
-
-        if ($("#lotes").val() != null) {
-            var lt = $("#lotes :selected").text().toString();
-            var ltf = lt.split(" ").join("").substr(0, 5).toString();
-            document.getElementById("loteExibicao").innerHTML = 'Lote ' + ltf;
-        } else {
-            alert('Selecione um lote');
-        }
-        //postFilters();
-    }
-
-   function ExportaAgenda() {
-
-       var data = {
-           ano: $("#anos").val(),
-           mes: $("#mes").val()
-       };
-
-        var url = '@AppSettings.ExcelExportUrl';
-        window.location.href = '' + url + '/PcoEndereco/ExportaAgendaAdesao?';
-
-    }
+   
 </script>
 }
