@@ -64,7 +64,23 @@ namespace NovatecEnergyWeb.Controllers
                 pagina = (PaginaClicada - 1) * 20;
             }
 
+            //---- lógica de restrição de filtros de acordo com o acesso do usuário
 
+
+            var d = HttpContext.Session.GetInt32("Delegação");
+            var z = HttpContext.Session.GetInt32("Zona");
+            var quantArea = HttpContext.Session.GetInt32("QuantidadeArea");
+
+            if (quantArea != null && ((int)quantArea == 1))
+            {
+                area = (int)HttpContext.Session.GetInt32("Área");
+            }
+            // se for cliente, vai ter as variáveis de sessão preenchidas
+            zonas = (z != null) ? (int)z : zonas;
+            delegacao = (d != null) ? (int)d : delegacao;
+
+
+            //----FIM lógica de restrição de filtros de acordo com o acesso do usuário
 
             // retorna a consulta filtrada pelos parametros
             var visitas = _VisitasRepository.GetVisitasFiltro( zonas, delegacao, area, condominio);
