@@ -347,12 +347,13 @@ namespace NovatecEnergyWeb.Domain.Services
         }
 
         /*               utilizado no controller PcoEnderecoController.cs                  */
-        /*  public byte[] ExportaAgendaEnderecoPco(List<PcoEndereco> data, _13Lotes lote , FormFiltersAgendaVisitaEnderecosViewModel filtros)
+          public byte[] ExportaAgendaEnderecoPco(List<PcoEndereco> data, 
+              List<PcoEndereco_ExportaAgendaAdesao> data2 , _13Lotes lote, string mes, string ano)
           {
 
-              var enumMeses = (FormFiltersAgendaVisitaEnderecosViewModel.meses)Convert.ToInt32(filtros.Mes);
+              var enumMeses = (FormFiltersAgendaVisitaEnderecosViewModel.meses)Convert.ToInt32(mes);
 
-              FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Lote " + lote.LoteNum + "- Agenda " + enumMeses.ToString() + " De " + filtros.Ano + ".xlsx";
+              FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Lote " + lote.LoteNum + "- Agenda " + enumMeses.ToString() + " De " + ano + ".xlsx";
 
               File.Copy(Path.Combine(WebRootFolder, @"formatoAgendaAdesao.xlsx"), Path.Combine(WebRootFolder, FileName));
               FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
@@ -373,11 +374,6 @@ namespace NovatecEnergyWeb.Domain.Services
                       worksheet.Cells["G" + (i + 4).ToString()].Value = data2[i].Endereco;
                       worksheet.Cells["H" + (i + 4).ToString()].Value = data2[i].Datah;
                       worksheet.Cells["I" + (i + 4).ToString()].Value = data2[i].Entrevistas;
-                      worksheet.Cells["J" + (i + 4).ToString()].Value = data2[i].EntrevistasD2;
-                      worksheet.Cells["M" + (i + 4).ToString()].Value = data2[i].Contratados;
-                      worksheet.Cells["N" + (i + 4).ToString()].Value = data2[i].D2;
-                      worksheet.Cells["O" + (i + 4).ToString()].Value = data2[i].Svg;
-                      worksheet.Cells["P" + (i + 4).ToString()].Value = data2[i].Sve;
                   }
 
                   //Remove aba "Import"
@@ -389,7 +385,7 @@ namespace NovatecEnergyWeb.Domain.Services
 
                   worksheetAgenda.Cells["BR1"].Value = lote.Area;
                   worksheetAgenda.Cells["BR2"].Value = lote.Ge;
-                  worksheetAgenda.Cells["BR3"].Value = enumMeses + "/" + filtros.Ano;
+                  worksheetAgenda.Cells["BR3"].Value = enumMeses + "/" + ano;
 
 
                   //deleta linhas restantes
@@ -406,6 +402,6 @@ namespace NovatecEnergyWeb.Domain.Services
                   file.Delete();
 
               return fileBytes;
-          }*/
+          }
     }
 }

@@ -29,7 +29,7 @@ namespace NovatecEnergyWeb.Repository
         public List<_13Lotes> GetLotes()
         {
             var lotes = (from l in _context._13Lotes.Include(l => l.StatusObj)
-                         where l.Status == 208
+                         where l.Status == 207
                          select l).ToList();
             return lotes;
         }
@@ -43,7 +43,7 @@ namespace NovatecEnergyWeb.Repository
             }
 
             var lotes = ( from l in _context._13Lotes.Include(l =>l.StatusObj)
-                        where areasId.Contains(l.Area) && l.Status == 208
+                        where areasId.Contains(l.Area) && l.Status == 207
                           select l).ToList();
             return lotes;            
         }
@@ -51,7 +51,7 @@ namespace NovatecEnergyWeb.Repository
         public List<_13Lotes> GetLotesByAreaId(int area)
         {
             var lotes = _context._13Lotes.Include(l => l.StatusObj)
-                .Where(l => l.Area == area && (l.Status == 208)).ToList();
+                .Where(l => l.Area == area && (l.Status == 207)).ToList();
             return lotes;
         }
 
@@ -63,7 +63,7 @@ namespace NovatecEnergyWeb.Repository
             }
 
             var lotes = (from l in _context._13Lotes
-                         where areas.Contains(l.Area) && l.Status == 208
+                         where areas.Contains(l.Area) && l.Status == 207
                          join ti in _context._00TabelasItems on l.Status equals ti.Id
                          select new
                          {
@@ -93,7 +93,7 @@ namespace NovatecEnergyWeb.Repository
         {
             var lotes = (from l in _context._13Lotes
                          join ti in _context._00TabelasItems on l.Status equals ti.Id
-                         where l.Status == 208
+                         where l.Status == 207
                          select new
                          {
                              Id = l.Id,
@@ -124,7 +124,7 @@ namespace NovatecEnergyWeb.Repository
                          join a in _context._00Areas on l.Area equals a.Id
                          join d in _context._00Delegacao on (int)a.Delegacao equals d.Id
                          join z in _context._00Zona on d.Zona equals z.Id
-                         where l.Status == 208
+                         where l.Status == 207
                          select new
                          {
                              IdLote = l.Id,
@@ -155,7 +155,7 @@ namespace NovatecEnergyWeb.Repository
                          join a in _context._00Areas on l.Area equals a.Id
                          join d in _context._00Delegacao on (int)a.Delegacao equals d.Id
                          join z in _context._00Zona on d.Zona equals z.Id
-                         where areas.Contains(l.Area) && l.Status == 208
+                         where areas.Contains(l.Area) && l.Status == 207
                          select new
                          {
                              IdLote = l.Id,

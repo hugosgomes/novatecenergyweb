@@ -8,6 +8,8 @@ using NovatecEnergyWeb.Domain.Interfaces.Repository;
 using NovatecEnergyWeb.Models.StoredProcedures;
 using Microsoft.AspNetCore.Http;
 using System.Dynamic;
+using Microsoft.EntityFrameworkCore;
+using NovatecEnergyWeb.Domain.Interfaces;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -15,13 +17,17 @@ namespace NovatecEnergyWeb.Controllers
     {
         private IVisitaEnderecoPcoRepository _visitaEnderecoPcoRepository;
         private ILotePcoRepository _lotePcoRepository;
+        IExcelExporterLotePorClienteApartamento _exporter;
+        private BDNVTContext _context;
         //private IExcelExportVisitaEndereco _exportaExecelVisitaEndereco;
 
         public PcoEnderecoController(IVisitaEnderecoPcoRepository visitaEnderecoPcoRepository, 
-            ILotePcoRepository lotePcoRepository)
+            ILotePcoRepository lotePcoRepository, BDNVTContext context, IExcelExporterLotePorClienteApartamento exporter)
         {
             _visitaEnderecoPcoRepository = visitaEnderecoPcoRepository;
             _lotePcoRepository = lotePcoRepository;
+            _context = context;
+            _exporter = exporter;
         }
 
         public IActionResult Index()
@@ -138,13 +144,29 @@ namespace NovatecEnergyWeb.Controllers
 
         public IActionResult ExportaAgendaAdesao(int lote, int zona, int delegacao, int area, string bairro, string ano, string mes )
         {
-            //primeira consulta
-            var visitasEndereco = _visitaEnderecoPcoRepository.VisitasPcoEndereco(zona, delegacao, area, lote, bairro);
+            
+            var visitasEndereco = _visitaEnderecoPcoRepository.VisitasPcoEndereco(zona, delegacao, area, lote, bairro).ToList();
 
+            //mudar isso para um repositório depois
+            var dataExporta = _context._PcoEndereco_ExportaAgendaAdesao
+                .FromSql("exec [dbo].[sp_13_Visita_Endereco_ExportaAgendaAdesao] ");
+
+            if (!String.IsNullOrEmpty(ano))
+            {
+                dataExporta = dataExporta.Where(d => d.Datah.Year == Convert.ToInt32(ano));
+            }
+
+            if (!String.IsNullOrEmpty(mes))
+            {
+                dataExporta = dataExporta.Where(d => d.Datah.Month == Convert.ToInt32(mes));
+            }
 
             var loteEscolhido = _lotePcoRepository.GetLotesById(lote).FirstOrDefault();
 
+            byte[] fileBytes =  _exporter.ExportaAgendaEnderecoPco(visitasEndereco, dataExporta.ToList(),
+                loteEscolhido, mes, ano);
 
+            return File(fileBytes, "application/x-msdownload", _exporter.FileName);
         } 
 
 

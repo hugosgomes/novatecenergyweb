@@ -11,6 +11,7 @@ namespace NovatecEnergyWeb.Core
     public partial class BDNVTContext : DbContext
     {
         //public virtual DbSet<CondEnderecoExportaAgendaAdesao>
+        public virtual DbSet<PcoEndereco_ExportaAgendaAdesao> _PcoEndereco_ExportaAgendaAdesao { get; set; }
         public virtual DbSet<VisitaPco> VisitaPco { get; set; }
         public virtual DbSet<_13MotivosRej> _13MotivosRej { get; set; }
         public virtual DbSet<_13Lotes> _13Lotes { get; set; }
@@ -238,7 +239,7 @@ namespace NovatecEnergyWeb.Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<PcoEndereco_ExportaAgendaAdesao>().HasKey(c => c.Id);
             modelBuilder.Entity<VisitaPco>().HasKey(c => c.Id);
             modelBuilder.Entity<Pco>().HasKey(c => c.Id);
             modelBuilder.Entity<CondEstatistica>().HasKey(c => c.Id);
