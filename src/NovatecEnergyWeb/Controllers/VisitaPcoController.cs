@@ -34,6 +34,7 @@ namespace NovatecEnergyWeb.Controllers
 
 
         [HttpPost]
+        [AutenticacaoFilter]
         public IActionResult VisitaPco([FromForm] VisitaPcoViewModel visitaViewModel, int PaginaClicada)
         {          
             var visitasPcoLista = _visitaPcoRepository.GetVisitaPco();
@@ -70,7 +71,7 @@ namespace NovatecEnergyWeb.Controllers
             return Json(retorno);
         }
 
-        
+        [AutenticacaoFilter]
         public IActionResult ExportaPadraoNovatec(int Zid, int AId,int IdLote,int Interesse,int NegativaId, int AgComercialId,
                                     string Diavisita1, string Diavisita2, string Pco, string AgVisita, string Bairro,
                                        string Localidade, string Logradouro, int Numero1, int Numero2, int TipoVisitaId)

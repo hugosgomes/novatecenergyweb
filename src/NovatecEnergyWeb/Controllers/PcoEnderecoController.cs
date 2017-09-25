@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using System.Dynamic;
 using Microsoft.EntityFrameworkCore;
 using NovatecEnergyWeb.Domain.Interfaces;
+using NovatecEnergyWeb.Filters.ActionFilters;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -29,7 +30,7 @@ namespace NovatecEnergyWeb.Controllers
             _context = context;
             _exporter = exporter;
         }
-
+        [AutenticacaoFilter]
         public IActionResult Index()
         {
             return View();

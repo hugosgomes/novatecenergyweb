@@ -18,7 +18,7 @@ namespace NovatecEnergyWeb.Repository
             _context = context;
         }
 
-        public IEnumerable<PcoEndereco> VisitasPcoEndereco(int zona, int delegacao, int area, int lote, string bairro)
+        public List<PcoEndereco> VisitasPcoEndereco(int zona, int delegacao, int area, int lote, string bairro)
         {
             var visitas = _context.PcoEndereco.FromSql(" exec [dbo].[sp_13_Visita_Endereco]; ");
 
@@ -47,7 +47,7 @@ namespace NovatecEnergyWeb.Repository
                 visitas = visitas.Where(c => c.Endereco.Contains(bairro));
             }
 
-            return visitas;
+            return visitas.ToList();
         }
     }
 }
