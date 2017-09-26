@@ -18,9 +18,9 @@ namespace NovatecEnergyWeb.Controllers
     public class VisitaPcoController : Controller
     {
         private IVisitaPcoRepository _visitaPcoRepository;
-        private IExcelExporterLotePorClienteApartamento _exporter;
+        private IExcelExporter _exporter;
 
-        public VisitaPcoController(IVisitaPcoRepository visitaPcoRepository, IExcelExporterLotePorClienteApartamento exporter)
+        public VisitaPcoController(IVisitaPcoRepository visitaPcoRepository, IExcelExporter exporter)
         {
             _visitaPcoRepository = visitaPcoRepository;
             _exporter = exporter;

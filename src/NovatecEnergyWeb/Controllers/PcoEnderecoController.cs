@@ -18,12 +18,12 @@ namespace NovatecEnergyWeb.Controllers
     {
         private IVisitaEnderecoPcoRepository _visitaEnderecoPcoRepository;
         private ILotePcoRepository _lotePcoRepository;
-        IExcelExporterLotePorClienteApartamento _exporter;
+        IExcelExporter _exporter;
         private BDNVTContext _context;
         //private IExcelExportVisitaEndereco _exportaExecelVisitaEndereco;
 
         public PcoEnderecoController(IVisitaEnderecoPcoRepository visitaEnderecoPcoRepository, 
-            ILotePcoRepository lotePcoRepository, BDNVTContext context, IExcelExporterLotePorClienteApartamento exporter)
+            ILotePcoRepository lotePcoRepository, BDNVTContext context, IExcelExporter exporter)
         {
             _visitaEnderecoPcoRepository = visitaEnderecoPcoRepository;
             _lotePcoRepository = lotePcoRepository;

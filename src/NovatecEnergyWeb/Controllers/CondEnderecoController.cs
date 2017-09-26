@@ -9,6 +9,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using NovatecEnergyWeb.Domain.Interfaces.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -22,10 +23,12 @@ namespace NovatecEnergyWeb.Controllers
         private ICondominioLoteAtivo _condominioRepository;
         private IMotivoRejeicao _motivoRejeicaoRepository;
         private IExcelExportVisitaEnderecoCondominio _exportaExecelVisitaEndereco;
+        private ILoteCondominioRepository _loteCondominioRepository;
 
         public CondEnderecoController(BDNVTContext context,
            IVisitaEnderecoRepository visitaEnderecoRepository, IMotivoRejeicao motivoRejeicaoRepository, IAreaRepository areaRepository,
-           ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository, IExcelExportVisitaEnderecoCondominio exportaExcelVisitaEndereco
+           ICondominioLoteAtivo condominioRepository, ILoteRepository loteRepository, IExcelExportVisitaEnderecoCondominio exportaExcelVisitaEndereco,
+           ILoteCondominioRepository loteCondominioRepository
 
            )
 
@@ -37,6 +40,7 @@ namespace NovatecEnergyWeb.Controllers
             _loteRepository = loteRepository;
             _condominioRepository = condominioRepository;
             _exportaExecelVisitaEndereco = exportaExcelVisitaEndereco;
+            _loteCondominioRepository = loteCondominioRepository;
 
         }
 
@@ -188,11 +192,13 @@ namespace NovatecEnergyWeb.Controllers
         }
 
 
-        public IActionResult ExportaExcel(int lotes, int zonas, int delegacao, int area, String endereco)
+        public IActionResult ExportaExcel(int lotes, int zonas, int delegacao, int area, String endereco, string ano, string mes)
         {
             // retorna a consulta filtrada pelos parametros
             var visitas = _visitaEnderecoRepository.VisitasEnderecoFiltro(zonas, delegacao, area, lotes);
 
+            var dataExporta = _context._CondEndereco_ExportaAgendaAdesao
+                .FromSql("exec  [dbo].[sp_12_Visita_Endereco_ExportaAgendaAdesao] ");
 
             // filtra as seguintes colunas
             if (endereco != null)
@@ -200,10 +206,22 @@ namespace NovatecEnergyWeb.Controllers
                 visitas = visitas.Where(c => c.Endereco.Contains(endereco));
             }
 
+            if (!String.IsNullOrEmpty(ano)){
+                dataExporta = dataExporta.Where(d => d.Datah.Year == Convert.ToInt32(ano));
+            }
+
+
+            if (!String.IsNullOrEmpty(mes))
+            {
+                dataExporta = dataExporta.Where(d => d.Datah.Month == Convert.ToInt32(mes));
+            }
+
+            var loteEscolhido =  _loteCondominioRepository.GetLotesById(lotes).FirstOrDefault();
+
             List<VisitaEndereco> vs = visitas.ToList();
 
 
-            byte[] fileBytes = _exportaExecelVisitaEndereco.ExportaPadraoNovatec(vs);
+            byte[] fileBytes = _exportaExecelVisitaEndereco.ExportaAgendaGasNaturalEnderecoCondominio(vs, dataExporta.ToList(),loteEscolhido,mes,ano);
 
             return File(fileBytes, "application/x-msdownload", _exportaExecelVisitaEndereco.FileName);
         }

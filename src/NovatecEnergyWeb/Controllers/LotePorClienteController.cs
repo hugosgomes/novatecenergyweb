@@ -27,12 +27,12 @@ namespace NovatecEnergyWeb.Controllers
         private ILoteRepository _loteRepository;
         private ICondominioLoteAtivo _condominioRepository;
         private IMotivoRejeicao _motivoRejeicaoRepository;
-        private IExcelExporterLotePorClienteApartamento _exportaExcelLotePorCliente;
+        private IExcelExporter _exportaExcelLotePorCliente;
 
         public LotePorClienteController(BDNVTContext context, IHostingEnvironment he, 
             IAreaRepository areaRepository, ILoteRepository loteRepository, 
             ICondominioLoteAtivo condominioRepository, IMotivoRejeicao motivoRejeicaoRepository,
-            IExcelExporterLotePorClienteApartamento exportaExcelLotePorCliente)
+            IExcelExporter exportaExcelLotePorCliente)
         {
             _context = context;
             _hostingEnvironment = he;

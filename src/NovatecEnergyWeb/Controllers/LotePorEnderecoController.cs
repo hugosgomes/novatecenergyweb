@@ -408,7 +408,7 @@ namespace NovatecEnergyWeb.Controllers
                             DataLote = l.DataLote
                         });
 
-            ExcelExporterLotePorClienteApartamento exp = new ExcelExporterLotePorClienteApartamento(_hostingEnvironment);
+            ExcelExporter exp = new ExcelExporter(_hostingEnvironment);
             byte[] fileBytes = exp.ExportaAgendaAdesao(dataEnderecosAtivos, dataExporta, lote, filtrosTelaExportacao);
 
             return File(fileBytes, "application/x-msdownload", exp.FileName);

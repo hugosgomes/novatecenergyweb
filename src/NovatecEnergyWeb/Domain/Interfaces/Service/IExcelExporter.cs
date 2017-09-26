@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace NovatecEnergyWeb.Domain.Interfaces
 { 
 
-    public interface IExcelExporterLotePorClienteApartamento
+    public interface IExcelExporter
     {
         string FileName { get; set; }
         byte[] ExportaPadraoNovatec(List<LotePorCliente> data);

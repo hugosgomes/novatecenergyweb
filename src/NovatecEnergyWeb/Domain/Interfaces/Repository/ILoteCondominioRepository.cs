@@ -11,5 +11,6 @@ namespace NovatecEnergyWeb.Domain.Interfaces.Repository
         List<_12Lotes> GetLotes();
         List<_12Lotes> GetLotesByListArea(List<_00Areas> areas);
         List<_12Lotes> GetLotesByAreaId(int area);
+        List<_12Lotes> GetLotesById(int lote);
     }
 }

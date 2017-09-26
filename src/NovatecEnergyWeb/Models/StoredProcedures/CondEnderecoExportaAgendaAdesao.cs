@@ -11,6 +11,9 @@ namespace NovatecEnergyWeb.Models.StoredProcedures
         public int IdLote { get;set; }
         public string Endereco { get; set; }
         public DateTime Datah { get; set; }
+        public int Entrevistas { get; set; }
+        public int EntrevistasD2 { get; set; }
+        public string EnderecoB { get; set; }
 
     }
 }

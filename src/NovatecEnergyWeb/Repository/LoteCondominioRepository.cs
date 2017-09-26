@@ -46,5 +46,13 @@ namespace NovatecEnergyWeb.Repository
                          select l).ToList();
             return lotes;
         }
+
+        public List<_12Lotes> GetLotesById(int lote)
+        {
+            var lotes = (from l in _context._12Lotes
+                         where l.Id == lote
+                         select l).ToList();
+            return lotes;
+        }
     }
 }

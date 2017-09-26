@@ -13,13 +13,13 @@ using NovatecEnergyWeb.Models;
 
 namespace NovatecEnergyWeb.Domain.Services
 {
-    public class ExcelExporterLotePorClienteApartamento : IExcelExporterLotePorClienteApartamento
+    public class ExcelExporter : IExcelExporter
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         public string FileName { get; set; }
         private string WebRootFolder;
 
-        public ExcelExporterLotePorClienteApartamento(IHostingEnvironment he)
+        public ExcelExporter(IHostingEnvironment he)
         {
             _hostingEnvironment = he;
             WebRootFolder = _hostingEnvironment.WebRootPath + "\\excel";

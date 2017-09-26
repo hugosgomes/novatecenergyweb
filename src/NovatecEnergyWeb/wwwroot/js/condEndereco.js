@@ -463,3 +463,23 @@ function preencheCondominio(retorno) {
     $("#condominio").prop("selectedIndex", -1);
 }
 
+function entrarNaTelaExportacao() {
+
+    if ($("#lotes").val() != null) {
+        var lt = $("#lotes :selected").text().toString();
+        var ltf = lt.split(" ").join("").substr(0, 5).toString();
+        document.getElementById("loteExibicao").innerHTML = 'Lote ' + ltf;
+    } else {
+        alert('Selecione um lote');
+    }
+    //postFilters();
+}
+
+//usado na combo de lote para acrescentar o atributo data-toggle pra abrir a telinha de exportação
+function atribuiDataToggle() {
+    var vatt = $('#botaoExporta').attr('data-toggle');
+    if (vatt == null) {
+        $('#botaoExporta').attr('data-toggle', 'modal');
+    }
+}
+
