@@ -7,6 +7,9 @@
     ViewData["Title"] = "Visitas Comerciais";
 }
 
+@Html.Hidden("urlMes", DateTime.Now.Month)
+@Html.Hidden("urlAno", DateTime.Now.Year)
+
 <div class="container">
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
@@ -416,13 +419,14 @@
                p.delegacao = $('#delegacao').val();
                p.area = $('#area').val();
                p.endereco = $('#endereco').val().toString().toUpperCase().trim();
-
+               p.ano = $("#anos").val();
+               p.mes = $("#mes").val();
 
 
 
                var urlconfig = '@AppSettings.ExcelExportUrl';
                window.location.href = '' + urlconfig + '/CondEndereco/ExportaExcel?zonas=' + p.zonas + '&delegacao=' +
-                   p.delegacao + '&area=' + p.area + '&lotes=' + p.lotes + '&endereco=' + p.endereco;
+                   p.delegacao + '&area=' + p.area + '&lotes=' + p.lotes + '&endereco=' + p.endereco + '&ano=' + p.ano + '&mes=' + p.mes;
 
 
                $("#load").fadeOut(); // apaga animacao carregando

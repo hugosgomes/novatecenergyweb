@@ -325,6 +325,11 @@ function atribuiDataToggle() {
 
 function entrarNaTelaExportacao() {
 
+
+    $("#mes").val($("#urlMes").val());
+    $("#anos").val($("#urlAno").val());
+
+
     if ($("#lotes").val() != null) {
         var lt = $("#lotes :selected").text().toString();
         var ltf = lt.split(" ").join("").substr(0, 5).toString();
@@ -347,8 +352,8 @@ function ExportaAgenda() {
     p.delegacao = $('#delegacao').val();
     p.area = $('#area').val();
     p.bairro = $('#endereco').val().toString().toUpperCase().trim();
-    p.mes = $("#urlMes").val();
-    p.ano = $("#urlAno").val();
+    p.mes = $("#anos").val();
+    p.ano = $("#mes").val();
 
     window.location.href = '' + url + '/PcoEndereco/ExportaAgendaAdesao?zona=' + p.zonas + '&delegacao=' +
         p.delegacao + '&area=' + p.area + '&=' + p.lotes + '&bairro=' + p.endereco + '&ano='+ p.ano +'&mes=' +p.mes;

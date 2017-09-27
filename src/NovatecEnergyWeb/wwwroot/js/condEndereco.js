@@ -465,6 +465,9 @@ function preencheCondominio(retorno) {
 
 function entrarNaTelaExportacao() {
 
+    $("#mes").val($("#urlMes").val());
+    $("#anos").val($("#urlAno").val());
+
     if ($("#lotes").val() != null) {
         var lt = $("#lotes :selected").text().toString();
         var ltf = lt.split(" ").join("").substr(0, 5).toString();
