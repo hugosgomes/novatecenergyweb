@@ -25,7 +25,8 @@ function exibeVisitas(){
         $.post(url, data, 
             
            
-            function(retorno){
+            function (retorno) {
+                montaPaginacao(retorno);
                 preencheListagem(retorno);
             }
     
@@ -37,7 +38,7 @@ function exibeVisitas(){
 
 function preencheListagem(visitas) {
 
-    montaPaginacao(visitas);
+//    montaPaginacao(visitas);
     estatistica(visitas);
 
     // preenche a tabela
