@@ -8,156 +8,10 @@
 
 <h3>@ViewData["Title"]</h3>
 
-<script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-
-<script type="text/javascript">
-
-    var config = {
-        type: 'line',
-        data: {
-            labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dec"],
-            datasets: [ {
-                    label: "Cargas",
-                    data: [],
-                    fill: true
-                }]
-        },
-        options: {
-            responsive: true,
-            title: {
-                display: true,
-                text: ''
-            },
-            tooltips: {
-                mode: 'label',
-                callbacks: {
-
-                }
-            },
-            hover: {
-                mode: 'dataset'
-            },
-            scales: {
-                xAxes: [{
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Meses'
-                    }
-                }],
-                yAxes: [{
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Valores'
-                    },
-                    ticks: {
-                        suggestedMin: 0,
-                        suggestedMax: 1000,
-                    }
-                }]
-            }
-        }
-    };
-
-    configuraCores();
-
-    function chamaGetResultados() {
-        var parametro = {};
-        parametro.anoSelecionado = document.getElementById("anos").value;
-
-        $.post("@Url.Action("BuscaCargasFiltradas", "Cargas")", parametro, alteraColunas);
-    };
-
-    function alteraColunas(retorno) {
-        tabelaCargas(retorno);
-        graficoAlteraValores(retorno);
-    }
-
-    function tabelaCargas(retorno) {
-        for (var j = 0; j < retorno.Cargas.length; j++) {
-            $("#CargasZona_" + retorno.Cargas[j].id).html(retorno.Cargas[j].zona);
-
-            for (var i = 0; i < 12; i++) {
-                $("#CargasMes"+i+"_" + retorno.Cargas[j].id).html(retorno.Cargas[j].meses[i]);
-            }
-            $("#CargasTri1_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim1);
-            $("#CargasTri2_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim2);
-            $("#CargasTri3_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim3);
-            $("#CargasTri4_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim4);
-
-            $("#CargasAnual_" + retorno.Cargas[j].id).html(retorno.Cargas[j].anual);
-        }
-       
-    }
-
-
-    function graficoAlteraValores(retorno) {
-        //limpa o gráficos
-        config.data.datasets = [];
-        var newCargas = {
-            label: "Cargas",
-            data: [],
-            fill: true
-        };
-        config.data.datasets.push(newCargas);
-        configuraCores();
-        //O gráfico era preeenchido com as infos da Tabela Resumo
-        if (retorno.Cargas.length > 1){
-            for (var i = 0; i < 12; i++) {
-                config.data.datasets[0].data.push(parseInt(retorno.Cargas[2].meses[i]));
-            }
-        }else{
-            for (var i = 0; i < 12; i++) {
-                config.data.datasets[0].data.push(parseInt(retorno.Cargas[0].meses[i]));
-            }
-        }
-       
-        window.myLine.update();
-    }
-
-    function configuraCores() {
-        //Cargas
-        config.data.datasets[0].pointBorderWidth = 1;
-        config.data.datasets[0].pointBorderColor = 'rgba(255,199,0,0.7)';
-        config.data.datasets[0].pointBackgroundColor = 'rgba(255, 0, 0, 0)';
-        config.data.datasets[0].borderColor = 'rgba(255,199,0,0.7)';
-        config.data.datasets[0].backgroundColor = 'rgba(255, 198, 0, 0.2)';
-
-    }
-
-    var parametro = {};
-    parametro.anoSelecionado = @DateTime.Now.Year;
-
-    $.post("@Url.Action("BuscaCargasFiltradas", "Cargas")", parametro, function (retorno) {
-        
-        if (retorno.Cargas.length > 1){
-            for (var i = 0; i < 12; i++) {
-                config.data.datasets[0].data.push(parseInt(retorno.Cargas[2].meses[i]));
-            }
-        }else{
-            for (var i = 0; i < 12; i++) {
-                config.data.datasets[0].data.push(parseInt(retorno.Cargas[0].meses[i]));
-            }
-        }
-
-        window.myLine.update();
-    });
-
-    //Muda o valor selecionado do select para ano atual
-    window.onload = function () {
-        var ctx = document.getElementById("canvas").getContext("2d");
-        window.myLine = new Chart(ctx, config);
-        $("#anos").val("@DateTime.Now.Year");
-    };
-
-</script>
 
 <select id="anos" onchange="chamaGetResultados()">
-    <option>2015</option>
-    <option>2016</option>
-    <option>2017</option>
+  
 </select>
 
 <div style="width:100%">
@@ -260,4 +114,172 @@
     </tbody>
 </table>
 
+<script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+<script type="text/javascript">
+
+    var config = {
+        type: 'line',
+        data: {
+            labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dec"],
+            datasets: [ {
+                    label: "Cargas",
+                    data: [],
+                    fill: true
+                }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: ''
+            },
+            tooltips: {
+                mode: 'label',
+                callbacks: {
+
+                }
+            },
+            hover: {
+                mode: 'dataset'
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Meses'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Valores'
+                    },
+                    ticks: {
+                        suggestedMin: 0,
+                        suggestedMax: 1000,
+                    }
+                }]
+            }
+        }
+    };
+
+    configuraCores();
+
+    function chamaGetResultados() {
+        var parametro = {};
+        parametro.anoSelecionado = document.getElementById("anos").value;
+
+        $.post("@Url.Action("BuscaCargasFiltradas", "Cargas")", parametro, alteraColunas);
+    };
+
+    function alteraColunas(retorno) {
+        tabelaCargas(retorno);
+        graficoAlteraValores(retorno);
+    }
+
+    function tabelaCargas(retorno) {
+        for (var j = 0; j < retorno.Cargas.length; j++) {
+            $("#CargasZona_" + retorno.Cargas[j].id).html(retorno.Cargas[j].zona);
+
+            for (var i = 0; i < 12; i++) {
+                $("#CargasMes"+i+"_" + retorno.Cargas[j].id).html(retorno.Cargas[j].meses[i]);
+            }
+            $("#CargasTri1_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim1);
+            $("#CargasTri2_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim2);
+            $("#CargasTri3_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim3);
+            $("#CargasTri4_" + retorno.Cargas[j].id).html(retorno.Cargas[j].trim4);
+
+            $("#CargasAnual_" + retorno.Cargas[j].id).html(retorno.Cargas[j].anual);
+        }
+
+    }
+
+
+    function graficoAlteraValores(retorno) {
+        //limpa o gráficos
+        config.data.datasets = [];
+        var newCargas = {
+            label: "Cargas",
+            data: [],
+            fill: true
+        };
+        config.data.datasets.push(newCargas);
+        configuraCores();
+        //O gráfico era preeenchido com as infos da Tabela Resumo
+        if (retorno.Cargas.length > 1){
+            for (var i = 0; i < 12; i++) {
+                config.data.datasets[0].data.push(parseInt(retorno.Cargas[2].meses[i]));
+            }
+        }else{
+            for (var i = 0; i < 12; i++) {
+                config.data.datasets[0].data.push(parseInt(retorno.Cargas[0].meses[i]));
+            }
+        }
+
+        window.myLine.update();
+    }
+
+    function configuraCores() {
+        //Cargas
+        config.data.datasets[0].pointBorderWidth = 1;
+        config.data.datasets[0].pointBorderColor = 'rgba(255,199,0,0.7)';
+        config.data.datasets[0].pointBackgroundColor = 'rgba(255, 0, 0, 0)';
+        config.data.datasets[0].borderColor = 'rgba(255,199,0,0.7)';
+        config.data.datasets[0].backgroundColor = 'rgba(255, 198, 0, 0.2)';
+
+    }
+
+    var parametro = {};
+    parametro.anoSelecionado = @DateTime.Now.Year;
+
+    $.post("@Url.Action("BuscaCargasFiltradas", "Cargas")", parametro, function (retorno) {
+
+        if (retorno.Cargas.length > 1){
+            for (var i = 0; i < 12; i++) {
+                config.data.datasets[0].data.push(parseInt(retorno.Cargas[2].meses[i]));
+            }
+        }else{
+            for (var i = 0; i < 12; i++) {
+                config.data.datasets[0].data.push(parseInt(retorno.Cargas[0].meses[i]));
+            }
+        }
+
+        window.myLine.update();
+    });
+
+
+
+
+   
+    window.onload = function () {
+        //desenha o gráfico
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+
+        var d = new Date();
+        var anos = [2015, 2016];
+
+
+        for (var i = 0; i < anos.length; i++) {            
+            if (anos.indexOf(anos[i] + 1) >= 0) { //ex: 2015 + 1 já existe no array ? Se sim, próximo
+                continue;
+            }
+
+            if (anos[i] + 1 <= d.getFullYear()) {
+                anos.push(anos[i] + 1);
+            }
+        }
+        // preenche o select
+        $.each(anos, function () { 
+            $("#anos").append($("<option />").text(this.toString()));
+        });
+
+         //Muda o valor selecionado do select para ano atual
+        $("#anos").val(d.getFullYear());
+
+    };
+
+</script>
