@@ -14,8 +14,8 @@ namespace NovatecEnergyWeb.Filters.ActionFilters
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             string tipo = context.HttpContext.Session.GetString("UserTipo");
-            int grupo = Convert.ToInt32(context.HttpContext.Session.GetInt32("Grupo"));
-            if ((tipo == "func") &&(grupo == 1))
+            int userId = Convert.ToInt32(context.HttpContext.Session.GetInt32("UserId"));
+            if ((tipo == "func") &&(userId == 1587))
             {
                 base.OnActionExecuting(context);
             }else

@@ -10,26 +10,23 @@
             else
             {
                <!-- <a asp-controller="ClientesWeb" asp-action="Create"><span class="glyphicon glyphicon-log-in"></span> Cadastre-se</a> -->
-
             }
         }
-
-
             <ul class="dropdown-menu">
-
-       
             @{
-
                 object a = Context.Session.GetInt32("UserId");
                 if (a != null)
                 {
-
                 <li><a asp-area="" asp-controller="Account" asp-action="TrocaSenha"><i class="fa fa-unlock-alt fa-sm"></i>&nbsp;Trocar Senha</a></li>
-                                        <li><a asp-area="" asp-controller="Account" asp-action="Logout"><i class="fa fa-power-off fa-sm"></i>&nbsp;Logout</a></li>
+                    if (Convert.ToInt32(user) == 1587)
+                    {
+                        <li><a asp-area="" asp-controller="ClientesWeb" asp-action="Index">&nbsp;Ativação de Cliente</a></li>
+                        <li><a asp-area="" asp-controller="ClientesWeb" asp-action="Create">&nbsp;Criação de Cliente</a></li>
+                    }
+                <li><a asp-area="" asp-controller="Account" asp-action="Logout"><i class="fa fa-power-off fa-sm"></i>&nbsp;Logout</a></li>
                 }
 
             }
-
             </ul>
    </li>
 </ul>

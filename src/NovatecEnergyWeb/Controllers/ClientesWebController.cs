@@ -7,7 +7,6 @@ using NovatecEnergyWeb.Models;
 using NovatecEnergyWeb.Filters.ActionFilters;
 using NovatecEnergyWeb.Core;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace NovatecEnergyWeb.Controllers
 {
@@ -25,9 +24,7 @@ namespace NovatecEnergyWeb.Controllers
         [TipoFuncionarioFilter]
         public IActionResult Index()
         {
-            IList<ClientesWeb> lista = _context.ClientesWeb
-                //.Where(c => c.StatusLogin == false)
-                .ToList();
+            IList<ClientesWeb> lista = _context.ClientesWeb.ToList();
 
             return View(lista);
         }
@@ -47,23 +44,22 @@ namespace NovatecEnergyWeb.Controllers
             {
                 var senhaHash = Encryption.GetSHA1HashData(clienteWeb.Senha);
                 clienteWeb.Senha = senhaHash;
-
                 clienteWeb.StatusLogin = false;
 
                 _context.ClientesWeb.Add(clienteWeb);
                 _context.SaveChanges();
 
                 //email para diretoria
-                var emailSender = new EmailDiretoria(clienteWeb.NomeCompleto);
-                emailSender.Enviar();
+              //  var emailSender = new EmailDiretoria(clienteWeb.NomeCompleto);
+               // emailSender.Enviar();
 
                 //email para cliente avisando o cadastro feito
-                var emailSender2 = new EmailCliente(clienteWeb.Email,true);
-                emailSender2.Enviar();
+             //   var emailSender2 = new EmailCliente(clienteWeb.Email,true);
+              //  emailSender2.Enviar();
 
                 TempData["mensagem"] = "Cliente criado com sucesso!";
 
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Index", "ClientesWeb");
             }
 
             ViewBag.ClientesWeb = clienteWeb;

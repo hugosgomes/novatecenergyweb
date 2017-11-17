@@ -123,6 +123,21 @@ function getLotes() {
         });
 }
 
+function postZona() {
+    var p = {};
+    p.zona = $("#zonas").val();
 
+    var url = $("#urlZonaCascade").val();
 
+    $.post(url, p, atualizaDropsZona);
+}
 
+function preencheDelegacao(retorno) {
+    $("#delegacao").empty();
+
+    $.each(retorno.delegacao, function () {
+        $("#delegacao").append($("<option />").val(this.id).text(this.delegacao));
+    });
+
+    $("#delegacao").prop("selectedIndex", -1);
+}

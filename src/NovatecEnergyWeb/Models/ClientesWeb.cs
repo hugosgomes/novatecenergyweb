@@ -35,10 +35,10 @@ namespace NovatecEnergyWeb.Models
         [EmailAddress(ErrorMessage = "E-mail em formato inválido")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Informe a zona")]
+      //  [Required(ErrorMessage = "Informe a zona")]
         public int? Zona { get; set; }
 
-        [Required(ErrorMessage = "Informe a delegação")]
+       // [Required(ErrorMessage = "Informe a delegação")]
         public int? Delegacao { get; set; }
 
        /* [Required(ErrorMessage = "Informe a área")]

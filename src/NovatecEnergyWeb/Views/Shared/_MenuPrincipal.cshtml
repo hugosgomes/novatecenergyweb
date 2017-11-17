@@ -2,11 +2,11 @@
 <ul class="nav navbar-nav">
   
     @{
-        object us = Context.Session.GetInt32("UserId");
+        object userId = Context.Session.GetInt32("UserId");
         string tipo = Context.Session.GetString("UserTipo");
         int grupo = Convert.ToInt32(Context.Session.GetInt32("Grupo"));
 
-        if ((us != null) && (tipo != null && (tipo == "func")))
+        if ((userId != null) && (tipo != null && (tipo == "func")))
         {
             
                  <li><a asp-area="" asp-controller="Cargas" asp-action="Index"><i class="fa fa-briefcase fa-sm"></i>&nbsp;Cargas</a></li>
@@ -47,15 +47,15 @@
 
 
                     </ul>
-                </li>  
+                </li>
 
+         
 
-            <!-- <li><a asp-area="" asp-controller="ClientesWeb" asp-action="Index">Ativação de clientes</a></li>-->
 
 
 
         }
-        else if ((us != null) && (tipo != null && (tipo == "cli")))
+        else if ((userId != null) && (tipo != null && (tipo == "cli")))
         {
            <!-- <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Oferta pública <span class="caret"></span></a>
