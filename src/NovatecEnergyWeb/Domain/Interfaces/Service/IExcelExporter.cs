@@ -11,10 +11,11 @@ namespace NovatecEnergyWeb.Domain.Interfaces
     public interface IExcelExporter
     {
         string FileName { get; set; }
+        string FileNameCopy { get; set; }
         byte[] ExportaPadraoNovatec(List<LotePorCliente> data);
         byte[] ExportaPadraoGasNatural(List<_11_LoteAtivoB> data, IEnumerable<dynamic> lote);
         byte[] ExportaPadraoNovatecVisitaPco(List<VisitaPco> data); // mudar método depois
-        byte[] ExportaAgendaEnderecoPco(List<PcoEndereco> data,
-              List<PcoEndereco_ExportaAgendaAdesao> data2, _13Lotes lote, string mes, string ano);
+        byte[] ExportaAgendaEnderecoPco(List<PcoEndereco> data,List<PcoEndereco_ExportaAgendaAdesao> data2, _13Lotes lote, string mes, string ano);
+        byte[] ExportaPijamaGasNaturalPyme(List<PijamaGasNaturalPyme> data, _13Lotes lote);
     }
 }

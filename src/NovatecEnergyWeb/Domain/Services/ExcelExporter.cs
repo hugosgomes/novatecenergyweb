@@ -18,6 +18,7 @@ namespace NovatecEnergyWeb.Domain.Services
         private readonly IHostingEnvironment _hostingEnvironment;
         public string FileName { get; set; }
         private string WebRootFolder;
+        public string FileNameCopy { get; set; }
 
         public ExcelExporter(IHostingEnvironment he)
         {
@@ -347,8 +348,7 @@ namespace NovatecEnergyWeb.Domain.Services
         }
 
         /*               utilizado no controller PcoEnderecoController.cs                  */
-          public byte[] ExportaAgendaEnderecoPco(List<PcoEndereco> data, 
-              List<PcoEndereco_ExportaAgendaAdesao> data2 , _13Lotes lote, string mes, string ano)
+        public byte[] ExportaAgendaEnderecoPco(List<PcoEndereco> data, List<PcoEndereco_ExportaAgendaAdesao> data2 , _13Lotes lote, string mes, string ano)
           {
 
               var enumMeses = (FormFiltersAgendaVisitaEnderecosViewModel.meses)Convert.ToInt32(mes);
@@ -403,5 +403,51 @@ namespace NovatecEnergyWeb.Domain.Services
 
               return fileBytes;
           }
+
+        public byte[] ExportaPijamaGasNaturalPyme(List<PijamaGasNaturalPyme> data, _13Lotes lote)
+        {
+            
+            FileName = @"" + DateTime.Now.ToString("yyMMddHHmmss") + "_Relatório_Lote_" + lote.LoteNum + ".xlsm";
+
+            File.Copy(Path.Combine(WebRootFolder, FileNameCopy), Path.Combine(WebRootFolder, FileName));
+            FileInfo file = new FileInfo(Path.Combine(WebRootFolder, FileName));
+
+            using (ExcelPackage package = new ExcelPackage(file))
+            {
+                // ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("qExcel");
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
+
+                worksheet.Cells["B4"].Value = lote.LoteNum;
+                worksheet.Cells["C4"].Value = data.Count();
+                worksheet.Cells["D5"].Value = lote.Meta;
+                worksheet.Cells["F3"].Value = (lote.DataLote != null)? Convert.ToDateTime(lote.DataLote).ToString("dd/MM/yy") :"";
+                worksheet.Cells["F4"].Value = (lote.DataEntrega != null)? Convert.ToDateTime(lote.DataEntrega).ToString("dd/MM/yy") : "";
+                worksheet.Cells["I3"].Value = lote.Ge;
+                worksheet.Cells["I4"].Value = data.FirstOrDefault().Localidade;
+
+                for (int i = 0; i < data.Count(); i++)
+                {
+                    worksheet.Cells["B" + (i + 7).ToString()].Value = data[i].Bairro;
+                    worksheet.Cells["C" + (i + 7).ToString()].Value = data[i].Endereco;
+                    worksheet.Cells["D" + (i + 7).ToString()].Value = data[i].Produto;
+                    worksheet.Cells["E" + (i + 7).ToString()].Value = data[i].PymeStatus;
+                    worksheet.Cells["F" + (i + 7).ToString()].Value = data[i].UltimoMotivo;
+                    worksheet.Cells["G" + (i + 7).ToString()].Value = data[i].AgenteUltimo;
+                    worksheet.Cells["H" + (i + 7).ToString()].Value = data[i].DataUltima;
+                    worksheet.Cells["I" + (i + 7).ToString()].Value = data[i].HoraUltima;
+                    worksheet.Cells["J" + (i + 7).ToString()].Value = data[i].NomeTelefone;
+                    worksheet.Cells["K" + (i + 7).ToString()].Value = data[i].Parentesco;
+                }
+                worksheet.Select("A1");
+                package.Save();
+
+            }
+
+            byte[] fileBytes = File.ReadAllBytes(Path.Combine(WebRootFolder, FileName)); ;
+            if (file.Exists)
+                file.Delete();
+
+            return fileBytes;
+        }
     }
 }

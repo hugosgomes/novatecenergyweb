@@ -10,6 +10,7 @@ namespace NovatecEnergyWeb.Core
 {
     public partial class BDNVTContext : DbContext
     {
+        public virtual DbSet<PijamaGasNaturalPyme> PijamaGasNaturalPyme { get; set; }
         public virtual DbSet<CondEnderecoExportaAgendaAdesao> _CondEndereco_ExportaAgendaAdesao { get; set; }
         public virtual DbSet<PcoEndereco_ExportaAgendaAdesao> _PcoEndereco_ExportaAgendaAdesao { get; set; }
         public virtual DbSet<VisitaPco> VisitaPco { get; set; }
@@ -239,6 +240,8 @@ namespace NovatecEnergyWeb.Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            //STORED PROCEDURES
             modelBuilder.Entity<CondEnderecoExportaAgendaAdesao>().HasKey(c => c.Id);
             modelBuilder.Entity<PcoEndereco_ExportaAgendaAdesao>().HasKey(c => c.Id);
             modelBuilder.Entity<VisitaPco>().HasKey(c => c.Id);
@@ -260,9 +263,24 @@ namespace NovatecEnergyWeb.Core
             modelBuilder.Entity<_10_MetasCargas>().HasKey(c => c.Id);
             modelBuilder.Entity<_50_AvancoMes>().HasKey(c => c.Id);
             modelBuilder.Entity<PcoEndereco>().HasKey(c => c.Id);
-
-
-
+            //modelBuilder.Entity<PijamaGasNaturalPyme>().HasKey(c => c.IdPyme);
+            modelBuilder.Entity<PijamaGasNaturalPyme>(entity => {
+                entity.HasKey(e => e.IdPyme);
+                entity.Property(e => e.IdPyme).HasColumnName("IDPCO");
+                entity.Property(e => e.IdLote).HasColumnName("IDLOTE");
+                entity.Property(e => e.Localidade).HasColumnName("LOCALIDADE");
+                entity.Property(e => e.Bairro).HasColumnName("BAIRRO");
+                entity.Property(e => e.Endereco).HasColumnName("ENDERECO");
+                entity.Property(e => e.Produto).HasColumnName("PT");
+                entity.Property(e => e.PymeStatus).HasColumnName("PCOSTATUS");
+                entity.Property(e => e.UltimoMotivo).HasColumnName("ULTMOTIVO");
+                entity.Property(e => e.AgenteUltimo).HasColumnName("AGULT");
+                entity.Property(e => e.DataUltima).HasColumnName("DTULT");
+                entity.Property(e => e.HoraUltima).HasColumnName("HRULT");
+                entity.Property(e => e.NomeTelefone).HasColumnName("NOMETLF");
+                entity.Property(e => e.Parentesco).HasColumnName("PARENTESCO");  
+            });
+            //
 
             modelBuilder.Entity<_13Pco>(entity =>
             {
@@ -290,13 +308,6 @@ namespace NovatecEnergyWeb.Core
                 entity.Property(e => e.LinkPasta ).HasColumnName("LINKPASTA");
 
             });
-
-
-
-
-
-
-
 
             modelBuilder.Entity<ClientesAreas>(entity => 
             {

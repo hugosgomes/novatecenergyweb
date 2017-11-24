@@ -259,33 +259,32 @@
                     <!--fim de localidade input -->
                     <!--bairro input -->
                     <div class="control-group">
-                        <label class="control-label  labelsFormNav">Bairro</label>
+                        <label class="control-label  labelsFormNav">Endereço</label>
                         <div class="controls">
                             <input id="endereco" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
                         </div>
                     </div>
                     <!--fim de bairro input -->
 
-
+                    <!--
 
                     <br />
                     <br />
                     <br />
 
-                      <!-- 
+                       
                     <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
                     <div class="col-xs-8"><a href="#" onclick="exibeVisitas();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
 
 
-
+                          -->
                     <br />
-                    <label class="fontTableBodyNavBar">Exportar Pijama Form Gás Natural</label>
-                    <a id="botaoExporta" href="#" data-target="#myModal"   onclick="entrarNaTelaExportacao();">
-                        <img src="~/images/ms_excel.png" style="margin-left:19px;" width="30" height="30" />
+                    <label class="fontTableBodyNavBar">Exportar Pijama Padrão Gás Natural</label>
+                    <a  id="botaoExporta" href="#"  onclick="exportaPijamaPadraoGasNatural();">
+                        <img src="~/images/ms_excel.png"  width="30" height="30" />
                     </a>
 
-
-                    <br /> -->
+                    <br /> 
 
                 </form>
 
@@ -343,11 +342,38 @@
 
 </div>
 
-
+<!-- -
+    
+    ARRUMAR OS FILTROS LATERAIS QUE NÃO ESTÃO FILTRANDO
+    -->
 @section Scripts{
 <script type="text/javascript" src="~/js/pcoEndereco.js"></script>
+
 <script type="text/javascript">
 
-   
+
+    function getFormControls() {
+        return {
+
+            ZId: $('#zonas').val(),
+            DId: $('#delegacao').val(),
+            AId: $('#area').val(),
+            IdLote: $('#lotes').val(),
+            Bairro: $('#endereco').val().toString().trim()
+        };
+    }
+
+    function exportaPijamaPadraoGasNatural() {
+        var url = $('#urlExcelExport').val();
+
+        if ($('#lotes').val() != null) {
+            $('#load').fadeIn();
+            window.location.href = '' + url + '/PcoEndereco/ExportaPijamaPadraoGasNatural?Zid=' + $("zonas").val() + '&Did=' + $('#delegacao').val() +
+                '&Aid=' + $('#area').val() + '&IdLote=' + $('#lotes').val() + '&Endereco=' + $('#endereco').val().toString().trim();
+            $('#load').fadeOut();
+        } else {
+            alert('Selecione um lote!');
+        }
+    }
 </script>
 }

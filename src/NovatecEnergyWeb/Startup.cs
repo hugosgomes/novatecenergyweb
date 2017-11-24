@@ -37,11 +37,11 @@ namespace NovatecEnergyWeb
 
             var optionsBuilder = new DbContextOptionsBuilder<BDNVTContext>();
 
-            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("Production"));
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("TESTETS"));
 
             AppSettings.contexto = new BDNVTContext(optionsBuilder.Options);
 
-            AppSettings.ExcelExportUrl = Configuration.GetValue<string>("ExcelExportUrl:Production");
+            AppSettings.ExcelExportUrl = Configuration.GetValue<string>("ExcelExportUrl:Dev");
 
         }
 
@@ -53,7 +53,7 @@ namespace NovatecEnergyWeb
 
             services.AddDbContext<BDNVTContext>(options =>
 
-            options.UseSqlServer(Configuration.GetConnectionString("Production")));
+            options.UseSqlServer(Configuration.GetConnectionString("TESTETS")));
 
 
             // Add framework services.
@@ -78,6 +78,8 @@ namespace NovatecEnergyWeb
             services.AddScoped<ILoteEstatisticaPcoRepository, LoteEstatisticaPcoRepository>();
             services.AddScoped<IVisitaEnderecoPcoRepository, VisitaEnderecoPcoRepository>();
             services.AddScoped<ILoteCondominioRepository, LoteCondominioRepository>();
+            services.AddScoped<IPijamaGasNaturalPymeRepository, PijamaGasNaturalPymeRepository>();
+            services.AddScoped<IZonaRepository, ZonaRepository>();
 
             services.AddMvc();
 

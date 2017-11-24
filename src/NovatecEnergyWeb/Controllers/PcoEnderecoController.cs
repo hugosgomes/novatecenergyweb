@@ -20,15 +20,20 @@ namespace NovatecEnergyWeb.Controllers
         private ILotePcoRepository _lotePcoRepository;
         IExcelExporter _exporter;
         private BDNVTContext _context;
+        private IPijamaGasNaturalPymeRepository pijamaGasNaturalPymeRepository;
         //private IExcelExportVisitaEndereco _exportaExecelVisitaEndereco;
+        private IZonaRepository zonaRepository;
 
         public PcoEnderecoController(IVisitaEnderecoPcoRepository visitaEnderecoPcoRepository, 
-            ILotePcoRepository lotePcoRepository, BDNVTContext context, IExcelExporter exporter)
+            ILotePcoRepository lotePcoRepository, BDNVTContext context, IExcelExporter exporter,
+            IPijamaGasNaturalPymeRepository pijamaGasNaturalPymeRepository , IZonaRepository zonaRepository)
         {
             _visitaEnderecoPcoRepository = visitaEnderecoPcoRepository;
             _lotePcoRepository = lotePcoRepository;
             _context = context;
             _exporter = exporter;
+            this.pijamaGasNaturalPymeRepository = pijamaGasNaturalPymeRepository;
+            this.zonaRepository = zonaRepository;
         }
         [AutenticacaoFilter]
         public IActionResult Index()
@@ -169,6 +174,30 @@ namespace NovatecEnergyWeb.Controllers
 
             return File(fileBytes, "application/x-msdownload", _exporter.FileName);
         } 
+
+
+        //verificar pq os parâmetros não chegam
+        public IActionResult ExportaPijamaPadraoGasNatural(int zid, int did, int aid, int idLote, string endereco)
+        {
+            var lote = _lotePcoRepository.GetLotesById(idLote).FirstOrDefault();
+
+            var exportacao = pijamaGasNaturalPymeRepository.GetExportacaoPijamaPadraoGasNatural(zid, did, aid, idLote, endereco);
+
+            //pegar a Zona do lote
+            var zona = zonaRepository.GetZonaByLote(idLote);
+            if (zona.Id == 1)
+            {
+                _exporter.FileNameCopy = @"formatoGasNaturalMetropolitana.xlsm";
+            }
+            else
+            {
+                _exporter.FileNameCopy = @"formatoGasNaturalFluminense.xlsm";
+            }
+
+            // lógica do retorno de byte array para arquivo
+            byte[] fileBytes = _exporter.ExportaPijamaGasNaturalPyme(exportacao, lote);
+            return File(fileBytes, "application/x-msdownload", _exporter.FileName);           
+        }
 
 
     }
