@@ -188,7 +188,7 @@ function visitasPreenche(visitas) {
 
 }
 
-function visitasPreenche2(visitas) {
+function preencheListagem(visitas) {
 
    
     estatisticaPreenche(visitas);

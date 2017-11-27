@@ -1,4 +1,19 @@
-﻿(function ($) {
+﻿
+
+//formatando data dd/MM/ YYYY HH:mm
+function formataDataPtBr(data) {
+    // data sem formatação: yyyy-MM-dd HH  "2017-06-05T17:35:59.177
+    var formatada = '';
+    if (data != '' && data != null) {
+        formatada = data.split('-')[2].split('T')[0] + '/' +
+            data.split('-')[1] + '/' + data.split('-')[0] + ' '
+            + data.split('-')[2].split('T')[1];
+    }
+
+    return formatada;
+}
+
+(function ($) {
 
     getZona = function () {
 

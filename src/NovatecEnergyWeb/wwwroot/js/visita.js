@@ -22,7 +22,6 @@ window.onload = function () {
 
 
 function visitasPreenche(retorno) {
-
     var visitas = retorno.visitas;
     //preenche contagem
     $('#contagemVisitas').html(retorno.contagem);
@@ -33,9 +32,6 @@ function visitasPreenche(retorno) {
     var j = -1;
 
     for (var i = 0; i < visitas.length; i++) {
-
-
-
         r[++j] = '<tr>';
 
 
@@ -71,19 +67,9 @@ function visitasPreenche(retorno) {
         r[++j] = visitas[i].apt;
         r[++j] = '</td>';
 
-
         //formatando data
-        r[++j] = "<td>";
-
-        var data = visitas[i].dataHora; // data sem formatação: yyyy-MM-dd HH  "2017-06-05T17:35:59.177
-        var formatada = '';
-        if (data != '' && data != null) {
-            formatada = data.split('-')[2].split('T')[0] + '/' +
-                data.split('-')[1] + '/' + data.split('-')[0] + ' '
-                + data.split('-')[2].split('T')[1];
-        }
-
-        r[++j] = formatada; // data tratada
+        r[++j] = "<td>";        
+        r[++j] = formataDataPtBr(visitas[i].dataHora);
         r[++j] = "</td>";
 
         r[++j] = '<td>';

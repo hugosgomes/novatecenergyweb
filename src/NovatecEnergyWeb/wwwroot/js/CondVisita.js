@@ -14,7 +14,6 @@ $('#diavisita2').datepicker({
 });
 
 window.onload = function () {
-
     getLotes();
     getZona();
     getDelegacao();
@@ -28,9 +27,7 @@ window.onload = function () {
     getAgComercial();
     getCondominio();
 
-    exibeVisitas(1);
-
-    
+    exibeVisitas(1); 
 };
 
 function listaLote(retorno) {
@@ -172,13 +169,9 @@ function listaTsocial(retorno) {
 
     // listando todos os objetos produto que contem no array
     for (i = 0; i < retorno.length; i++) {
-
         var cols = "";
-
         cols += '<option value="' + retorno[i].id + '">' + retorno[i].item + '</option>';
-
         $("#tSocial").append(cols);
-
     }
 
     if (document.getElementById("tSocial").length == 1) {
@@ -295,13 +288,9 @@ function listaArea(retorno) {
     var area = retorno.area;
 
     for (i = 0; i < retorno.length; i++) {
-
         var cols = "";
-
         cols += '<option value="' + retorno[i].id + '">' + retorno[i].area + '</option>';
-
         $("#area").append(cols);
-
     }
 
     if (document.getElementById("area").length == 1) {
@@ -310,119 +299,15 @@ function listaArea(retorno) {
     } else {
         $("#area").prop("selectedIndex", -1); // limpa a seleção após carregar
     }
-
-   // exibeVisitas(1);
 }
 
 function visitasPreenche(visitas) {
-
     montaPaginacao(visitas);
-    $('#contagemVisitas').html(visitas.contagem);
-  
-    // preenche a tabela
-    var tr;
-    var r = new Array();
-    var j = -1;
-
-    for (var i = 0; i < visitas.vis.length; i++) {
-
-
-
-        r[++j] = '<tr>';
-
-
-    
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].z;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].d;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].ar;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].condominio;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].complemento;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].num;
-        r[++j] = '</td>';
-
-
-        //formatando data
-        r[++j] = "<td>";
-
-        var data = visitas.vis[i].dataHora; // data sem formatação: yyyy-MM-dd HH  "2017-06-05T17:35:59.177
-        var formatada = '';
-        if (data != '' && data != null) {
-            formatada = data.split('-')[2].split('T')[0] + '/' +
-                data.split('-')[1] + '/' + data.split('-')[0] + ' '
-                + data.split('-')[2].split('T')[1];
-        }
-
-        r[++j] = formatada; // data tratada
-        r[++j] = "</td>";
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].agComercial;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].negativa;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].pt;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].statusCond;
-        r[++j] = '</td>';
-
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].tipoCond;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].localidade;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].bairro;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].via;
-        r[++j] = '</td>';
-
-        r[++j] = '<td>';
-        r[++j] = visitas.vis[i].logradouro;
-        r[++j] = '</td>';
-
-        r[++j] = '</tr>';
-
-    }
-
-    $('#corpoTabelaAtivos').html(r.join(''));
-
-
-
+    preencheListagem(visitas);
 }
 
-function visitasPreenche2(visitas) {
-
+function preencheListagem(visitas) {
     $('#contagemVisitas').html(visitas.contagem);
-
 
     // preenche a tabela
     var tr;
@@ -430,13 +315,7 @@ function visitasPreenche2(visitas) {
     var j = -1;
 
     for (var i = 0; i < visitas.vis.length; i++) {
-
-
-
         r[++j] = '<tr>';
-
-
-
 
         r[++j] = '<td>';
         r[++j] = visitas.vis[i].z;
@@ -463,11 +342,11 @@ function visitasPreenche2(visitas) {
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = visitas.vis[i].dataHora;
+        r[++j] = formataDataPtBr(visitas.vis[i].dataHora);
         r[++j] = '</td>';
 
         r[++j] = '<td>';
-        r[++j] = visitas.vis[i].agComercial;
+        r[++j] = visitas.vis[i].agVisita;
         r[++j] = '</td>';
 
         r[++j] = '<td>';
@@ -508,9 +387,6 @@ function visitasPreenche2(visitas) {
     }
 
     $('#corpoTabelaAtivos').html(r.join(''));
-
-
-
 }
 
 function montaPaginacao(retorno) {
@@ -519,9 +395,6 @@ function montaPaginacao(retorno) {
     $('#page-selection').unbind(); // limpa os eventos adicionados nessa tag
 
     $('#page-selection').bootpag({
-
-
-  
         //total: retorno.QuantasPaginasExistem,
         total: retorno.totalPag,
         page: 1,
@@ -536,7 +409,6 @@ function montaPaginacao(retorno) {
 
     }).on("page", function (event, num) {
         // some ajax content loading...
-
         exibeVisitas2(num);
 
     });
@@ -544,7 +416,6 @@ function montaPaginacao(retorno) {
 }
 
 function limpaFiltro() {
-
     $('#condominioinput').val("");
     $('#agcomercialinput').val("");
     $('#localidadeinput').val("");
@@ -560,7 +431,6 @@ function limpaFiltro() {
 
 // funções de onchange
 function postZona() {
-
     var url = $("#urlPostZona").val();
 
     var p = {};

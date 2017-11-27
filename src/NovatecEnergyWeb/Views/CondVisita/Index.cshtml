@@ -1,6 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http;
-@using NovatecEnergyWeb.Core;
-@using NovatecEnergyWeb.Models.StoredProcedures;
+﻿@using NovatecEnergyWeb.Core;
 
 @{
     Layout = "~/Views/Shared/_LayoutSideNavBar.cshtml";
@@ -38,9 +36,6 @@
 
 
     <div class="row">
-
-        
-    
         <div class=" col-md-3 col-lg-2  ">
             <nav class="navbar navbar-default navbar-fixed-side">
                 <h4 id="titulo" class="text-center">Visitas Comerciais</h4>
@@ -51,7 +46,6 @@
                   Filtros laterais
    -----------------------------------------------------------------------------------------------------------------------------------
                   -->
-
 
                 <form class="form-horizontal" style="padding-left:15px;padding-right:15px;">
                     <!--zona -->
@@ -286,20 +280,20 @@
                   fim dos Filtros Laterais
                 -------------------------------------------------------------------------------------------------------------------
                   -->
-
-
             </nav>
         </div>
-
-
         <!--
-        -------------------------------------------------------------------------------------------------------------------
+       
           Listagem
-        -------------------------------------------------------------------------------------------------------------------
+    
           -->
 
-        <div class="col-md-9 col-lg-10   ">
-            <div id="page-selection"></div>
+        <div class="col-md-9 col-lg-10   ">    
+            <!-- Div de paginação -->
+            <div id="page-selection">
+
+            </div>
+
             <table id="tabelaEnderecoVisitas" class="table table-bordered table-striped tabelaModal">
                 <thead id="headTabelaLote">
                     <tr>
@@ -345,137 +339,101 @@
 @section Scripts{
 
 <script type="text/javascript" src="~/js/CondVisita.js"></script>
-    <script type="text/javascript">
-
+<script type="text/javascript">
            // preenche os filtros
-         function getVisitado() {
+    function getVisitado() {
+        $.getJSON("@Url.Action("GetVisitado", "FiltroLateralService")", listaVisitado);
+    }
+    function getInteresse() {
+        $.getJSON("@Url.Action("GetInteresse", "FiltroLateralService")", listaInteresse);
+    }
 
-             $.getJSON("@Url.Action("GetVisitado", "FiltroLateralService")", listaVisitado);
-         }
+    function getPco() {
+        $.getJSON("@Url.Action("GetPco", "FiltroLateralService")", listaPco);
+    }
+    function getTarifa() {
+        $.getJSON("@Url.Action("GetTarifa", "FiltroLateralService")", listaTsocial);
+    }
+    function getTipoVisita() {
+        $.getJSON("@Url.Action("GetTipoVisita", "FiltroLateralService")", listaTvisita);
+    }
+    function getRejeicao() {
 
-          function getInteresse() {
+        $.getJSON("@Url.Action("GetRejeicao", "FiltroLateralService")", listaRejeicao);
+    }
 
-             $.getJSON("@Url.Action("GetInteresse", "FiltroLateralService")", listaInteresse);
-         }
+    function getAgComercial() {
 
+        $.getJSON("@Url.Action("GetAgenteComercial", "FiltroLateralService")", listaAgComercial);
+    }
 
-          function getPco() {
+    function getCondominio() {
 
-             $.getJSON("@Url.Action("GetPco", "FiltroLateralService")", listaPco);
-          }
+        $.getJSON("@Url.Action("GetCondominio", "FiltroLateralService")", listaCondominio);
+    }
 
-        function getTarifa () {
+    function exibeVisitas(num) {
+        var p = {};
 
-             $.getJSON("@Url.Action("GetTarifa", "FiltroLateralService")", listaTsocial);
-          }
+        p.num = num;
 
-         function getTipoVisita () {
+        p.zonas = $('#zonas').val();
+        p.delegacao = $('#delegacao').val();
+        p.area = $('#area').val();
+        p.lotes = $('#lotes').val();
+        p.visitado = $('#visitado').val();
+        p.interesse = $('#interesse').val();
+        p.pco = $('#pco').val();
+        p.tSocial = $('#tSocial').val();
+        p.tipoVisita = $('#tipoVisita').val();
+        p.rejeicao = $('#rejeicao').val();
+        p.agcomercial = $('#agcomercial').val();
+        p.condominio = $('#condominio').val();
+        p.diavisita1 = $('#diavisita1').val();
+        p.diavisita2 = $('#diavisita2').val();
+        p.condominioinput = $('#condominioinput').val().toString().toUpperCase().trim();
+        p.agcomercialinput = $('#agcomercialinput').val().toString().toUpperCase().trim();
+        p.localidadeinput = $('#localidadeinput').val().toString().toUpperCase().trim();
+        p.bairro = $('#bairro').val().toString().toUpperCase().trim();
+        p.logradouroinput = $('#logradouroinput').val().toString().toUpperCase().trim();
+        p.Numero1 = $('#Numero1').val();
+        p.Numero2 = $('#Numero2').val();
 
-             $.getJSON("@Url.Action("GetTipoVisita", "FiltroLateralService")", listaTvisita);
-        }
+        $("#load").fadeIn(); // chama animacao de carregando
+        $.post("@Url.Action("BuscaVisitas", "CondVisita")", p, visitasPreenche);
+        $("#load").fadeOut(); // apaga animacao carregando
+    }
 
+    function exibeVisitas2(num) {
+        var p = {};
+        p.num = num;
+        p.zonas = $('#zonas').val();
+        p.delegacao = $('#delegacao').val();
+        p.area = $('#area').val();
+        p.lotes = $('#lotes').val();
+        p.visitado = $('#visitado').val();
+        p.interesse = $('#interesse').val();
+        p.pco = $('#pco').val();
+        p.tSocial = $('#tSocial').val();
+        p.tipoVisita = $('#tipoVisita').val();
+        p.rejeicao = $('#rejeicao').val();
+        p.agcomercial = $('#agcomercial').val();
+        p.condominio = $('#condominio').val();
+        p.diavisita1 = $('#diavisita1').val();
+        p.diavisita2 = $('#diavisita2').val();
+        p.condominioinput = $('#condominioinput').val().toString().toUpperCase().trim();
+        p.agcomercialinput = $('#agcomercialinput').val().toString().toUpperCase().trim();
+        p.localidadeinput = $('#localidadeinput').val().toString().toUpperCase().trim();
+        p.bairro = $('#bairro').val().toString().toUpperCase().trim();
+        p.logradouroinput = $('#logradouroinput').val().toString().toUpperCase().trim();
+        p.Numero1 = $('#Numero1').val();
+        p.Numero2 = $('#Numero2').val();
 
-         function getRejeicao () {
-
-             $.getJSON("@Url.Action("GetRejeicao", "FiltroLateralService")", listaRejeicao);
-         }
-
-          function getAgComercial () {
-
-             $.getJSON("@Url.Action("GetAgenteComercial", "FiltroLateralService")", listaAgComercial);
-          }
-
-          function getCondominio () {
-
-             $.getJSON("@Url.Action("GetCondominio", "FiltroLateralService")", listaCondominio);
-          }
-
-
-
-        function exibeVisitas(num) {
-    
-            var p = {};
-
-            p.num = num;
-
-            p.zonas = $('#zonas').val();
-            p.delegacao = $('#delegacao').val();
-            p.area = $('#area').val();
-            p.lotes = $('#lotes').val();
-            p.visitado = $('#visitado').val();
-            p.interesse = $('#interesse').val();
-            p.pco = $('#pco').val();
-            p.tSocial = $('#tSocial').val();
-            p.tipoVisita = $('#tipoVisita').val();
-            p.rejeicao = $('#rejeicao').val();
-            p.agcomercial = $('#agcomercial').val();
-            p.condominio = $('#condominio').val();
-
-            p.diavisita1 = $('#diavisita1').val();
-            p.diavisita2 = $('#diavisita2').val();
-            p.condominioinput = $('#condominioinput').val().toString().toUpperCase().trim();
-            p.agcomercialinput = $('#agcomercialinput').val().toString().toUpperCase().trim();
-            p.localidadeinput = $('#localidadeinput').val().toString().toUpperCase().trim();
-            p.bairro = $('#bairro').val().toString().toUpperCase().trim();
-            p.logradouroinput = $('#logradouroinput').val().toString().toUpperCase().trim();
-
-            p.Numero1 = $('#Numero1').val();
-            p.Numero2 = $('#Numero2').val();
-
-
-
-
-            $("#load").fadeIn(); // chama animacao de carregando
-            $.post("@Url.Action("BuscaVisitas", "CondVisita")", p, visitasPreenche);
-            $("#load").fadeOut(); // apaga animacao carregando
-        }
-
-
-
-        function exibeVisitas2(num) {
-
-            var p = {};
-
-            p.num = num;
-
-            p.zonas = $('#zonas').val();
-            p.delegacao = $('#delegacao').val();
-            p.area = $('#area').val();
-            p.lotes = $('#lotes').val();
-            p.visitado = $('#visitado').val();
-            p.interesse = $('#interesse').val();
-            p.pco = $('#pco').val();
-            p.tSocial = $('#tSocial').val();
-            p.tipoVisita = $('#tipoVisita').val();
-            p.rejeicao = $('#rejeicao').val();
-            p.agcomercial = $('#agcomercial').val();
-            p.condominio = $('#condominio').val();
-
-            p.diavisita1 = $('#diavisita1').val();
-            p.diavisita2 = $('#diavisita2').val();
-            p.condominioinput = $('#condominioinput').val().toString().toUpperCase().trim();
-            p.agcomercialinput = $('#agcomercialinput').val().toString().toUpperCase().trim();
-            p.localidadeinput = $('#localidadeinput').val().toString().toUpperCase().trim();
-            p.bairro = $('#bairro').val().toString().toUpperCase().trim();
-            p.logradouroinput = $('#logradouroinput').val().toString().toUpperCase().trim();
-
-            p.Numero1 = $('#Numero1').val();
-            p.Numero2 = $('#Numero2').val();
-
-
-
-
-            $("#load").fadeIn(); // chama animacao de carregando
-            $.post("@Url.Action("BuscaVisitas", "CondVisita")", p, visitasPreenche2);
-            $("#load").fadeOut(); // apaga animacao carregando
-        }
-
-
-
-        function ExportaPadraoNovatec() {
-
-
-
+        $("#load").fadeIn(); // chama animacao de carregando
+        $.post("@Url.Action("BuscaVisitas", "CondVisita")", p, preencheListagem);
+        $("#load").fadeOut(); // apaga animacao carregando
+    }
+    function ExportaPadraoNovatec() {
         $("#load").fadeIn(); // chama animacao de carregando
 
         var p = {};
@@ -503,24 +461,17 @@
         p.Numero1 = $('#Numero1').val();
         p.Numero2 = $('#Numero2').val();
 
-       
-
         var urlconfig = '@AppSettings.ExcelExportUrl';
         window.location.href = '' + urlconfig + '/CondVisita/ExportaExcel?zonas=' + p.zonas + '&delegacao=' +
             p.delegacao + '&area=' + p.area + '&lotes=' + p.lotes + '&visitado=' + p.visitado + '&interesse=' + p.interesse
             + '&pco=' + p.pco + '&tSocial=' + p.tSocial + '&tipoVisita=' + p.tipoVisita + '&rejeicao=' + p.rejeicao
             + '&agcomercial=' + p.agcomercial + '&condominio=' + p.condominio + '&diavisita1=' + p.diavisita1
             + '&diavisita2=' + p.diavisita2 + '&condominioinput=' + p.condominioinput + '&agcomercialinput=' + p.agcomercialinput
-            + '&localidadeinput=' + p.localidadeinput + '&bairro=' + p.bairro + '&logradouroinput=' + p.logradouroinput + '&Numero1=' + p.Numero1 + '&Numero2=' + p.Numero2 ;
+            + '&localidadeinput=' + p.localidadeinput + '&bairro=' + p.bairro + '&logradouroinput=' + p.logradouroinput + '&Numero1=' + p.Numero1 + '&Numero2=' + p.Numero2;
 
-
-       $("#load").fadeOut(); // apaga animacao carregando
-
+        $("#load").fadeOut(); // apaga animacao carregando
     }
-
-
-
-    </script>
+</script>
 }
 
 

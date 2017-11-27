@@ -211,10 +211,10 @@ function preencheListagem(retorno) {
         r[++j] = retorno.visitasPco[i].num;
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.visitasPco[i].dataHora;
+        r[++j] = formataDataPtBr(retorno.visitasPco[i].dataHora);
         r[++j] = "</td>";
         r[++j] = "<td>";
-        r[++j] = retorno.visitasPco[i].AgVisita;
+        r[++j] = retorno.visitasPco[i].agVisita;
         r[++j] = "</td>";
         r[++j] = "<td>";
         r[++j] = retorno.visitasPco[i].resultado;
