@@ -22,7 +22,7 @@
 @Html.Hidden("urlAno", DateTime.Now.Year)
 
 <div class="container">
-    <!-- Modal -->
+    <!-- Modal de selecionar mês e ano --> 
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog  modal-sm">
 
@@ -104,8 +104,6 @@
 
     <div class="row">
 
-
-
         <div class=" col-md-3 col-lg-2  ">
             <nav class="navbar navbar-default navbar-fixed-side">
                 <h4 id="titulo" class="text-center">Endereços de Lotes Ativos</h4>
@@ -116,7 +114,6 @@
                     Estatísticas
                 -------------------------------------------------------------------------------------------------------------------
                 -->
-
                 <table>
                     <tbody class="fontTableBodyNavBar">
                         <tr>
@@ -257,14 +254,14 @@
 
 
                     <!--fim de localidade input -->
-                    <!--bairro input -->
+                    <!--endereco input -->
                     <div class="control-group">
                         <label class="control-label  labelsFormNav">Endereço</label>
                         <div class="controls">
                             <input id="endereco" class="alturaFormNavInput form-control fontTableBodyNavBar" type="text" />
                         </div>
                     </div>
-                    <!--fim de bairro input -->
+                    <!--fim de endereco input -->
 
                     <!--
 
@@ -272,13 +269,16 @@
                     <br />
                     <br />
 
-                       
-                    <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
-                    <div class="col-xs-8"><a href="#" onclick="exibeVisitas();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
-
-
                           -->
                     <br />
+                    <!-- Botão de Limpar -->
+                    <div class="col-xs-4"><a href="#" onclick="limpaFiltro();"><img src="~/images/filter_delete.png" title="Limpar Filtro" width="25" height="25" /></a></div>
+                    <!-- Botão de Filtrar -->
+                    <div class="col-xs-8"><a href="#" onclick="exibeVisitas();"><img src="~/images/binoculars_128.png" title="Filtrar" width="35" height="35" /></a></div>
+
+                    <br />
+                    
+                    
                     <label class="fontTableBodyNavBar">Exportar Pijama Padrão Gás Natural</label>
                     <a  id="botaoExporta" href="#"  onclick="exportaPijamaPadraoGasNatural();">
                         <img src="~/images/ms_excel.png"  width="30" height="30" />
@@ -322,7 +322,7 @@
                         <th class="text-center">VISITAS</th>
                         <th class="text-center">ENTREVISTAS</th>
                         <th class="text-center">VISITAS IMPR</th>
-                        <th class="text-center">VISITAS AGENDA</th>
+                        <th class="text-center">VISITAS AGENDADAS</th>
                         <th class="text-center">AUSÊNCIAS</th>
 
 
@@ -368,8 +368,8 @@
 
         if ($('#lotes').val() != null) {
             $('#load').fadeIn();
-            window.location.href = '' + url + '/PcoEndereco/ExportaPijamaPadraoGasNatural?Zid=' + $("zonas").val() + '&Did=' + $('#delegacao').val() +
-                '&Aid=' + $('#area').val() + '&IdLote=' + $('#lotes').val() + '&Endereco=' + $('#endereco').val().toString().trim();
+            window.location.href = '' + url + '/PcoEndereco/ExportaPijamaPadraoGasNatural?zona=' + $("zonas").val() + '&delegacao=' + $('#delegacao').val() +
+                '&area=' + $('#area').val() + '&lote=' + $('#lotes').val() + '&endereco=' + $('#endereco').val().toString().trim();
             $('#load').fadeOut();
         } else {
             alert('Selecione um lote!');

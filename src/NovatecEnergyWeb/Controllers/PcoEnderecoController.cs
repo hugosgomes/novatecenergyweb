@@ -41,7 +41,7 @@ namespace NovatecEnergyWeb.Controllers
             return View();
         }
 
-        public IActionResult ListaPcoVisitasEndereco(int paginaClicada, int lote, int zona, int delegacao, int area, string bairro)
+        public IActionResult ListaPcoVisitasEndereco(int paginaClicada, int lote, int zona, int delegacao, int area, string endereco)
         {
             var d = HttpContext.Session.GetInt32("Delegação");
             var z = HttpContext.Session.GetInt32("Zona");
@@ -57,7 +57,7 @@ namespace NovatecEnergyWeb.Controllers
             delegacao = (d != null) ? (int)d : delegacao;
 
             
-            var visitas = _visitaEnderecoPcoRepository.VisitasPcoEndereco(zona, delegacao, area, lote,bairro);
+            var visitas = _visitaEnderecoPcoRepository.VisitasPcoEndereco(zona, delegacao, area, lote,endereco);
 
 
             // definicoes da paginacao
@@ -175,17 +175,16 @@ namespace NovatecEnergyWeb.Controllers
             return File(fileBytes, "application/x-msdownload", _exporter.FileName);
         } 
 
-
-        //verificar pq os parâmetros não chegam
-        public IActionResult ExportaPijamaPadraoGasNatural(int zid, int did, int aid, int idLote, string endereco)
+        public IActionResult ExportaPijamaPadraoGasNatural(int zona, int delegacao, int area, int lote, string endereco)
         {
-            var lote = _lotePcoRepository.GetLotesById(idLote).FirstOrDefault();
+            var loteObj = _lotePcoRepository.GetLotesById(lote).FirstOrDefault();
 
-            var exportacao = pijamaGasNaturalPymeRepository.GetExportacaoPijamaPadraoGasNatural(zid, did, aid, idLote, endereco);
+            //dados vindo da Stored Procedure sp_13_PijamaGasNaturalPCO
+            var exportacao = pijamaGasNaturalPymeRepository.GetExportacaoPijamaPadraoGasNatural(zona, delegacao, area, lote, endereco);
 
-            //pegar a Zona do lote
-            var zona = zonaRepository.GetZonaByLote(idLote);
-            if (zona.Id == 1)
+            //pegar o objetp Zona do lote específico
+            var zonaObj = zonaRepository.GetZonaByLote(lote);
+            if (zonaObj.Id == 1)
             {
                 _exporter.FileNameCopy = @"formatoGasNaturalMetropolitana.xlsm";
             }
@@ -195,10 +194,9 @@ namespace NovatecEnergyWeb.Controllers
             }
 
             // lógica do retorno de byte array para arquivo
-            byte[] fileBytes = _exporter.ExportaPijamaGasNaturalPyme(exportacao, lote);
+            byte[] fileBytes = _exporter.ExportaPijamaGasNaturalPyme(exportacao, loteObj);
             return File(fileBytes, "application/x-msdownload", _exporter.FileName);           
         }
-
 
     }
 }

@@ -18,7 +18,7 @@ namespace NovatecEnergyWeb.Repository
             _context = context;
         }
 
-        public List<PcoEndereco> VisitasPcoEndereco(int zona, int delegacao, int area, int lote, string bairro)
+        public List<PcoEndereco> VisitasPcoEndereco(int zona, int delegacao, int area, int lote, string endereco)
         {
             var visitas = _context.PcoEndereco.FromSql(" exec [dbo].[sp_13_Visita_Endereco]; ");
 
@@ -42,9 +42,10 @@ namespace NovatecEnergyWeb.Repository
                 visitas = visitas.Where(v => v.IdLote == lote);
             }
 
-            if (bairro != null)
+            if (!String.IsNullOrEmpty(endereco))
             {
-                visitas = visitas.Where(c => c.Endereco.Contains(bairro));
+                //alterado para buscar pelo enderecoB( Sem acento)
+                visitas = visitas.Where(c => c.EnderecoB.Contains(endereco.ToUpper()));
             }
 
             return visitas.ToList();

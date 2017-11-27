@@ -8,12 +8,15 @@
 };
 
 function getFormDataAsJson(){
-    return{
-        ZId: $('#zonas').val(),
-        DId: $('#delegacao').val(),
-        AId: $('#area').val(),
-        IdLote: $('#lotes').val()
+
+    return {
+        zona: $('#zonas').val(),
+        delegacao: $('#delegacao').val(),
+        area: $('#area').val(),
+        lote: $('#lotes').val(),
+        endereco: $('#endereco').val()
     }
+
 }
 
 function exibeVisitas(){
@@ -103,7 +106,6 @@ function preencheListagem(visitas) {
     $('#corpoTabelaAtivos').html(r.join(''));
 }
 
-
 function estatistica(retorno) {
     $('#pot').html(retorno.Numeracoes[0]);
 
@@ -171,16 +173,16 @@ function montaPaginacao(retorno) {
 
 }
 
-function postPaginacao(num){
+function postPaginacao(num) {
     var url = $("#urlPostPaginacao").val();
-    
+
     $("#load").fadeIn(); // chama animacao de carregando
-    
+
     var data = getFormDataAsJson();
     data.paginaClicada = num;
-        //$.post(url, data, tabelaLoteAtivos);
+
     $.post(url, data, preencheListagem);
-    
+
     $("#load").fadeOut(); // apaga animacao de carregando
 }
 
