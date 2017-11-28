@@ -270,7 +270,7 @@ namespace NovatecEnergyWeb.Core
                 entity.Property(e => e.IdLote).HasColumnName("IDLOTE");
                 entity.Property(e => e.Localidade).HasColumnName("LOCALIDADE");
                 entity.Property(e => e.Bairro).HasColumnName("BAIRRO");
-                entity.Property(e => e.Endereco).HasColumnName("ENDERECO");
+                entity.Property(e => e.Endereco).HasColumnName("ENDERECOB");
                 entity.Property(e => e.Produto).HasColumnName("PT");
                 entity.Property(e => e.PymeStatus).HasColumnName("PCOSTATUS");
                 entity.Property(e => e.UltimoMotivo).HasColumnName("ULTMOTIVO");
